@@ -2,7 +2,7 @@
  * Register and control new Moff modules.
  * @module Module.
  */
-Moff.extend('module', function Module() {
+function Module() {
 	'use strict';
 
 	/**
@@ -240,4 +240,6 @@ Moff.extend('module', function Module() {
 	this.find = function(selector) {
 		return this.scope.find(selector);
 	};
-}, true);
+}
+
+export default Module;

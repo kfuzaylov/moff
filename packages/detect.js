@@ -2,7 +2,14 @@
  * Detects OS, browser and another features support.
  * @module Detect
  */
-Moff.extend('detect', function Detect() {
+function Detect() {
+
+	/**
+	 * @property {Window} _win - Link to Window object.
+	 * @private
+	 */
+	var _win = window;
+
 	/**
 	 * @property {Detect} _detect - Link to this object.
 	 * @private
@@ -167,4 +174,6 @@ Moff.extend('detect', function Detect() {
 		detectBrowser();
 		detectOS();
 	}
-});
+}
+
+export default Detect;

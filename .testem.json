@@ -1,0 +1,9 @@
+{
+	"framework": "jasmine",
+	"test_page": "tests/index.html",
+	"launch_in_dev": [
+		"Chrome",
+		"IE",
+		"Firefox"
+	]
+}

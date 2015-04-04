@@ -1,2 +1,8 @@
 # PhpStorm project
 .idea
+
+# Bower components
+bower_components
+
+# NPM modules
+node_modules
