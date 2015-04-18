@@ -1,3 +1,10 @@
+/**
+ * @overview  moff - Mobile First Framework
+ * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
+ * @version   1.0.4
+ * @license   Licensed under MIT license
+ * @copyright Copyright (c) 2015 Kadir A. Fuzaylov
+ */
 (function() {
     "use strict";
     function $$core$$MoffClass() {

@@ -37,7 +37,7 @@ gulp.task('add-banner', function() {
 		' */\n'
 	].join('\n');
 
-	return gulp.src(['dist/moff.js', 'packages'])
+	return gulp.src(['dist/moff.js'])
 		.pipe(header(banner, {meta: bower}))
 		.pipe(gulp.dest('dist'));
 });
@@ -85,5 +85,5 @@ gulp.task('compile-tests', function() {
 		.pipe(gulp.dest('tests'));
 });
 
-gulp.task('compile', ['linter', 'transpile', 'minify']);
+gulp.task('compile', ['linter', 'transpile', 'add-banner', 'minify']);
 gulp.task('test', ['test-moff', 'compile-tests']);
