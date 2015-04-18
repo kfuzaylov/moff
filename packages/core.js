@@ -1,12 +1,4 @@
 /**
- * @overview  Moff - Mobile First Framework.
- * @copyright Copyright (c) 2015 Kadir A. Fuzaylov
- * @license   Licensed under MIT license
- * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.0.3
- */
-
-/**
  * Moff class
  * @constructor
  */
@@ -971,7 +963,7 @@ function MoffClass() {
 	 * Moff version.
 	 * @type {string}
 	 */
-	this.version = '1.0.0';
+	this.version = '{{version}}';
 
 	/* test-code */
 	this._testonly = {

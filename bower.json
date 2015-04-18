@@ -1,18 +1,17 @@
 {
 	"name": "moff",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"homepage": "http://moffjs.com",
-	"authors": [
-		"Kadir A. Fuzaylov <kfuzaylov@dealerfire.com>"
-	],
+	"author": "Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>",
 	"description": "Mobile First Framework",
+	"copyright": "Copyright (c) 2015 Kadir A. Fuzaylov",
 	"main": "dist/moff.js",
 	"keywords": [
 		"mobile",
 		"first",
 		"framework"
 	],
-	"license": "MIT",
+	"license": "Licensed under MIT license",
 	"ignore": [
 		"**/.*",
 		"*.md",
@@ -22,7 +21,8 @@
 		"gulpfile.js",
 		"packages",
 		"node_modules",
-		"package.json"
+		"package.json",
+		"config.js"
 	],
 	"dependencies": {
 		"jquery": ">= 1.9.0",

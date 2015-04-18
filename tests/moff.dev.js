@@ -963,6 +963,21 @@
          */
         this.version = '1.0.3';
 
+        /* test-code */
+        this._testonly = {
+            _visibleElements: function() {
+                return _visibleElements;
+            },
+
+            _deferredObjects: function() {
+                return _deferredObjects;
+            },
+
+            _registeredFiles: function() {
+                return _registeredFiles;
+            }
+        };
+        /* end-test-code */
     }
 
     var $$core$$default = $$core$$MoffClass;

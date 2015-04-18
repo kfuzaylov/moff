@@ -1,12 +1,16 @@
-describe('Moff framework', function() {
+describe('Moff dependency', function() {
+	it('is jQuery', function() {
+		expect(typeof window.$.fn.jquery).toEqual('string');
+	});
+});
 
+describe('Moff framework', function() {
 	it('is initialized', function() {
 		expect(typeof window.Moff).toBe('object');
 	});
 });
 
 describe('Moff framework API', function() {
-
 	describe('Moff.getMode', function() {
 		it('get current screen mode', function() {
 			var mode = Moff.getMode();
