@@ -1,37 +1,39 @@
 {
-	"name": "moff",
-	"version": "1.0.1",
-	"description": "Mobile First Framework",
-	"main": "index.js",
-	"directories": {
-		"test": "tests"
-	},
-	"scripts": {
-		"install": "npm i testem -g && npm i gulp -g",
-		"pretest": "gulp tests",
-		"test": "testem"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/kfuzaylov/moff.git"
-	},
-	"keywords": [
-		"moff",
-		"mobile",
-		"first",
-		"framework"
-	],
-	"author": "Kadir A. Fuzaylov <kfuzaylov@dealerfire.com>",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/kfuzaylov/moff/issues"
-	},
-	"homepage": "http://moffjs.com",
-	"devDependencies": {
-		"gulp": "^3.8.11",
-		"gulp-concat": "^2.5.2",
-		"gulp-es6-module-transpiler": "^0.2.1",
-		"gulp-uglify": "^1.1.0",
-		"gulp-sourcemaps": "^1.5.1"
-	}
+  "name": "moff",
+  "version": "1.0.2",
+  "description": "Mobile First Framework",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "install": "npm i testem -g && npm i gulp -g",
+    "pretest": "gulp tests",
+    "test": "testem"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kfuzaylov/moff.git"
+  },
+  "keywords": [
+    "moff",
+    "mobile",
+    "first",
+    "framework"
+  ],
+  "author": "Kadir A. Fuzaylov <kfuzaylov@dealerfire.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kfuzaylov/moff/issues"
+  },
+  "homepage": "http://moffjs.com",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-concat": "^2.5.2",
+    "gulp-es6-module-transpiler": "^0.2.1",
+    "gulp-jscs": "^1.5.1",
+    "gulp-jshint": "^1.10.0",
+    "gulp-sourcemaps": "^1.5.1",
+    "gulp-uglify": "^1.1.0"
+  }
 }

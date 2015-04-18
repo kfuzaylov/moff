@@ -108,12 +108,6 @@ function MoffClass() {
 	var _afterLoad = [];
 
 	/**
-	 * @property {string} _mode - Framework mode.
-	 * @private
-	 */
-	var _mode = 'moff';
-
-	/**
 	 * Local default settings.
 	 * @type {{breakpoints: {sm: number, md: number, lg: number}}}
 	 * @private
@@ -211,8 +205,8 @@ function MoffClass() {
 
 		// Load deferred files.
 		// These files included with MoFF.include method before window load event.
-		$.each(_deferredObjects, function(i, id) {
-			_moff.include(id);
+		$.each(_deferredObjects, function(i, obj) {
+			_moff.include(obj.id, obj.callback);
 		});
 	}
 
@@ -407,10 +401,11 @@ function MoffClass() {
 				_historyData[id] = element;
 			}
 
-			loadContent(elem, url, target, function() {
+			loadContent(element, url, target, function() {
 				_moff.runCallbacks(_afterLoad, element);
 			});
 		}
+
 		return false;
 	}
 
@@ -481,7 +476,7 @@ function MoffClass() {
 		}
 
 		var url = state.url;
-		var target = elem.data('loadTarget');
+		var target = element.data('loadTarget');
 
 		_moff.runCallbacks(_beforeLoad, element);
 		loadContent(element, url, target, function() {
@@ -511,6 +506,7 @@ function MoffClass() {
 			var hashPoint = url.indexOf('#');
 			return hashPoint !== -1 ? url.substr(hashPoint + 1) : '';
 		}
+
 		return _win.location.hash.substr(1);
 	}
 
@@ -547,6 +543,11 @@ function MoffClass() {
 			$('select.form-control').removeClass('form-control').css('width', '100%');
 		}
 	}
+
+	/**
+	 * @property {string} mode - Framework mode.
+	 */
+	this.mode = 'moff';
 
 	/**
 	 * Run initialisation of base handlers
@@ -644,7 +645,7 @@ function MoffClass() {
 
 		for (; i < length; i++) {
 			property = props[i];
-			if (property.indexOf('-') === -1 && document.createElement(_mode).style[property] !== undefined) {
+			if (property.indexOf('-') === -1 && document.createElement(this.mode).style[property] !== undefined) {
 				return true;
 			}
 		}
@@ -757,7 +758,6 @@ function MoffClass() {
 	 * @param {function} [callback] - Function callback
 	 */
 	this.include = function(id, callback) {
-		var _moff = this;
 		var register = _registeredFiles[id];
 
 		// Make sure files are not loaded
@@ -768,7 +768,7 @@ function MoffClass() {
 		// Make sure to load after window load if onWindowLoad is set
 		if (register.onWindowLoad && !_windowIsLoaded) {
 			// Save id to load after window load
-			_deferredObjects.push(id);
+			_deferredObjects.push({id: id, callback: callback});
 			return;
 		}
 
@@ -789,6 +789,7 @@ function MoffClass() {
 			if ($.isFunction(register.afterInclude)) {
 				register.afterInclude();
 			}
+
 			if (typeof callback === 'function') {
 				callback();
 			}
@@ -849,14 +850,6 @@ function MoffClass() {
 			return;
 		}
 
-		if ($.isArray(files)) {
-			$.each(files, function(index, src) {
-				includeScript(src);
-			});
-		} else {
-			includeScript(files);
-		}
-
 		function includeScript(src) {
 			// If set src attribute before append
 			// jQuery will load script with ajax request
@@ -864,6 +857,14 @@ function MoffClass() {
 				.on('load', callback)
 				.appendTo($('body').length && $('body') || $('head'))
 				.attr('src', src);
+		}
+
+		if ($.isArray(files)) {
+			$.each(files, function(index, src) {
+				includeScript(src);
+			});
+		} else {
+			includeScript(files);
 		}
 	};
 
@@ -877,14 +878,6 @@ function MoffClass() {
 		if (!$.isArray(files) && typeof files !== 'string') {
 			window.console.warn('Moff.loadCSS source is not array or string');
 			return;
-		}
-
-		if ($.isArray(files)) {
-			$.each(files, function(index, href) {
-				includeStyle(href);
-			});
-		} else {
-			includeStyle(files);
 		}
 
 		function includeStyle(href) {
@@ -902,6 +895,14 @@ function MoffClass() {
 				}
 			};
 		}
+
+		if ($.isArray(files)) {
+			$.each(files, function(index, href) {
+				includeStyle(href);
+			});
+		} else {
+			includeStyle(files);
+		}
 	};
 
 	/**
@@ -918,6 +919,7 @@ function MoffClass() {
 				Constructor.prototype = this;
 				Constructor.prototype.constructor = Constructor;
 			}
+
 			this[name] = new Constructor();
 
 			if (typeof this[name].init === 'function') {
@@ -976,9 +978,11 @@ function MoffClass() {
 		_visibleElements: function() {
 			return _visibleElements;
 		},
+
 		_deferredObjects: function() {
 			return _deferredObjects;
 		},
+
 		_registeredFiles: function() {
 			return _registeredFiles;
 		}

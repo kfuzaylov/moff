@@ -98,12 +98,6 @@
         var _afterLoad = [];
 
         /**
-         * @property {string} _mode - Framework mode.
-         * @private
-         */
-        var _mode = 'moff';
-
-        /**
          * Local default settings.
          * @type {{breakpoints: {sm: number, md: number, lg: number}}}
          * @private
@@ -201,8 +195,8 @@
 
             // Load deferred files.
             // These files included with MoFF.include method before window load event.
-            $.each(_deferredObjects, function(i, id) {
-                _moff.include(id);
+            $.each(_deferredObjects, function(i, obj) {
+                _moff.include(obj.id, obj.callback);
             });
         }
 
@@ -397,10 +391,11 @@
                     _historyData[id] = element;
                 }
 
-                loadContent(elem, url, target, function() {
+                loadContent(element, url, target, function() {
                     _moff.runCallbacks(_afterLoad, element);
                 });
             }
+
             return false;
         }
 
@@ -471,7 +466,7 @@
             }
 
             var url = state.url;
-            var target = elem.data('loadTarget');
+            var target = element.data('loadTarget');
 
             _moff.runCallbacks(_beforeLoad, element);
             loadContent(element, url, target, function() {
@@ -501,6 +496,7 @@
                 var hashPoint = url.indexOf('#');
                 return hashPoint !== -1 ? url.substr(hashPoint + 1) : '';
             }
+
             return _win.location.hash.substr(1);
         }
 
@@ -537,6 +533,11 @@
                 $('select.form-control').removeClass('form-control').css('width', '100%');
             }
         }
+
+        /**
+         * @property {string} mode - Framework mode.
+         */
+        this.mode = 'moff';
 
         /**
          * Run initialisation of base handlers
@@ -634,7 +635,7 @@
 
             for (; i < length; i++) {
                 property = props[i];
-                if (property.indexOf('-') === -1 && document.createElement(_mode).style[property] !== undefined) {
+                if (property.indexOf('-') === -1 && document.createElement(this.mode).style[property] !== undefined) {
                     return true;
                 }
             }
@@ -747,7 +748,6 @@
          * @param {function} [callback] - Function callback
          */
         this.include = function(id, callback) {
-            var _moff = this;
             var register = _registeredFiles[id];
 
             // Make sure files are not loaded
@@ -758,7 +758,7 @@
             // Make sure to load after window load if onWindowLoad is set
             if (register.onWindowLoad && !_windowIsLoaded) {
                 // Save id to load after window load
-                _deferredObjects.push(id);
+                _deferredObjects.push({id: id, callback: callback});
                 return;
             }
 
@@ -779,6 +779,7 @@
                 if ($.isFunction(register.afterInclude)) {
                     register.afterInclude();
                 }
+
                 if (typeof callback === 'function') {
                     callback();
                 }
@@ -839,14 +840,6 @@
                 return;
             }
 
-            if ($.isArray(files)) {
-                $.each(files, function(index, src) {
-                    includeScript(src);
-                });
-            } else {
-                includeScript(files);
-            }
-
             function includeScript(src) {
                 // If set src attribute before append
                 // jQuery will load script with ajax request
@@ -854,6 +847,14 @@
                     .on('load', callback)
                     .appendTo($('body').length && $('body') || $('head'))
                     .attr('src', src);
+            }
+
+            if ($.isArray(files)) {
+                $.each(files, function(index, src) {
+                    includeScript(src);
+                });
+            } else {
+                includeScript(files);
             }
         };
 
@@ -867,14 +868,6 @@
             if (!$.isArray(files) && typeof files !== 'string') {
                 window.console.warn('Moff.loadCSS source is not array or string');
                 return;
-            }
-
-            if ($.isArray(files)) {
-                $.each(files, function(index, href) {
-                    includeStyle(href);
-                });
-            } else {
-                includeStyle(files);
             }
 
             function includeStyle(href) {
@@ -892,6 +885,14 @@
                     }
                 };
             }
+
+            if ($.isArray(files)) {
+                $.each(files, function(index, href) {
+                    includeStyle(href);
+                });
+            } else {
+                includeStyle(files);
+            }
         };
 
         /**
@@ -908,6 +909,7 @@
                     Constructor.prototype = this;
                     Constructor.prototype.constructor = Constructor;
                 }
+
                 this[name] = new Constructor();
 
                 if (typeof this[name].init === 'function') {
@@ -966,9 +968,11 @@
             _visibleElements: function() {
                 return _visibleElements;
             },
+
             _deferredObjects: function() {
                 return _deferredObjects;
             },
+
             _registeredFiles: function() {
                 return _registeredFiles;
             }
@@ -1219,7 +1223,6 @@
 
     var $$module$$default = $$module$$Module;
     function $$detect$$Detect() {
-
         /**
          * @property {Window} _win - Link to Window object.
          * @private
@@ -1267,11 +1270,13 @@
                 var canvas = _doc.createElement('canvas');
                 return !!(canvas.getContext && canvas.getContext('2d'));
             })();
+
             _detect.canvastext = !!(_detect.canvas && $.isFunction(_doc.createElement('canvas').getContext('2d').fillText));
             _detect.draganddrop = (function() {
                 var div = _doc.createElement('div');
                 return ('draggable' in div) || ('ondragstart' in div && 'ondrop' in div);
             })();
+
             _detect.hashchange = !!('onhashchange' in _win && (typeof _doc.documentMode === 'undefined' || _doc.documentMode > 7));
             _detect.history = !!(_win.history && history.pushState);
             _detect.postmessage = !!_win.postMessage;
@@ -1290,10 +1295,11 @@
                         bool.wav = audio.canPlayType('audio/wav; codecs="1"').replace(/^no$/, '');
                         bool.m4a = (audio.canPlayType('audio/x-m4a;') || audio.canPlayType('audio/aac;')).replace(/^no$/, '');
                     }
-                } catch (error) {			}
+                } catch (error) {}
 
                 return bool;
             })();
+
             _detect.video = (function() {
                 var video = _doc.createElement('video');
                 var bool = false;
@@ -1305,12 +1311,14 @@
                         bool.h264 = video.canPlayType('video/mp4; codecs="avc1.42E01E"').replace(/^no$/, '');
                         bool.webm = video.canPlayType('video/webm; codecs="vp8, vorbis"').replace(/^no$/, '');
                     }
-                } catch(error) {}
+                } catch (error) {}
 
                 return bool;
             })();
+
             _detect.indexeddb = (function() {
                 var props = ['indexeddb', 'WebkitIndexeddb', 'MozIndexeddb', 'OIndexeddb', 'msIndexeddb'];
+
                 for (var i in props) {
                     if (props.hasOwnProperty(i)) {
                         var item = _win[props[i]];
@@ -1322,25 +1330,29 @@
                             if (typeof item === 'function') {
                                 return item.bind(_win);
                             }
+
                             return item;
                         }
                     }
                 }
+
                 return false;
             })();
+
             _detect.localstorage = (function() {
                 try {
-                    localStorage.setItem(_mode, _mode);
-                    localStorage.removeItem(_mode);
+                    localStorage.setItem(_detect.mode, _detect.mode);
+                    localStorage.removeItem(_detect.mode);
                     return true;
                 } catch (error) {
                     return false;
                 }
             })();
+
             _detect.sessionstorage = (function() {
                 try {
-                    sessionStorage.setItem(_mode, _mode);
-                    sessionStorage.removeItem(_mode);
+                    sessionStorage.setItem(_detect.mode, _detect.mode);
+                    sessionStorage.removeItem(_detect.mode);
                     return true;
                 } catch (error) {
                     return false;
@@ -1357,7 +1369,7 @@
                 /(webkit)[ \/]([\w.]+)/.exec(_ua) ||
                 /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(_ua) ||
                 /(msie) ([\w.]+)/.exec(_ua) ||
-                _ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(_ua) || [];
+                _ua.indexOf('compatible') < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(_ua) || [];
 
             if (match[1]) {
                 _detect.browser[match[1]] = true;
@@ -1389,7 +1401,7 @@
             html5Support();
             detectBrowser();
             detectOS();
-        }
+        };
     }
 
     var $$detect$$default = $$detect$$Detect;

@@ -1,0 +1,27 @@
+{
+	"predef": [
+		"$"
+	],
+	"bitwise": true,
+	"camelcase": true,
+	"curly": true,
+	"eqeqeq": true,
+	"forin": true,
+	"freeze": true,
+	"immed": true,
+	"newcap": true,
+	"noarg": true,
+	"noempty": true,
+	"nonew": true,
+	"undef": true,
+	"strict": false,
+	"trailing": true,
+	"latedef": true,
+	"unused": "vars",
+	"quotmark": "single",
+	"browser": true,
+	"jquery": true,
+	"laxbreak": true,
+	"validthis": true,
+	"esnext": true
+}
