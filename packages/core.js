@@ -2,8 +2,8 @@
  * @overview  Moff - Mobile First Framework.
  * @copyright Copyright (c) 2015 Kadir A. Fuzaylov
  * @license   Licensed under MIT license
- * @author    Kadir A. Fuzaylov <kfuzaylov@dealerfire.com>
- * @version   1.0.0
+ * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
+ * @version   1.0.3
  */
 
 /**
