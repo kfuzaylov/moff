@@ -10,7 +10,7 @@ function MoffClass() {
 	var _moff = this;
 
 	/**
-	 * @property {{}} _win - Link to window object.
+	 * @property {window} _win - Link to window object.
 	 * @private
 	 */
 	var _win = window;

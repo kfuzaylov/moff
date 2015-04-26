@@ -30,21 +30,6 @@ function Module() {
 	var _eventStore = {};
 
 	/**
-	 * Register module name and object
-	 * @param {object} module - Module object
-	 * @param {string} name - Module name
-	 */
-	function registerModule(module, name) {
-		module.prototype = _module;
-		module.prototype.constructor = module;
-
-		// Save module in storage
-		if (typeof _moduleClassStorage[name] === 'undefined') {
-			_moduleClassStorage[name] = module;
-		}
-	}
-
-	/**
 	 * Register module events
 	 * @param {array} events - Array of events
 	 */
@@ -60,25 +45,30 @@ function Module() {
 	 * Register new module.
 	 * @method register
 	 * @param {string} name - module name
-	 * @param {array} depends - array of js files depends
-	 * @param {function} module - constructor
+	 * @param {array} depends - array of js and css files
+	 * @param {function} Constructor - constructor
 	 */
-	this.register = function(name, depends, module) {
+	this.register = function(name, depends, Constructor) {
 		// Normalize arguments
-		if (typeof module === 'undefined') {
-			module = depends;
+		if (typeof Constructor === 'undefined') {
+			Constructor = depends;
 			depends = undefined;
 		}
 
 		// Register new module in the storage
-		if (!_moduleObjectStorage.hasOwnProperty(name)) {
-			if (depends) {
-				this.loadDepends(depends, function() {
-					registerModule(module, name);
-				});
-			} else {
-				registerModule(module, name);
+		if (!_moduleClassStorage.hasOwnProperty(name)) {
+			Constructor.prototype = _module;
+			Constructor.prototype.constructor = Constructor;
+
+			// Save module in storage
+			if (typeof _moduleClassStorage[name] === 'undefined') {
+				_moduleClassStorage[name] = {
+					constructor: Constructor,
+					depends: depends
+				};
 			}
+		} else {
+			window.console.warn(name + ' class has already registered.');
 		}
 	};
 
@@ -89,33 +79,35 @@ function Module() {
 	 * @param {object} [params] - Object with additional params
 	 */
 	this.initClass = function(ClassName, params) {
-		try {
+		var moduleObject = _moduleClassStorage[ClassName];
+
+		function initialize() {
 			// Create new class object
-			var classObject = new _moduleClassStorage[ClassName]();
+			var classObject = new moduleObject.constructor();
 			var storedObject = _moduleObjectStorage[ClassName];
 
 			// Store objects in array if there are more then one classes
 			if ($.isArray(storedObject)) {
-				_moduleObjectStorage[ClassName].push(classObject);
+				storedObject.push(classObject);
 			} else if (typeof storedObject !== 'undefined') {
 				_moduleObjectStorage[ClassName] = [storedObject, classObject];
 			} else {
 				_moduleObjectStorage[ClassName] = classObject;
 			}
 
+			if (typeof classObject.beforeInit === 'function') {
+				classObject.beforeInit();
+			}
+
 			if (params) {
 				// Apply all passed data
 				$.each(params, function(key, value) {
-					classObject.set(key, value);
+					classObject[key] = value;
 				});
 			}
 
 			// Add module name
 			classObject.moduleName = ClassName;
-
-			if (typeof classObject.beforeInit === 'function') {
-				classObject.beforeInit();
-			}
 
 			// Register module events.
 			registerModuleEvents(classObject.events);
@@ -130,8 +122,14 @@ function Module() {
 			if (typeof classObject.afterInit === 'function') {
 				classObject.afterInit();
 			}
+		}
 
-			return classObject;
+		try {
+			if (moduleObject.depends) {
+				this.loadDepends(moduleObject.depends, initialize);
+			} else {
+				initialize();
+			}
 		} catch (error) {
 			window.console.error(error);
 		}
@@ -155,9 +153,10 @@ function Module() {
 	 * @param {function} callback - Event callback
 	 */
 	this.assignForEvent = function(name, callback) {
-		// Register if assigned event is not registered yet.
-		// Need in case when some module assign to another module event before its registration.
-		this.registerEvent(name);
+		if (!_eventStore.hasOwnProperty(name)) {
+			window.console.warn(name + ' event is not registered yet.');
+			return;
+		}
 
 		if (typeof callback === 'function') {
 			_eventStore[name].push(callback);
@@ -185,16 +184,6 @@ function Module() {
 	 */
 	this.get = function(name) {
 		return (_moduleObjectStorage.hasOwnProperty(name) && _moduleObjectStorage[name]) || undefined;
-	};
-
-	/**
-	 * Set object any property.
-	 * @method set
-	 * @param {string} prop - Property name
-	 * @param {mixed} value - Property value
-	 */
-	this.set = function(prop, value) {
-		this[prop] = value;
 	};
 
 	/**
@@ -226,7 +215,7 @@ function Module() {
 	 * @method setScope
 	 */
 	this.setScope = function() {
-		if (typeof this.scopeSelector !== 'undefined') {
+		if (this.scopeSelector) {
 			this.scope = $(this.scopeSelector);
 		}
 	};
@@ -240,6 +229,14 @@ function Module() {
 	this.find = function(selector) {
 		return this.scope.find(selector);
 	};
+
+	/* test-code */
+	this._testonly = {
+		_moduleClassStorage: _moduleClassStorage,
+		_eventStore: _eventStore,
+		_moduleObjectStorage: _moduleObjectStorage
+	};
+	/* end-test-code */
 }
 
 export default Module;

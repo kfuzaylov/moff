@@ -3,5 +3,5 @@ import Module from './module';
 import Detect from './detect';
 
 var Moff = this.Moff = new Core();
-Moff.extend('module', Module);
-Moff.extend('detect', Detect);
+Moff.extend('module', Module, true);
+Moff.extend('detect', Detect, true);

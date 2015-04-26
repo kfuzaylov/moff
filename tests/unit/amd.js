@@ -58,6 +58,10 @@ describe('AMD', function() {
 			});
 		});
 
+		afterAll(function() {
+			$('[src="fixtures/depend.js"], [src="fixtures/file.js"], [href="fixtures/depend.css"], [href="fixtures/file.css"]').remove();
+		});
+
 		it('includes registered module', function() {
 			expect(included).toBe(true);
 		});
