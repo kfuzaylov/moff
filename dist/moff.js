@@ -1,7 +1,7 @@
 /**
  * @overview  moff - Mobile First Framework
  * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.0.4
+ * @version   1.1.4
  * @license   Licensed under MIT license
  * @copyright Copyright (c) 2015 Kadir A. Fuzaylov
  */
@@ -218,7 +218,7 @@
 
             var localVisible = _visibleElements.slice(0);
             $.each(localVisible, function(i, obj) {
-                if (_moff.isVisible(obj.element)) {
+                if (_moff.inViewport(obj.element)) {
                     // Remove element from array not to be handled twice
                     _visibleElements.splice(i, 1);
                     obj.handler();
@@ -605,11 +605,11 @@
 
         /**
          * Determine whether element in view port.
-         * @method isVisible
+         * @method inViewport
          * @param {object} element - DOM element
          * @returns {boolean}
          */
-        this.isVisible = function(element) {
+        this.inViewport = function(element) {
             var bounds;
             var win = $(_win);
             var viewport = {
@@ -968,7 +968,7 @@
          * Moff version.
          * @type {string}
          */
-        this.version = '1.0.3';
+        this.version = '1.1.4';
 
     }
 

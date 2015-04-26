@@ -6,6 +6,7 @@ var concat = require('gulp-concat');
 var stripCode = require('gulp-strip-code');
 var header = require('gulp-header');
 var replace = require('gulp-replace');
+var runSequence = require('run-sequence');
 var bower = require('./bower.json');
 
 
@@ -85,5 +86,7 @@ gulp.task('compile-tests', function() {
 		.pipe(gulp.dest('tests'));
 });
 
-gulp.task('compile', ['linter', 'transpile', 'add-banner', 'minify']);
+gulp.task('compile', function() {
+	runSequence('linter', 'transpile', ['add-banner', 'minify']);
+});
 gulp.task('test', ['test-moff', 'compile-tests']);

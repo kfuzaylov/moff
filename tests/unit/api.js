@@ -6,7 +6,7 @@ describe('Moff dependency', function() {
 
 describe('Moff framework', function() {
 	it('is initialized', function() {
-		expect(typeof window.Moff).toBe('object');
+		expect(typeof window.Moff).toEqual('object');
 	});
 });
 
@@ -19,15 +19,19 @@ describe('Moff framework API', function() {
 	});
 
 	describe('Moff.settings', function() {
-		it('getter', function() {
+		it('has getter', function() {
 			Moff.settings('cache', true);
 			expect(Moff.settings('cache')).toBe(true);
 		});
 
-		it('setter', function() {
+		it('has setter', function() {
 			Moff.settings('cacheLiveTime', 14);
 			var cacheLiveTime = Moff.settings('cacheLiveTime');
-			expect(cacheLiveTime).toBe(14);
+			expect(cacheLiveTime).toEqual(14);
+		});
+
+		it('setter should return undefined for unregistered key', function() {
+			expect(Moff.settings('unregisteredKey')).toBeUndefined();
 		});
 	});
 
@@ -43,7 +47,7 @@ describe('Moff framework API', function() {
 		it('show element by default in 1 second', function(done) {
 			Moff.appear(div);
 			setTimeout(function() {
-				expect(div.css('opacity')).toBe('1');
+				expect(div.css('opacity')).toEqual('1');
 				done();
 			}, 1100);
 		});
@@ -51,7 +55,7 @@ describe('Moff framework API', function() {
 		it('show element in set time - 2 seconds', function(done) {
 			Moff.appear(div2, 2);
 			setTimeout(function() {
-				expect(div2.css('opacity')).toBe('1');
+				expect(div2.css('opacity')).toEqual('1');
 				done();
 			}, 2100);
 		});
@@ -59,14 +63,19 @@ describe('Moff framework API', function() {
 
 	describe('Moff.isVisible method', function() {
 		var div = $('<div>').appendTo('body');
-		var div2 = $('<div style="position: relative; top: 1500px;"></div>').appendTo('body');
+		var div2 = $('<div style="position: relative; top: -2500px;"></div>').appendTo('body');
+
+		afterAll(function() {
+			div.remove();
+			div2.remove();
+		});
 
 		it('determines element in view port', function() {
-			expect(Moff.isVisible(div)).toBe(true);
+			expect(Moff.inViewport(div)).toBe(true);
 		});
 
 		it('determines element is not in view port', function() {
-			expect(Moff.isVisible(div2)).toBe(false);
+			expect(Moff.inViewport(div2)).toBe(false);
 		});
 	});
 
@@ -75,7 +84,7 @@ describe('Moff framework API', function() {
 			expect([true, false]).toContain(Moff.supportCSS3('transition'));
 		});
 
-		it('doesn\'t throw exception for non-existing property', function() {
+		it('does not throw exception for non-existing property', function() {
 			expect(Moff.supportCSS3('no-property')).toBe(false);
 		});
 

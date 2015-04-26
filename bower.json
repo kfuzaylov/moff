@@ -1,6 +1,6 @@
 {
 	"name": "moff",
-	"version": "1.0.4",
+	"version": "1.1.4",
 	"homepage": "http://moffjs.com",
 	"author": "Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>",
 	"description": "Mobile First Framework",
@@ -29,6 +29,7 @@
 		"bootstrap-sass": ">= 3.3.4"
 	},
 	"devDependencies": {
-		"jasmine-ajax": "~3.1.0"
+		"jasmine-ajax": "^3.1.0",
+		"jasmine-core": "^2.2.1"
 	}
 }
