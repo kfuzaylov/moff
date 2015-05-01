@@ -193,17 +193,27 @@ function Module() {
 	this.remove = function() {
 		var name = this.moduleName;
 		var id = this.id;
+		var i = 0;
+		var object, length;
 
 		// Be sure to remove existing module
 		if ($.isArray(_moduleObjectStorage[name])) {
-			$.each(_moduleObjectStorage[name], function(index, object) {
+			length = _moduleObjectStorage[name].length;
+
+			for (; i < length; i++) {
+				object = _moduleObjectStorage[name][i];
+
 				if (object.id && object.id === id) {
-					_moduleObjectStorage[name].splice(index, 1);
+					_moduleObjectStorage[name].splice(i, 1);
+					length = _moduleObjectStorage[name].length;
+					--i;
 				}
-			});
+			}
 
 			if (_moduleObjectStorage[name].length === 1) {
 				_moduleObjectStorage[name] = _moduleObjectStorage[name][0];
+			} else if (!_moduleObjectStorage[name].length) {
+				delete _moduleObjectStorage[name];
 			}
 		} else {
 			delete _moduleObjectStorage[name];

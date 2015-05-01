@@ -390,7 +390,6 @@ describe('Modularity', function() {
 				};
 
 				this.init = function() {
-					expect(this.id).toEqual('modId');
 					init = true;
 				};
 
@@ -432,7 +431,7 @@ describe('Modularity', function() {
 		});
 	});
 
-	describe('Initialized model class', function() {
+	describe('Initialized module class', function() {
 		var trigger, moduleObject;
 		beforeAll(function() {
 			moduleObject = Moff.module.get('Module2');
@@ -471,11 +470,17 @@ describe('Modularity', function() {
 			expect(Moff.module.get('Module2').length).toEqual(2);
 		});
 
-		/*it('has remove method', function() {
+		it('has remove method', function() {
 			moduleObject.remove();
+			expect(Moff.module.get('Module2')).toBeUndefined();
+
+			Moff.module.initClass('Module2', {id: 'modId'});
+			Moff.module.initClass('Module2', {id: 'modId2'});
+			Moff.module.get('Module2')[0].remove();
+
 			expect(typeof Moff.module.get('Module2')).toEqual('object');
 			Moff.module.get('Module2').remove();
 			expect(Moff.module._testonly._moduleObjectStorage['Module2']).toBeUndefined();
-		});*/
+		});
 	});
 });
