@@ -386,7 +386,7 @@ describe('Modularity', function() {
 					beforeInit = true;
 					expect(this.id).toBeUndefined();
 					expect(this.moduleName).toBeUndefined();
-					expect(this.scope).toBeUndefined();
+					expect(this.scope).toEqual(null);
 				};
 
 				this.init = function() {
@@ -481,6 +481,11 @@ describe('Modularity', function() {
 			expect(typeof Moff.module.get('Module2')).toEqual('object');
 			Moff.module.get('Module2').remove();
 			expect(Moff.module._testonly._moduleObjectStorage['Module2']).toBeUndefined();
+
+			Moff.module.initClass('Module2');
+			Moff.module.get('Module2').remove();
+			expect(Moff.module._testonly._moduleObjectStorage['Module2']).toBeUndefined();
+
 		});
 	});
 });

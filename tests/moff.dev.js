@@ -1021,10 +1021,20 @@
         }
 
         /**
+         * @property {null|string} - Module scope selector. jQuery selector.
+         */
+        this.scopeSelector = null;
+
+        /**
+         * @property {null|object} - Module scope object. jQuery object.
+         */
+        this.scope = null;
+
+        /**
          * Register new module.
          * @method register
          * @param {string} name - module name
-         * @param {array} depends - array of js and css files
+         * @param {object} depends - object of js and css files
          * @param {function} Constructor - constructor
          */
         this.register = function(name, depends, Constructor) {
@@ -1159,7 +1169,7 @@
          * Get registered module by name.
          * @method get
          * @param {string} name - module name
-         * @return {object|undefined} module object or undefined
+         * @return {object|array|undefined} module object or undefined
          */
         this.get = function(name) {
             return (_moduleObjectStorage.hasOwnProperty(name) && _moduleObjectStorage[name]) || undefined;
@@ -1175,6 +1185,12 @@
             var i = 0;
             var object, length;
 
+            function removeObject() {
+                _moduleObjectStorage[name].splice(i, 1);
+                length = _moduleObjectStorage[name].length;
+                --i;
+            }
+
             // Be sure to remove existing module
             if ($.isArray(_moduleObjectStorage[name])) {
                 length = _moduleObjectStorage[name].length;
@@ -1182,10 +1198,12 @@
                 for (; i < length; i++) {
                     object = _moduleObjectStorage[name][i];
 
-                    if (object.id && object.id === id) {
-                        _moduleObjectStorage[name].splice(i, 1);
-                        length = _moduleObjectStorage[name].length;
-                        --i;
+                    if (object.id) {
+                        if (object.id === id) {
+                            removeObject();
+                        }
+                    } else if (object.moduleName === name) {
+                        removeObject();
                     }
                 }
 
@@ -1278,18 +1296,17 @@
                 return !!(canvas.getContext && canvas.getContext('2d'));
             })();
 
-            _detect.canvastext = !!(_detect.canvas && $.isFunction(_doc.createElement('canvas').getContext('2d').fillText));
-            _detect.draganddrop = (function() {
+            _detect.canvasText = !!(_detect.canvas && $.isFunction(_doc.createElement('canvas').getContext('2d').fillText));
+            _detect.dragAndDrop = (function() {
                 var div = _doc.createElement('div');
                 return ('draggable' in div) || ('ondragstart' in div && 'ondrop' in div);
             })();
 
-            _detect.hashchange = !!('onhashchange' in _win && (typeof _doc.documentMode === 'undefined' || _doc.documentMode > 7));
+            _detect.hashChange = !!('onhashchange' in _win && (typeof _doc.documentMode === 'undefined' || _doc.documentMode > 7));
             _detect.history = !!(_win.history && history.pushState);
-            _detect.postmessage = !!_win.postMessage;
-            _detect.websockets = !!('WebSocket' in _win || 'MozWebSocket' in _win);
-            _detect.websqldatabase = !!_win.openDatabase;
-            _detect.webworkers = !!_win.Worker;
+            _detect.postMessage = !!_win.postMessage;
+            _detect.webSockets = !!('WebSocket' in _win || 'MozWebSocket' in _win);
+            _detect.webWorkers = !!_win.Worker;
             _detect.audio = (function() {
                 var audio = _doc.createElement('audio');
                 var bool = false;
@@ -1323,8 +1340,8 @@
                 return bool;
             })();
 
-            _detect.indexeddb = (function() {
-                var props = ['indexeddb', 'WebkitIndexeddb', 'MozIndexeddb', 'OIndexeddb', 'msIndexeddb'];
+            _detect.indexedDB = (function() {
+                var props = ['indexedDB', 'webkitIndexedDB', 'mozIndexedDB', 'OIndexedDB', 'msIndexedDB'];
 
                 for (var i in props) {
                     if (props.hasOwnProperty(i)) {
@@ -1346,7 +1363,7 @@
                 return false;
             })();
 
-            _detect.localstorage = (function() {
+            _detect.localStorage = (function() {
                 try {
                     localStorage.setItem(_detect.mode, _detect.mode);
                     localStorage.removeItem(_detect.mode);
@@ -1356,7 +1373,7 @@
                 }
             })();
 
-            _detect.sessionstorage = (function() {
+            _detect.sessionSorage = (function() {
                 try {
                     sessionStorage.setItem(_detect.mode, _detect.mode);
                     sessionStorage.removeItem(_detect.mode);
@@ -1388,8 +1405,6 @@
 
             if (_detect.browser.chrome) {
                 _detect.browser.webkit = true;
-            } else if (_detect.browser.webkit) {
-                _detect.browser.safari = true;
             }
         }
 
@@ -1398,10 +1413,21 @@
          * @function detectOS
          */
         function detectOS() {
-            _detect.OS.iOS = /(ipad|iphone|ipod)/g.test(_ua);
-            _detect.OS.macOS = _ua.indexOf('mac') > -1;
-            _detect.OS.windows = _ua.indexOf('win') > -1;
-            _detect.OS.android = _ua.indexOf('android') > -1;
+            var OS = _detect.OS;
+            var iOS = /(ipad|iphone|ipod)/g.test(_ua);
+            var macOS = _ua.indexOf('mac') > -1;
+            var windows = _ua.indexOf('win') > -1;
+            var android = _ua.indexOf('android') > -1;
+
+            if (iOS) {
+                OS.iOS = iOS;
+            } else if (macOS) {
+                OS.macOS = macOS;
+            } else if (windows) {
+                OS.windows = windows;
+            } else if (android) {
+                OS.android = android;
+            }
         }
 
         this.init = function() {

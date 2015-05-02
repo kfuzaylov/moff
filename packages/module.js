@@ -42,10 +42,20 @@ function Module() {
 	}
 
 	/**
+	 * @property {null|string} - Module scope selector. jQuery selector.
+	 */
+	this.scopeSelector = null;
+
+	/**
+	 * @property {null|object} - Module scope object. jQuery object.
+	 */
+	this.scope = null;
+
+	/**
 	 * Register new module.
 	 * @method register
 	 * @param {string} name - module name
-	 * @param {array} depends - array of js and css files
+	 * @param {object} depends - object of js and css files
 	 * @param {function} Constructor - constructor
 	 */
 	this.register = function(name, depends, Constructor) {
@@ -180,7 +190,7 @@ function Module() {
 	 * Get registered module by name.
 	 * @method get
 	 * @param {string} name - module name
-	 * @return {object|undefined} module object or undefined
+	 * @return {object|array|undefined} module object or undefined
 	 */
 	this.get = function(name) {
 		return (_moduleObjectStorage.hasOwnProperty(name) && _moduleObjectStorage[name]) || undefined;
@@ -196,6 +206,12 @@ function Module() {
 		var i = 0;
 		var object, length;
 
+		function removeObject() {
+			_moduleObjectStorage[name].splice(i, 1);
+			length = _moduleObjectStorage[name].length;
+			--i;
+		}
+
 		// Be sure to remove existing module
 		if ($.isArray(_moduleObjectStorage[name])) {
 			length = _moduleObjectStorage[name].length;
@@ -203,10 +219,12 @@ function Module() {
 			for (; i < length; i++) {
 				object = _moduleObjectStorage[name][i];
 
-				if (object.id && object.id === id) {
-					_moduleObjectStorage[name].splice(i, 1);
-					length = _moduleObjectStorage[name].length;
-					--i;
+				if (object.id) {
+					if (object.id === id) {
+						removeObject();
+					}
+				} else if (object.moduleName === name) {
+					removeObject();
 				}
 			}
 
