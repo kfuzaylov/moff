@@ -81,7 +81,7 @@ gulp.task('test-moff', function() {
 });
 
 gulp.task('compile-tests', function() {
-	return gulp.src('tests/unit/*.js')
+	return gulp.src('tests/unit/**/*.js')
 		.pipe(concat('tests.js'))
 		.pipe(gulp.dest('tests'));
 });

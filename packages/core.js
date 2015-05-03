@@ -834,21 +834,34 @@ function MoffClass() {
 	 * Load js file and run callback on load.
 	 * @method loadJS
 	 * @param {array|string} files - Array or path of loaded files
-	 * @param {function} callback - On load event callback
+	 * @param {function} [callback] - On load event callback
 	 */
 	this.loadJS = function(files, callback) {
 		if (!$.isArray(files) && typeof files !== 'string') {
-			window.console.warn('Moff.loadJS source is not array or string');
+			window.console.warn('Moff.loadJS source is not an array or a string');
 			return;
 		}
 
+		var script;
+		var hasCallback = typeof callback === 'function';
+
 		function includeScript(src) {
-			// If set src attribute before append
-			// jQuery will load script with ajax request
-			$('<script>')
-				.on('load', callback)
-				.appendTo($('body').length && $('body') || $('head'))
-				.attr('src', src);
+			// Load script if it is not existing on the page
+			if (!$('script[src="' + src + '"]').length) {
+				// If set src attribute before append
+				// jQuery will load script with ajax request
+				script = $('<script>');
+
+				if (hasCallback) {
+					script.on('load', callback);
+				}
+
+				script
+					.appendTo($('body').length && $('body') || $('head'))
+					.attr('src', src);
+			} else if (hasCallback) {
+				callback();
+			}
 		}
 
 		if ($.isArray(files)) {
@@ -872,20 +885,36 @@ function MoffClass() {
 			return;
 		}
 
-		function includeStyle(href) {
-			var link = $('<link rel="stylesheet">')
-				.on('load', callback)
-				.attr('href', files)
-				.appendTo('head');
+		var link;
+		var hasCallback = typeof callback === 'function';
 
-			link = link[0];
-			link.onreadystatechange = function() {
-				var state = link.readyState;
-				if (state === 'loaded' || state === 'complete') {
-					link.onreadystatechange = null;
-					callback();
+		function includeStyle(href) {
+			// Load link if it is not existing on the page
+			if (!$('link[href="' + href + '"]').length) {
+				var link = $('<link rel="stylesheet">');
+
+				if (hasCallback) {
+					link.on('load', callback);
 				}
-			};
+
+				link
+					.attr('href', files)
+					.appendTo('head');
+
+				link = link[0];
+				link.onreadystatechange = function() {
+					var state = link.readyState;
+					if (state === 'loaded' || state === 'complete') {
+						link.onreadystatechange = null;
+
+						if (hasCallback) {
+							callback();
+						}
+					}
+				};
+			} else if (hasCallback) {
+				callback();
+			}
 		}
 
 		if ($.isArray(files)) {

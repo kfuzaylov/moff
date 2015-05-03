@@ -162,4 +162,29 @@ describe('Moff framework API', function() {
 			expect(/^\d{1,2}\.\d{1,2}\.\d{1,2}$/.test(Moff.version)).toEqual(true);
 		});
 	});
+
+	describe('Moff.loadJS method', function() {
+		it('loads array of js files', function(done) {
+			Moff.loadJS(['fixtures/depend.js', 'fixtures/file.js'], function() {
+				expect($('script[src="fixtures/depend.js"], script[src="fixtures/file.js"]').length).toEqual(2);
+				$('script[src="fixtures/depend.js"], script[src="fixtures/file.js"]').remove();
+				done();
+			});
+		});
+
+		it('loads single files', function(done) {
+			Moff.loadJS('fixtures/depend.js', function() {
+				expect($('script[src="fixtures/depend.js"]').length).toEqual(1);
+				done();
+			});
+		});
+
+		it('does not load existing file', function(done) {
+			Moff.loadJS('fixtures/depend.js');
+			setTimeout(function() {
+				expect($('script[src="fixtures/depend.js"]').length).toEqual(1);
+				done();
+			}, 1000);
+		});
+	});
 });

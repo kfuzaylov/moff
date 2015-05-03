@@ -64,6 +64,7 @@ describe('Modularity', function() {
 
 		it('loads all dependency files', function() {
 			expect($('[src="fixtures/depend.js"], [href="fixtures/depend.css"]').length).toEqual(2);
+			$('script[src="fixtures/depend.js"]').remove();
 		});
 
 		it('beforeInit and init hooks access to properties', function() {
