@@ -41,7 +41,7 @@ describe('Modularity', function() {
 					beforeInit = true;
 					expect(this.id).toBeUndefined();
 					expect(this.moduleName).toBeUndefined();
-					expect(this.scope).toEqual(null);
+					expect(this.scope).toBeNull();
 				};
 
 				this.init = function() {

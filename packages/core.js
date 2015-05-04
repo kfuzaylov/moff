@@ -891,7 +891,7 @@ function MoffClass() {
 		function includeStyle(href) {
 			// Load link if it is not existing on the page
 			if (!$('link[href="' + href + '"]').length) {
-				var link = $('<link rel="stylesheet">');
+				link = $('<link rel="stylesheet">');
 
 				if (hasCallback) {
 					link.on('load', callback);

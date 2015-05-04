@@ -1,7 +1,7 @@
 /**
  * @overview  moff - Mobile First Framework
- * @author    Kadir A. Fuzaylov <kfuzaylov@gmail.com>
- * @version   1.1.13
+ * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
+ * @version   1.1.15
  * @license   Licensed under MIT license
  * @copyright Copyright (c) 2015 Kadir A. Fuzaylov
  */
@@ -896,7 +896,7 @@
             function includeStyle(href) {
                 // Load link if it is not existing on the page
                 if (!$('link[href="' + href + '"]').length) {
-                    var link = $('<link rel="stylesheet">');
+                    link = $('<link rel="stylesheet">');
 
                     if (hasCallback) {
                         link.on('load', callback);
@@ -997,7 +997,7 @@
          * Moff version.
          * @type {string}
          */
-        this.version = '1.1.13';
+        this.version = '1.1.15';
 
     }
 
@@ -1387,7 +1387,7 @@
                 }
             })();
 
-            _detect.sessionSorage = (function() {
+            _detect.sessionStorage = (function() {
                 try {
                     sessionStorage.setItem(_detect.mode, _detect.mode);
                     sessionStorage.removeItem(_detect.mode);
@@ -1432,6 +1432,7 @@
             var macOS = _ua.indexOf('mac') > -1;
             var windows = _ua.indexOf('win') > -1;
             var android = _ua.indexOf('android') > -1;
+            var windowsPhone = _ua.indexOf('windows phone') > -1;
 
             if (iOS) {
                 OS.iOS = iOS;
@@ -1441,13 +1442,24 @@
                 OS.windows = windows;
             } else if (android) {
                 OS.android = android;
+            } else if (windowsPhone) {
+                OS.windowsPhone = windowsPhone;
             }
+        }
+
+        /**
+         * Detects whether the current device is mobile
+         * @function detectMobileDevice
+         */
+        function detectMobileDevice() {
+            _detect.isMobile = /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(_ua);
         }
 
         this.init = function() {
             html5Support();
             detectBrowser();
             detectOS();
+            detectMobileDevice();
         };
     }
 
