@@ -1,15 +1,15 @@
 /**
  * @overview  moff - Mobile First Framework
  * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.1.15
+ * @version   1.2.16
  * @license   Licensed under MIT license
  * @copyright Copyright (c) 2015 Kadir A. Fuzaylov
  */
 (function() {
     "use strict";
-    function $$core$$MoffClass() {
+    function $$core$$Core() {
         /**
-         * @property {MoffClass} _moff - Link to MoffClass object
+         * @property {Core} _moff - Link to Core object
          * @private
          */
         var _moff = this;
@@ -299,8 +299,8 @@
         }
 
         /**
-         * Extend MoffClass settings
-         * @param {object} settings - MoffClass settings
+         * Extend Core settings
+         * @param {object} settings - Core settings
          */
         function extendSettings(settings) {
             $.extend(_settings, settings);
@@ -549,7 +549,7 @@
         /**
          * Run initialisation of base handlers
          * @method init
-         * @param {object} [settings] - MoffClass settings
+         * @param {object} [settings] - Core settings
          */
         this.init = function(settings) {
             // Normalize settings
@@ -997,65 +997,74 @@
          * Moff version.
          * @type {string}
          */
-        this.version = '1.1.15';
+        this.version = '1.2.16';
 
     }
 
-    var $$core$$default = $$core$$MoffClass;
+    var $$core$$default = $$core$$Core;
     function $$module$$Module() {
-        'use strict';
-
         /**
          * @private {Module} _module - Link to object.
-         * @private
          */
         var _module = this;
 
         /**
          * @private {{}} _moduleObjectStorage - Modules storage.
-         * @private
          */
         var _moduleObjectStorage = {};
 
         /**
          * @private {{}} _moduleClassStorage - Classes storage.
-         * @private
          */
         var _moduleClassStorage = {};
 
         /**
-         * @private {{}} _eventStore - Events storage.
-         * @private
-         */
-        var _eventStore = {};
-
-        /**
          * Register module events
-         * @param {array} events - Array of events
+         * @param {Array} events - Array of events
          */
         function registerModuleEvents(events) {
             if ($.isArray(events)) {
-                $.each(events, function() {
-                    _module.registerEvent(this);
+                $.each(events, function(index, event) {
+                    _module.event.add(event);
                 });
             }
         }
 
         /**
-         * @property {null|string} - Module scope selector. jQuery selector.
+         * @property {null|string} scopeSelector - Module scope selector. jQuery selector.
          */
         this.scopeSelector = null;
 
         /**
-         * @property {null|object} - Module scope object. jQuery object.
+         * @property {null|object} scope - Module scope object. jQuery object.
          */
         this.scope = null;
+
+        /**
+         * @property {Array} events - Array of module events.
+         */
+        this.events = [];
+
+        /**
+         * @property {Function} beforeInit - Before initialization callback
+         */
+        this.beforeInit = function() {};
+
+        /**
+         * @property {Function} init - Initialization callback
+         */
+        this.init = function() {};
+
+        /**
+         * @property {Function} afterInit - After initialization callback
+         */
+        this.afterInit = function() {};
 
         /**
          * Register new module.
          * @method register
          * @param {string} name - module name
-         * @param {object} depends - object of js and css files
+         * @param {object} [depends] - object of js and css files
          * @param {function} Constructor - constructor
          */
         this.register = function(name, depends, Constructor) {
@@ -1146,51 +1155,10 @@
         };
 
         /**
-         * Register new event.
-         * @method registerEvent
-         * @param {string} name - Event name
-         */
-        this.registerEvent = function(name) {
-            if (typeof _eventStore[name] === 'undefined') {
-                _eventStore[name] = [];
-            }
-        };
-
-        /**
-         * Assign callback for event.
-         * @method assignForEvent
-         * @param {string} name - Event name
-         * @param {function} callback - Event callback
-         */
-        this.assignForEvent = function(name, callback) {
-            if (!_eventStore.hasOwnProperty(name)) {
-                window.console.warn(name + ' event is not registered yet.');
-                return;
-            }
-
-            if (typeof callback === 'function') {
-                _eventStore[name].push(callback);
-            }
-        };
-
-        /**
-         * Trigger event by name.
-         * @method triggerEvent
-         * @param {string} name - Event name
-         */
-        this.triggerEvent = function(name) {
-            var args = Array.prototype.slice.call(arguments, 1);
-
-            if (typeof _eventStore[name] !== 'undefined') {
-                _module.runCallbacks(_eventStore[name], this, args);
-            }
-        };
-
-        /**
          * Get registered module by name.
          * @method get
          * @param {string} name - module name
-         * @return {object|array|undefined} module object or undefined
+         * @return {object|Array|undefined} module object or undefined
          */
         this.get = function(name) {
             return (_moduleObjectStorage.hasOwnProperty(name) && _moduleObjectStorage[name]) || undefined;
@@ -1464,8 +1432,60 @@
     }
 
     var $$detect$$default = $$detect$$Detect;
+    function $$event$$Event() {
+        /**
+         * @private {{}} _eventStore - Events storage.
+         * @private
+         */
+        var _eventStore = {};
+
+        /**
+         * Registers new event.
+         * @method add
+         * @param {string} name - Event name
+         */
+        this.add = function(name) {
+            if (typeof _eventStore[name] === 'undefined') {
+                _eventStore[name] = [];
+            }
+        };
+
+        /**
+         * Assign callback for event.
+         * @method on
+         * @param {string} name - Event name
+         * @param {function} callback - Event callback
+         */
+        this.on = function(name, callback) {
+            if (!_eventStore.hasOwnProperty(name)) {
+                window.console.warn(name + ' event is not registered yet.');
+                return;
+            }
+
+            if (typeof callback === 'function') {
+                _eventStore[name].push(callback);
+            }
+        };
+
+        /**
+         * Trigger event by name.
+         * @method trigger
+         * @param {string} name - Event name
+         */
+        this.trigger = function(name) {
+            var args = Array.prototype.slice.call(arguments, 1);
+
+            if (typeof _eventStore[name] !== 'undefined') {
+                this.runCallbacks(_eventStore[name], this, args);
+            }
+        };
+
+    }
+
+    var $$event$$default = $$event$$Event;
 
     var packages$loader$$Moff = this.Moff = new $$core$$default();
     packages$loader$$Moff.extend('module', $$module$$default, true);
     packages$loader$$Moff.extend('detect', $$detect$$default, true);
+    packages$loader$$Moff.extend('event', $$event$$default, true);
 }).call(this);

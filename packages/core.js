@@ -2,9 +2,9 @@
  * Moff class
  * @constructor
  */
-function MoffClass() {
+function Core() {
 	/**
-	 * @property {MoffClass} _moff - Link to MoffClass object
+	 * @property {Core} _moff - Link to Core object
 	 * @private
 	 */
 	var _moff = this;
@@ -294,8 +294,8 @@ function MoffClass() {
 	}
 
 	/**
-	 * Extend MoffClass settings
-	 * @param {object} settings - MoffClass settings
+	 * Extend Core settings
+	 * @param {object} settings - Core settings
 	 */
 	function extendSettings(settings) {
 		$.extend(_settings, settings);
@@ -544,7 +544,7 @@ function MoffClass() {
 	/**
 	 * Run initialisation of base handlers
 	 * @method init
-	 * @param {object} [settings] - MoffClass settings
+	 * @param {object} [settings] - Core settings
 	 */
 	this.init = function(settings) {
 		// Normalize settings
@@ -1011,4 +1011,4 @@ function MoffClass() {
 	/* end-test-code */
 }
 
-export default MoffClass;
+export default Core;

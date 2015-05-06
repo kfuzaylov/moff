@@ -368,6 +368,30 @@ describe('Data events', function() {
 		});
 	});
 });
+describe('Event system', function() {
+	var trigger;
+
+	it('can register new event', function() {
+		Moff.event.add('newEvent');
+		expect($.isArray(Moff.event._testonly._eventStore['newEvent'])).toBe(true);
+	});
+
+	it('can assign for event only callbacks', function() {
+		Moff.event.on('newEvent', function() {
+			expect(arguments.length).toEqual(2);
+			trigger = true;
+		});
+
+		expect(typeof Moff.event._testonly._eventStore['newEvent'][0]).toEqual('function');
+		Moff.event.on('newEvent', {});
+		expect(Moff.event._testonly._eventStore['newEvent'].length).toEqual(1);
+	});
+
+	it('can trigger callbacks and pass all arguments', function() {
+		Moff.event.trigger('newEvent', 'text1', 'text2');
+		expect(trigger).toBe(true);
+	});
+});
 describe('Moff Detect', function() {
 	describe('HTML5 supports', function() {
 		it('applicationCache feature', function() {
@@ -532,31 +556,15 @@ describe('Modularity', function() {
 		});
 
 		it('register events', function() {
-			expect($.isArray(Moff.module._testonly._eventStore['event1'])).toBe(true);
-			expect($.isArray(Moff.module._testonly._eventStore['event2'])).toBe(true);
+			expect($.isArray(Moff.module.event._testonly._eventStore['event1'])).toBe(true);
+			expect($.isArray(Moff.module.event._testonly._eventStore['event2'])).toBe(true);
 		});
 	});
 
 	describe('Initialized module class', function() {
-		var trigger, moduleObject;
+		var moduleObject;
 		beforeAll(function() {
 			moduleObject = Moff.module.get('Module2');
-		});
-
-		it('can assign for event only callbacks', function() {
-			moduleObject.assignForEvent('event1', function() {
-				expect(arguments.length).toEqual(2);
-				trigger = true;
-			});
-
-			expect(typeof Moff.module._testonly._eventStore['event1'][0]).toEqual('function');
-			moduleObject.assignForEvent('event1', {});
-			expect(Moff.module._testonly._eventStore['event1'].length).toEqual(1);
-		});
-
-		it('can trigger callbacks and pass all arguments', function() {
-			moduleObject.triggerEvent('event1', 'text1', 'text2');
-			expect(trigger).toBe(true);
 		});
 
 		it('has .find method to search inside module scope', function() {
