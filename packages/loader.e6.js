@@ -1,7 +1,7 @@
-import Core from './core';
-import Module from './module';
-import Detect from './detect';
-import Event from './event';
+import Core from './core.e6';
+import Module from './module.e6';
+import Detect from './detect.e6';
+import Event from './event.e6';
 
 var Moff = this.Moff = new Core();
 Moff.extend('module', Module, true);

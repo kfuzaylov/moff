@@ -1,6 +1,6 @@
 (function() {
     "use strict";
-    function $$core$$Core() {
+    function $$core$e6$$Core() {
         /**
          * @property {Core} _moff - Link to Core object
          * @private
@@ -1009,8 +1009,8 @@
         /* end-test-code */
     }
 
-    var $$core$$default = $$core$$Core;
-    function $$module$$Module() {
+    var $$core$e6$$default = $$core$e6$$Core;
+    function $$module$e6$$Module() {
         /**
          * @private {Module} _module - Link to object.
          */
@@ -1242,8 +1242,8 @@
         /* end-test-code */
     }
 
-    var $$module$$default = $$module$$Module;
-    function $$detect$$Detect() {
+    var $$module$e6$$default = $$module$e6$$Module;
+    function $$detect$e6$$Detect() {
         /**
          * @property {Window} _win - Link to Window object.
          * @private
@@ -1445,8 +1445,8 @@
         };
     }
 
-    var $$detect$$default = $$detect$$Detect;
-    function $$event$$Event() {
+    var $$detect$e6$$default = $$detect$e6$$Detect;
+    function $$event$e6$$Event() {
         /**
          * @private {{}} _eventStore - Events storage.
          * @private
@@ -1501,10 +1501,10 @@
         /* end-test-code */
     }
 
-    var $$event$$default = $$event$$Event;
+    var $$event$e6$$default = $$event$e6$$Event;
 
-    var packages$loader$$Moff = this.Moff = new $$core$$default();
-    packages$loader$$Moff.extend('module', $$module$$default, true);
-    packages$loader$$Moff.extend('detect', $$detect$$default, true);
-    packages$loader$$Moff.extend('event', $$event$$default, true);
+    var packages$loader$e6$$Moff = this.Moff = new $$core$e6$$default();
+    packages$loader$e6$$Moff.extend('module', $$module$e6$$default, true);
+    packages$loader$e6$$Moff.extend('detect', $$detect$e6$$default, true);
+    packages$loader$e6$$Moff.extend('event', $$event$e6$$default, true);
 }).call(this);

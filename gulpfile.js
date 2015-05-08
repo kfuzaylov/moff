@@ -15,7 +15,7 @@ var jshint = require('gulp-jshint');
 var jscs = require('gulp-jscs');
 
 gulp.task('transpile', function() {
-	return gulp.src('packages/loader.js')
+	return gulp.src('packages/loader.e6.js')
 		.pipe(transpiler({
 			formatter: 'bundle'
 		}))
@@ -44,7 +44,7 @@ gulp.task('add-banner', function() {
 });
 
 gulp.task('minify', function() {
-	return gulp.src('packages/loader.js')
+	return gulp.src('packages/loader.e6.js')
 		.pipe(sourcemaps.init())
 		.pipe(transpiler({
 			formatter: 'bundle'
@@ -71,7 +71,7 @@ gulp.task('linter', function() {
 });
 
 gulp.task('test-moff', function() {
-	return gulp.src('packages/loader.js')
+	return gulp.src('packages/loader.e6.js')
 		.pipe(transpiler({
 			formatter: 'bundle'
 		}))
