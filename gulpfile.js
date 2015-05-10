@@ -22,8 +22,8 @@ gulp.task('transpile', function() {
 		.pipe(concat('moff.js'))
 		.pipe(replace(/\{\{version\}\}/, bower.version))
 		.pipe(stripCode({
-			start_comment: 'test-code',
-			end_comment: 'end-test-code'
+			start_comment: 'Test-code',
+			end_comment: 'End-test-code'
 		}))
 		.pipe(gulp.dest('dist'));
 });
@@ -52,8 +52,8 @@ gulp.task('minify', function() {
 		.pipe(concat('moff.min.js'))
 		.pipe(replace(/\{\{version\}\}/, bower.version))
 		.pipe(stripCode({
-			start_comment: 'test-code',
-			end_comment: 'end-test-code'
+			start_comment: 'Test-code',
+			end_comment: 'End-test-code'
 		}))
 		.pipe(uglify())
 		.pipe(sourcemaps.write('./'))

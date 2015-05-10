@@ -226,12 +226,12 @@ function Module() {
 		return this.scope.find(selector);
 	};
 
-	/* test-code */
+	/* Test-code */
 	this._testonly = {
 		_moduleClassStorage: _moduleClassStorage,
 		_moduleObjectStorage: _moduleObjectStorage
 	};
-	/* end-test-code */
+	/* End-test-code */
 }
 
 export default Module;

@@ -50,11 +50,11 @@ function Event() {
 		}
 	};
 
-	/* test-code */
+	/* Test-code */
 	this._testonly = {
 		_eventStore: _eventStore
 	};
-	/* end-test-code */
+	/* End-test-code */
 }
 
 export default Event;

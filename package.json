@@ -1,24 +1,24 @@
 {
-  "name": "moff",
-  "directories": {
-    "test": "tests"
-  },
-  "scripts": {
-    "install": "npm i testem -g && npm i gulp -g",
-    "pretest": "gulp test",
-    "test": "testem"
-  },
-  "devDependencies": {
-    "gulp": "^3.8.11",
-    "gulp-concat": "^2.5.2",
-    "gulp-es6-module-transpiler": "^0.2.1",
-    "gulp-header": "^1.2.2",
-    "gulp-jscs": "^1.5.1",
-    "gulp-jshint": "^1.10.0",
-    "gulp-replace": "^0.5.3",
-    "gulp-sourcemaps": "^1.5.1",
-    "gulp-strip-code": "^0.1.2",
-    "gulp-uglify": "^1.1.0",
-    "run-sequence": "^1.1.0"
-  }
+	"name": "moff",
+	"directories": {
+		"test": "tests"
+	},
+	"scripts": {
+		"install": "npm i testem -g && npm i gulp -g && bower install",
+		"pretest": "gulp test",
+		"test": "testem"
+	},
+	"devDependencies": {
+		"gulp": "^3.8.11",
+		"gulp-concat": "^2.5.2",
+		"gulp-es6-module-transpiler": "^0.2.1",
+		"gulp-header": "^1.2.2",
+		"gulp-jscs": "^1.5.1",
+		"gulp-jshint": "^1.10.0",
+		"gulp-replace": "^0.5.3",
+		"gulp-sourcemaps": "^1.5.1",
+		"gulp-strip-code": "^0.1.2",
+		"gulp-uglify": "^1.1.0",
+		"run-sequence": "^1.1.0"
+	}
 }

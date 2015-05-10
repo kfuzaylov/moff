@@ -1033,7 +1033,7 @@ function Core() {
 	 */
 	this.version = '{{version}}';
 
-	/* test-code */
+	/* Test-code */
 	this._testonly = {
 		_visibleElements: function() {
 			return _visibleElements;
@@ -1049,7 +1049,7 @@ function Core() {
 
 		_cache: _cache
 	};
-	/* end-test-code */
+	/* End-test-code */
 }
 
 export default Core;
