@@ -25,9 +25,9 @@ describe('Moff framework API', function() {
 		});
 
 		it('has setter', function() {
-			Moff.settings('cacheLiveTime', 14);
-			var cacheLiveTime = Moff.settings('cacheLiveTime');
-			expect(cacheLiveTime).toEqual(14);
+			Moff.settings('anySetting', 14);
+			var anySetting = Moff.settings('anySetting');
+			expect(anySetting).toEqual(14);
 		});
 
 		it('setter should return undefined for unregistered key', function() {

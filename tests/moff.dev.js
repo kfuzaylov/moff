@@ -98,17 +98,25 @@
         var _afterLoad = [];
 
         /**
-         * Local default settings.
-         * @type {{breakpoints: {sm: number, md: number, lg: number}}}
+         * @property {{}} _cache - Preloaded data cache
+         * @private
+         */
+        var _cache = {};
+
+        /**
+         * @property {object} _settings - Local default settings.
          * @private
          */
         var _settings = {
-            /** Media Query break points. */
             breakpoints: {
                 sm: 768,
                 md: 992,
                 lg: 1200
-            }
+            },
+
+            bootstrap: false,
+            loadOnHover: true,
+            cacheLiveTime: 2000
         };
 
         /**
@@ -237,7 +245,7 @@
          * @function handleLoadEvents
          */
         function handleLoadEvents() {
-            var element, event;
+            var element, event, url;
 
             $.each($(_dataEvent), function() {
                 if (this.handled) {
@@ -271,6 +279,27 @@
                         }
                     });
                 } else {
+                    if (event === 'click' && _settings.loadOnHover && !_moff.detect.isMobile) {
+                        element.on('mouseenter' + _postfix, function() {
+                            element = $(this);
+                            url = element.attr('href') || element.data('loadUrl');
+                            url = removeHash(url);
+
+                            if (url) {
+                                url = handleUrlTemplate(element, url);
+
+                                load(url, function(data) {
+                                    _cache[url] = data;
+
+                                    // Clear cache each n seconds to prevent memory leak.
+                                    setTimeout(function() {
+                                        delete _cache[url];
+                                    }, _settings.cacheLiveTime);
+                                });
+                            }
+                        });
+                    }
+
                     element.on(event + _postfix, function() {
                         return handleLink(this);
                     });
@@ -300,7 +329,7 @@
         }
 
         /**
-         * Setup breakpoints.
+         * Setup breakpoints for Media Queries.
          * @function setBreakpoints
          */
         function setBreakpoints() {
@@ -378,6 +407,7 @@
             var url = element.attr('href') || element.data('loadUrl');
             var target = element.data('loadTarget');
             var push = element.data('pushUrl');
+            var id;
 
             if (url) {
                 url = handleUrlTemplate(element, url);
@@ -386,7 +416,7 @@
                 _moff.runCallbacks(_beforeLoad, element);
 
                 if (_moff.history && push !== undefined) {
-                    var id = +new Date();
+                    id = Date.now();
                     _win.history.pushState({elemId: id, url: url}, title, url);
                     _historyData[id] = element;
                 }
@@ -425,7 +455,7 @@
             var title;
             url = removeHash(url);
 
-            load(url, function(html) {
+            function applyContent(html) {
                 title = element.data('pageTitle');
                 $(target).html(html);
 
@@ -444,7 +474,14 @@
                         $(_win).scrollTop(top.offset().top);
                     }
                 }
-            });
+            }
+
+            // If data is cached load it from cache
+            if (_cache[url]) {
+                applyContent(_cache[url]);
+            } else {
+                load(url, applyContent);
+            }
         }
 
         /**
@@ -514,23 +551,25 @@
          * @function bootstrapPatches
          */
         function bootstrapPatches() {
-            var ua = navigator.userAgent;
-            var windows8 = ua.match(/MSIE 10\.0; Windows NT 6\.2/);
-            var windowsMobile = ua.match(/IEMobile\/10\.0/);
-            var msViewportStyle, isAndroid;
+            if (_settings.bootstrap) {
+                var ua = navigator.userAgent;
+                var windows8 = ua.match(/MSIE 10\.0; Windows NT 6\.2/);
+                var windowsMobile = ua.match(/IEMobile\/10\.0/);
+                var msViewportStyle, isAndroid;
 
-            if (windows8 || windowsMobile) {
-                msViewportStyle = '<style>@-webkit-viewport { width: device-width; }';
-                msViewportStyle += '@-moz-viewport { width: device-width; }';
-                msViewportStyle += '@-ms-viewport { width: ' + (windowsMobile ? 'auto' : 'device-width') + '; }';
-                msViewportStyle += '@-o-viewport { width: device-width; }';
-                msViewportStyle += '@viewport { width: device-width; }<\/style>';
-                $('head').append($(msViewportStyle));
-            }
+                if (windows8 || windowsMobile) {
+                    msViewportStyle = '<style>@-webkit-viewport { width: device-width; }';
+                    msViewportStyle += '@-moz-viewport { width: device-width; }';
+                    msViewportStyle += '@-ms-viewport { width: ' + (windowsMobile ? 'auto' : 'device-width') + '; }';
+                    msViewportStyle += '@-o-viewport { width: device-width; }';
+                    msViewportStyle += '@viewport { width: device-width; }<\/style>';
+                    $('head').append($(msViewportStyle));
+                }
 
-            isAndroid = (ua.indexOf('Mozilla/5.0') > -1 && ua.indexOf('Android ') > -1 && ua.indexOf('AppleWebKit') > -1 && ua.indexOf('Chrome') === -1);
-            if (isAndroid) {
-                $('select.form-control').removeClass('form-control').css('width', '100%');
+                isAndroid = (ua.indexOf('Mozilla/5.0') > -1 && ua.indexOf('Android ') > -1 && ua.indexOf('AppleWebKit') > -1 && ua.indexOf('Chrome') === -1);
+                if (isAndroid) {
+                    $('select.form-control').removeClass('form-control').css('width', '100%');
+                }
             }
         }
 
@@ -990,7 +1029,7 @@
          * Moff version.
          * @type {string}
          */
-        this.version = '1.2.16';
+        this.version = '1.3.16';
 
         /* test-code */
         this._testonly = {
@@ -1004,7 +1043,9 @@
 
             _registeredFiles: function() {
                 return _registeredFiles;
-            }
+            },
+
+            _cache: _cache
         };
         /* end-test-code */
     }
