@@ -6,6 +6,3 @@ bower_components
 
 # NPM modules
 node_modules
-
-# Distribution for Bower
-dist
