@@ -784,6 +784,10 @@ describe('Modularity', function() {
 			expect(Moff.module.get('Module2').length).toEqual(2);
 		});
 
+		it('has getAll method', function() {
+			expect(Object.keys(Moff.module.getAll()).length).toEqual(2);
+		});
+
 		it('has remove method', function() {
 			moduleObject.remove();
 			expect(Moff.module.get('Module2')).toBeUndefined();

@@ -165,6 +165,15 @@ function Module() {
 	};
 
 	/**
+	 * Returns all modules.
+	 * @method getAll
+	 * @returns {{}}
+	 */
+	this.getAll = function() {
+		return _moduleObjectStorage;
+	};
+
+	/**
 	 * Remove registered module by name.
 	 * @method remove
 	 */

@@ -939,7 +939,7 @@
          * Moff version.
          * @type {string}
          */
-        this.version = '1.4.16';
+        this.version = '1.4.17';
 
         /* Test-code */
         this._testonly = {
@@ -1117,6 +1117,15 @@
          */
         this.get = function(name) {
             return (_moduleObjectStorage.hasOwnProperty(name) && _moduleObjectStorage[name]) || undefined;
+        };
+
+        /**
+         * Returns all modules.
+         * @method getAll
+         * @returns {{}}
+         */
+        this.getAll = function() {
+            return _moduleObjectStorage;
         };
 
         /**
