@@ -15,14 +15,14 @@ describe('AMD', function() {
 			expect(Moff._testonly._registeredFiles().fakeId.loaded).toBe(false);
 
 			expect(typeof Moff._testonly._registeredFiles().fakeId.depend).toEqual('object');
-			expect($.isArray(Moff._testonly._registeredFiles().fakeId.depend.js)).toBe(true);
-			expect($.isArray(Moff._testonly._registeredFiles().fakeId.depend.css)).toBe(true);
+			expect(Array.isArray(Moff._testonly._registeredFiles().fakeId.depend.js)).toBe(true);
+			expect(Array.isArray(Moff._testonly._registeredFiles().fakeId.depend.css)).toBe(true);
 
 			expect(typeof Moff._testonly._registeredFiles().fakeId.files).toEqual('object');
-			expect($.isArray(Moff._testonly._registeredFiles().fakeId.files.js)).toBe(true);
-			expect($.isArray(Moff._testonly._registeredFiles().fakeId.files.css)).toBe(true);
+			expect(Array.isArray(Moff._testonly._registeredFiles().fakeId.files.js)).toBe(true);
+			expect(Array.isArray(Moff._testonly._registeredFiles().fakeId.files.css)).toBe(true);
 
-			expect($.isArray(Moff._testonly._registeredFiles().fakeId.loadOnScreen)).toBe(true);
+			expect(Array.isArray(Moff._testonly._registeredFiles().fakeId.loadOnScreen)).toBe(true);
 			expect(Moff._testonly._registeredFiles().fakeId.beforeInclude).toBeUndefined();
 			expect(Moff._testonly._registeredFiles().fakeId.afterInclude).toBeUndefined();
 			expect(Moff._testonly._registeredFiles().fakeId.onWindowLoad).toBe(false);
@@ -59,7 +59,10 @@ describe('AMD', function() {
 		});
 
 		afterAll(function() {
-			$('[src="fixtures/depend.js"], [src="fixtures/file.js"], [href="fixtures/depend.css"], [href="fixtures/file.css"]').remove();
+			var nodes = document.querySelectorAll('[src="fixtures/depend.js"], [src="fixtures/file.js"], [href="fixtures/depend.css"], [href="fixtures/file.css"]');
+			Moff.each(nodes, function(i, element) {
+				this.parentNode.removeChild(this);
+			});
 		});
 
 		it('includes registered module', function() {

@@ -51,7 +51,7 @@ function Detect() {
 			return !!(canvas.getContext && canvas.getContext('2d'));
 		})();
 
-		_detect.canvasText = !!(_detect.canvas && $.isFunction(_doc.createElement('canvas').getContext('2d').fillText));
+		_detect.canvasText = !!(_detect.canvas && typeof _doc.createElement('canvas').getContext('2d').fillText === 'function');
 		_detect.dragAndDrop = (function() {
 			var div = _doc.createElement('div');
 			return ('draggable' in div) || ('ondragstart' in div && 'ondrop' in div);

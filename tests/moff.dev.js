@@ -32,12 +32,6 @@
         var _deferredObjects = [];
 
         /**
-         * @property {Array} _visibleElements - Elements to be visible.
-         * @private
-         */
-        var _visibleElements = [];
-
-        /**
          * @property {boolean} _matchMediaSupport - Match media support and link.
          * @private
          */
@@ -120,12 +114,6 @@
         };
 
         /**
-         * @property {string} _postfix - Events postfix.
-         * @private
-         */
-        var _postfix = '.moff';
-
-        /**
          * @property {string} _dataEvent - Data load event selector.
          * @private
          */
@@ -142,11 +130,7 @@
          * @function handleEvents
          */
         function handleEvents() {
-            collectVisibleElements();
-
-            $(_win)
-                .on('load' + _postfix, windowLoadHandler)
-                .on('scroll' + _postfix, windowScrollHandler);
+            _win.addEventListener('load', windowLoadHandler, false);
 
             // Check for addListener method
             // because respond.js emulates matchMedia method
@@ -156,38 +140,15 @@
                 _matchMedia(_mqSmall).addListener(resizeHandler);
             } else {
                 // If matchMedia is not supported use resize fallback
-                $(_win).on('resize' + _postfix, resizeHandler);
+                _win.addEventListener('resize', resizeHandler, false);
             }
 
             if (_moff.hashchange) {
-                $(_win).on('hashchange' + _postfix, includeByHash);
+                _win.addEventListener('hashchange', includeByHash, false);
             }
 
-            $(_win).on('popstate' + _postfix, handlePopstate);
-            handleLoadEvents();
-
-            // Call window scroll event handler to load visible elements
-            windowScrollHandler();
-        }
-
-        /**
-         * Gather animated elements to be handled.
-         * @function collectVisibleElements
-         */
-        function collectVisibleElements() {
-            var element;
-
-            $.each($('[data-visible-scroll]'), function() {
-                element = $(this);
-
-                _visibleElements.push({
-                    // Remove [data-visible-scroll] attribute not to be handled twice
-                    element: element.removeAttr('data-visible-scroll').css('opacity', 0),
-                    handler: function() {
-                        _moff.appear(element);
-                    }
-                });
-            });
+            _win.addEventListener('popstate', handlePopstate, false);
+            _moff.handleDataEvents();
         }
 
         /**
@@ -203,27 +164,8 @@
 
             // Load deferred files.
             // These files included with MoFF.include method before window load event.
-            $.each(_deferredObjects, function(i, obj) {
+            _moff.each(_deferredObjects, function(i, obj) {
                 _moff.include(obj.id, obj.callback);
-            });
-        }
-
-        /**
-         * Window scroll event handler.
-         * @function windowScrollHandler
-         */
-        function windowScrollHandler() {
-            if (!_visibleElements.length) {
-                return;
-            }
-
-            var localVisible = _visibleElements.slice(0);
-            $.each(localVisible, function(i, obj) {
-                if (_moff.inViewport(obj.element)) {
-                    // Remove element from array not to be handled twice
-                    _visibleElements.splice(i, 1);
-                    obj.handler();
-                }
             });
         }
 
@@ -235,36 +177,38 @@
         function resizeHandler(mql) {
             if ((_matchMediaSupport && mql.matches) || _moff.viewModeIsChanged()) {
                 setViewMode();
+
                 _moff.runCallbacks(_changeViewCallbacks, _moff, [_moff.getMode()]);
-                handleLoadEvents();
+                _moff.handleDataEvents();
             }
         }
 
         /**
          * Handle load events.
-         * @function handleLoadEvents
+         * @method handleDataEvents
          */
-        function handleLoadEvents() {
+        this.handleDataEvents = function() {
             var element, event, url;
 
-            $.each($(_dataEvent), function() {
-                if (this.handled) {
+            _moff.each(_doc.querySelectorAll(_dataEvent), function() {
+                element = this;
+                if (element.handled) {
                     return;
                 }
 
-                element = $(this);
-                event = (element.data('loadEvent') || 'click').toLowerCase();
+                event = (element.getAttribute('data-load-event') || 'click').toLowerCase();
 
                 if (event === 'dom') {
                     if (checkDataScreen(element)) {
-                        handleLink(this);
+                        handleLink(element);
                     } else {
                         // If load screen size does not fit, link should be handled with click event
-                        element.on('click' + _postfix, function() {
+                        element.addEventListener('click', function() {
                             handleLink(this);
-                        });
+                        }, false);
                     }
                 } else if (event === 'scroll') {
+                    // @todo replace _visibleElements to another
                     _visibleElements.push({
                         element: element,
                         handler: function() {
@@ -280,9 +224,9 @@
                     });
                 } else {
                     if (event === 'click' && _settings.loadOnHover && !_moff.detect.isMobile) {
-                        element.on('mouseenter' + _postfix, function() {
-                            element = $(this);
-                            url = element.attr('href') || element.data('loadUrl');
+                        element.addEventListener('mouseenter', function() {
+                            element = this;
+                            url = element.href || element.getAttribute('data-load-url');
                             url = removeHash(url);
 
                             if (url) {
@@ -297,12 +241,13 @@
                                     }, _settings.cacheLiveTime);
                                 });
                             }
-                        });
+                        }, false);
                     }
 
-                    element.on(event + _postfix, function() {
-                        return handleLink(this);
-                    });
+                    element.addEventListener(event, function(event) {
+                        handleLink(this);
+                        event.preventDefault();
+                    }, false);
                 }
 
                 this.handled = true;
@@ -316,8 +261,8 @@
          * @returns {boolean} Return true if no data load screen
          */
         function checkDataScreen(element) {
-            var screen = element.data('loadScreen');
-            return screen ? $.inArray(_moff.getMode(), screen.split(' ')) !== -1 : true;
+            var screen = element.getAttribute('data-load-screen');
+            return screen ? screen.split(' ').indexOf(_moff.getMode()) !== -1 : true;
         }
 
         /**
@@ -325,7 +270,14 @@
          * @param {object} settings - Core settings
          */
         function extendSettings(settings) {
-            $.extend(_settings, settings);
+            var property;
+            if (typeof settings === 'object') {
+                for (property in settings) {
+                    if (settings.hasOwnProperty(property)) {
+                        _settings[property] = settings[property];
+                    }
+                }
+            }
         }
 
         /**
@@ -370,8 +322,8 @@
         function includeByScreenSize() {
             var screenMode = _moff.getMode();
 
-            $.each(_registeredFiles, function(id, obj) {
-                if ($.inArray(screenMode, obj.loadOnScreen) !== -1) {
+            _moff.each(_registeredFiles, function(id, obj) {
+                if (obj.loadOnScreen.indexOf(screenMode) !== -1) {
                     _moff.include(id);
                 }
             });
@@ -383,7 +335,7 @@
          * @param {function} callback - Callback on success
          */
         function load(url, callback) {
-            $.ajax({
+            _moff.ajax({
                 url: url,
                 type: 'GET',
                 success: function(data) {
@@ -401,18 +353,16 @@
          * @returns {boolean} false
          */
         function handleLink(element) {
-            element = $(element);
-
-            var title = element.attr('title') || '';
-            var url = element.attr('href') || element.data('loadUrl');
-            var target = element.data('loadTarget');
-            var push = element.data('pushUrl');
+            var title = element.title || '';
+            var url = element.href || element.getAttribute('data-load-url');
+            var target = element.getAttribute('data-load-target');
+            var push = element.getAttribute('data-push-url');
             var id;
 
             if (url) {
                 url = handleUrlTemplate(element, url);
                 // Remove data attributes not to handle twice
-                element.removeAttr('data-load-event');
+                element.removeAttribute('data-load-event');
                 _moff.runCallbacks(_beforeLoad, element);
 
                 if (_moff.history && push !== undefined) {
@@ -425,8 +375,6 @@
                     _moff.runCallbacks(_afterLoad, element);
                 });
             }
-
-            return false;
         }
 
         /**
@@ -451,29 +399,21 @@
          * @param {function} callback
          */
         function loadContent(element, url, target, callback) {
-            var hash = getHash(url);
             var title;
+
             url = removeHash(url);
 
             function applyContent(html) {
-                title = element.data('pageTitle');
-                $(target).html(html);
+                title = element.getAttribute('data-page-title');
+                _doc.querySelector(target).innerHTML = html;
 
                 if (title) {
                     _doc.title = title;
                 }
 
                 // Handle events of new added elements
-                _moff.reusableEvents();
+                _moff.handleDataEvents();
                 callback();
-
-                if (hash) {
-                    // Use document.getElementById to escape syntax error for jQuery selector
-                    var top = $(document.getElementById(hash)).add('a[name="' + hash + '"]');
-                    if (top.length) {
-                        $(_win).scrollTop(top.offset().top);
-                    }
-                }
             }
 
             // If data is cached load it from cache
@@ -503,7 +443,7 @@
             }
 
             var url = state.url;
-            var target = element.data('loadTarget');
+            var target = element.getAttribute('data-load-target');
 
             _moff.runCallbacks(_beforeLoad, element);
             loadContent(element, url, target, function() {
@@ -546,37 +486,13 @@
             includeByScreenSize();
         }
 
-        /**
-         * Adds all Twitter Bootstrap patches.
-         * @function bootstrapPatches
-         */
-        function bootstrapPatches() {
-            if (_settings.bootstrap) {
-                var ua = navigator.userAgent;
-                var windows8 = ua.match(/MSIE 10\.0; Windows NT 6\.2/);
-                var windowsMobile = ua.match(/IEMobile\/10\.0/);
-                var msViewportStyle, isAndroid;
+        function nodeList(node) {
+            var type = Object.prototype.toString.call(node);
 
-                if (windows8 || windowsMobile) {
-                    msViewportStyle = '<style>@-webkit-viewport { width: device-width; }';
-                    msViewportStyle += '@-moz-viewport { width: device-width; }';
-                    msViewportStyle += '@-ms-viewport { width: ' + (windowsMobile ? 'auto' : 'device-width') + '; }';
-                    msViewportStyle += '@-o-viewport { width: device-width; }';
-                    msViewportStyle += '@viewport { width: device-width; }<\/style>';
-                    $('head').append($(msViewportStyle));
-                }
-
-                isAndroid = (ua.indexOf('Mozilla/5.0') > -1 && ua.indexOf('Android ') > -1 && ua.indexOf('AppleWebKit') > -1 && ua.indexOf('Chrome') === -1);
-                if (isAndroid) {
-                    $('select.form-control').removeClass('form-control').css('width', '100%');
-                }
-            }
+            return typeof /^\[object (HTMLCollection|NodeList)\]$/.test(type)
+                && node.hasOwnProperty('length')
+                && (node.length === 0 || (typeof node[0] === 'object' && node[0].nodeType > 0));
         }
-
-        /**
-         * @property {string} mode - Framework mode.
-         */
-        this.mode = 'moff';
 
         /**
          * Run initialisation of base handlers
@@ -589,75 +505,13 @@
                 settings = {};
             }
 
-            $(function() {
+            _doc.addEventListener('DOMContentLoaded', function() {
                 extendSettings(settings);
                 setBreakpoints();
                 setViewMode();
                 handleEvents();
                 includeRegister();
-                bootstrapPatches();
-            });
-        };
-
-        /**
-         * Show element with transition effect.
-         * @method appear
-         * @param {object} element - DOM element
-         */
-        this.appear = function(element, duration) {
-            // Normalize duration
-            duration = duration || 1;
-
-            // Convert to milliseconds
-            duration = duration * 1000;
-
-            if (_moff.supportCSS3('transition')) {
-                element.css({
-                    '-webkit-transition': 'opacity' + duration + 'ms',
-                    '-moz-transition': 'opacity' + duration + 'ms',
-                    '-o-transition': 'opacity' + duration + 'ms',
-                    transition: 'opacity' + duration + 'ms',
-                    opacity: 1
-                });
-            } else {
-                // Fallback if browser does not support CSS3 transition
-                element.animate({opacity: 1}, duration);
-            }
-        };
-
-        /**
-         * Execute all reusable events.
-         * @method reusableEvents
-         */
-        this.reusableEvents = function() {
-            collectVisibleElements();
-            handleLoadEvents();
-            windowScrollHandler();
-        };
-
-        /**
-         * Determine whether element in view port.
-         * @method inViewport
-         * @param {object} element - DOM element
-         * @returns {boolean}
-         */
-        this.inViewport = function(element) {
-            var bounds;
-            var win = $(_win);
-            var viewport = {
-                top: win.scrollTop(),
-                left: win.scrollLeft()
-            };
-
-            element = $(element);
-            viewport.right = viewport.left + win.width();
-            viewport.bottom = viewport.top + win.height();
-
-            bounds = element.offset();
-            bounds.right = bounds.left + element.outerWidth();
-            bounds.bottom = bounds.top + element.outerHeight();
-
-            return !(viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom);
+            }, false);
         };
 
         /**
@@ -674,12 +528,57 @@
 
             for (; i < length; i++) {
                 property = props[i];
-                if (property.indexOf('-') === -1 && document.createElement(this.mode).style[property] !== undefined) {
+                if (property.indexOf('-') === -1 && document.createElement('div').style[property] !== undefined) {
                     return true;
                 }
             }
 
             return false;
+        };
+
+        this.ajax = function(options) {
+            var params = [];
+            var key, data;
+
+            // Make type upper case
+            options.type = options.type.toUpperCase();
+
+            // Set data object to send them as POST or GET params
+            if (typeof options.data === 'object') {
+                data = options.data;
+
+                for (key in data) {
+                    if (data.hasOwnProperty(key)) {
+                        params.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
+                    }
+                }
+                options.data = params.join('&');
+            }
+
+            // Here data has additional GET params
+            // Object could not be send with GET method
+            if(options.type === 'GET' && options.data) {
+                options.url += (options.url.indexOf('?') !== -1 ? '&' : '?') + options.data.replace(/%20/g, '+');
+                options.data = null;
+            }
+
+            var xhr = new XMLHttpRequest();
+            xhr.open(options.type, options.url, true);
+
+            xhr.setRequestHeader('Content-Type', options.contentType || 'application/x-www-form-urlencoded; charset=UTF-8');
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+            xhr.onload = function() {
+                var status = this.status;
+                if(status >= 200 && status < 300 || status === 304) {
+                    options.success(this.response, this);
+                }
+                else {
+                    options.error(this);
+                }
+            };
+
+            xhr.send(options.data);
         };
 
         /**
@@ -690,7 +589,7 @@
          */
         this.runCallbacks = function(collection, context, args) {
             // Normalize collection
-            if (!$.isArray(collection)) {
+            if (!Array.isArray(collection)) {
                 collection = [];
             }
 
@@ -699,7 +598,7 @@
                 args = [];
             }
 
-            $.each(collection, function(i, callback) {
+            _moff.each(collection, function(i, callback) {
                 if (typeof callback === 'function') {
                     callback.apply(context, args);
                 }
@@ -804,18 +703,18 @@
             // Mark as loaded
             register.loaded = true;
 
-            if ($.isFunction(register.beforeInclude)) {
+            if (typeof register.beforeInclude === 'function') {
                 register.beforeInclude();
             }
 
             function loadFiles() {
-                _moff.loadDepends(register.files, execCallback);
+                _moff.loadAssets(register.files, execCallback);
             }
 
-            this.loadDepends(register.depend, loadFiles);
+            this.loadAssets(register.depend, loadFiles);
 
             function execCallback() {
-                if ($.isFunction(register.afterInclude)) {
+                if (typeof register.afterInclude === 'function') {
                     register.afterInclude();
                 }
 
@@ -827,15 +726,15 @@
 
         /**
          * Load files and run callback.
-         * @method loadDepends
+         * @method loadAssets
          * @param {object} depends - Object with js and css files to be loaded
          * @param {function} callback - Function executed after files be loaded
          */
-        this.loadDepends = function(depends, callback) {
+        this.loadAssets = function(depends, callback) {
             var loaded = 0;
             var length = 0;
-            var isCSS = $.isArray(depends.css);
-            var isJS = $.isArray(depends.js);
+            var isCSS = Array.isArray(depends.css);
+            var isJS = Array.isArray(depends.js);
 
             if (isJS) {
                 length += depends.js.length;
@@ -854,12 +753,17 @@
 
             if (isJS && depends.js.length) {
                 // Load depend js files
-                this.loadJS(depends.js, runCallback);
+                this.each(depends.js, function(i, src) {
+                    _moff.loadJS(src, runCallback);
+                });
+
             }
 
             if (isCSS && depends.css.length) {
                 // Load depend css files
-                this.loadCSS(depends.css, runCallback);
+                this.each(depends.css, function(i, href) {
+                    _moff.loadCSS(href, runCallback);
+                });
             }
 
             if (!length) {
@@ -870,96 +774,73 @@
         /**
          * Load js file and run callback on load.
          * @method loadJS
-         * @param {array|string} files - Array or path of loaded files
+         * @param {string} src - Array or path of loaded files
          * @param {function} [callback] - On load event callback
          */
-        this.loadJS = function(files, callback) {
-            if (!$.isArray(files) && typeof files !== 'string') {
-                window.console.warn('Moff.loadJS source is not an array or a string');
+        this.loadJS = function(src, callback) {
+            if (typeof src !== 'string') {
+                window.console.warn('Moff.loadJS source is not a string');
                 return;
             }
 
             var script;
             var hasCallback = typeof callback === 'function';
 
-            function includeScript(src) {
-                // Load script if it is not existing on the page
-                if (!$('script[src="' + src + '"]').length) {
-                    // If set src attribute before append
-                    // jQuery will load script with ajax request
-                    script = $('<script>');
+            // Load script if it is not existing on the page
+            if (!_doc.querySelector('script[src="' + src + '"]')) {
+                // If set src attribute before append
+                // jQuery will load script with ajax request
+                script = _doc.createElement('script');
 
-                    if (hasCallback) {
-                        script.on('load', callback);
-                    }
-
-                    script
-                        .appendTo($('body').length && $('body') || $('head'))
-                        .attr('src', src);
-                } else if (hasCallback) {
-                    callback();
+                if (hasCallback) {
+                    script.addEventListener('load', callback, false);
                 }
-            }
-
-            if ($.isArray(files)) {
-                $.each(files, function(index, src) {
-                    includeScript(src);
-                });
-            } else {
-                includeScript(files);
+                script.src = src;
+                _doc.querySelector('body').appendChild(script);
+            } else if (hasCallback) {
+                callback();
             }
         };
 
         /**
          * Load css file and run callback on load.
          * @method loadCSS
-         * @param {array|string} files - Array or path of loaded files
+         * @param {string} href - Array or path of loaded files
          * @param {function} callback - On load event callback
          */
-        this.loadCSS = function(files, callback) {
-            if (!$.isArray(files) && typeof files !== 'string') {
-                window.console.warn('Moff.loadCSS source is not array or string');
+        this.loadCSS = function(href, callback) {
+            if (typeof href !== 'string') {
+                window.console.warn('Moff.loadCSS source is a string');
                 return;
             }
 
             var link;
             var hasCallback = typeof callback === 'function';
 
-            function includeStyle(href) {
-                // Load link if it is not existing on the page
-                if (!$('link[href="' + href + '"]').length) {
-                    link = $('<link rel="stylesheet">');
+            // Load link if it is not existing on the page
+            if (!_doc.querySelector('link[href="' + href + '"]')) {
+                link = _doc.createElement('link');
 
-                    if (hasCallback) {
-                        link.on('load', callback);
-                    }
-
-                    link
-                        .attr('href', files)
-                        .appendTo('head');
-
-                    link = link[0];
-                    link.onreadystatechange = function() {
-                        var state = link.readyState;
-                        if (state === 'loaded' || state === 'complete') {
-                            link.onreadystatechange = null;
-
-                            if (hasCallback) {
-                                callback();
-                            }
-                        }
-                    };
-                } else if (hasCallback) {
-                    callback();
+                if (hasCallback) {
+                    link.addEventListener('load', callback, false);
                 }
-            }
 
-            if ($.isArray(files)) {
-                $.each(files, function(index, href) {
-                    includeStyle(href);
-                });
-            } else {
-                includeStyle(files);
+                link.href = href;
+                link.setAttribute('rel', 'stylesheet');
+                _doc.querySelector('head').appendChild(link);
+
+                link.onreadystatechange = function() {
+                    var state = link.readyState;
+                    if (state === 'loaded' || state === 'complete') {
+                        link.onreadystatechange = null;
+
+                        if (hasCallback) {
+                            callback();
+                        }
+                    }
+                };
+            } else if (hasCallback) {
+                callback();
             }
         };
 
@@ -987,6 +868,23 @@
         };
 
         /**
+         * Overwrites and adds object methods and properties.
+         * @method reopen
+         * @param {object} methods - Object of properties or methods
+         */
+        this.reopen = function(methods) {
+            if (typeof methods !== 'object') {
+                window.console.warn('Reopen method argument must be an object');
+                return;
+            }
+
+            var obj = this;
+            obj.each(methods, function(property, value) {
+                obj[property] = value;
+            });
+        };
+
+        /**
          * Extend classes.
          * @method extendClass
          * @param {function} child - Child constructor
@@ -998,7 +896,7 @@
             F.prototype = new Parent();
             child.prototype = new F();
             child.prototype.constructor = child;
-            child.parentClass = parent.prototype;
+            child.parentClass = Parent.prototype;
         };
 
         /**
@@ -1025,18 +923,41 @@
             }
         };
 
+        this.each = function(object, callback) {
+            var i = 0;
+            var length = object.length;
+            var isArray = Array.isArray(object) || nodeList(object);
+            var value;
+
+            if (isArray) {
+                for (; i < length; i++) {
+                    value = callback.call(object[i], i, object[i]);
+
+                    if (value === false) {
+                        break;
+                    }
+                }
+            } else {
+                for (i in object) {
+                    if (object.hasOwnProperty(i)) {
+                        value = callback.call(object[i], i, object[i]);
+
+                        if (value === false) {
+                            break;
+                        }
+                    }
+                }
+            }
+        };
+
         /**
          * Moff version.
          * @type {string}
          */
-        this.version = '1.3.16';
+        this.version = '1.4.16';
 
-        /* test-code */
+        /* Test-code */
         this._testonly = {
-            _visibleElements: function() {
-                return _visibleElements;
-            },
-
             _deferredObjects: function() {
                 return _deferredObjects;
             },
@@ -1047,7 +968,7 @@
 
             _cache: _cache
         };
-        /* end-test-code */
+        /* End-test-code */
     }
 
     var $$core$e6$$default = $$core$e6$$Core;
@@ -1072,8 +993,8 @@
          * @param {Array} events - Array of events
          */
         function registerModuleEvents(events) {
-            if ($.isArray(events)) {
-                $.each(events, function(index, event) {
+            if (Array.isArray(events)) {
+                _module.each(events, function(index, event) {
                     _module.event.add(event);
                 });
             }
@@ -1155,7 +1076,7 @@
                 var storedObject = _moduleObjectStorage[ClassName];
 
                 // Store objects in array if there are more then one classes
-                if ($.isArray(storedObject)) {
+                if (Array.isArray(storedObject)) {
                     storedObject.push(classObject);
                 } else if (typeof storedObject !== 'undefined') {
                     _moduleObjectStorage[ClassName] = [storedObject, classObject];
@@ -1169,7 +1090,7 @@
 
                 if (params) {
                     // Apply all passed data
-                    $.each(params, function(key, value) {
+                    _module.each(params, function(key, value) {
                         classObject[key] = value;
                     });
                 }
@@ -1194,7 +1115,7 @@
 
             try {
                 if (moduleObject.depends) {
-                    this.loadDepends(moduleObject.depends, initialize);
+                    this.loadAssets(moduleObject.depends, initialize);
                 } else {
                     initialize();
                 }
@@ -1230,7 +1151,7 @@
             }
 
             // Be sure to remove existing module
-            if ($.isArray(_moduleObjectStorage[name])) {
+            if (Array.isArray(_moduleObjectStorage[name])) {
                 length = _moduleObjectStorage[name].length;
 
                 for (; i < length; i++) {
@@ -1261,7 +1182,7 @@
          */
         this.setScope = function() {
             if (this.scopeSelector) {
-                this.scope = $(this.scopeSelector);
+                this.scope = document.querySelector(this.scopeSelector);
             }
         };
 
@@ -1272,15 +1193,15 @@
          * @returns {object} jQuery object.
          */
         this.find = function(selector) {
-            return this.scope.find(selector);
+            return this.scope.querySelectorAll(selector);
         };
 
-        /* test-code */
+        /* Test-code */
         this._testonly = {
             _moduleClassStorage: _moduleClassStorage,
             _moduleObjectStorage: _moduleObjectStorage
         };
-        /* end-test-code */
+        /* End-test-code */
     }
 
     var $$module$e6$$default = $$module$e6$$Module;
@@ -1333,7 +1254,7 @@
                 return !!(canvas.getContext && canvas.getContext('2d'));
             })();
 
-            _detect.canvasText = !!(_detect.canvas && $.isFunction(_doc.createElement('canvas').getContext('2d').fillText));
+            _detect.canvasText = !!(_detect.canvas && typeof _doc.createElement('canvas').getContext('2d').fillText === 'function');
             _detect.dragAndDrop = (function() {
                 var div = _doc.createElement('div');
                 return ('draggable' in div) || ('ondragstart' in div && 'ondrop' in div);
@@ -1535,11 +1456,11 @@
             }
         };
 
-        /* test-code */
+        /* Test-code */
         this._testonly = {
             _eventStore: _eventStore
         };
-        /* end-test-code */
+        /* End-test-code */
     }
 
     var $$event$e6$$default = $$event$e6$$Event;

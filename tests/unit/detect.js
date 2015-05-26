@@ -64,17 +64,23 @@ describe('Moff Detect', function() {
 		});
 	});
 
-	it('supports browser detection', function() {
-		expect(Moff.detect.browser.version).not.toBeUndefined();
-		delete Moff.detect.browser.version;
-		expect(['chrome', 'msie', 'mozilla', 'opera', 'webkit']).toContain(Object.keys(Moff.detect.browser)[0]);
+	describe('Moff.browser', function() {
+		it('supports browser detection', function() {
+			expect(Moff.detect.browser.version).not.toBeUndefined();
+			delete Moff.detect.browser.version;
+			expect(['chrome', 'msie', 'mozilla', 'opera', 'webkit']).toContain(Object.keys(Moff.detect.browser)[0]);
+		});
+	})
+
+	describe('Moff.OS', function() {
+		it('supports OS detection', function() {
+			expect(['iOS', 'macOS', 'windows', 'android', 'windowsPhone']).toContain(Object.keys(Moff.detect.OS)[0]);
+		});
 	});
 
-	it('supports OS detection', function() {
-		expect(['iOS', 'macOS', 'windows', 'android', 'windowsPhone']).toContain(Object.keys(Moff.detect.OS)[0]);
-	});
-
-	it('support mobile device detection', function() {
-		expect(Moff.detect.isMobile).not.toBeUndefined();
+	describe('Moff.detect.isMobile', function() {
+		it('support mobile device detection', function() {
+			expect(Moff.detect.isMobile).not.toBeUndefined();
+		});
 	});
 });

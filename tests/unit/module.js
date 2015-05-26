@@ -30,7 +30,15 @@ describe('Modularity', function() {
 		var beforeInit, init, afterInit;
 
 		beforeAll(function(done) {
-			$('body').append('<div class="mod-wrapper"><div class="inside"></div></div><div class="inside"></div>');
+			var div = document.createElement('div');
+			div.innerHTML = '<div class="inside"></div>';
+			div.className = 'mod-wrapper';
+
+			var inside = document.createElement('div');
+			inside.className = 'inside';
+
+			document.body.appendChild(div);
+			document.body.appendChild(inside);
 
 			Moff.module.register('Module2', function() {
 				this.scopeSelector = '.mod-wrapper';
@@ -63,8 +71,9 @@ describe('Modularity', function() {
 		});
 
 		it('loads all dependency files', function() {
-			expect($('[src="fixtures/depend.js"], [href="fixtures/depend.css"]').length).toEqual(2);
-			$('script[src="fixtures/depend.js"]').remove();
+			expect(document.querySelectorAll('[src="fixtures/depend.js"], [href="fixtures/depend.css"]').length).toEqual(2);
+			var s = document.querySelector('script[src="fixtures/depend.js"]');
+			s.parentNode.removeChild(s);
 		});
 
 		it('beforeInit and init hooks access to properties', function() {
@@ -78,12 +87,12 @@ describe('Modularity', function() {
 		});
 
 		it('registers module scope', function() {
-			expect(Moff.module.get('Module2').scope.length).toEqual(1);
+			expect(Moff.module.get('Module2').scope.className).toEqual('mod-wrapper');
 		});
 
 		it('register events', function() {
-			expect($.isArray(Moff.module.event._testonly._eventStore['event1'])).toBe(true);
-			expect($.isArray(Moff.module.event._testonly._eventStore['event2'])).toBe(true);
+			expect(Array.isArray(Moff.module.event._testonly._eventStore['event1'])).toBe(true);
+			expect(Array.isArray(Moff.module.event._testonly._eventStore['event2'])).toBe(true);
 		});
 	});
 
@@ -100,13 +109,13 @@ describe('Modularity', function() {
 		it('set only defined scope', function() {
 			moduleObject.scopeSelector = null;
 			moduleObject.setScope();
-			expect(moduleObject.scope.hasClass('mod-wrapper')).toBe(true);
+			expect(moduleObject.scope.className).toEqual('mod-wrapper');
 		});
 
 		it('has get method', function() {
 			expect(typeof moduleObject).toEqual('object');
 			Moff.module.initClass('Module2', {id: 'modId'});
-			expect($.isArray(Moff.module.get('Module2'))).toBe(true);
+			expect(Array.isArray(Moff.module.get('Module2'))).toBe(true);
 			expect(Moff.module.get('Module2').length).toEqual(2);
 		});
 

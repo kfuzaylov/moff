@@ -23,8 +23,8 @@ function Module() {
 	 * @param {Array} events - Array of events
 	 */
 	function registerModuleEvents(events) {
-		if ($.isArray(events)) {
-			$.each(events, function(index, event) {
+		if (Array.isArray(events)) {
+			_module.each(events, function(index, event) {
 				_module.event.add(event);
 			});
 		}
@@ -106,7 +106,7 @@ function Module() {
 			var storedObject = _moduleObjectStorage[ClassName];
 
 			// Store objects in array if there are more then one classes
-			if ($.isArray(storedObject)) {
+			if (Array.isArray(storedObject)) {
 				storedObject.push(classObject);
 			} else if (typeof storedObject !== 'undefined') {
 				_moduleObjectStorage[ClassName] = [storedObject, classObject];
@@ -120,7 +120,7 @@ function Module() {
 
 			if (params) {
 				// Apply all passed data
-				$.each(params, function(key, value) {
+				_module.each(params, function(key, value) {
 					classObject[key] = value;
 				});
 			}
@@ -145,7 +145,7 @@ function Module() {
 
 		try {
 			if (moduleObject.depends) {
-				this.loadDepends(moduleObject.depends, initialize);
+				this.loadAssets(moduleObject.depends, initialize);
 			} else {
 				initialize();
 			}
@@ -181,7 +181,7 @@ function Module() {
 		}
 
 		// Be sure to remove existing module
-		if ($.isArray(_moduleObjectStorage[name])) {
+		if (Array.isArray(_moduleObjectStorage[name])) {
 			length = _moduleObjectStorage[name].length;
 
 			for (; i < length; i++) {
@@ -212,7 +212,7 @@ function Module() {
 	 */
 	this.setScope = function() {
 		if (this.scopeSelector) {
-			this.scope = $(this.scopeSelector);
+			this.scope = document.querySelector(this.scopeSelector);
 		}
 	};
 
@@ -223,7 +223,7 @@ function Module() {
 	 * @returns {object} jQuery object.
 	 */
 	this.find = function(selector) {
-		return this.scope.find(selector);
+		return this.scope.querySelectorAll(selector);
 	};
 
 	/* Test-code */

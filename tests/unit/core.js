@@ -1,24 +1,19 @@
-describe('Moff dependency', function() {
-	it('is jQuery', function() {
-		expect(typeof window.$.fn.jquery).toEqual('string');
-	});
-});
+describe('Moff Core', function() {
 
-describe('Moff framework', function() {
-	it('is initialized', function() {
-		expect(typeof window.Moff).toEqual('object');
+	describe('Moff global object', function() {
+		it('is initialized', function() {
+			expect(typeof window.Moff).toEqual('object');
+		});
 	});
-});
 
-describe('Moff framework API', function() {
-	describe('Moff.getMode', function() {
-		it('get current screen mode', function() {
+	describe('Moff.getMode method', function() {
+		it('gets current screen mode', function() {
 			var mode = Moff.getMode();
 			expect(['xs', 'sm', 'md', 'lg']).toContain(mode);
 		});
 	});
 
-	describe('Moff.settings', function() {
+	describe('Moff.settings method', function() {
 		it('has getter', function() {
 			Moff.settings('cache', true);
 			expect(Moff.settings('cache')).toBe(true);
@@ -35,47 +30,33 @@ describe('Moff framework API', function() {
 		});
 	});
 
-	describe('Moff.appear method', function() {
-		var div = $('<div style="opacity: 0;"></div>');
-		var div2 = $('<div style="opacity: 0;"></div>');
+	describe('Moff.each method', function() {
+		it('goes through array', function() {
+			Moff.each([1,2,3,4], function(index, value) {
+				if (value === 1) {
+					expect(index).toEqual(0)
+				}
 
-		afterAll(function() {
-			div.remove();
-			div2.remove();
+				if (index === 0) {
+					expect(value).toEqual(1)
+				}
+
+				expect(this).toEqual(value);
+			});
 		});
 
-		it('show element by default in 1 second', function(done) {
-			Moff.appear(div);
-			setTimeout(function() {
-				expect(div.css('opacity')).toEqual('1');
-				done();
-			}, 1100);
-		});
+		it('goes through object', function() {
+			Moff.each({one: 1, two: 2}, function(key, value) {
+				if (value === 1) {
+					expect(key).toEqual('one')
+				}
 
-		it('show element in set time - 2 seconds', function(done) {
-			Moff.appear(div2, 2);
-			setTimeout(function() {
-				expect(div2.css('opacity')).toEqual('1');
-				done();
-			}, 2100);
-		});
-	});
+				if (key === 'one') {
+					expect(value).toEqual(1)
+				}
 
-	describe('Moff.isVisible method', function() {
-		var div = $('<div>').appendTo('body');
-		var div2 = $('<div style="position: relative; top: -2500px;"></div>').appendTo('body');
-
-		afterAll(function() {
-			div.remove();
-			div2.remove();
-		});
-
-		it('determines element in view port', function() {
-			expect(Moff.inViewport(div)).toBe(true);
-		});
-
-		it('determines element is not in view port', function() {
-			expect(Moff.inViewport(div2)).toBe(false);
+				expect(this).toEqual(value);
+			});
 		});
 	});
 
@@ -129,6 +110,34 @@ describe('Moff framework API', function() {
 		});
 	});
 
+	describe('Moff.reopen method', function() {
+		it('adds new methods and properties', function() {
+			Moff.reopen({
+				newProp: 1,
+				newMethod: function() {
+					return 1;
+				}
+			});
+
+			expect(Moff.newProp).toEqual(1);
+			expect(typeof Moff.newMethod).toEqual('function');
+			expect(Moff.newMethod()).toEqual(1);
+		});
+
+		it('overwrites methods and properties', function() {
+			Moff.reopen({
+				newProp: 3,
+				newMethod: function() {
+					return 2;
+				}
+			});
+
+			expect(Moff.newProp).toEqual(3);
+			expect(typeof Moff.newMethod).toEqual('function');
+			expect(Moff.newMethod()).toEqual(2);
+		});
+	});
+
 	describe('Moff.extendClass method', function() {
 		var childObj;
 		function Parent() {
@@ -163,28 +172,108 @@ describe('Moff framework API', function() {
 		});
 	});
 
-	describe('Moff.loadJS method', function() {
-		it('loads array of js files', function(done) {
-			Moff.loadJS(['fixtures/depend.js', 'fixtures/file.js'], function() {
-				expect($('script[src="fixtures/depend.js"], script[src="fixtures/file.js"]').length).toEqual(2);
-				$('script[src="fixtures/depend.js"], script[src="fixtures/file.js"]').remove();
+	describe('Moff.loadAssets method', function() {
+		it('loads bunch js and css files', function(done) {
+			Moff.loadAssets({
+				js: ['fixtures/depend.js'],
+				css: ['fixtures/depend.css']
+			}, function() {
+				var nodes = document.querySelectorAll('script[src="fixtures/depend.js"], link[href="fixtures/depend.css"]');
+				expect(nodes.length).toEqual(2);
+
+				Moff.each(nodes, function() {
+					this.parentNode.removeChild(this);
+				});
 				done();
 			});
 		});
+	});
 
-		it('loads single files', function(done) {
-			Moff.loadJS('fixtures/depend.js', function() {
-				expect($('script[src="fixtures/depend.js"]').length).toEqual(1);
+	describe('Moff.loadJS method', function() {
+		it('loads js file', function(done) {
+			Moff.loadJS('fixtures/file.js', function() {
+				expect(document.querySelectorAll('script[src="fixtures/file.js"]').length).toEqual(1);
 				done();
 			});
 		});
 
 		it('does not load existing file', function(done) {
-			Moff.loadJS('fixtures/depend.js');
-			setTimeout(function() {
-				expect($('script[src="fixtures/depend.js"]').length).toEqual(1);
+			Moff.loadJS('fixtures/file.js', function() {
+				expect(document.querySelectorAll('script[src="fixtures/file.js"]').length).toEqual(1);
 				done();
-			}, 1000);
+			});
+		});
+	});
+
+	describe('Moff.loadCSS method', function() {
+		it('loads css file', function(done) {
+			Moff.loadCSS('fixtures/file.css', function() {
+				expect(document.querySelectorAll('link[href="fixtures/file.css"]').length).toEqual(1);
+				done();
+			});
+		});
+
+		it('does not load existing file', function(done) {
+			Moff.loadCSS('fixtures/file.css', function() {
+				expect(document.querySelectorAll('link[href="fixtures/file.css"]').length).toEqual(1);
+				done();
+			});
+		});
+	});
+
+	describe('Moff.ajax method', function() {
+		var content;
+
+		beforeEach(function() {
+			jasmine.Ajax.install();
+		});
+
+		afterEach(function() {
+			jasmine.Ajax.uninstall();
+		});
+
+		it('can can make GET request', function() {
+			var doneFn = jasmine.createSpy("success");
+
+			Moff.ajax({
+				type: 'GET',
+				url: 'content.html',
+				success: function(html) {
+					doneFn(html);
+				}
+			});
+
+			expect(jasmine.Ajax.requests.mostRecent().method).toBe('GET');
+
+			jasmine.Ajax.requests.mostRecent().respondWith({
+				"status": 200,
+				"contentType": 'text/plain',
+				"responseText": 'awesome response'
+			});
+
+			expect(doneFn).toHaveBeenCalledWith('awesome response');
+		});
+
+		it('can can make POST request', function() {
+			var doneFn = jasmine.createSpy("success");
+
+			Moff.ajax({
+				type: 'POST',
+				url: 'content2.html',
+				success: function(html) {
+					doneFn(html);
+				}
+			});
+
+			expect(jasmine.Ajax.requests.mostRecent().method).toBe('POST');
+
+			jasmine.Ajax.requests.mostRecent().respondWith({
+				"status": 200,
+				"contentType": 'text/plain',
+				"responseText": 'awesome response post'
+			});
+
+			expect(doneFn).toHaveBeenCalledWith('awesome response post');
 		});
 	});
 });

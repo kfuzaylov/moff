@@ -15,14 +15,14 @@ describe('AMD', function() {
 			expect(Moff._testonly._registeredFiles().fakeId.loaded).toBe(false);
 
 			expect(typeof Moff._testonly._registeredFiles().fakeId.depend).toEqual('object');
-			expect($.isArray(Moff._testonly._registeredFiles().fakeId.depend.js)).toBe(true);
-			expect($.isArray(Moff._testonly._registeredFiles().fakeId.depend.css)).toBe(true);
+			expect(Array.isArray(Moff._testonly._registeredFiles().fakeId.depend.js)).toBe(true);
+			expect(Array.isArray(Moff._testonly._registeredFiles().fakeId.depend.css)).toBe(true);
 
 			expect(typeof Moff._testonly._registeredFiles().fakeId.files).toEqual('object');
-			expect($.isArray(Moff._testonly._registeredFiles().fakeId.files.js)).toBe(true);
-			expect($.isArray(Moff._testonly._registeredFiles().fakeId.files.css)).toBe(true);
+			expect(Array.isArray(Moff._testonly._registeredFiles().fakeId.files.js)).toBe(true);
+			expect(Array.isArray(Moff._testonly._registeredFiles().fakeId.files.css)).toBe(true);
 
-			expect($.isArray(Moff._testonly._registeredFiles().fakeId.loadOnScreen)).toBe(true);
+			expect(Array.isArray(Moff._testonly._registeredFiles().fakeId.loadOnScreen)).toBe(true);
 			expect(Moff._testonly._registeredFiles().fakeId.beforeInclude).toBeUndefined();
 			expect(Moff._testonly._registeredFiles().fakeId.afterInclude).toBeUndefined();
 			expect(Moff._testonly._registeredFiles().fakeId.onWindowLoad).toBe(false);
@@ -59,7 +59,10 @@ describe('AMD', function() {
 		});
 
 		afterAll(function() {
-			$('[src="fixtures/depend.js"], [src="fixtures/file.js"], [href="fixtures/depend.css"], [href="fixtures/file.css"]').remove();
+			var nodes = document.querySelectorAll('[src="fixtures/depend.js"], [src="fixtures/file.js"], [href="fixtures/depend.css"], [href="fixtures/file.css"]');
+			Moff.each(nodes, function(i, element) {
+				this.parentNode.removeChild(this);
+			});
 		});
 
 		it('includes registered module', function() {
@@ -75,27 +78,22 @@ describe('AMD', function() {
 		});
 	});
 });
-describe('Moff dependency', function() {
-	it('is jQuery', function() {
-		expect(typeof window.$.fn.jquery).toEqual('string');
-	});
-});
+describe('Moff Core', function() {
 
-describe('Moff framework', function() {
-	it('is initialized', function() {
-		expect(typeof window.Moff).toEqual('object');
+	describe('Moff global object', function() {
+		it('is initialized', function() {
+			expect(typeof window.Moff).toEqual('object');
+		});
 	});
-});
 
-describe('Moff framework API', function() {
-	describe('Moff.getMode', function() {
-		it('get current screen mode', function() {
+	describe('Moff.getMode method', function() {
+		it('gets current screen mode', function() {
 			var mode = Moff.getMode();
 			expect(['xs', 'sm', 'md', 'lg']).toContain(mode);
 		});
 	});
 
-	describe('Moff.settings', function() {
+	describe('Moff.settings method', function() {
 		it('has getter', function() {
 			Moff.settings('cache', true);
 			expect(Moff.settings('cache')).toBe(true);
@@ -112,47 +110,33 @@ describe('Moff framework API', function() {
 		});
 	});
 
-	describe('Moff.appear method', function() {
-		var div = $('<div style="opacity: 0;"></div>');
-		var div2 = $('<div style="opacity: 0;"></div>');
+	describe('Moff.each method', function() {
+		it('goes through array', function() {
+			Moff.each([1,2,3,4], function(index, value) {
+				if (value === 1) {
+					expect(index).toEqual(0)
+				}
 
-		afterAll(function() {
-			div.remove();
-			div2.remove();
+				if (index === 0) {
+					expect(value).toEqual(1)
+				}
+
+				expect(this).toEqual(value);
+			});
 		});
 
-		it('show element by default in 1 second', function(done) {
-			Moff.appear(div);
-			setTimeout(function() {
-				expect(div.css('opacity')).toEqual('1');
-				done();
-			}, 1100);
-		});
+		it('goes through object', function() {
+			Moff.each({one: 1, two: 2}, function(key, value) {
+				if (value === 1) {
+					expect(key).toEqual('one')
+				}
 
-		it('show element in set time - 2 seconds', function(done) {
-			Moff.appear(div2, 2);
-			setTimeout(function() {
-				expect(div2.css('opacity')).toEqual('1');
-				done();
-			}, 2100);
-		});
-	});
+				if (key === 'one') {
+					expect(value).toEqual(1)
+				}
 
-	describe('Moff.isVisible method', function() {
-		var div = $('<div>').appendTo('body');
-		var div2 = $('<div style="position: relative; top: -2500px;"></div>').appendTo('body');
-
-		afterAll(function() {
-			div.remove();
-			div2.remove();
-		});
-
-		it('determines element in view port', function() {
-			expect(Moff.inViewport(div)).toBe(true);
-		});
-
-		it('determines element is not in view port', function() {
-			expect(Moff.inViewport(div2)).toBe(false);
+				expect(this).toEqual(value);
+			});
 		});
 	});
 
@@ -206,6 +190,34 @@ describe('Moff framework API', function() {
 		});
 	});
 
+	describe('Moff.reopen method', function() {
+		it('adds new methods and properties', function() {
+			Moff.reopen({
+				newProp: 1,
+				newMethod: function() {
+					return 1;
+				}
+			});
+
+			expect(Moff.newProp).toEqual(1);
+			expect(typeof Moff.newMethod).toEqual('function');
+			expect(Moff.newMethod()).toEqual(1);
+		});
+
+		it('overwrites methods and properties', function() {
+			Moff.reopen({
+				newProp: 3,
+				newMethod: function() {
+					return 2;
+				}
+			});
+
+			expect(Moff.newProp).toEqual(3);
+			expect(typeof Moff.newMethod).toEqual('function');
+			expect(Moff.newMethod()).toEqual(2);
+		});
+	});
+
 	describe('Moff.extendClass method', function() {
 		var childObj;
 		function Parent() {
@@ -240,28 +252,108 @@ describe('Moff framework API', function() {
 		});
 	});
 
-	describe('Moff.loadJS method', function() {
-		it('loads array of js files', function(done) {
-			Moff.loadJS(['fixtures/depend.js', 'fixtures/file.js'], function() {
-				expect($('script[src="fixtures/depend.js"], script[src="fixtures/file.js"]').length).toEqual(2);
-				$('script[src="fixtures/depend.js"], script[src="fixtures/file.js"]').remove();
+	describe('Moff.loadAssets method', function() {
+		it('loads bunch js and css files', function(done) {
+			Moff.loadAssets({
+				js: ['fixtures/depend.js'],
+				css: ['fixtures/depend.css']
+			}, function() {
+				var nodes = document.querySelectorAll('script[src="fixtures/depend.js"], link[href="fixtures/depend.css"]');
+				expect(nodes.length).toEqual(2);
+
+				Moff.each(nodes, function() {
+					this.parentNode.removeChild(this);
+				});
 				done();
 			});
 		});
+	});
 
-		it('loads single files', function(done) {
-			Moff.loadJS('fixtures/depend.js', function() {
-				expect($('script[src="fixtures/depend.js"]').length).toEqual(1);
+	describe('Moff.loadJS method', function() {
+		it('loads js file', function(done) {
+			Moff.loadJS('fixtures/file.js', function() {
+				expect(document.querySelectorAll('script[src="fixtures/file.js"]').length).toEqual(1);
 				done();
 			});
 		});
 
 		it('does not load existing file', function(done) {
-			Moff.loadJS('fixtures/depend.js');
-			setTimeout(function() {
-				expect($('script[src="fixtures/depend.js"]').length).toEqual(1);
+			Moff.loadJS('fixtures/file.js', function() {
+				expect(document.querySelectorAll('script[src="fixtures/file.js"]').length).toEqual(1);
 				done();
-			}, 1000);
+			});
+		});
+	});
+
+	describe('Moff.loadCSS method', function() {
+		it('loads css file', function(done) {
+			Moff.loadCSS('fixtures/file.css', function() {
+				expect(document.querySelectorAll('link[href="fixtures/file.css"]').length).toEqual(1);
+				done();
+			});
+		});
+
+		it('does not load existing file', function(done) {
+			Moff.loadCSS('fixtures/file.css', function() {
+				expect(document.querySelectorAll('link[href="fixtures/file.css"]').length).toEqual(1);
+				done();
+			});
+		});
+	});
+
+	describe('Moff.ajax method', function() {
+		var content;
+
+		beforeEach(function() {
+			jasmine.Ajax.install();
+		});
+
+		afterEach(function() {
+			jasmine.Ajax.uninstall();
+		});
+
+		it('can can make GET request', function() {
+			var doneFn = jasmine.createSpy("success");
+
+			Moff.ajax({
+				type: 'GET',
+				url: 'content.html',
+				success: function(html) {
+					doneFn(html);
+				}
+			});
+
+			expect(jasmine.Ajax.requests.mostRecent().method).toBe('GET');
+
+			jasmine.Ajax.requests.mostRecent().respondWith({
+				"status": 200,
+				"contentType": 'text/plain',
+				"responseText": 'awesome response'
+			});
+
+			expect(doneFn).toHaveBeenCalledWith('awesome response');
+		});
+
+		it('can can make POST request', function() {
+			var doneFn = jasmine.createSpy("success");
+
+			Moff.ajax({
+				type: 'POST',
+				url: 'content2.html',
+				success: function(html) {
+					doneFn(html);
+				}
+			});
+
+			expect(jasmine.Ajax.requests.mostRecent().method).toBe('POST');
+
+			jasmine.Ajax.requests.mostRecent().respondWith({
+				"status": 200,
+				"contentType": 'text/plain',
+				"responseText": 'awesome response post'
+			});
+
+			expect(doneFn).toHaveBeenCalledWith('awesome response post');
 		});
 	});
 });
@@ -272,8 +364,20 @@ describe('Data events', function() {
 
 		beforeAll(function() {
 			Moff.settings('loadOnHover', true);
-			$('body').append($('<a href="content.html" data-load-target="#content_target" id="load_target">Load content click</a><div id="content_target"></div>'));
-			Moff.reusableEvents();
+			var a = document.createElement('a');
+			var div = document.createElement('div');
+
+			a.innerHTML = 'Load content click';
+			a.href = 'content33.html';
+			a.setAttribute('data-load-target', '#content_target');
+			a.id = 'load_target';
+
+			div.id = 'content_target';
+
+			document.body.appendChild(a);
+			document.body.appendChild(div);
+
+			Moff.handleDataEvents();
 
 			Moff.beforeLoad(function() {
 				beforeLoad = true;
@@ -285,11 +389,13 @@ describe('Data events', function() {
 		});
 
 		afterAll(function() {
-			$('#content_target, #load_target').remove();
+			Moff.each(document.querySelectorAll('#content_target, #load_target'), function() {
+				this.parentNode.removeChild(this);
+			});
 		});
 
 		beforeEach(function() {
-			jasmine.Ajax.install();
+			// jasmine.Ajax.install();
 		});
 
 		afterEach(function() {
@@ -298,15 +404,18 @@ describe('Data events', function() {
 
 		it('specifies target content to be loaded in', function() {
 			jasmine.Ajax.withMock(function() {
-				$('#load_target').trigger('click');
+				var event = document.createEvent('Event');
+				event.initEvent('click', true, true);
+
+				document.querySelector('#load_target').dispatchEvent(event);
 
 				jasmine.Ajax.requests.mostRecent().respondWith({
-					status: 200,
-					contentType: 'text/plain',
-					responseText: 'hello'
+					"status": 200,
+					"contentType": 'text/plain',
+					"responseText": 'hello'
 				});
 
-				expect($('#content_target').html()).toEqual('hello');
+				expect(document.querySelector('#content_target').innerHTML).toEqual('hello');
 			});
 		});
 
@@ -319,11 +428,31 @@ describe('Data events', function() {
 		});
 
 		it('can preload data on hover event', function() {
+			Moff.each(document.querySelectorAll('#content_target, #load_target'), function() {
+				this.parentNode.removeChild(this);
+			});
+
 			jasmine.Ajax.withMock(function() {
-				$('#content_target, #load_target').remove();
-				$('body').append($('<a href="content-preload.html" data-load-target="#content_target" id="load_target">Load content click</a><div id="content_target"></div>'));
-				Moff.reusableEvents();
-				var target = $('#load_target').trigger('mouseenter');
+
+				var a = document.createElement('a');
+				var div = document.createElement('div');
+
+				a.href = 'content-preload.html';
+				a.setAttribute('data-load-target', '#content_target');
+				a.innerHTML = 'Load content click';
+				a.id = 'load_target';
+
+				div.id = 'content_target';
+
+				document.body.appendChild(a);
+				document.body.appendChild(div);
+
+				Moff.handleDataEvents();
+
+				var event = document.createEvent('Event');
+				event.initEvent('mouseenter', true, true);
+
+				document.querySelector('#load_target').dispatchEvent(event);
 
 				jasmine.Ajax.requests.mostRecent().respondWith({
 					status: 200,
@@ -331,13 +460,13 @@ describe('Data events', function() {
 					responseText: 'hello'
 				});
 
-				expect(Moff._testonly._cache[target.attr('href')]).toEqual('hello');
+				expect(Moff._testonly._cache[a.href]).toEqual('hello');
 			});
 		});
 
 		it('should clear cache each n seconds', function(done) {
 			setTimeout(function() {
-				expect(Moff._testonly._cache['content-preload.html']).toBeUndefined();
+				expect(Object.keys(Moff._testonly._cache).length).toEqual(0);
 				done();
 			}, Moff.settings('cacheLiveTime'));
 		});
@@ -345,17 +474,31 @@ describe('Data events', function() {
 
 	describe('data-load-url', function() {
 		beforeAll(function() {
-			$('body').append($('<span data-load-url="content2.html" data-load-target="#content_target" id="load_target">Load content url</span><div id="content_target"></div>'));
-			Moff.reusableEvents();
+			var span = document.createElement('span');
+			var div = document.createElement('div');
+
+			span.id = 'load_target';
+			span.setAttribute('data-load-url', 'content2.html');
+			span.setAttribute('data-load-target', '#content_target');
+			span.innerHTML = 'Load content url';
+
+			div.id = 'content_target';
+			document.body.appendChild(div);
+			document.body.appendChild(span);
+			Moff.handleDataEvents();
 		});
 
 		afterAll(function() {
-			$('#content_target, #load_target').remove();
+			Moff.each(document.querySelectorAll('#content_target, #load_target'), function() {
+				this.parentNode.removeChild(this);
+			});
 		});
 
-		it('sets load event type for an element', function() {
+		it('sets load url for an element', function() {
 			jasmine.Ajax.withMock(function() {
-				$('#load_target').trigger('click');
+				var event = document.createEvent('Event');
+				event.initEvent('click', true, true);
+				document.querySelector('#load_target').dispatchEvent(event);
 
 				jasmine.Ajax.requests.mostRecent().respondWith({
 					status: 200,
@@ -363,24 +506,41 @@ describe('Data events', function() {
 					responseText: 'dom loaded'
 				});
 
-				expect($('#content_target').html()).toEqual('dom loaded');
+				expect(document.querySelector('#content_target').innerHTML).toEqual('dom loaded');
 			});
 		});
 	});
 
 	describe('data-page-title', function() {
 		beforeAll(function() {
-			$('body').append($('<a href="content.html" data-load-target="#content_target" data-page-title="New Title" id="load_target">Page title</a><div id="content_target"></div>'));
-			Moff.reusableEvents();
+			var a = document.createElement('a');
+			var div = document.createElement('div');
+
+			a.href = 'content.html';
+			a.id = 'load_target';
+			a.innerHTML = 'Page title';
+			a.setAttribute('data-load-target', '#content_target');
+			a.setAttribute('data-page-title', 'New Title');
+
+			div.id = 'content_target';
+
+			document.body.appendChild(a);
+			document.body.appendChild(div);
+
+			Moff.handleDataEvents();
 		});
 
 		afterAll(function() {
-			$('#content_target, #load_target').remove();
+			Moff.each(document.querySelectorAll('#content_target, #load_target'), function() {
+				this.parentNode.removeChild(this);
+			});
 		});
 
-		it('determines what screen size content can be loaded', function() {
+		it('changes document title', function() {
 			jasmine.Ajax.withMock(function() {
-				$('#load_target').trigger('click');
+				var event = document.createEvent('Event');
+				event.initEvent('click', true, true);
+				document.querySelector('#load_target').dispatchEvent(event);
 
 				jasmine.Ajax.requests.mostRecent().respondWith({
 					status: 200,
@@ -391,30 +551,6 @@ describe('Data events', function() {
 				expect(document.title).toEqual('New Title');
 			});
 		});
-	});
-});
-describe('Event system', function() {
-	var trigger;
-
-	it('can register new event', function() {
-		Moff.event.add('newEvent');
-		expect($.isArray(Moff.event._testonly._eventStore['newEvent'])).toBe(true);
-	});
-
-	it('can assign for event only callbacks', function() {
-		Moff.event.on('newEvent', function() {
-			expect(arguments.length).toEqual(2);
-			trigger = true;
-		});
-
-		expect(typeof Moff.event._testonly._eventStore['newEvent'][0]).toEqual('function');
-		Moff.event.on('newEvent', {});
-		expect(Moff.event._testonly._eventStore['newEvent'].length).toEqual(1);
-	});
-
-	it('can trigger callbacks and pass all arguments', function() {
-		Moff.event.trigger('newEvent', 'text1', 'text2');
-		expect(trigger).toBe(true);
 	});
 });
 describe('Moff Detect', function() {
@@ -483,18 +619,48 @@ describe('Moff Detect', function() {
 		});
 	});
 
-	it('supports browser detection', function() {
-		expect(Moff.detect.browser.version).not.toBeUndefined();
-		delete Moff.detect.browser.version;
-		expect(['chrome', 'msie', 'mozilla', 'opera', 'webkit']).toContain(Object.keys(Moff.detect.browser)[0]);
+	describe('Moff.browser', function() {
+		it('supports browser detection', function() {
+			expect(Moff.detect.browser.version).not.toBeUndefined();
+			delete Moff.detect.browser.version;
+			expect(['chrome', 'msie', 'mozilla', 'opera', 'webkit']).toContain(Object.keys(Moff.detect.browser)[0]);
+		});
+	})
+
+	describe('Moff.OS', function() {
+		it('supports OS detection', function() {
+			expect(['iOS', 'macOS', 'windows', 'android', 'windowsPhone']).toContain(Object.keys(Moff.detect.OS)[0]);
+		});
 	});
 
-	it('supports OS detection', function() {
-		expect(['iOS', 'macOS', 'windows', 'android', 'windowsPhone']).toContain(Object.keys(Moff.detect.OS)[0]);
+	describe('Moff.detect.isMobile', function() {
+		it('support mobile device detection', function() {
+			expect(Moff.detect.isMobile).not.toBeUndefined();
+		});
+	});
+});
+describe('Event system', function() {
+	var trigger;
+
+	it('can register new event', function() {
+		Moff.event.add('newEvent');
+		expect(Array.isArray(Moff.event._testonly._eventStore['newEvent'])).toBe(true);
 	});
 
-	it('support mobile device detection', function() {
-		expect(Moff.detect.isMobile).not.toBeUndefined();
+	it('can assign for event only callbacks', function() {
+		Moff.event.on('newEvent', function() {
+			expect(arguments.length).toEqual(2);
+			trigger = true;
+		});
+
+		expect(typeof Moff.event._testonly._eventStore['newEvent'][0]).toEqual('function');
+		Moff.event.on('newEvent', {});
+		expect(Moff.event._testonly._eventStore['newEvent'].length).toEqual(1);
+	});
+
+	it('can trigger callbacks and pass all arguments', function() {
+		Moff.event.trigger('newEvent', 'text1', 'text2');
+		expect(trigger).toBe(true);
 	});
 });
 describe('Modularity', function() {
@@ -529,7 +695,15 @@ describe('Modularity', function() {
 		var beforeInit, init, afterInit;
 
 		beforeAll(function(done) {
-			$('body').append('<div class="mod-wrapper"><div class="inside"></div></div><div class="inside"></div>');
+			var div = document.createElement('div');
+			div.innerHTML = '<div class="inside"></div>';
+			div.className = 'mod-wrapper';
+
+			var inside = document.createElement('div');
+			inside.className = 'inside';
+
+			document.body.appendChild(div);
+			document.body.appendChild(inside);
 
 			Moff.module.register('Module2', function() {
 				this.scopeSelector = '.mod-wrapper';
@@ -562,8 +736,9 @@ describe('Modularity', function() {
 		});
 
 		it('loads all dependency files', function() {
-			expect($('[src="fixtures/depend.js"], [href="fixtures/depend.css"]').length).toEqual(2);
-			$('script[src="fixtures/depend.js"]').remove();
+			expect(document.querySelectorAll('[src="fixtures/depend.js"], [href="fixtures/depend.css"]').length).toEqual(2);
+			var s = document.querySelector('script[src="fixtures/depend.js"]');
+			s.parentNode.removeChild(s);
 		});
 
 		it('beforeInit and init hooks access to properties', function() {
@@ -577,12 +752,12 @@ describe('Modularity', function() {
 		});
 
 		it('registers module scope', function() {
-			expect(Moff.module.get('Module2').scope.length).toEqual(1);
+			expect(Moff.module.get('Module2').scope.className).toEqual('mod-wrapper');
 		});
 
 		it('register events', function() {
-			expect($.isArray(Moff.module.event._testonly._eventStore['event1'])).toBe(true);
-			expect($.isArray(Moff.module.event._testonly._eventStore['event2'])).toBe(true);
+			expect(Array.isArray(Moff.module.event._testonly._eventStore['event1'])).toBe(true);
+			expect(Array.isArray(Moff.module.event._testonly._eventStore['event2'])).toBe(true);
 		});
 	});
 
@@ -599,13 +774,13 @@ describe('Modularity', function() {
 		it('set only defined scope', function() {
 			moduleObject.scopeSelector = null;
 			moduleObject.setScope();
-			expect(moduleObject.scope.hasClass('mod-wrapper')).toBe(true);
+			expect(moduleObject.scope.className).toEqual('mod-wrapper');
 		});
 
 		it('has get method', function() {
 			expect(typeof moduleObject).toEqual('object');
 			Moff.module.initClass('Module2', {id: 'modId'});
-			expect($.isArray(Moff.module.get('Module2'))).toBe(true);
+			expect(Array.isArray(Moff.module.get('Module2'))).toBe(true);
 			expect(Moff.module.get('Module2').length).toEqual(2);
 		});
 

@@ -3,7 +3,7 @@ describe('Event system', function() {
 
 	it('can register new event', function() {
 		Moff.event.add('newEvent');
-		expect($.isArray(Moff.event._testonly._eventStore['newEvent'])).toBe(true);
+		expect(Array.isArray(Moff.event._testonly._eventStore['newEvent'])).toBe(true);
 	});
 
 	it('can assign for event only callbacks', function() {
