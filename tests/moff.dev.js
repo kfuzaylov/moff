@@ -207,21 +207,6 @@
                             handleLink(this);
                         }, false);
                     }
-                } else if (event === 'scroll') {
-                    // @todo replace _visibleElements to another
-                    _visibleElements.push({
-                        element: element,
-                        handler: function() {
-                            if (checkDataScreen(element)) {
-                                handleLink(element);
-                            } else {
-                                // If load screen size does not fit, link should be handled with click event
-                                element.on('click' + _postfix, function() {
-                                    handleLink(this);
-                                });
-                            }
-                        }
-                    });
                 } else {
                     if (event === 'click' && _settings.loadOnHover && !_moff.detect.isMobile) {
                         element.addEventListener('mouseenter', function() {
@@ -252,7 +237,7 @@
 
                 this.handled = true;
             });
-        }
+        };
 
         /**
          * Check element for data load screen.
@@ -552,12 +537,13 @@
                         params.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
                     }
                 }
+
                 options.data = params.join('&');
             }
 
             // Here data has additional GET params
             // Object could not be send with GET method
-            if(options.type === 'GET' && options.data) {
+            if (options.type === 'GET' && options.data) {
                 options.url += (options.url.indexOf('?') !== -1 ? '&' : '?') + options.data.replace(/%20/g, '+');
                 options.data = null;
             }
@@ -570,10 +556,9 @@
 
             xhr.onload = function() {
                 var status = this.status;
-                if(status >= 200 && status < 300 || status === 304) {
+                if (status >= 200 && status < 300 || status === 304) {
                     options.success(this.response, this);
-                }
-                else {
+                } else {
                     options.error(this);
                 }
             };
@@ -756,7 +741,6 @@
                 this.each(depends.js, function(i, src) {
                     _moff.loadJS(src, runCallback);
                 });
-
             }
 
             if (isCSS && depends.css.length) {
@@ -795,6 +779,7 @@
                 if (hasCallback) {
                     script.addEventListener('load', callback, false);
                 }
+
                 script.src = src;
                 _doc.querySelector('body').appendChild(script);
             } else if (hasCallback) {
