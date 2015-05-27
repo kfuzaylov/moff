@@ -1049,6 +1049,11 @@
         this.initClass = function(ClassName, params) {
             var moduleObject = _moduleClassStorage[ClassName];
 
+            if (!moduleObject) {
+                window.console.warn(ClassName + ' Class is not registered');
+                return;
+            }
+
             function initialize() {
                 // Create new class object
                 var classObject = new moduleObject.constructor();

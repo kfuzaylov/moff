@@ -939,7 +939,7 @@
          * Moff version.
          * @type {string}
          */
-        this.version = '1.4.18';
+        this.version = '1.4.19';
 
         /* Test-code */
         this._testonly = {
@@ -1054,6 +1054,11 @@
          */
         this.initClass = function(ClassName, params) {
             var moduleObject = _moduleClassStorage[ClassName];
+
+            if (!moduleObject) {
+                window.console.warn(ClassName + ' Class is not registered');
+                return;
+            }
 
             function initialize() {
                 // Create new class object
