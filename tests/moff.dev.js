@@ -939,7 +939,7 @@
          * Moff version.
          * @type {string}
          */
-        this.version = '1.4.19';
+        this.version = '1.4.20';
 
         /* Test-code */
         this._testonly = {
@@ -1432,10 +1432,8 @@
          * @param {function} callback - Event callback
          */
         this.on = function(name, callback) {
-            if (!_eventStore.hasOwnProperty(name)) {
-                window.console.warn(name + ' event is not registered yet.');
-                return;
-            }
+            // Create event if it does not exist.
+            this.add(name);
 
             if (typeof callback === 'function') {
                 _eventStore[name].push(callback);

@@ -1,7 +1,7 @@
 /**
  * @overview  moff - Mobile First Framework
  * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.4.19
+ * @version   1.4.20
  * @license   Licensed under MIT license
  * @copyright Copyright (c) 2015 Kadir A. Fuzaylov
  */
@@ -946,7 +946,7 @@
          * Moff version.
          * @type {string}
          */
-        this.version = '1.4.19';
+        this.version = '1.4.20';
 
     }
 
@@ -1420,10 +1420,8 @@
          * @param {function} callback - Event callback
          */
         this.on = function(name, callback) {
-            if (!_eventStore.hasOwnProperty(name)) {
-                window.console.warn(name + ' event is not registered yet.');
-                return;
-            }
+            // Create event if it does not exist.
+            this.add(name);
 
             if (typeof callback === 'function') {
                 _eventStore[name].push(callback);
