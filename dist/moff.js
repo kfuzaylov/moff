@@ -1,7 +1,7 @@
 /**
  * @overview  moff - Mobile First Framework
  * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.4.20
+ * @version   1.4.21
  * @license   Licensed under MIT license
  * @copyright Copyright (c) 2015 Kadir A. Fuzaylov
  */
@@ -422,7 +422,7 @@
          * @param {object} event - Event object
          */
         function handlePopstate(event) {
-            var state = event.originalEvent.state;
+            var state = event.state;
             var element;
 
             if (!state) {
@@ -946,7 +946,7 @@
          * Moff version.
          * @type {string}
          */
-        this.version = '1.4.20';
+        this.version = '1.4.21';
 
     }
 

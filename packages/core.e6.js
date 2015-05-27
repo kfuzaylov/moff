@@ -417,7 +417,7 @@ function Core() {
 	 * @param {object} event - Event object
 	 */
 	function handlePopstate(event) {
-		var state = event.originalEvent.state;
+		var state = event.state;
 		var element;
 
 		if (!state) {
