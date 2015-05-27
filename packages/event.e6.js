@@ -50,6 +50,15 @@ function Event() {
 		}
 	};
 
+	/**
+	 * Get event from store.
+	 * @param {string} name - Event name
+	 * @returns {Array|undefined}
+	 */
+	this.get = function(name) {
+		return _eventStore[name];
+	};
+
 	/* Test-code */
 	this._testonly = {
 		_eventStore: _eventStore

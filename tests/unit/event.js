@@ -21,4 +21,9 @@ describe('Event system', function() {
 		Moff.event.trigger('newEvent', 'text1', 'text2');
 		expect(trigger).toBe(true);
 	});
+
+	it('can get event from store', function() {
+		expect(Array.isArray(Moff.event.get('newEvent'))).toBe(true)
+		expect(Moff.event.get('nonexistentEvent')).toBeUndefined();
+	});
 });
