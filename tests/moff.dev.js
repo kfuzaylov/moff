@@ -108,7 +108,6 @@
                 lg: 1200
             },
 
-            bootstrap: false,
             loadOnHover: true,
             cacheLiveTime: 2000
         };
@@ -175,7 +174,7 @@
          * @param {object} mql - MediaQueryList object
          */
         function resizeHandler(mql) {
-            if ((_matchMediaSupport && mql.matches) || _moff.viewModeIsChanged()) {
+            if ((_matchMediaSupport && mql.matches) || viewModeIsChanged()) {
                 setViewMode();
 
                 _moff.runCallbacks(_changeViewCallbacks, _moff, [_moff.getMode()]);
@@ -235,7 +234,7 @@
                     }, false);
                 }
 
-                this.handled = true;
+                element.handled = true;
             });
         };
 
@@ -281,6 +280,15 @@
         }
 
         /**
+         * Determine whether view mode is changed
+         * @function viewModeIsChanged
+         * @returns {boolean}
+         */
+        function viewModeIsChanged() {
+            return _lastViewMode !== _moff.getMode();
+        }
+
+        /**
          * Change last view mode.
          * @function setViewMode
          */
@@ -298,20 +306,6 @@
             if (_registeredFiles.hasOwnProperty(hash)) {
                 _moff.include(hash);
             }
-        }
-
-        /**
-         * Handler to load registered files by screen size.
-         * @function includeByScreenSize
-         */
-        function includeByScreenSize() {
-            var screenMode = _moff.getMode();
-
-            _moff.each(_registeredFiles, function(id, obj) {
-                if (obj.loadOnScreen.indexOf(screenMode) !== -1) {
-                    _moff.include(id);
-                }
-            });
         }
 
         /**
@@ -371,7 +365,7 @@
          */
         function handleUrlTemplate(element, url) {
             return url.replace(/\{\{(.*?)\}\}/g, function() {
-                return element[arguments[1]]();
+                return element.getAttribute(arguments[1]);
             });
         }
 
@@ -468,7 +462,6 @@
          */
         function includeRegister() {
             includeByHash();
-            includeByScreenSize();
         }
 
         function nodeList(node) {
@@ -523,7 +516,7 @@
 
         this.ajax = function(options) {
             var params = [];
-            var key, data;
+            var data;
 
             // Make type upper case
             options.type = options.type.toUpperCase();
@@ -532,11 +525,9 @@
             if (typeof options.data === 'object') {
                 data = options.data;
 
-                for (key in data) {
-                    if (data.hasOwnProperty(key)) {
-                        params.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
-                    }
-                }
+                this.each(data, function(key, value) {
+                    params.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
+                });
 
                 options.data = params.join('&');
             }
@@ -653,9 +644,9 @@
                     js: obj.depend && obj.depend.js || [],
                     css: obj.depend && obj.depend.css || []
                 },
-                files: {
-                    js: obj.files && obj.files.js || [],
-                    css: obj.files && obj.files.css || []
+                file: {
+                    js: obj.file && obj.file.js || [],
+                    css: obj.file && obj.file.css || []
                 },
                 loadOnScreen: obj.loadOnScreen || [],
                 beforeInclude: obj.beforeInclude || undefined,
@@ -678,7 +669,14 @@
                 return;
             }
 
-            // Make sure to load after window load if onWindowLoad is set
+            var screenMode = _moff.getMode();
+
+            // Include on registered screen size.
+            if (register.loadOnScreen.length && register.loadOnScreen.indexOf(screenMode) === -1) {
+                return;
+            }
+
+            // Make sure to load after window load if onWindowLoad is true
             if (register.onWindowLoad && !_windowIsLoaded) {
                 // Save id to load after window load
                 _deferredObjects.push({id: id, callback: callback});
@@ -693,7 +691,7 @@
             }
 
             function loadFiles() {
-                _moff.loadAssets(register.files, execCallback);
+                _moff.loadAssets(register.file, execCallback);
             }
 
             this.loadAssets(register.depend, loadFiles);
@@ -712,21 +710,21 @@
         /**
          * Load files and run callback.
          * @method loadAssets
-         * @param {object} depends - Object with js and css files to be loaded
+         * @param {object} depend - Object with js and css files to be loaded
          * @param {function} callback - Function executed after files be loaded
          */
-        this.loadAssets = function(depends, callback) {
+        this.loadAssets = function(depend, callback) {
             var loaded = 0;
             var length = 0;
-            var isCSS = Array.isArray(depends.css);
-            var isJS = Array.isArray(depends.js);
+            var isCSS = Array.isArray(depend.css);
+            var isJS = Array.isArray(depend.js);
 
             if (isJS) {
-                length += depends.js.length;
+                length += depend.js.length;
             }
 
             if (isCSS) {
-                length += depends.css.length;
+                length += depend.css.length;
             }
 
             function runCallback() {
@@ -736,16 +734,16 @@
                 }
             }
 
-            if (isJS && depends.js.length) {
+            if (isJS && depend.js.length) {
                 // Load depend js files
-                this.each(depends.js, function(i, src) {
+                this.each(depend.js, function(i, src) {
                     _moff.loadJS(src, runCallback);
                 });
             }
 
-            if (isCSS && depends.css.length) {
+            if (isCSS && depend.css.length) {
                 // Load depend css files
-                this.each(depends.css, function(i, href) {
+                this.each(depend.css, function(i, href) {
                     _moff.loadCSS(href, runCallback);
                 });
             }
@@ -885,15 +883,6 @@
         };
 
         /**
-         * Determine whether view mode is changed
-         * @method viewModeIsChanged
-         * @returns {boolean}
-         */
-        this.viewModeIsChanged = function() {
-            return _lastViewMode !== this.getMode();
-        };
-
-        /**
          * Set or get Moff settings value.
          * @method settings
          * @param {string} key - Setting name
@@ -939,7 +928,7 @@
          * Moff version.
          * @type {string}
          */
-        this.version = '1.4.21';
+        this.version = '1.4.22';
 
         /* Test-code */
         this._testonly = {
@@ -1019,30 +1008,26 @@
          * Register new module.
          * @method register
          * @param {string} name - module name
-         * @param {object} [depends] - object of js and css files
+         * @param {object} [depend] - object of js and css files
          * @param {function} Constructor - constructor
          */
-        this.register = function(name, depends, Constructor) {
+        this.register = function(name, depend, Constructor) {
             // Normalize arguments
             if (typeof Constructor === 'undefined') {
-                Constructor = depends;
-                depends = undefined;
+                Constructor = depend;
+                depend = undefined;
             }
 
             // Register new module in the storage
-            if (!_moduleClassStorage.hasOwnProperty(name)) {
-                Constructor.prototype = _module;
-                Constructor.prototype.constructor = Constructor;
+            Constructor.prototype = _module;
+            Constructor.prototype.constructor = Constructor;
 
-                // Save module in storage
-                if (typeof _moduleClassStorage[name] === 'undefined') {
-                    _moduleClassStorage[name] = {
-                        constructor: Constructor,
-                        depends: depends
-                    };
-                }
-            } else {
-                window.console.warn(name + ' class has already registered.');
+            // Save module in storage
+            if (typeof _moduleClassStorage[name] === 'undefined') {
+                _moduleClassStorage[name] = {
+                    constructor: Constructor,
+                    depend: depend
+                };
             }
         };
 
@@ -1104,8 +1089,8 @@
             }
 
             try {
-                if (moduleObject.depends) {
-                    this.loadAssets(moduleObject.depends, initialize);
+                if (moduleObject.depend) {
+                    this.loadAssets(moduleObject.depend, initialize);
                 } else {
                     initialize();
                 }

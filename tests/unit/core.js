@@ -160,12 +160,6 @@ describe('Moff Core', function() {
 		});
 	});
 
-	describe('Moff.viewModeIsChanged method', function() {
-		it('determines whether view mode is changed', function() {
-			expect([false, true]).toContain(Moff.viewModeIsChanged());
-		});
-	});
-
 	describe('Moff.version property', function() {
 		it('returns Moff current version', function() {
 			expect(/^\d{1,2}\.\d{1,2}\.\d{1,2}$/.test(Moff.version)).toEqual(true);

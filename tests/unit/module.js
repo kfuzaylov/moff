@@ -17,12 +17,12 @@ describe('Modularity', function() {
 
 		it('registers constructor and dependency files', function() {
 			expect(typeof Moff.module._testonly._moduleClassStorage.Slideshow.constructor).toEqual('function');
-			expect(typeof Moff.module._testonly._moduleClassStorage.Slideshow.depends).toEqual('object');
+			expect(typeof Moff.module._testonly._moduleClassStorage.Slideshow.depend).toEqual('object');
 		});
 
 		it('does not overwrite existing class', function() {
 			Moff.module.register('Slideshow', function() {});
-			expect(typeof Moff.module._testonly._moduleClassStorage.Slideshow.depends).toEqual('object');
+			expect(typeof Moff.module._testonly._moduleClassStorage.Slideshow.depend).toEqual('object');
 		});
 	});
 

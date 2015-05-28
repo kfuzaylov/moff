@@ -64,30 +64,26 @@ function Module() {
 	 * Register new module.
 	 * @method register
 	 * @param {string} name - module name
-	 * @param {object} [depends] - object of js and css files
+	 * @param {object} [depend] - object of js and css files
 	 * @param {function} Constructor - constructor
 	 */
-	this.register = function(name, depends, Constructor) {
+	this.register = function(name, depend, Constructor) {
 		// Normalize arguments
 		if (typeof Constructor === 'undefined') {
-			Constructor = depends;
-			depends = undefined;
+			Constructor = depend;
+			depend = undefined;
 		}
 
 		// Register new module in the storage
-		if (!_moduleClassStorage.hasOwnProperty(name)) {
-			Constructor.prototype = _module;
-			Constructor.prototype.constructor = Constructor;
+		Constructor.prototype = _module;
+		Constructor.prototype.constructor = Constructor;
 
-			// Save module in storage
-			if (typeof _moduleClassStorage[name] === 'undefined') {
-				_moduleClassStorage[name] = {
-					constructor: Constructor,
-					depends: depends
-				};
-			}
-		} else {
-			window.console.warn(name + ' class has already registered.');
+		// Save module in storage
+		if (typeof _moduleClassStorage[name] === 'undefined') {
+			_moduleClassStorage[name] = {
+				constructor: Constructor,
+				depend: depend
+			};
 		}
 	};
 
@@ -149,8 +145,8 @@ function Module() {
 		}
 
 		try {
-			if (moduleObject.depends) {
-				this.loadAssets(moduleObject.depends, initialize);
+			if (moduleObject.depend) {
+				this.loadAssets(moduleObject.depend, initialize);
 			} else {
 				initialize();
 			}

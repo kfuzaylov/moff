@@ -18,9 +18,9 @@ describe('AMD', function() {
 			expect(Array.isArray(Moff._testonly._registeredFiles().fakeId.depend.js)).toBe(true);
 			expect(Array.isArray(Moff._testonly._registeredFiles().fakeId.depend.css)).toBe(true);
 
-			expect(typeof Moff._testonly._registeredFiles().fakeId.files).toEqual('object');
-			expect(Array.isArray(Moff._testonly._registeredFiles().fakeId.files.js)).toBe(true);
-			expect(Array.isArray(Moff._testonly._registeredFiles().fakeId.files.css)).toBe(true);
+			expect(typeof Moff._testonly._registeredFiles().fakeId.file).toEqual('object');
+			expect(Array.isArray(Moff._testonly._registeredFiles().fakeId.file.js)).toBe(true);
+			expect(Array.isArray(Moff._testonly._registeredFiles().fakeId.file.css)).toBe(true);
 
 			expect(Array.isArray(Moff._testonly._registeredFiles().fakeId.loadOnScreen)).toBe(true);
 			expect(Moff._testonly._registeredFiles().fakeId.beforeInclude).toBeUndefined();
@@ -39,7 +39,7 @@ describe('AMD', function() {
 					js: ['fixtures/depend.js'],
 					css: ['fixtures/depend.css']
 				},
-				files: {
+				file: {
 					js: ['fixtures/file.js'],
 					css: ['fixtures/file.css']
 				},
