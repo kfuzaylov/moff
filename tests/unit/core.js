@@ -215,6 +215,15 @@ describe('Moff Core', function() {
 		});
 	});
 
+	describe('Moff.$ method', function() {
+		it('executed function immediately if dom is loaded', function(done) {
+			Moff.$(function() {
+				expect(true).toBe(true);
+				done();
+			});
+		});
+	});
+
 	describe('Moff.ajax method', function() {
 		var content;
 

@@ -35,10 +35,6 @@ describe('Data events', function() {
 			});
 		});
 
-		beforeEach(function() {
-			// jasmine.Ajax.install();
-		});
-
 		afterEach(function() {
 			jasmine.Ajax.uninstall();
 		});
@@ -186,10 +182,91 @@ describe('Data events', function() {
 				jasmine.Ajax.requests.mostRecent().respondWith({
 					status: 200,
 					contentType: 'text/plain',
-					responseText: 'screen content'
+					responseText: ''
 				});
 
 				expect(document.title).toEqual('New Title');
+			});
+		});
+	});
+
+	describe('data-load-screen', function() {
+		beforeAll(function() {
+			var a = document.createElement('a');
+			var div = document.createElement('div');
+
+			a.href = 'content-screen.html';
+			a.id = 'load_target';
+			a.innerHTML = 'Load by screen';
+			a.setAttribute('data-load-target', '#content_target');
+			a.setAttribute('data-load-screen', 'xs sm md lg');
+
+			div.id = 'content_target';
+
+			document.body.appendChild(a);
+			document.body.appendChild(div);
+		});
+
+		afterAll(function() {
+			Moff.each(document.querySelectorAll('#content_target, #load_target'), function() {
+				this.parentNode.removeChild(this);
+			});
+		});
+
+		it('automatically loads by screen size', function() {
+			jasmine.Ajax.withMock(function() {
+				Moff.handleDataEvents();
+
+				jasmine.Ajax.requests.mostRecent().respondWith({
+					status: 200,
+					contentType: 'text/plain',
+					responseText: 'screen content'
+				});
+
+				expect(document.querySelector('#content_target').innerHTML).toEqual('screen content');
+			});
+		});
+	});
+
+	describe('data-load-module', function() {
+		beforeAll(function() {
+			Moff.register({
+				id: 'data-module'
+			});
+
+			var a = document.createElement('a');
+			var div = document.createElement('div');
+
+			a.href = 'content-screen.html';
+			a.id = 'load_target';
+			a.innerHTML = 'Load by screen';
+			a.setAttribute('data-load-target', '#content_target');
+			a.setAttribute('data-load-screen', 'xs sm md lg');
+			a.setAttribute('data-load-module', 'data-module');
+
+			div.id = 'content_target';
+
+			document.body.appendChild(a);
+			document.body.appendChild(div);
+		});
+
+		afterAll(function() {
+			Moff.each(document.querySelectorAll('#content_target, #load_target'), function() {
+				this.parentNode.removeChild(this);
+			});
+		});
+
+		it('automatically loads register after content', function() {
+			jasmine.Ajax.withMock(function() {
+				Moff.handleDataEvents();
+
+				jasmine.Ajax.requests.mostRecent().respondWith({
+					status: 200,
+					contentType: 'text/plain',
+					responseText: ''
+				});
+
+				expect(Moff._testonly._registeredFiles['data-module'].loaded).toBe(true);
 			});
 		});
 	});

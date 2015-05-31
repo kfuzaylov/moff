@@ -76,10 +76,22 @@ function Core() {
 	var _changeViewCallbacks = [];
 
 	/**
+	 * @property {Array} _domLoadedCallbacks - Array of callbacks to trigger on DOMContentLoaded event.
+	 * @private
+	 */
+	var _domLoadedCallbacks = [];
+
+	/**
 	 * @property {boolean} _windowIsLoaded - Flag to determine whether the window is loaded.
 	 * @private
 	 */
 	var _windowIsLoaded = false;
+
+	/**
+	 * @property {boolean} _domIsLoaded - Flag to determine whether the DOM is loaded.
+	 * @private
+	 */
+	var _domIsLoaded = false;
 
 	/**
 	 * @property {Array} _beforeLoad - Run these callbacks before content loading.
@@ -118,7 +130,7 @@ function Core() {
 	 * @property {string} _dataEvent - Data load event selector.
 	 * @private
 	 */
-	var _dataEvent = '[data-load-target]';
+	var _dataEvent = 'data-load-target';
 
 	/**
 	 * @property {{}} _historyData - History data store.
@@ -144,10 +156,6 @@ function Core() {
 			_win.addEventListener('resize', resizeHandler, false);
 		}
 
-		if (_moff.hashchange) {
-			_win.addEventListener('hashchange', includeByHash, false);
-		}
-
 		_win.addEventListener('popstate', handlePopstate, false);
 		_moff.handleDataEvents();
 	}
@@ -159,12 +167,8 @@ function Core() {
 	function windowLoadHandler() {
 		_windowIsLoaded = true;
 
-		// Run includeRegister function to include files
-		// registered as after window load and tagged in url hash tag or by screen size
-		includeRegister();
-
 		// Load deferred files.
-		// These files included with MoFF.include method before window load event.
+		// These files included with Moff.include method before window load event.
 		_moff.each(_deferredObjects, function(i, obj) {
 			_moff.include(obj.id, obj.callback);
 		});
@@ -191,8 +195,12 @@ function Core() {
 	this.handleDataEvents = function() {
 		var element, event, url;
 
-		_moff.each(_doc.querySelectorAll(_dataEvent), function() {
+		loadByScreenSize();
+		includeRegister();
+
+		_moff.each(_doc.querySelectorAll('[' + _dataEvent + ']'), function() {
 			element = this;
+
 			if (element.handled) {
 				return;
 			}
@@ -200,14 +208,9 @@ function Core() {
 			event = (element.getAttribute('data-load-event') || 'click').toLowerCase();
 
 			if (event === 'dom') {
-				if (checkDataScreen(element)) {
+				_moff.$(function() {
 					handleLink(element);
-				} else {
-					// If load screen size does not fit, link should be handled with click event
-					element.addEventListener('click', function() {
-						handleLink(this);
-					}, false);
-				}
+				});
 			} else {
 				if (event === 'click' && _settings.loadOnHover && !_moff.detect.isMobile) {
 					element.addEventListener('mouseenter', function() {
@@ -248,22 +251,23 @@ function Core() {
 	 */
 	function checkDataScreen(element) {
 		var screen = element.getAttribute('data-load-screen');
-		return screen ? screen.split(' ').indexOf(_moff.getMode()) !== -1 : true;
+		return screen ? checkScreenMode(screen.split(' ')) : true;
+	}
+
+	function checkScreenMode(modes) {
+		return Array.isArray(modes) && modes.length && modes.indexOf(_moff.getMode()) !== -1;
 	}
 
 	/**
 	 * Extend Core settings
-	 * @param {object} settings - Core settings
+	 * @function extendSettings
 	 */
-	function extendSettings(settings) {
-		var property;
-		if (typeof settings === 'object') {
-			for (property in settings) {
-				if (settings.hasOwnProperty(property)) {
-					_settings[property] = settings[property];
-				}
-			}
-		}
+	function extendSettings() {
+		var settings = readSettings();
+
+		_moff.each(settings, function(property, value) {
+			_settings[property] = settings[property];
+		});
 	}
 
 	/**
@@ -299,18 +303,6 @@ function Core() {
 	}
 
 	/**
-	 * Handler to load registered files by hash tag.
-	 * @function includeByHash
-	 */
-	function includeByHash() {
-		var hash = getHash();
-
-		if (_registeredFiles.hasOwnProperty(hash)) {
-			_moff.include(hash);
-		}
-	}
-
-	/**
 	 * Load data.
 	 * @param {string} url - Load url
 	 * @param {function} callback - Callback on success
@@ -338,6 +330,7 @@ function Core() {
 		var url = element.href || element.getAttribute('data-load-url');
 		var target = element.getAttribute('data-load-target');
 		var push = element.getAttribute('data-push-url');
+		var loadModule = element.getAttribute('data-load-module');
 		var id;
 
 		if (url) {
@@ -346,14 +339,22 @@ function Core() {
 			element.removeAttribute('data-load-event');
 			_moff.runCallbacks(_beforeLoad, element);
 
-			if (_moff.history && push !== undefined) {
+			if (_moff.detect.history && push) {
 				id = Date.now();
 				_win.history.pushState({elemId: id, url: url}, title, url);
 				_historyData[id] = element;
 			}
 
 			loadContent(element, url, target, function() {
-				_moff.runCallbacks(_afterLoad, element);
+				// If element has data-load-module attribute
+				// include this module and then run after load callbacks.
+				if (loadModule) {
+					_moff.include(loadModule, function() {
+						_moff.runCallbacks(_afterLoad, element);
+					});
+				} else {
+					_moff.runCallbacks(_afterLoad, element);
+				}
 			});
 		}
 	}
@@ -444,18 +445,21 @@ function Core() {
 	}
 
 	/**
-	 * Get hash tag form URL.
-	 * @function getHash
-	 * @param {string} [url]
-	 * @returns {sting} Hash tag
+	 * Loads content of elements if data-load-screen set.
+	 * @function loadByScreenSize
 	 */
-	function getHash(url) {
-		if (url) {
-			var hashPoint = url.indexOf('#');
-			return hashPoint !== -1 ? url.substr(hashPoint + 1) : '';
-		}
+	function loadByScreenSize() {
+		var screenAttribute = 'data-load-screen';
+		var element;
 
-		return _win.location.hash.substr(1);
+		_moff.each(_doc.querySelectorAll('[' + screenAttribute + ']'), function() {
+			element = this;
+
+			if (checkDataScreen(element)) {
+				element.removeAttribute(screenAttribute);
+				handleLink(element);
+			}
+		});
 	}
 
 	/**
@@ -463,7 +467,13 @@ function Core() {
 	 * @function includeRegister
 	 */
 	function includeRegister() {
-		includeByHash();
+		_moff.each(_registeredFiles, function(id, object) {
+			// Don't load register if it is used in data-load-module attribute,
+			// because it will be included after content of element be loaded.
+			if (checkScreenMode(object.loadOnScreen) && !_doc.querySelectorAll('[data-load-module="' + id + '"]').length) {
+				_moff.include(id);
+			}
+		});
 	}
 
 	function nodeList(node) {
@@ -475,24 +485,24 @@ function Core() {
 	}
 
 	/**
-	 * Run initialisation of base handlers
-	 * @method init
-	 * @param {object} [settings] - Core settings
+	 * Gets Moff settings
+	 * @function readSettings
+	 * @returns {{}}
 	 */
-	this.init = function(settings) {
-		// Normalize settings
-		if (!settings) {
-			settings = {};
-		}
+	function readSettings() {
+		return window.moffConfig || {};
+	}
 
-		_doc.addEventListener('DOMContentLoaded', function() {
-			extendSettings(settings);
-			setBreakpoints();
-			setViewMode();
-			handleEvents();
-			includeRegister();
-		}, false);
-	};
+	/**
+	 *
+	 * @function init
+	 */
+	function init() {
+		extendSettings();
+		setBreakpoints();
+		setViewMode();
+		handleEvents();
+	}
 
 	/**
 	 * Check for CSS3 property support.
@@ -564,6 +574,7 @@ function Core() {
 	 * @method runCallbacks
 	 * @param {object} collection - Callbacks collection
 	 * @param {object} context - Callback context
+	 * @param {array} [args] - Callback arguments
 	 */
 	this.runCallbacks = function(collection, context, args) {
 		// Normalize collection
@@ -671,13 +682,6 @@ function Core() {
 			return;
 		}
 
-		var screenMode = _moff.getMode();
-
-		// Include on registered screen size.
-		if (register.loadOnScreen.length && register.loadOnScreen.indexOf(screenMode) === -1) {
-			return;
-		}
-
 		// Make sure to load after window load if onWindowLoad is true
 		if (register.onWindowLoad && !_windowIsLoaded) {
 			// Save id to load after window load
@@ -718,6 +722,7 @@ function Core() {
 	this.loadAssets = function(depend, callback) {
 		var loaded = 0;
 		var length = 0;
+		var jsIndex = 0;
 		var isCSS = Array.isArray(depend.css);
 		var isJS = Array.isArray(depend.js);
 
@@ -729,18 +734,31 @@ function Core() {
 			length += depend.css.length;
 		}
 
-		function runCallback() {
-			loaded++;
-			if (loaded === length) {
-				callback();
+		function loadJSArray() {
+			var src = depend.js[jsIndex];
+
+			if (src) {
+				_moff.loadJS(src, function() {
+					jsIndex++;
+					loaded++;
+
+					if (loaded === length) {
+						callback();
+					} else {
+						loadJSArray();
+					}
+				});
 			}
 		}
 
-		if (isJS && depend.js.length) {
-			// Load depend js files
-			this.each(depend.js, function(i, src) {
-				_moff.loadJS(src, runCallback);
-			});
+		loadJSArray();
+
+		function runCallback() {
+			loaded++;
+
+			if (loaded === length) {
+				callback();
+			}
 		}
 
 		if (isCSS && depend.css.length) {
@@ -899,6 +917,12 @@ function Core() {
 		}
 	};
 
+	/**
+	 * Iterates over object or array and run callback for each iteration.
+	 * @method each
+	 * @param {Array|object} object - Array or object to iterate over
+	 * @param {Function} callback - Iteration callback
+	 */
 	this.each = function(object, callback) {
 		var i = 0;
 		var length = object.length;
@@ -927,21 +951,37 @@ function Core() {
 	};
 
 	/**
+	 * Adds callbacks for DOMContentLoaded event.
+	 * If event is occurred it runs callback.
+	 * @method $
+	 * @param {Function} arg - Callback function
+	 */
+	this.$ = function(arg) {
+		if (typeof arg === 'function') {
+			if (_domIsLoaded) {
+				arg();
+			} else {
+				_domLoadedCallbacks.push(arg);
+			}
+		}
+	};
+
+	/**
 	 * Moff version.
 	 * @type {string}
 	 */
 	this.version = '{{version}}';
 
+	_doc.addEventListener('DOMContentLoaded', function() {
+		_domIsLoaded = true;
+		init();
+		_moff.runCallbacks(_domLoadedCallbacks, this);
+	}, false);
+
 	/* Test-code */
 	this._testonly = {
-		_deferredObjects: function() {
-			return _deferredObjects;
-		},
-
-		_registeredFiles: function() {
-			return _registeredFiles;
-		},
-
+		_deferredObjects: _deferredObjects,
+		_registeredFiles: _registeredFiles,
 		_cache: _cache
 	};
 	/* End-test-code */
