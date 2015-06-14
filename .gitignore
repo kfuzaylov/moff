@@ -1,0 +1,5 @@
+# Bower components
+libs
+
+# PhpStorm project
+.idea

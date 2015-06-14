@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Moff API - Moff.module</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/styles/styles.css">
+	<link rel="stylesheet" href="/libs/prism/themes/prism.css">
+
+	<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+
+	<!--[if lt IE 9]>
+	<script src="/libs/html5shiv/dist/html5shiv.min.js"></script>
+	<script src="/libs/respond/dest/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body data-spy="scroll" data-target="#affixNav">
+<header role="banner">
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+					data-target="#navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/" title="Moff - Mobile First Framework">
+					<img src="/images/logo.png" alt="Moff - Mobile First Framework" height="30">
+				</a>
+			</div>
+			<div class="collapse navbar-collapse" id="navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="/" title="Getting started - Moff">Getting started</a></li>
+					<li><a href="/data-events.html" title="Data Events - Moff">Data events</a></li>
+					<li><a href="/amd.html" title="AMD - Moff">AMD</a></li>
+					<li><a href="/modularity.html" title="Modularity - Moff">Modularity</a></li>
+					<li class="active dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">API <span class="caret"></span><span class="sr-only">(current)</span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="/api/index.html" title="API - Moff">Moff</a></li>
+							<li><a href="/api/detect.html" title="API - Moff.detect">Moff.detect</a></li>
+							<li><a href="/api/event.html" title="API - Moff.event">Moff.event</a></li>
+							<li><a href="/api/module.html" title="API - Moff.module">Moff.module</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+<main role="main">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-9 col-md-9">
+				<h1>API Moff.module</h1>
+				<p>Moff.module is the Moff plugin which creates modularity system in framework.</p>
+				<h4 id="find">find(selector)</h4>
+				<p>Finds any DOM element inside module scope. In the example will be found <code>.comment</code> element located only inside module scope,<br>
+					event another with the same class name will be located outside of the module scope.</p>
+				<p>Arguments:</p>
+				<ul>
+					<li><code>selector</code> - <small>String containing one or more CSS selectors separated by commas.</small></li>
+				</ul>
+				<p>Returns <code>NodeList</code> of elements matched by selector.</p>
+				<pre><code class="language-javascript">Moff.module.register('Comments', function() {
+	this.afterInit = function() {
+		this.find('.comment:first').addClass('__first');
+	};
+}</code></pre>
+				<hr>
+				<h4 id="get">get(name)</h4>
+				<p>Gets initialized via <code>Moff.module.initClass</code> module class by name. Object is returned if the only class object was initialized.
+					If more then one class objects were initialized it returns array of objects. If none of class objects were initialized it returns <code>undefined</code>.</p>
+				<p>Arguments:</p>
+				<ul>
+					<li><code>name</code> - <small>Module name.</small></li>
+				</ul>
+				<p>Returns <code>object</code>, <code>array</code> or <code>undefined</code>.</p>
+				<pre><code class="language-javascript">Moff.module.register('Comments', function() {});
+
+Moff.module.initClass('Comments', {id: 'comments_1', data: [{}, {}, {}]});
+Moff.module.get('Comments'); // Comments{}
+
+Moff.module.initClass('Comments', {id: 'comments_2', data: [{}, {}, {}]});
+Moff.module.get('Comments'); // [Comments{}, Comments{}]
+
+Moff.module.get('NonExistingClass'); // undefined</code></pre>
+				<hr>
+
+				<h4 id="getAll">getAll()</h4>
+				<p>Gets all initialized module instances.</p>
+				<p>Returns <code>object</code>.</p>
+				<pre><code class="language-javascript">Moff.module.register('Comments', function() {
+	this.handleAllModule = function() {
+		var all = this.getAll(); // {Comments: [Comments{}, Comments{}], Post: Post{}}
+
+		this.each(all, function(name, object) {
+			// do something with object...
+		});
+	};
+});</code></pre>
+				<hr>
+
+				<h4 id="initClass">initClass(ClassName, params)</h4>
+				<p>Initialize registered class object. While class initialization this method does the following:</p>
+				<ul>
+					<li>Checks whether passed class name is registered. If not throw warning and return.</li>
+					<li>If dependencies were registered it loads them only then starts initialization.</li>
+					<li>Creates new class object and stores in storage.</li>
+					<li>Runs <code>beforeInit</code> callbacks if exists.</li>
+					<li>Apply passed params to new created object.</li>
+					<li>Add module name to <code>moduleName</code> property.</li>
+					<li>Registers module events.</li>
+					<li>Sets module scope.</li>
+					<li>Call <code>init</code> method.</li>
+					<li>And execute <code>afterInit</code> method.</li>
+				</ul>
+				<p>Arguments:</p>
+				<ul>
+					<li><code>ClassName</code> - <small>Registered class name.</small></li>
+					<li><code>params</code> - <small>Object with additional params. Optional.</small></li>
+				</ul>
+				<pre><code class="language-javascript">// comments.js
+Moff.module.register('Comments', function() {
+	this.scopeSelector = '.comments';
+
+	this.events = ['beforePost', 'afterPost'];
+
+	this.beforeInit = function() {
+
+	};
+
+	this.init = function() {
+
+	};
+
+	this.afterInit = function() {
+
+	};
+});
+
+// HTML document or different js file
+Moff.module.initClass('Comments', {id: 'comments_43'});</code></pre>
+				<hr>
+
+				<h4 id="register">register(name, depends, Constructor)</h4>
+				<p>Adds new module class into the module storage. Depends files will be loaded on class initialization via <code>Moff.module.initClass</code> method.
+				If you register another module with the same name it will overwrite existing one.</p>
+				<p>Arguments:</p>
+				<ul>
+					<li><code>name</code> - <small>Registered class name.</small></li>
+					<li><code>depends</code> - <small>Object of js and css files. Optional.</small></li>
+					<li><code>Constructor</code> - <small>Class constructor.</small></li>
+				</ul>
+				<pre><code class="language-javascript">Moff.module.register(
+	'Comments',
+	{
+		js: ['js/plugins/facebook-comments.js'],
+		css: ['js/plugins/facebook-comments.css']
+	},
+	function() { /** Constructor */ }
+);</code></pre>
+				<hr>
+				<h4 id="remove">remove</h4>
+				<p>Remove the current class object. Fist it get the current object id and tries to remove by object <code>id</code> from storage.<br>
+				If id wasn't passed it removes by module name stored in <code>moduleName</code> property.</p>
+				<p>This method removes only initialized object class. So you are still can initialize it again.</p>
+				<pre><code class="language-javascript">Moff.module.register('Comments', function() {
+	this.disableComments = function() {
+		this.remove();
+	};
+});</code></pre>
+				<hr>
+				<h4 id="scope">scope</h4>
+				<p>Module top DOM HTML element defined by <code>scopeSelector</code>. If scope selector wasn't defined scope will be <code>null</code>.</p>
+				<p>Returns <code>HTML element</code>.</p>
+				<pre><code class="language-javascript">Moff.module.register('Comments', function() {
+	this.init = function() {
+		this.scope.setAttribute('data-module-name', 'Comments');
+	};
+});</code></pre>
+				<hr>
+				<h4 id="scopeSelector">scopeSelector</h4>
+				<p>String which contains CSS selector for module top DOM element. It is used on module initialization in <code>setScope</code> method to set moduel scope.
+				By default it is <code>null</code> and if you do not set it, module scope will not be created.</p>
+				<p>Returns <code>string</code>.</p>
+				<pre><code class="language-javascript">Moff.module.register('Comments', function() {
+	this.scopeSelector = '.post-comments';
+});</code></pre>
+				<hr>
+				<h4 id="setScope">setScope</h4>
+				<p>Creates module scope by scope selector. Scope sets on module initialization.<br>
+				And if you want to change it you can call it with updated scope selector.</p>
+				<pre><code class="language-javascript">Moff.module.register('Comments', function() {
+	this.afterInit = function() {
+		this.scopeSelector = '.new-comments';
+		this.setScope(); // now module scope is HTML element with new-comments class name.
+	};
+});</code></pre>
+
+			</div>
+			<div class="col-sm-3 col-md-3 hidden-xs" id="affixNav">
+				<ul data-spy="affix" class="nav nav-tabs nav-stacked affix-bar" data-offset-bottom="80" data-offset-top="75">
+					<li><a href="#find">find</a></li>
+					<li><a href="#get">get</a></li>
+					<li><a href="#getAll">getAll</a></li>
+					<li><a href="#initClass">initClass</a></li>
+					<li><a href="#register">register</a></li>
+					<li><a href="#remove">remove</a></li>
+					<li><a href="#scope">scope</a></li>
+					<li><a href="#scopeSelector">scopeSelector</a></li>
+					<li><a href="#setScope">setScope</a></li>
+				</ul>
+			</div>
+		</div><!-- row -->
+	</div><!-- container -->
+</main>
+<footer role="contentinfo">
+	<div class="website-footer">
+		<div class="container">
+			<div class="text-center">
+				<ul class="footer-links">
+					<li><a href="https://github.com/kfuzaylov/moff" title="Moff GitHub repository">GitHub</a></li>
+					<li class="footer-separator">.</li>
+					<li><a href="https://github.com/kfuzaylov/moff/issues" title="Moff issues repository">Issues</a>
+					</li>
+				</ul>
+				<div>
+					<small>Copyright (c) 2015 Kadir A. Fuzaylov.</small>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+<script src="/libs/jquery/dist/jquery.min.js"></script>
+<script src="/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/libs/prism/prism.js"></script>
+</body>
+</html>

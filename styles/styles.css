@@ -1,0 +1,50 @@
+body {
+	background-color: #f8f8f8;
+	color: #555;
+	text-shadow: 0 1px white;
+}
+
+.light-color {
+	color: #9a9a9a;
+}
+
+.website-footer {
+	border-top: 1px solid #c4c4c4;
+	margin-top: 20px;
+	padding-top: 20px;
+}
+
+.footer-links {
+	padding: 0;
+}
+
+.footer-links li {
+	display: inline;
+	list-style: none;
+}
+
+.footer-separator {
+	margin: 0 10px;
+	line-height: 15px;
+}
+
+.affix-bar {
+	width: 200px;
+	border: 0;
+}
+
+.affix-bar.affix {
+	position: fixed !important;
+}
+
+.affix-bar li a {
+	padding: 3px 10px;
+	border: 0;
+	color: #777;
+}
+
+.affix-bar li.active a,
+.affix-bar li.active a:hover {
+	background-color: #f5f2f0;
+	border: 0;
+}

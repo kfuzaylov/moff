@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Moff API</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/styles/styles.css">
+	<link rel="stylesheet" href="/libs/prism/themes/prism.css">
+
+	<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+
+	<!--[if lt IE 9]>
+	<script src="/libs/html5shiv/dist/html5shiv.min.js"></script>
+	<script src="/libs/respond/dest/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body data-spy="scroll" data-target="#affixNav">
+<header role="banner">
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/" title="Moff - Mobile First Framework">
+					<img src="/images/logo.png" alt="Moff - Mobile First Framework" height="30">
+				</a>
+			</div>
+			<div class="collapse navbar-collapse" id="navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="/" title="Getting started - Moff">Getting started</a></li>
+					<li><a href="/data-events.html" title="Data Events - Moff">Data events</a></li>
+					<li><a href="/amd.html" title="AMD - Moff">AMD</a></li>
+					<li><a href="/modularity.html" title="Modularity - Moff">Modularity</a></li>
+					<li class="active dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">API <span class="caret"></span><span class="sr-only">(current)</span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="/api/index.html" title="API - Moff">Moff</a></li>
+							<li><a href="/api/detect.html" title="API - Moff.detect">Moff.detect</a></li>
+							<li><a href="/api/event.html" title="API - Moff.event">Moff.event</a></li>
+							<li><a href="/api/module.html" title="API - Moff.module">Moff.module</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+<main role="main">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-9 col-md-9">
+				<h1>API Moff</h1>
+				<p>Moff has a rich API to work with mobile first approach.</p>
+
+				<h4 id="afterLoad">afterLoad(callback)</h4>
+				<p>Adds callback after content loading collection for data events.</p>
+				<p>Arguments:</p>
+				<ul><li><code>callback</code> - <small>Callback function</small></li></ul>
+				<pre><code class="language-javascript">Moff.afterLoad(function() {
+	// do something after content loading
+});</code></pre>
+				<hr>
+				<h4 id="ajax">ajax(options)</h4>
+				<p>Make asynchronous JavaScript XMLHttpRequest (AJAX).</p>
+				<p>Arguments:</p>
+				<ul>
+					<li>
+						<code>options</code> - <small>Object with the following options:<br>
+							<code>type</code> - Type of HTTP request. GET or POST<br>
+							<code>url</code> - String containing the request URL<br>
+							<code>data</code> - String or object with data to be sent to the server<br>
+							<code>contentType</code> - Content type of sending data. Default is "application/x-www-form-urlencoded; charset=UTF-8"<br>
+							<code>success(result)</code> - Callback for success request. Gets result responded by the server.<br>
+							<code>error(xmlHttp)</code> - Callback for error request. Gets XMLHttpRequest.<br>
+						</small>
+					</li>
+				</ul>
+				<pre><code class="language-javascript">Moff.ajax({
+	type: 'GET',
+	url: 'post/24/comments',
+	success: function(comments) {
+		addComments(comments);
+	}
+});</code></pre>
+				<hr>
+				<h4 id="beforeLoad">beforeLoad(callback)</h4>
+				<p>Adds callback before content loading collection for data events.</p>
+				<p>Arguments:</p>
+				<ul><li><code>callback</code> - <small>Callback function</small></li></ul>
+				<pre><code class="language-javascript">Moff.beforeLoad(function() {
+	// do something before content loading
+});</code></pre>
+				<hr>
+				<h4 id="each">each(array, callback)</h4>
+				<p>Iterates over objects, arrays and array-like objects, eg. HTMLCollection or NodeList.</p>
+				<p>Arguments:</p>
+				<ul>
+					<li><code>array</code> - <small>Array or object to iterate over</small></li>
+					<li><code>callback(key, value)</code> - <small>Callback will be executed on each iteration. It gets two arguments:<br>
+						<code>key</code> - integer index if the first argument is array or string if object.<br>
+						<code>value</code> - value if the first argument is array of value of property if object.
+					</small></li>
+				</ul>
+				<pre><code class="language-javascript">Moff.extend('module', function() {}, true)</code></pre>
+				<hr>
+				<h4 id="extend">extend(name, Constructor, extend)</h4>
+				<p>Extend Moff object. And optionally extend new object from Moff.</p>
+				<p>Arguments:</p>
+				<ul>
+					<li><code>name</code> - <small>New object name</small></li>
+					<li><code>Constructor</code> - <small>function Constructor</small></li>
+					<li><code>extend</code> - <small>Flag whether to extend new class from Moff</small></li>
+				</ul>
+				<pre><code class="language-javascript">Moff.extend('module', function() {}, true)</code></pre>
+				<hr>
+				<h4 id="extendClass">extendClass(child, Parent)</h4>
+				<p>Extend child constructor from parent.</p>
+				<p>Arguments:</p>
+				<ul>
+					<li><code>child</code> - <small>Child constructor</small></li>
+					<li><code>parent</code> - <small>Parent constructor</small></li>
+				</ul>
+				<pre><code class="language-javascript">function Child() {}
+function Parent() {}
+Moff.extendClass(Child, Parent);</code></pre>
+				<hr>
+				<h4 id="getMode">getMode</h4>
+				<p>Get current view mode.</p>
+				<p>Returns one of these values: <code>xs</code>, <code>sm</code>, <code>md</code> or <code>lg</code>.</p>
+				<pre><code class="language-javascript">Moff.getMode(); // xs, sm, md or lg</code></pre>
+				<hr>
+
+				<h4 id="handleDataEvents">handleDataEvents</h4>
+				<p>This method handle all new elements added to the page dynamically.</p>
+				<pre><code class="language-javascript">Moff.ajax({
+	type: 'GET',
+	url: '/new-content',
+	success: function(html) {
+		target.innerHTML = html;
+		Moff.handleDataEvents();
+	}
+});</code></pre>
+				<hr>
+
+				<h4 id="loadCSS">loadCSS(href, callback)</h4>
+				<p>Load CSS file and run callback when it be loaded. It does not load file if it is already included and run callback immediately.</p>
+				<p>Arguments:</p>
+				<ul>
+					<li><code>href</code> - <small>Source of loaded css file</small></li>
+					<li><code>callback</code> - <small>On load callback function</small></li>
+				</ul>
+				<pre><code class="language-javascript">Moff.loadCSS('assets/css/style.css', function() { /** File is loaded */});</code></pre>
+				<hr>
+				<h4 id="loadAssets">loadAssets(depend, callback)</h4>
+				<p>Load files and run callback after files loading. It will not load file if it is already loaded.<br>
+					And it will execute callback immediately if no files were passed.</p>
+				<p>Arguments:</p>
+				<ul>
+					<li><code>depend</code> - <small>Object with js and css files</small></li>
+					<li><code>callback</code> - <small>Callback function</small></li>
+				</ul>
+				<pre><code class="language-javascript">Moff.loadAssets(
+	{
+		js: ['/assets/js/script.js'],
+		css: ['/assets/css/style.css']
+	},
+	function() {
+
+	}
+);</code></pre>
+				<hr>
+				<h4 id="loadJS">loadJS(src, callback)</h4>
+				<p>Load javascript file and run callback when it be loaded. It doesn't load file if it is already included and run callback immediately.</p>
+				<p>Arguments:</p>
+				<ul>
+					<li><code>src</code> - <small>Source of javascript file</small></li>
+					<li><code>callback</code> - <small>Callback function</small></li>
+				</ul>
+				<pre><code class="language-javascript">Moff.loadJS('assets/js/script.js', function() { /** Script file is loaded */});</code></pre>
+				<hr>
+				<h4 id="onViewChange">onViewChange(callback)</h4>
+				<p>Add callback to view change collection. These callbacks will be executed on view change event.</p>
+				<p>Arguments:</p>
+				<ul>
+					<li><code>callback</code> - <small>Callback function. Each callback will get the current view mode - xs, sm, md or lg.</small></li>
+				</ul>
+				<pre><code class="language-javascript">Moff.onViewChange(function() {
+	// get current view mode and do something...
+});</code></pre>
+				<hr>
+				<h4 id="reopen">reopen(methods)</h4>
+				<p>Overwrites and adds object methods and properties.</p>
+				<p>Arguments:</p>
+				<ul>
+					<li><code>methods</code> - <small>Object with new and existing method and properties.</small></li>
+				</ul>
+				<pre><code class="language-javascript">Moff.module.reopen({
+	newProp: 3,
+	remove: function() {
+		// Change the remove method logic.
+	}
+});</code></pre>
+				<hr>
+				<h4 id="runCallbacks">runCallbacks(collection, context, args)</h4>
+				<p>Runs the array of callbacks in certain context and passes passed arguments.</p>
+				<p>Arguments:</p>
+				<ul>
+					<li><code>collection</code> - <small>Array of callbacks</small></li>
+					<li><code>context</code> - <small>Context object</small></li>
+					<li><code>args</code> - <small>Array of arguments</small></li>
+				</ul>
+				<hr>
+				<pre><code class="language-javascript">var callbacks = [callback1, callback2, callback3];
+this.run = function() {
+	Moff.runCallbacks(callbacks, this, arguments);
+}</code></pre>
+				<hr>
+				<h4 id="settings">settings(key, value)</h4>
+				<p>Set or get Moff settings value.</p>
+				<p>Returns passed key value if used as getter.</p>
+				<p>Arguments:</p>
+				<ul>
+					<li><code>key</code> - <small>Settings name</small></li>
+					<li><code>value</code> - <small>Settings value</small></li>
+				</ul>
+				<pre><code class="language-javascript">Moff.settings('cache'); // true
+Moff.settings('cache', false); // false</code></pre>
+				<hr>
+				<h4 id="supportCSS3">supportCSS3(property)</h4>
+				<p>Determines does the browser support passed CSS3 property.</p>
+				<p>Returns boolean.</p>
+				<p>Arguments:</p>
+				<ul><li><code>property</code> - <small>CSS3 property</small></li></ul>
+				<pre><code class="language-javascript">if (Moff.supportCSS3('transition')) {
+	// browser supports CSS3 transition property
+}</code></pre>
+				<hr>
+				<h4 id="version">version</h4>
+				<p>Get Moff version.</p>
+				<p>Returns string.</p>
+				<pre><code class="language-javascript">Moff.version; // 1.x.x</code></pre>
+			</div>
+			<div class="col-sm-3 col-md-3 hidden-xs" id="affixNav">
+				<ul data-spy="affix" class="nav nav-tabs nav-stacked affix-bar" data-offset-bottom="80" data-offset-top="75">
+					<li><a href="#afterLoad">afterLoad</a></li>
+					<li><a href="#ajax">ajax</a></li>
+					<li><a href="#beforeLoad">beforeLoad</a></li>
+					<li><a href="#each">each</a></li>
+					<li><a href="#extend">extend</a></li>
+					<li><a href="#extendClass">extendClass</a></li>
+					<li><a href="#getMode">getMode</a></li>
+					<li><a href="#handleDataEvents">handleDataEvents</a></li>
+					<li><a href="#loadCSS">loadCSS</a></li>
+					<li><a href="#loadAssets">loadAssets</a></li>
+					<li><a href="#loadJS">loadJS</a></li>
+					<li><a href="#onViewChange">onViewChange</a></li>
+					<li><a href="#reopen">reopen</a></li>
+					<li><a href="#runCallbacks">runCallbacks</a></li>
+					<li><a href="#settings">settings</a></li>
+					<li><a href="#supportCSS3">supportCSS3</a></li>
+					<li><a href="#version">version</a></li>
+				</ul>
+			</div>
+		</div><!-- row -->
+	</div><!-- container -->
+</main>
+<footer role="contentinfo">
+	<div class="website-footer">
+		<div class="container">
+			<div class="text-center">
+				<ul class="footer-links">
+					<li><a href="https://github.com/kfuzaylov/moff" title="Moff GitHub repository">GitHub</a></li>
+					<li class="footer-separator">.</li>
+					<li><a href="https://github.com/kfuzaylov/moff/issues" title="Moff issues repository">Issues</a>
+					</li>
+				</ul>
+				<div>
+					<small>Copyright (c) 2015 Kadir A. Fuzaylov.</small>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+<script src="/libs/jquery/dist/jquery.min.js"></script>
+<script src="/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/libs/prism/prism.js"></script>
+</body>
+</html>
