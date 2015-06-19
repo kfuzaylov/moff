@@ -1,7 +1,7 @@
 /**
  * @overview  moff - Mobile First Framework
  * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.5.23
+ * @version   1.5.24
  * @license   Licensed under MIT license
  * @copyright Copyright (c) 2015 Kadir A. Fuzaylov
  */
@@ -425,17 +425,20 @@
             }
 
             element = _historyData[state.elemId];
-            if (!checkDataScreen(element)) {
-                return;
+
+            if (element) {
+                if (!checkDataScreen(element)) {
+                    return;
+                }
+
+                var url = state.url;
+                var target = element.getAttribute('data-load-target');
+
+                _moff.runCallbacks(_beforeLoad, element);
+                loadContent(element, url, target, function() {
+                    _moff.runCallbacks(_afterLoad, element);
+                });
             }
-
-            var url = state.url;
-            var target = element.getAttribute('data-load-target');
-
-            _moff.runCallbacks(_beforeLoad, element);
-            loadContent(element, url, target, function() {
-                _moff.runCallbacks(_afterLoad, element);
-            });
         }
 
         /**
@@ -975,7 +978,7 @@
          * Moff version.
          * @type {string}
          */
-        this.version = '1.5.23';
+        this.version = '1.5.24';
 
         _doc.addEventListener('DOMContentLoaded', function() {
             _domIsLoaded = true;

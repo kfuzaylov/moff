@@ -420,17 +420,20 @@ function Core() {
 		}
 
 		element = _historyData[state.elemId];
-		if (!checkDataScreen(element)) {
-			return;
+
+		if (element) {
+			if (!checkDataScreen(element)) {
+				return;
+			}
+
+			var url = state.url;
+			var target = element.getAttribute('data-load-target');
+
+			_moff.runCallbacks(_beforeLoad, element);
+			loadContent(element, url, target, function() {
+				_moff.runCallbacks(_afterLoad, element);
+			});
 		}
-
-		var url = state.url;
-		var target = element.getAttribute('data-load-target');
-
-		_moff.runCallbacks(_beforeLoad, element);
-		loadContent(element, url, target, function() {
-			_moff.runCallbacks(_afterLoad, element);
-		});
 	}
 
 	/**
