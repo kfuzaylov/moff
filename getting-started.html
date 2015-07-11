@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Moff - Mobile First Framework</title>
+	<title>Moff - Getting Started</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,7 +32,7 @@
 			</div>
 			<div class="collapse navbar-collapse" id="navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="/getting-started.html" title="Getting started - Moff">Getting started <span class="sr-only">(current)</span></a></li>
+					<li class="active"><a href="/getting-started.html" title="Getting started - Moff">Getting started <span class="sr-only">(current)</span></a></li>
 					<li><a href="/data-events.html" title="Data Events - Moff">Data events</a></li>
 					<li><a href="/amd.html" title="AMD - Moff">AMD</a></li>
 					<li><a href="/modularity.html" title="Modularity - Moff">Modularity</a></li>
@@ -54,14 +54,49 @@
 </header>
 <main role="main">
 	<div class="container">
-		<h1>Moff - Mobile First Framework
-			<small class="light-color">v. 1.6.27</small>
-		</h1>
-		<p>Moff is a javascript framework designed to offer best practices for mobile first development.
-			It has rich API to work with browser, files and modularity system.
-			Also it support Asynchronous Module Definition (AMD) which help to control loading of your modules. Data events system allows to load content with the least efforts.
-			And it has pluggable system which allows to create plugins and extend the framework.</p>
-
+		<h1>Getting started</h1>
+		<h3>Install with Bower</h3>
+		<p><pre><code class="language-bash">$ bower install moff --save</code></pre></p>
+		<p>If you don't use <code>bower</code> you can download <a href="/source/moff.js">development</a> and <a href="source/moff.js.map">map</a> or <a href="/source/moff.min.js">production</a> version.</p>
+		<h3>Setting up</h3>
+		<p>Moff is initialized automatically on DOMContentLoaded event. But you can pass settings value for initialization by defining <code>window.moffConfig</code> object.
+			If you do not define config object Moff it will be initialized with default setting values.</p>
+		<pre><code class="language-javascript">window.moffConfig = {
+	// Website CSS breakpoints.
+	// Default values from Twitter Bootstrap.
+	// No need to set xs, because of Mobile first approach.
+	breakpoints: {
+		sm: 768,
+		md: 992,
+		lg: 1200
+	},
+	loadOnHover: true,
+	cacheLiveTime: 2000
+};</code></pre>
+		<h3>Initialization options</h3>
+		<ul>
+			<li><code>breakpoints</code> - Sets break points which are used by framework to determine what is the current screen size.<br>
+				If you customized Twitter Bootstrap break points do not forget to change them for <code>window.moffConfig</code> too.
+			</li>
+			<li><code>loadOnHover</code> - Enables instant click effect. On mouse over it pre-loads data and stores in cache. And on click data will be loaded from cache.<br>
+				It works only for non mobile devices.</li>
+			<li><code>cacheLiveTime</code> - Sets cache live time loaded on element hover. Default is 2 seconds. If you increase the value it starts to use more memory<br>
+			and may be the cause of showing old, expired data.</li>
+		</ul>
+		<p>
+			And include moff after config.
+			<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/moff.min.js"&gt;&lt;/script&gt;</code></pre>
+		</p>
+		<h3>Browser support</h3>
+		<p>Moff supports major of modern web browsers.
+		<ul>
+			<li>Internet Explorer 9+</li>
+			<li>Mozilla Firefox</li>
+			<li>Google Chrome</li>
+			<li>Opera 12+</li>
+			<li>Apple Safari</li>
+		</ul>
+		</p>
 	</div>
 </main>
 <footer role="contentinfo">

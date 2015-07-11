@@ -40,9 +40,11 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">API <span class="caret"></span><span class="sr-only">(current)</span></a>
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="/api/index.html" title="API - Moff">Moff</a></li>
+							<li><a href="/api/amd.html" title="API - Moff.amd">Moff.amd</a></li>
 							<li><a href="/api/detect.html" title="API - Moff.detect">Moff.detect</a></li>
 							<li><a href="/api/event.html" title="API - Moff.event">Moff.event</a></li>
-							<li><a href="/api/module.html" title="API - Moff.module">Moff.module</a></li>
+							<li><a href="/api/modules.html" title="API - Moff.modules">Moff.modules</a></li>
+							<li><a href="/api/module.html" title="API - Moff.Module">Moff.Module</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -179,6 +181,15 @@ Moff.detect.browser.version; // 42.0.2311.90</code></pre>
 	// window.sessionStorage is supported
 }</code></pre>
 				<hr>
+				<h4 id="supportCSS3">supportCSS3(property)</h4>
+				<p>Determines does the browser support passed CSS3 property.</p>
+				<p>Returns boolean.</p>
+				<p>Arguments:</p>
+				<ul><li><code>property</code> - <small>CSS3 property</small></li></ul>
+				<pre><code class="language-javascript">if (Moff.detect.supportCSS3('transition')) {
+	// browser supports CSS3 transition property
+}</code></pre>
+				<hr>
 				<h4 id="touch">touch</h4>
 				<p>Indicates if the browser supports touch events, which does not necessarily reflect a touchscreen device.</p>
 				<p>Returns <code>boolean</code>.</p>
@@ -228,6 +239,7 @@ Moff.detect.browser.version; // 42.0.2311.90</code></pre>
 					<li><a href="#OS">OS</a></li>
 					<li><a href="#postMessage">postMessage</a></li>
 					<li><a href="#sessionStorage">sessionStorage</a></li>
+					<li><a href="#supportCSS3">supportCSS3</a></li>
 					<li><a href="#touch">touch</a></li>
 					<li><a href="#video">video</a></li>
 					<li><a href="#webSockets">webSockets</a></li>

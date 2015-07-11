@@ -48,3 +48,11 @@ body {
 	background-color: #f5f2f0;
 	border: 0;
 }
+
+.sub-option {
+	margin-left: 15px;
+}
+
+.sub-option_sub {
+	margin-left: 30px;
+}

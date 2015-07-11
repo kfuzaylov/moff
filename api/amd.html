@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Moff API - Moff.event</title>
+	<title>Moff API - AMD</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,8 +19,7 @@
 	<nav class="navbar navbar-default" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-					data-target="#navbar-collapse">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
 					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
@@ -56,95 +55,56 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-9 col-md-9">
-				<h1>API Moff.event</h1>
-				<p>This is Moff event plugin which creates event system for modules communication between each other via events.</p>
-				<h4 id="add">add(name)</h4>
-				<p>Adds event into events storage. Usually all events are registered via <code>this.events</code> module's property.<br>
-					And if you want to register new event dynamically use <code>this.event.add</code> method.</p>
+				<h1>API Moff.amd</h1>
+				<p>Moff.amd namespace to work with Asynchronous Module Definition technique.</p>
+
+				<h4 id="include">include(id)</h4>
+				<p>Loads registered module by id.</p>
 				<p>Arguments:</p>
-				<ul>
-					<li><code>name</code> - <small>Event name.</small></li>
-				</ul>
-<pre><code class="language-javascript">Moff.modules.create('Comments', function() {
-	this.events = ['afterPost'];
-
-	this.hasManyPosts = function() {
-		return this.data.length;
-	};
-
-	this.init = function() {
-		if (this.hasManyPosts) {
-			Moff.event.add('onDelete');
-		}
-	};
-});</code></pre>
+				<ul><li><code>id</code> - <small>Module identifier</small></li></ul>
+				<pre><code class="language-javascript">Moff.amd.include('liveChat');</code></pre>
 				<hr>
-				<h4 id="get">get(name)</h4>
-				<p>Get event callbacks from storage. It returns array of callbacks assigned for this event.</p>
-				<p>Returns <code>array</code> or <code>undefined</code> if event does not exist.</p>
+				<h4 id="register">register(object)</h4>
+				<p>Register module (simple object) to be loaded later.</p>
 				<p>Arguments:</p>
 				<ul>
-					<li><code>name</code> - <small>Event name.</small></li>
+					<li>
+						<code>object</code> - <small>Object with the following options:<br>
+						<code class="sub-option">id</code> - Module identifier<br>
+						<code class="sub-option">depend</code> - Module dependencies object. Consists from <code>js</code> and <code>css</code> keys:<br>
+						<code class="sub-option_sub">js</code> - Array of javascript files.<br>
+						<code class="sub-option_sub">css</code> - Array of css files.<br>
+						<code class="sub-option">file</code> - Object of module main files. Consists from <code>js</code> and <code>css</code> keys:<br>
+						<code class="sub-option_sub">js</code> - Array of javascript files.<br>
+						<code class="sub-option_sub">css</code> - Array of css files.<br>
+						<code class="sub-option">beforeInclude</code> - Callback to be triggered before all files include.<br>
+						<code class="sub-option">afterInclude</code> - Callback to be triggered after all files include.<br>
+						<code class="sub-option">loadOnScreen</code> - Array of screen sizes which indicates when module will be loaded automatically.<br>
+						<code class="sub-option">onWindowLoad</code> - Boolean which determines whether module will be loaded on window <code>load</code> event.<br>
+					</small>
+					</li>
 				</ul>
-<pre><code class="language-javascript">Moff.modules.create('Comments', function() {
-	this.handleAssigners = function() {
-		var callbacks = Moff.event.get('afterPost');
+				<pre><code class="language-javascript">Moff.amd.register({
+	id: 'liveChat',
+	depend: {
+		js: ['http://chat-domain.com/js/chat-api.js'],
+		css: ['http://chat-domain.com/css/chat.css']
+	},
+	file: {
+		js: ['modules/my-chat.js'],
+		css: ['modules/my-chat.css']
+	},
 
-		Moff.each(callbacks, function(index, callback) {
-			// do something with callback...
-		});
-	};
-});</code></pre>
-				<hr>
-
-				<h4 id="on">on(name, callback)</h4>
-				<p>Assign callback for event. If event is not registered it will register it and assign for.</p>
-				<p>Arguments:</p>
-				<ul>
-					<li><code>name</code> - <small>Event name to assign for.</small></li>
-					<li><code>callback</code> - <small>Function which will be executed on event trigger.</small></li>
-				</ul>
-<pre><code class="language-javascript">Moff.modules.create('Comments', function() {
-	function loadComments() {
-
-	}
-
-	this.init = function() {
-		Moff.$(function() {
-			Moff.event.on('afterPost', loadComments);
-		});
-	};
-});</code></pre>
-				<hr>
-				<h4 id="trigger">trigger(name)</h4>
-				<p>Trigger registered events and execute all assigned callbacks. You can pass any number of arguments after event name<br>
-					and all of them will be passed to callbacks.</p>
-				<p>Arguments:</p>
-				<ul>
-					<li><code>name</code> - <small>Event name.</small></li>
-				</ul>
-<pre><code class="language-javascript">Moff.modules.create('Comments', function() {
-	this.events = ['afterPost'];
-
-	this.postComment = function() {
-		var comments = this;
-		Moff.ajax({
-			type: 'POST',
-			url: '/post/43/comments/',
-			data: {userName: 'User Name', text: 'New comment text'},
-			success: function(result) {
-				Moff.event.trigger('afterPost', result);
-			}
-		);
-	};
+	beforeInclude: function() {},
+	afterInclude: function() {},
+	loadOnScreen: ['md', 'lg'],
+	onWindowLoad: true
 });</code></pre>
 			</div>
 			<div class="col-sm-3 col-md-3 hidden-xs" id="affixNav">
 				<ul data-spy="affix" class="nav nav-tabs nav-stacked affix-bar" data-offset-bottom="80" data-offset-top="75">
-					<li><a href="#add">add</a></li>
-					<li><a href="#get">get</a></li>
-					<li><a href="#on">on</a></li>
-					<li><a href="#trigger">trigger</a></li>
+					<li><a href="#include">include</a></li>
+					<li><a href="#register">register</a></li>
 				</ul>
 			</div>
 		</div><!-- row -->

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Moff Data events</title>
+	<title>Moff - Data events</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,7 +31,7 @@
 			</div>
 			<div class="collapse navbar-collapse" id="navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="/" title="Getting started - Moff">Getting started</a></li>
+					<li><a href="/getting-started.html" title="Getting started - Moff">Getting started</a></li>
 					<li class="active"><a href="/data-events.html" title="Data Events - Moff">Data events <span class="sr-only">(current)</span></a></li>
 					<li><a href="/amd.html" title="AMD - Moff">AMD</a></li>
 					<li><a href="/modularity.html" title="Modularity - Moff">Modularity</a></li>
@@ -39,9 +39,11 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">API <span class="caret"></span><span class="sr-only">(current)</span></a>
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="/api/index.html" title="API - Moff">Moff</a></li>
+							<li><a href="/api/amd.html" title="API - Moff.amd">Moff.amd</a></li>
 							<li><a href="/api/detect.html" title="API - Moff.detect">Moff.detect</a></li>
 							<li><a href="/api/event.html" title="API - Moff.event">Moff.event</a></li>
-							<li><a href="/api/module.html" title="API - Moff.module">Moff.module</a></li>
+							<li><a href="/api/modules.html" title="API - Moff.modules">Moff.modules</a></li>
+							<li><a href="/api/module.html" title="API - Moff.Module">Moff.Module</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -55,20 +57,20 @@
 		<p>Data event attributes are powerful helpers which allow to load content on certain event with minimum efforts. It has rich API to work with events.<br>
 			It is possible to set loading target, cache loaded content and show on certain screen size and other more.
 		</p>
-		<h3>Loading target</h3>
+		<h3>Load target</h3>
 		<p><code>data-load-target</code> specifies the target where content will be loaded in.<br>Content will be loaded to the target element on <code>click</code> event.
 			Attribute value is CSS selector.</p>
 	<pre><code class="language-markup">&lt;a href="content.html" data-load-target="#content-target"&gt;Load content&lt;/a&gt;
 &lt;div id="content-target"&gt;&lt;/div&gt;</code></pre>
 
-		<h3>Loading event</h3>
+		<h3>Load event</h3>
 		<p><code>data-load-event</code> sets load event type for an element. Default is <code>click</code> event.<br>
 			There is also available custom event:<br>
 			<code>dom</code> - Content will be loaded on <code>DOMContentLoaded</code> event.<br>
 		<pre><code class="language-markup">&lt;a href="content.html" data-load-target="#content-target" data-load-event="dom"&gt;Load content on DOM loaded&lt;/a&gt;
 &lt;div id="content-target"&gt;&lt;/div&gt;</code></pre>
 
-		<h3>Loading URL</h3>
+		<h3>Load URL</h3>
 		<p><code>data-load-url</code> sets url to load from for element which does not have <code>href</code> attribute.</p>
 		<pre><code class="language-markup">&lt;span data-load-url="content.html" data-load-target="#content-target"&gt;Load content&lt;/span&gt;
 &lt;div id="content-target"&gt;&lt;/div&gt;</code></pre>
@@ -77,12 +79,12 @@
 		<pre><code class="language-markup">&lt;input data-load-url="search.php?query={{value}}" data-load-target="#content-target" data-load-event="keyup" type="text"&gt;
 &lt;div id="content-target"&gt;&lt;/div&gt;</code></pre>
 
-		<h3>Loading on screen</h3>
+		<h3>Load on screen</h3>
 		<p><code>data-load-screen</code> determines what screen size content will be loaded automatically. Available to set several screen sizes.<br>
 			If load screen size does not fit the current one, content will be loaded on <code>click</code> event.</p>
 		<pre><code class="language-markup">&lt;a href="content.html" data-load-screen="sm md" data-load-target="#content-target"&gt;Load on sm or md screen sizes&lt;/a&gt;</code></pre>
 
-		<h3>Loading module</h3>
+		<h3>Load module</h3>
 		<p><code>data-load-module</code> loads registered via <code>Moff.register</code> module after content is being loaded.<br>
 		In ths example first is loaded module view and them js and css styles.</p>
 		<pre><code class="language-markup">&lt;a href="comments.html" data-load-target="#content-target" data-load-module="comments"&gt;Load comments&lt;/a&gt;</code></pre>
