@@ -61,6 +61,65 @@
 			It has rich API to work with browser, files and modularity system.
 			Also it support Asynchronous Module Definition (AMD) which help to control loading of your modules. Data events system allows to load content with the least efforts.
 			And it has pluggable system which allows to create plugins and extend the framework.</p>
+		<div>
+			<h2>Powerful data event helpers</h2>
+			<p>Easily loads some content to specified target.</p>
+			<pre><code class="language-markup">&lt;a href="additional-content.html" data-load-target="#content-target"&gt;Load additional content&lt;/a&gt;
+&lt;div id="content-target"&gt;&lt;/div&gt;</code></pre>
+			<h3>Example</h3>
+			<div class="moff-example">
+				<a href="source/additional-content.html" data-load-target="#content-target">Load additional content</a>
+				<div id="content-target" style="margin-top: 15px;"><i>Target is empty now...</i></div>
+			</div>
+			<h3>Data events + AMD</h3>
+			<p>For example you want to show only main image and load thumbs only when user request them.</p>
+			<pre><code class="language-markup">&lt;div class="main-image"&gt;
+	&ltimg src="main-image.png"&gt;
+&lt;/div&gt;
+&lt;div class="image-thumbs"&gt;
+	&lt;a href="thumbs.html"  data-load-target=".image-thumbs" data-load-module="thumbsModule"&gt;See more...&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+			<pre><code class="language-markup">&lt!-- thumbs.html --&gt
+&lt;div&gt;&lt;img src="/images/thumb1.png"&gt;&lt/div&gt;
+&lt;div&gt;&lt;img src="/images/thumb2.png"&gt;&lt;/div&gt;
+&lt;div&gt;&lt;img src="/images/thumb3.png"&gt;&lt;/div&gt;
+&lt;div&gt;&lt;img src="/images/thumb4.png"&gt;&lt;/div&gt;
+&lt;div&gt;&lt;img src="/images/thumb5.png"&gt;&lt;/div&gt;
+&lt;div&gt;&lt;img src="/images/thumb6.png"&gt;&lt;/div&gt;</code></pre>
+			<pre><code class="language-javascript">Moff.amd.register({
+	id: 'thumbsModule',
+	depend: {
+		js: ['bower_components/jquery/dist/jquery.min.js', 'bower_components/slick-carousel/slick/slick.min.js'],
+		css:['bower_components/slick-carousel/slick/slick.css']
+	},
+	file: {
+		js: ['javascripts/thumbs.js']
+	}
+});</code></pre>
+			<pre><code class="language-javascript">// thumbs.js
+
+// jQuery and Slick carousel are already loaded
+$('.image-thumbs').slick({
+	infinite: true,
+	slidesToShow: 3,
+	slidesToScroll: 3
+});
+
+$('.image-thumbs img').on('click', function() {
+	var number = $(this).attr('src').match(/thumb(\d)\.png/)[1];
+	$('.main-image img').attr('src', 'images/preview' + number + '.png');
+});</code></pre>
+			<h3>Example</h3>
+			<div class="moff-example">
+				<div class="main-image">
+					<img src="images/preview1.png">
+				</div>
+				<div class="image-thumbs">
+					<a style="margin-left: -40px;" href="source/thumbs.html" data-load-target=".image-thumbs" data-load-module="thumbsModule">See more...</a>
+				</div>
+			</div>
+			<div class="alert alert-success" role="alert">Thus, we reduced page size for <strong>727 KB.</strong> by loading needed sources only by user request!</div>
+		</div>
 
 	</div>
 </main>
@@ -84,5 +143,18 @@
 <script src="/libs/jquery/dist/jquery.min.js"></script>
 <script src="/libs/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/libs/prism/prism.js"></script>
+<script src="/source/moff.js"></script>
+<script>
+	Moff.amd.register({
+		id: 'thumbsModule',
+		depend: {
+			js: ['libs/slick-carousel/slick/slick.min.js'],
+			css:['libs/slick-carousel/slick/slick.css']
+		},
+		file: {
+			js: ['source/thumbs.js']
+		}
+	});
+</script>
 </body>
 </html>

@@ -122,6 +122,11 @@ function AMD() {
 	this.include = function (id, callback) {
 		var register = _registeredFiles[id];
 
+		if (!register) {
+			Moff.debug(id + ' AMD module is not registered.');
+			return;
+		}
+
 		// Make sure files are not loaded
 		if (register.loaded) {
 			return;
@@ -965,8 +970,8 @@ function Core() {
   * @param {*} message - A debug message to display
   */
 	this.debug = function (message) {
-		if (window.console && window.console.log) {
-			window.console.log('Moff DEBUG: ' + message);
+		if (window.console && window.console.debug) {
+			window.console.debug('DEBUG: ' + message);
 		}
 	};
 
