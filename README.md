@@ -8,15 +8,48 @@ Before installing be sure bower is installed.
 ```bash
 npm install bower -g
 ```
-Install package
+Install Moff
+```bash
+bower install moff --save
+```
+## Include Moff
+Moff has three types of compiled files in <code>./dist</code> directory.
+- <code>moff.js</code> - Full, not minified version with debug info + soursermap.
+- <code>moff.prod.js</code> - Production, not minified version. W/o debug info.
+- <code>moff.min.js</code> - Minified, production version. W/o debug info.
+
+## Development
+Clone [Moff](https://github.com/kfuzaylov/moff) repository.
+```bash
+git clone git@github.com:kfuzaylov/moff.git
+```
+```bash
+cd moff
+```
+### Install package
 ```bash
 npm install
 ```
+Before package installation, npm installs testem, gulp and bower as global binary.
+```bash
+npm install testem -g && npm install gulp -g && bower install -g
+```
+## Compile
+After made changes, need to update framework version in <code>bower.json</code> file and compiled files.
+```bash
+gulp compile
+```
 
 ## Tests
+Tests are kept in <code>./packages</code> directory. You can run tests only for some package.
 ```bash
-npm test
+gulp test --package=amd
 ```
+Run tests for all packages.
+```bash
+gulp test --package=all
+```
+Tests will run via Testem. On press "Enter" button on console, gulp re-compile test files to get the latest version.
 
 ## License
 The MIT License (MIT)

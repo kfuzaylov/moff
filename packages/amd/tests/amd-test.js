@@ -5,7 +5,7 @@ describe('AMD', function() {
 	div.setAttribute('data-load-module', 'load-data');
 	document.body.appendChild(div);
 
-	Moff.register({
+	Moff.amd.register({
 		id: 'load',
 		depend: {
 			js: ['fixtures/depend.js'],
@@ -18,12 +18,12 @@ describe('AMD', function() {
 		loadOnScreen: ['xs', 'sm', 'md', 'lg']
 	});
 
-	Moff.register({
+	Moff.amd.register({
 		id: 'load-data',
 		loadOnScreen: ['xs', 'sm', 'md', 'lg']
 	});
 
-	Moff.register({
+	Moff.amd.register({
 		id: 'moduleId',
 		depend: {
 			js: ['fixtures/depend.js'],
@@ -42,12 +42,12 @@ describe('AMD', function() {
 		onWindowLoad: true
 	});
 
-	Moff.register({
+	Moff.amd.register({
 		id: 'push',
 		onWindowLoad: true
 	});
 
-	Moff.include('push');
+	Moff.amd.include('push');
 
 	describe('Moff.include loadOnScreen option', function() {
 
@@ -60,7 +60,7 @@ describe('AMD', function() {
 		
 		it('marks register as loaded', function(done) {
 			Moff.$(function() {
-				expect(Moff._testonly._registeredFiles['load'].loaded).toBeTruthy();
+				expect(Moff.amd._testonly._registeredFiles['load'].loaded).toBeTruthy();
 				done();
 			});
 		});
@@ -79,14 +79,14 @@ describe('AMD', function() {
 
 		it('does not load register w/o this flag', function(done) {
 			Moff.$(function() {
-				expect(Moff._testonly._registeredFiles['moduleId'].loaded).toBeFalsy();
+				expect(Moff.amd._testonly._registeredFiles['moduleId'].loaded).toBeFalsy();
 				done();
 			});
 		});
 
 		it('does not include if module registered in data event', function(done) {
 			Moff.$(function() {
-				expect(Moff._testonly._registeredFiles['load-data'].loaded).toBeFalsy();
+				expect(Moff.amd._testonly._registeredFiles['load-data'].loaded).toBeFalsy();
 				done();
 			});
 		});
@@ -95,30 +95,30 @@ describe('AMD', function() {
 	describe('Moff.register method', function() {
 
 		beforeAll(function() {
-			Moff.register({
+			Moff.amd.register({
 				id: 'fakeId'
 			});
 		});
 
 		it('registers new module', function() {
-			expect(typeof Moff._testonly._registeredFiles.fakeId).toEqual('object');
+			expect(typeof Moff.amd._testonly._registeredFiles.fakeId).toEqual('object');
 		});
 
 		it('normalizes registered object', function() {
-			expect(Moff._testonly._registeredFiles.fakeId.loaded).toBe(false);
+			expect(Moff.amd._testonly._registeredFiles.fakeId.loaded).toBe(false);
 
-			expect(typeof Moff._testonly._registeredFiles.fakeId.depend).toEqual('object');
-			expect(Array.isArray(Moff._testonly._registeredFiles.fakeId.depend.js)).toBe(true);
-			expect(Array.isArray(Moff._testonly._registeredFiles.fakeId.depend.css)).toBe(true);
+			expect(typeof Moff.amd._testonly._registeredFiles.fakeId.depend).toEqual('object');
+			expect(Array.isArray(Moff.amd._testonly._registeredFiles.fakeId.depend.js)).toBe(true);
+			expect(Array.isArray(Moff.amd._testonly._registeredFiles.fakeId.depend.css)).toBe(true);
 
-			expect(typeof Moff._testonly._registeredFiles.fakeId.file).toEqual('object');
-			expect(Array.isArray(Moff._testonly._registeredFiles.fakeId.file.js)).toBe(true);
-			expect(Array.isArray(Moff._testonly._registeredFiles.fakeId.file.css)).toBe(true);
+			expect(typeof Moff.amd._testonly._registeredFiles.fakeId.file).toEqual('object');
+			expect(Array.isArray(Moff.amd._testonly._registeredFiles.fakeId.file.js)).toBe(true);
+			expect(Array.isArray(Moff.amd._testonly._registeredFiles.fakeId.file.css)).toBe(true);
 
-			expect(Array.isArray(Moff._testonly._registeredFiles.fakeId.loadOnScreen)).toBe(true);
-			expect(Moff._testonly._registeredFiles.fakeId.beforeInclude).toBeUndefined();
-			expect(Moff._testonly._registeredFiles.fakeId.afterInclude).toBeUndefined();
-			expect(Moff._testonly._registeredFiles.fakeId.onWindowLoad).toBe(false);
+			expect(Array.isArray(Moff.amd._testonly._registeredFiles.fakeId.loadOnScreen)).toBe(true);
+			expect(Moff.amd._testonly._registeredFiles.fakeId.beforeInclude).toBeUndefined();
+			expect(Moff.amd._testonly._registeredFiles.fakeId.afterInclude).toBeUndefined();
+			expect(Moff.amd._testonly._registeredFiles.fakeId.onWindowLoad).toBe(false);
 		});
 	});
 
@@ -126,7 +126,7 @@ describe('AMD', function() {
 		var included;
 
 		beforeAll(function(done) {
-			Moff.include('moduleId', function() {
+			Moff.amd.include('moduleId', function() {
 				included = true;
 				done();
 			});
@@ -140,7 +140,7 @@ describe('AMD', function() {
 		});
 
 		it ('push register as deferred if onWindowLoad is true and register was being included before load', function() {
-			Moff.each(Moff._testonly._deferredObjects, function(i, obj) {
+			Moff.each(Moff.amd._testonly._deferredObjects, function(i, obj) {
 				if (obj.id === 'push') {
 					expect(true).toBe(true);
 					return false;

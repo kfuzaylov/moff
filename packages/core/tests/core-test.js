@@ -60,20 +60,6 @@ describe('Moff Core', function() {
 		});
 	});
 
-	describe('Moff.supportCSS3 method', function() {
-		it('determines CSS3 property support', function() {
-			expect([true, false]).toContain(Moff.supportCSS3('transition'));
-		});
-
-		it('does not throw exception for non-existing property', function() {
-			expect(Moff.supportCSS3('no-property')).toBe(false);
-		});
-
-		it('support CSS2 properties too', function() {
-			expect(Moff.supportCSS3('width')).toBe(true);
-		});
-	});
-
 	describe('Moff.runCallbacks method', function() {
 		var callbacks = [function(arg1) {
 			this[arg1] = true;
@@ -93,70 +79,6 @@ describe('Moff Core', function() {
 			expect(function() {
 				Moff.runCallbacks({}, {});
 			}).not.toThrow();
-		});
-	});
-
-	describe('Moff.extend method', function() {
-		beforeAll(function() {
-			Moff.extend('tempModule', function() {}, true);
-		});
-
-		it('extends Moff object', function() {
-			expect(typeof Moff.tempModule).toEqual('object');
-		});
-
-		it('extended from Moff object', function() {
-			expect(typeof Moff.tempModule.getMode).toEqual('function');
-		});
-	});
-
-	describe('Moff.reopen method', function() {
-		it('adds new methods and properties', function() {
-			Moff.reopen({
-				newProp: 1,
-				newMethod: function() {
-					return 1;
-				}
-			});
-
-			expect(Moff.newProp).toEqual(1);
-			expect(typeof Moff.newMethod).toEqual('function');
-			expect(Moff.newMethod()).toEqual(1);
-		});
-
-		it('overwrites methods and properties', function() {
-			Moff.reopen({
-				newProp: 3,
-				newMethod: function() {
-					return 2;
-				}
-			});
-
-			expect(Moff.newProp).toEqual(3);
-			expect(typeof Moff.newMethod).toEqual('function');
-			expect(Moff.newMethod()).toEqual(2);
-		});
-	});
-
-	describe('Moff.extendClass method', function() {
-		var childObj;
-		function Parent() {
-			this.parentMethod = function() {
-
-			};
-		}
-
-		function Child() {
-
-		}
-
-		beforeAll(function() {
-			Moff.extendClass(Child, Parent);
-			childObj = new Child();
-		});
-
-		it('extends child constructor from parent', function() {
-			expect(typeof childObj.parentMethod).toEqual('function');
 		});
 	});
 

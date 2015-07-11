@@ -2,12 +2,7 @@
  * Register and control new Moff modules.
  * @module Module.
  */
-function Module() {
-	/**
-	 * @private {Module} _module - Link to object.
-	 */
-	var _module = this;
-
+function ModulesApi() {
 	/**
 	 * @private {{}} _moduleObjectStorage - Modules storage.
 	 */
@@ -24,50 +19,20 @@ function Module() {
 	 */
 	function registerModuleEvents(events) {
 		if (Array.isArray(events)) {
-			_module.each(events, function(index, event) {
-				_module.event.add(event);
+			Moff.each(events, function(index, event) {
+				Moff.event.add(event);
 			});
 		}
 	}
 
 	/**
-	 * @property {null|string} scopeSelector - Module scope selector. jQuery selector.
-	 */
-	this.scopeSelector = null;
-
-	/**
-	 * @property {null|object} scope - Module scope object. jQuery object.
-	 */
-	this.scope = null;
-
-	/**
-	 * @property {Array} events - Array of module events.
-	 */
-	this.events = [];
-
-	/**
-	 * @property {Function} beforeInit - Before initialization callback
-	 */
-	this.beforeInit = function() {};
-
-	/**
-	 * @property {Function} init - Initialization callback
-	 */
-	this.init = function() {};
-
-	/**
-	 * @property {Function} afterInit - After initialization callback
-	 */
-	this.afterInit = function() {};
-
-	/**
-	 * Register new module.
-	 * @method register
+	 * Creates new module class.
+	 * @method create
 	 * @param {string} name - module name
 	 * @param {object} [depend] - object of js and css files
 	 * @param {function} Constructor - constructor
 	 */
-	this.register = function(name, depend, Constructor) {
+	this.create = function(name, depend, Constructor) {
 		// Normalize arguments
 		if (typeof Constructor === 'undefined') {
 			Constructor = depend;
@@ -75,7 +40,7 @@ function Module() {
 		}
 
 		// Register new module in the storage
-		Constructor.prototype = _module;
+		Constructor.prototype = Moff.Module;
 		Constructor.prototype.constructor = Constructor;
 
 		// Save module in storage
@@ -97,7 +62,7 @@ function Module() {
 		var moduleObject = _moduleClassStorage[ClassName];
 
 		if (!moduleObject) {
-			window.console.warn(ClassName + ' Class is not registered');
+			Moff.debug(ClassName + ' Class is not registered');
 			return;
 		}
 
@@ -121,7 +86,7 @@ function Module() {
 
 			if (params) {
 				// Apply all passed data
-				_module.each(params, function(key, value) {
+				Moff.each(params, function(key, value) {
 					classObject[key] = value;
 				});
 			}
@@ -129,8 +94,10 @@ function Module() {
 			// Add module name
 			classObject.moduleName = ClassName;
 
-			// Register module events.
-			registerModuleEvents(classObject.events);
+			if (Array.isArray(classObject.events) && classObject.events.length) {
+				// Register module events.
+				registerModuleEvents(classObject.events);
+			}
 
 			// Set module scope
 			classObject.setScope();
@@ -146,12 +113,12 @@ function Module() {
 
 		try {
 			if (moduleObject.depend) {
-				this.loadAssets(moduleObject.depend, initialize);
+				Moff.loadAssets(moduleObject.depend, initialize);
 			} else {
 				initialize();
 			}
 		} catch (error) {
-			window.console.error(error);
+			Moff.error(error);
 		}
 	};
 
@@ -177,36 +144,28 @@ function Module() {
 	/**
 	 * Remove registered module by name.
 	 * @method remove
+	 * @param {string} name - Module Class name
 	 */
-	this.remove = function() {
-		var name = this.moduleName;
-		var id = this.id;
+	this.remove = function(name) {
 		var i = 0;
+		var storage = _moduleObjectStorage[name];
 		var object, length;
 
-		function removeObject() {
-			_moduleObjectStorage[name].splice(i, 1);
-			length = _moduleObjectStorage[name].length;
-			--i;
-		}
-
 		// Be sure to remove existing module
-		if (Array.isArray(_moduleObjectStorage[name])) {
-			length = _moduleObjectStorage[name].length;
+		if (Array.isArray(storage)) {
+			length = storage.length;
 
 			for (; i < length; i++) {
-				object = _moduleObjectStorage[name][i];
+				object = storage[i];
 
-				if (object.id) {
-					if (object.id === id) {
-						removeObject();
-					}
-				} else if (object.moduleName === name) {
-					removeObject();
+				if (object.moduleName === name) {
+					storage.splice(i, 1);
+					length = storage.length;
+					--i;
 				}
 			}
 
-			if (_moduleObjectStorage[name].length === 1) {
+			if (storage.length === 1) {
 				_moduleObjectStorage[name] = _moduleObjectStorage[name][0];
 			} else if (!_moduleObjectStorage[name].length) {
 				delete _moduleObjectStorage[name];
@@ -214,26 +173,6 @@ function Module() {
 		} else {
 			delete _moduleObjectStorage[name];
 		}
-	};
-
-	/**
-	 * Register module scope by scope selector.
-	 * @method setScope
-	 */
-	this.setScope = function() {
-		if (this.scopeSelector) {
-			this.scope = document.querySelector(this.scopeSelector);
-		}
-	};
-
-	/**
-	 * Find element in module scope.
-	 * @method find
-	 * @param {string} selector - jQuery selector.
-	 * @returns {object} jQuery object.
-	 */
-	this.find = function(selector) {
-		return this.scope.querySelectorAll(selector);
 	};
 
 	/* Test-code */
@@ -244,4 +183,4 @@ function Module() {
 	/* End-test-code */
 }
 
-export default Module;
+export default ModulesApi;

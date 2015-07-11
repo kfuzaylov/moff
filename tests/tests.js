@@ -5,7 +5,7 @@ describe('AMD', function() {
 	div.setAttribute('data-load-module', 'load-data');
 	document.body.appendChild(div);
 
-	Moff.register({
+	Moff.amd.register({
 		id: 'load',
 		depend: {
 			js: ['fixtures/depend.js'],
@@ -18,12 +18,12 @@ describe('AMD', function() {
 		loadOnScreen: ['xs', 'sm', 'md', 'lg']
 	});
 
-	Moff.register({
+	Moff.amd.register({
 		id: 'load-data',
 		loadOnScreen: ['xs', 'sm', 'md', 'lg']
 	});
 
-	Moff.register({
+	Moff.amd.register({
 		id: 'moduleId',
 		depend: {
 			js: ['fixtures/depend.js'],
@@ -42,12 +42,12 @@ describe('AMD', function() {
 		onWindowLoad: true
 	});
 
-	Moff.register({
+	Moff.amd.register({
 		id: 'push',
 		onWindowLoad: true
 	});
 
-	Moff.include('push');
+	Moff.amd.include('push');
 
 	describe('Moff.include loadOnScreen option', function() {
 
@@ -60,7 +60,7 @@ describe('AMD', function() {
 		
 		it('marks register as loaded', function(done) {
 			Moff.$(function() {
-				expect(Moff._testonly._registeredFiles['load'].loaded).toBeTruthy();
+				expect(Moff.amd._testonly._registeredFiles['load'].loaded).toBeTruthy();
 				done();
 			});
 		});
@@ -79,14 +79,14 @@ describe('AMD', function() {
 
 		it('does not load register w/o this flag', function(done) {
 			Moff.$(function() {
-				expect(Moff._testonly._registeredFiles['moduleId'].loaded).toBeFalsy();
+				expect(Moff.amd._testonly._registeredFiles['moduleId'].loaded).toBeFalsy();
 				done();
 			});
 		});
 
 		it('does not include if module registered in data event', function(done) {
 			Moff.$(function() {
-				expect(Moff._testonly._registeredFiles['load-data'].loaded).toBeFalsy();
+				expect(Moff.amd._testonly._registeredFiles['load-data'].loaded).toBeFalsy();
 				done();
 			});
 		});
@@ -95,30 +95,30 @@ describe('AMD', function() {
 	describe('Moff.register method', function() {
 
 		beforeAll(function() {
-			Moff.register({
+			Moff.amd.register({
 				id: 'fakeId'
 			});
 		});
 
 		it('registers new module', function() {
-			expect(typeof Moff._testonly._registeredFiles.fakeId).toEqual('object');
+			expect(typeof Moff.amd._testonly._registeredFiles.fakeId).toEqual('object');
 		});
 
 		it('normalizes registered object', function() {
-			expect(Moff._testonly._registeredFiles.fakeId.loaded).toBe(false);
+			expect(Moff.amd._testonly._registeredFiles.fakeId.loaded).toBe(false);
 
-			expect(typeof Moff._testonly._registeredFiles.fakeId.depend).toEqual('object');
-			expect(Array.isArray(Moff._testonly._registeredFiles.fakeId.depend.js)).toBe(true);
-			expect(Array.isArray(Moff._testonly._registeredFiles.fakeId.depend.css)).toBe(true);
+			expect(typeof Moff.amd._testonly._registeredFiles.fakeId.depend).toEqual('object');
+			expect(Array.isArray(Moff.amd._testonly._registeredFiles.fakeId.depend.js)).toBe(true);
+			expect(Array.isArray(Moff.amd._testonly._registeredFiles.fakeId.depend.css)).toBe(true);
 
-			expect(typeof Moff._testonly._registeredFiles.fakeId.file).toEqual('object');
-			expect(Array.isArray(Moff._testonly._registeredFiles.fakeId.file.js)).toBe(true);
-			expect(Array.isArray(Moff._testonly._registeredFiles.fakeId.file.css)).toBe(true);
+			expect(typeof Moff.amd._testonly._registeredFiles.fakeId.file).toEqual('object');
+			expect(Array.isArray(Moff.amd._testonly._registeredFiles.fakeId.file.js)).toBe(true);
+			expect(Array.isArray(Moff.amd._testonly._registeredFiles.fakeId.file.css)).toBe(true);
 
-			expect(Array.isArray(Moff._testonly._registeredFiles.fakeId.loadOnScreen)).toBe(true);
-			expect(Moff._testonly._registeredFiles.fakeId.beforeInclude).toBeUndefined();
-			expect(Moff._testonly._registeredFiles.fakeId.afterInclude).toBeUndefined();
-			expect(Moff._testonly._registeredFiles.fakeId.onWindowLoad).toBe(false);
+			expect(Array.isArray(Moff.amd._testonly._registeredFiles.fakeId.loadOnScreen)).toBe(true);
+			expect(Moff.amd._testonly._registeredFiles.fakeId.beforeInclude).toBeUndefined();
+			expect(Moff.amd._testonly._registeredFiles.fakeId.afterInclude).toBeUndefined();
+			expect(Moff.amd._testonly._registeredFiles.fakeId.onWindowLoad).toBe(false);
 		});
 	});
 
@@ -126,7 +126,7 @@ describe('AMD', function() {
 		var included;
 
 		beforeAll(function(done) {
-			Moff.include('moduleId', function() {
+			Moff.amd.include('moduleId', function() {
 				included = true;
 				done();
 			});
@@ -140,7 +140,7 @@ describe('AMD', function() {
 		});
 
 		it ('push register as deferred if onWindowLoad is true and register was being included before load', function() {
-			Moff.each(Moff._testonly._deferredObjects, function(i, obj) {
+			Moff.each(Moff.amd._testonly._deferredObjects, function(i, obj) {
 				if (obj.id === 'push') {
 					expect(true).toBe(true);
 					return false;
@@ -231,20 +231,6 @@ describe('Moff Core', function() {
 		});
 	});
 
-	describe('Moff.supportCSS3 method', function() {
-		it('determines CSS3 property support', function() {
-			expect([true, false]).toContain(Moff.supportCSS3('transition'));
-		});
-
-		it('does not throw exception for non-existing property', function() {
-			expect(Moff.supportCSS3('no-property')).toBe(false);
-		});
-
-		it('support CSS2 properties too', function() {
-			expect(Moff.supportCSS3('width')).toBe(true);
-		});
-	});
-
 	describe('Moff.runCallbacks method', function() {
 		var callbacks = [function(arg1) {
 			this[arg1] = true;
@@ -264,70 +250,6 @@ describe('Moff Core', function() {
 			expect(function() {
 				Moff.runCallbacks({}, {});
 			}).not.toThrow();
-		});
-	});
-
-	describe('Moff.extend method', function() {
-		beforeAll(function() {
-			Moff.extend('tempModule', function() {}, true);
-		});
-
-		it('extends Moff object', function() {
-			expect(typeof Moff.tempModule).toEqual('object');
-		});
-
-		it('extended from Moff object', function() {
-			expect(typeof Moff.tempModule.getMode).toEqual('function');
-		});
-	});
-
-	describe('Moff.reopen method', function() {
-		it('adds new methods and properties', function() {
-			Moff.reopen({
-				newProp: 1,
-				newMethod: function() {
-					return 1;
-				}
-			});
-
-			expect(Moff.newProp).toEqual(1);
-			expect(typeof Moff.newMethod).toEqual('function');
-			expect(Moff.newMethod()).toEqual(1);
-		});
-
-		it('overwrites methods and properties', function() {
-			Moff.reopen({
-				newProp: 3,
-				newMethod: function() {
-					return 2;
-				}
-			});
-
-			expect(Moff.newProp).toEqual(3);
-			expect(typeof Moff.newMethod).toEqual('function');
-			expect(Moff.newMethod()).toEqual(2);
-		});
-	});
-
-	describe('Moff.extendClass method', function() {
-		var childObj;
-		function Parent() {
-			this.parentMethod = function() {
-
-			};
-		}
-
-		function Child() {
-
-		}
-
-		beforeAll(function() {
-			Moff.extendClass(Child, Parent);
-			childObj = new Child();
-		});
-
-		it('extends child constructor from parent', function() {
-			expect(typeof childObj.parentMethod).toEqual('function');
 		});
 	});
 
@@ -683,7 +605,7 @@ describe('Data events', function() {
 
 	describe('data-load-module', function() {
 		beforeAll(function() {
-			Moff.register({
+			Moff.amd.register({
 				id: 'data-module'
 			});
 
@@ -719,7 +641,7 @@ describe('Data events', function() {
 					responseText: ''
 				});
 
-				expect(Moff._testonly._registeredFiles['data-module'].loaded).toBe(true);
+				expect(Moff.amd._testonly._registeredFiles['data-module'].loaded).toBe(true);
 			});
 		});
 	});
@@ -790,7 +712,7 @@ describe('Moff Detect', function() {
 		});
 	});
 
-	describe('Moff.browser', function() {
+	describe('Moff.detect.browser', function() {
 		it('supports browser detection', function() {
 			expect(Moff.detect.browser.version).not.toBeUndefined();
 			delete Moff.detect.browser.version;
@@ -798,7 +720,7 @@ describe('Moff Detect', function() {
 		});
 	})
 
-	describe('Moff.OS', function() {
+	describe('Moff.detect.OS', function() {
 		it('supports OS detection', function() {
 			expect(['iOS', 'macOS', 'windows', 'android', 'windowsPhone']).toContain(Object.keys(Moff.detect.OS)[0]);
 		});
@@ -807,6 +729,20 @@ describe('Moff Detect', function() {
 	describe('Moff.detect.isMobile', function() {
 		it('support mobile device detection', function() {
 			expect(Moff.detect.isMobile).not.toBeUndefined();
+		});
+	});
+
+	describe('Moff.detect.supportCSS3 method', function() {
+		it('determines CSS3 property support', function() {
+			expect([true, false]).toContain(Moff.detect.supportCSS3('transition'));
+		});
+
+		it('does not throw exception for non-existing property', function() {
+			expect(Moff.detect.supportCSS3('no-property')).toBe(false);
+		});
+
+		it('support CSS2 properties too', function() {
+			expect(Moff.detect.supportCSS3('width')).toBe(true);
 		});
 	});
 });
@@ -839,11 +775,11 @@ describe('Event system', function() {
 		expect(Moff.event.get('nonexistentEvent')).toBeUndefined();
 	});
 });
-describe('Modularity', function() {
+describe('Moff.modules API', function() {
 
-	describe('Moff module registration', function() {
+	describe('Moff.modules.create', function() {
 		beforeAll(function() {
-			Moff.module.register('Slideshow',
+			Moff.modules.create('Slideshow',
 				{
 					js: ['fixtures/depend.js'],
 					css: ['fixtures/depend.css']
@@ -852,22 +788,22 @@ describe('Modularity', function() {
 			);
 		});
 
-		it('registers class in storage', function() {
-			expect(Moff.module._testonly._moduleClassStorage.Slideshow).not.toBeUndefined();
+		it('creates Moff.Module class in storage', function() {
+			expect(Moff.modules._testonly._moduleClassStorage.Slideshow).not.toBeUndefined();
 		});
 
 		it('registers constructor and dependency files', function() {
-			expect(typeof Moff.module._testonly._moduleClassStorage.Slideshow.constructor).toEqual('function');
-			expect(typeof Moff.module._testonly._moduleClassStorage.Slideshow.depend).toEqual('object');
+			expect(typeof Moff.modules._testonly._moduleClassStorage.Slideshow.constructor).toEqual('function');
+			expect(typeof Moff.modules._testonly._moduleClassStorage.Slideshow.depend).toEqual('object');
 		});
 
 		it('does not overwrite existing class', function() {
-			Moff.module.register('Slideshow', function() {});
-			expect(typeof Moff.module._testonly._moduleClassStorage.Slideshow.depend).toEqual('object');
+			Moff.modules.create('Slideshow', function() {});
+			expect(typeof Moff.modules._testonly._moduleClassStorage.Slideshow.depend).toEqual('object');
 		});
 	});
 
-	describe('Moff initClass method', function() {
+	describe('Moff.modules.initClass', function() {
 		var beforeInit, init, afterInit;
 
 		beforeAll(function(done) {
@@ -881,7 +817,7 @@ describe('Modularity', function() {
 			document.body.appendChild(div);
 			document.body.appendChild(inside);
 
-			Moff.module.register('Module2', function() {
+			Moff.modules.create('Module2', function() {
 				this.scopeSelector = '.mod-wrapper';
 
 				this.events = ['event1', 'event2'];
@@ -902,7 +838,7 @@ describe('Modularity', function() {
 				};
 			});
 
-			Moff.module.initClass('Slideshow', {
+			Moff.modules.initClass('Slideshow', {
 				id: 43,
 				config: {},
 				afterInit: function() {
@@ -917,8 +853,8 @@ describe('Modularity', function() {
 			s.parentNode.removeChild(s);
 		});
 
-		it('beforeInit and init hooks access to properties', function() {
-			Moff.module.initClass('Module2', {id: 'modId'});
+		it('beforeInit and init hooks access the properties', function() {
+			Moff.modules.initClass('Module2', {id: 'modId'});
 		});
 
 		it('runs init hooks', function() {
@@ -928,23 +864,75 @@ describe('Modularity', function() {
 		});
 
 		it('registers module scope', function() {
-			expect(Moff.module.get('Module2').scope.className).toEqual('mod-wrapper');
+			expect(Moff.modules.get('Module2').scope.className).toEqual('mod-wrapper');
 		});
 
 		it('register events', function() {
-			expect(Array.isArray(Moff.module.event._testonly._eventStore['event1'])).toBe(true);
-			expect(Array.isArray(Moff.module.event._testonly._eventStore['event2'])).toBe(true);
+			expect(Array.isArray(Moff.event._testonly._eventStore['event1'])).toBe(true);
+			expect(Array.isArray(Moff.event._testonly._eventStore['event2'])).toBe(true);
 		});
 	});
 
-	describe('Initialized module class', function() {
+	describe('Moff.modules.get', function() {
 		var moduleObject;
 		beforeAll(function() {
-			moduleObject = Moff.module.get('Module2');
+			moduleObject = Moff.modules.get('Module2');
 		});
 
-		it('has .find method to search inside module scope', function() {
+		it('gets module class object by name', function() {
+			expect(typeof moduleObject).toEqual('object');
+			Moff.modules.initClass('Module2', {id: 'modId'});
+			expect(Array.isArray(Moff.modules.get('Module2'))).toBe(true);
+			expect(Moff.modules.get('Module2').length).toEqual(2);
+		});
+	});
+
+	describe('Moff.modules.getAll', function() {
+		it('gets all class instances by name', function() {
+			expect(Object.keys(Moff.modules.getAll()).length).toEqual(2);
+		});
+	});
+
+	describe('Moff.modules.remove', function() {
+		it('removes all objects by class name', function() {
+			Moff.modules.remove('Module2');
+			expect(Moff.modules.get('Module2')).toBeUndefined();
+
+			Moff.modules.initClass('Module2', {id: 'modId2'});
+			expect(typeof Moff.modules.get('Module2')).toEqual('object');
+			Moff.modules.remove('Module2');
+			expect(Moff.modules._testonly._moduleObjectStorage['Module2']).toBeUndefined();
+		});
+	});
+});
+
+describe('Moff.Module Base Class', function() {
+	beforeAll(function() {
+		Moff.modules.create('TesModule', function() {});
+		Moff.modules.initClass('TesModule');
+		Moff.modules.initClass('Module2');
+	});
+
+	describe('Initialized module class', function() {
+		var moduleObject, testObject;
+
+		beforeAll(function() {
+			moduleObject = Moff.modules.get('Module2');
+			testObject = Moff.modules.get('TesModule');
+		});
+
+		it('has find method to search inside module scope', function() {
+			expect(typeof testObject.find).toEqual('function');
 			expect(moduleObject.find('.inside').length).toEqual(1);
+		});
+
+		it('has scopeSelector property', function() {
+			expect(testObject.scopeSelector).not.toBeUndefined();
+		});
+
+		it('has scope property', function() {
+			expect(testObject.scope).not.toBeUndefined();
+			expect(typeof moduleObject.scope).toEqual('object');
 		});
 
 		it('set only defined scope', function() {
@@ -953,33 +941,53 @@ describe('Modularity', function() {
 			expect(moduleObject.scope.className).toEqual('mod-wrapper');
 		});
 
-		it('has get method', function() {
-			expect(typeof moduleObject).toEqual('object');
-			Moff.module.initClass('Module2', {id: 'modId'});
-			expect(Array.isArray(Moff.module.get('Module2'))).toBe(true);
-			expect(Moff.module.get('Module2').length).toEqual(2);
+		it('has events property', function() {
+			expect(Array.isArray(testObject.events)).toBe(true);
 		});
 
-		it('has getAll method', function() {
-			expect(Object.keys(Moff.module.getAll()).length).toEqual(2);
+		it('has beforeInit, afterInit and init hooks', function() {
+			expect(typeof testObject.beforeInit).toEqual('function');
+			expect(typeof testObject.afterInit).toEqual('function');
+			expect(typeof testObject.init).toEqual('function');
+		});
+	});
+
+	describe('Moff.Module.reopen method', function() {
+		var test;
+		beforeAll(function() {
+			Moff.Module.reopen({
+				newProp: 1,
+				newMethod: function() {
+					return 1;
+				}
+			});
+
+			Moff.modules.create('Test', function() {});
+			Moff.modules.initClass('Test');
+			test = Moff.modules.get('Test');
 		});
 
-		it('has remove method', function() {
-			moduleObject.remove();
-			expect(Moff.module.get('Module2')).toBeUndefined();
+		it('adds new methods and properties', function() {
+			expect(test.newProp).toEqual(1);
+			expect(typeof test.newMethod).toEqual('function');
+			expect(test.newMethod()).toEqual(1);
+		});
 
-			Moff.module.initClass('Module2', {id: 'modId'});
-			Moff.module.initClass('Module2', {id: 'modId2'});
-			Moff.module.get('Module2')[0].remove();
+		it('overwrites methods and properties', function() {
+			Moff.Module.reopen({
+				newProp: 3,
+				newMethod: function() {
+					return 2;
+				}
+			});
 
-			expect(typeof Moff.module.get('Module2')).toEqual('object');
-			Moff.module.get('Module2').remove();
-			expect(Moff.module._testonly._moduleObjectStorage['Module2']).toBeUndefined();
+			Moff.modules.create('Test2', function() {});
+			Moff.modules.initClass('Test2');
+			var test = Moff.modules.get('Test2');
 
-			Moff.module.initClass('Module2');
-			Moff.module.get('Module2').remove();
-			expect(Moff.module._testonly._moduleObjectStorage['Module2']).toBeUndefined();
-
+			expect(test.newProp).toEqual(3);
+			expect(typeof test.newMethod).toEqual('function');
+			expect(test.newMethod()).toEqual(2);
 		});
 	});
 });

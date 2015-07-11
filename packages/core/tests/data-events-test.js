@@ -230,7 +230,7 @@ describe('Data events', function() {
 
 	describe('data-load-module', function() {
 		beforeAll(function() {
-			Moff.register({
+			Moff.amd.register({
 				id: 'data-module'
 			});
 
@@ -266,7 +266,7 @@ describe('Data events', function() {
 					responseText: ''
 				});
 
-				expect(Moff._testonly._registeredFiles['data-module'].loaded).toBe(true);
+				expect(Moff.amd._testonly._registeredFiles['data-module'].loaded).toBe(true);
 			});
 		});
 	});

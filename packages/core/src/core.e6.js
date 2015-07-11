@@ -3,11 +3,6 @@
  * @constructor
  */
 function Core() {
-	/**
-	 * @property {Core} _moff - Link to Core object
-	 * @private
-	 */
-	var _moff = this;
 
 	/**
 	 * @property {window} _win - Link to window object.
@@ -16,22 +11,16 @@ function Core() {
 	var _win = window;
 
 	/**
+	 * @property {Core} _moff - Link to Core object
+	 * @private
+	 */
+	var _moff = this;
+
+	/**
 	 * @property {HTMLDocument} _doc - Local link to document object.
 	 * @private
 	 */
 	var _doc = _win.document;
-
-	/**
-	 * @property {{}} _registeredFiles - Object to register files to be loaded.
-	 * @private
-	 */
-	var _registeredFiles = {};
-
-	/**
-	 * @property {Array} _deferredObjects - Deferred files.
-	 * @private
-	 */
-	var _deferredObjects = [];
 
 	/**
 	 * @property {boolean} _matchMediaSupport - Match media support and link.
@@ -80,12 +69,6 @@ function Core() {
 	 * @private
 	 */
 	var _domLoadedCallbacks = [];
-
-	/**
-	 * @property {boolean} _windowIsLoaded - Flag to determine whether the window is loaded.
-	 * @private
-	 */
-	var _windowIsLoaded = false;
 
 	/**
 	 * @property {boolean} _domIsLoaded - Flag to determine whether the DOM is loaded.
@@ -143,8 +126,6 @@ function Core() {
 	 * @function handleEvents
 	 */
 	function handleEvents() {
-		_win.addEventListener('load', windowLoadHandler, false);
-
 		// Check for addListener method
 		// because respond.js emulates matchMedia method
 		if (_matchMediaSupport) {
@@ -160,19 +141,7 @@ function Core() {
 		_moff.handleDataEvents();
 	}
 
-	/**
-	 * Window load event handler.
-	 * @function windowLoadHandler
-	 */
-	function windowLoadHandler() {
-		_windowIsLoaded = true;
 
-		// Load deferred files.
-		// These files included with Moff.include method before window load event.
-		_moff.each(_deferredObjects, function(i, obj) {
-			_moff.include(obj.id, obj.callback);
-		});
-	}
 
 	/**
 	 * Window resize or matchMedia event listener handler.
@@ -193,19 +162,16 @@ function Core() {
 	 * @method handleDataEvents
 	 */
 	this.handleDataEvents = function() {
-		var element, event, url;
-
 		loadByScreenSize();
-		includeRegister();
 
 		_moff.each(_doc.querySelectorAll('[' + _dataEvent + ']'), function() {
-			element = this;
+			let element = this;
 
 			if (element.handled) {
 				return;
 			}
 
-			event = (element.getAttribute('data-load-event') || 'click').toLowerCase();
+			let event = (element.getAttribute('data-load-event') || 'click').toLowerCase();
 
 			if (event === 'dom') {
 				_moff.$(function() {
@@ -215,7 +181,7 @@ function Core() {
 				if (event === 'click' && _settings.loadOnHover && !_moff.detect.isMobile) {
 					element.addEventListener('mouseenter', function() {
 						element = this;
-						url = element.href || element.getAttribute('data-load-url');
+						let url = element.href || element.getAttribute('data-load-url');
 						url = removeHash(url);
 
 						if (url) {
@@ -246,16 +212,13 @@ function Core() {
 	/**
 	 * Check element for data load screen.
 	 * @function checkDataScreen
-	 * @param {object} element - jQuery object
+	 * @param {object} element - HTML element
 	 * @returns {boolean} Return true if no data load screen
 	 */
 	function checkDataScreen(element) {
 		var screen = element.getAttribute('data-load-screen');
-		return screen ? checkScreenMode(screen.split(' ')) : true;
-	}
-
-	function checkScreenMode(modes) {
-		return Array.isArray(modes) && modes.length && modes.indexOf(_moff.getMode()) !== -1;
+		var modes = screen.split(' ');
+		return screen ? (modes.length && modes.indexOf(_moff.getMode()) !== -1) : true;
 	}
 
 	/**
@@ -266,7 +229,7 @@ function Core() {
 		var settings = readSettings();
 
 		_moff.each(settings, function(property, value) {
-			_settings[property] = settings[property];
+			_settings[property] = value;
 		});
 	}
 
@@ -275,10 +238,8 @@ function Core() {
 	 * @function setBreakpoints
 	 */
 	function setBreakpoints() {
-		var breakpoints;
-
 		if (_settings.breakpoints && _matchMediaSupport) {
-			breakpoints = _settings.breakpoints;
+			let breakpoints = _settings.breakpoints;
 			_mqSmall = _mqSmall.replace('%d', breakpoints.sm);
 			_mqMedium = _mqMedium.replace('%d', breakpoints.md);
 			_mqLarge = _mqLarge.replace('%d', breakpoints.lg);
@@ -309,7 +270,7 @@ function Core() {
 	 */
 	function load(url, callback) {
 		_moff.ajax({
-			url: url,
+			url,
 			type: 'GET',
 			success: function(data) {
 				if (typeof callback === 'function') {
@@ -331,7 +292,6 @@ function Core() {
 		var target = element.getAttribute('data-load-target');
 		var push = element.getAttribute('data-push-url');
 		var loadModule = element.getAttribute('data-load-module');
-		var id;
 
 		if (url) {
 			url = handleUrlTemplate(element, url);
@@ -340,7 +300,7 @@ function Core() {
 			_moff.runCallbacks(_beforeLoad, element);
 
 			if (_moff.detect.history && push) {
-				id = Date.now();
+				let id = Date.now();
 				_win.history.pushState({elemId: id, url: url}, title, url);
 				_historyData[id] = element;
 			}
@@ -349,7 +309,7 @@ function Core() {
 				// If element has data-load-module attribute
 				// include this module and then run after load callbacks.
 				if (loadModule) {
-					_moff.include(loadModule, function() {
+					_moff.amd.include(loadModule, function() {
 						_moff.runCallbacks(_afterLoad, element);
 					});
 				} else {
@@ -381,12 +341,10 @@ function Core() {
 	 * @param {function} callback
 	 */
 	function loadContent(element, url, target, callback) {
-		var title;
-
 		url = removeHash(url);
 
 		function applyContent(html) {
-			title = element.getAttribute('data-page-title');
+			let title = element.getAttribute('data-page-title');
 			_doc.querySelector(target).innerHTML = html;
 
 			if (title) {
@@ -413,13 +371,11 @@ function Core() {
 	 */
 	function handlePopstate(event) {
 		var state = event.state;
-		var element;
+		var element = _historyData[state.elemId];
 
 		if (!state) {
 			return;
 		}
-
-		element = _historyData[state.elemId];
 
 		if (element) {
 			if (!checkDataScreen(element)) {
@@ -453,28 +409,13 @@ function Core() {
 	 */
 	function loadByScreenSize() {
 		var screenAttribute = 'data-load-screen';
-		var element;
 
-		_moff.each(_doc.querySelectorAll('[' + screenAttribute + ']'), function() {
-			element = this;
+		_moff.each(_doc.querySelectorAll(`[${screenAttribute}]`), function() {
+			let element = this;
 
 			if (checkDataScreen(element)) {
 				element.removeAttribute(screenAttribute);
 				handleLink(element);
-			}
-		});
-	}
-
-	/**
-	 * Check url hash tag to load registered files.
-	 * @function includeRegister
-	 */
-	function includeRegister() {
-		_moff.each(_registeredFiles, function(id, object) {
-			// Don't load register if it is used in data-load-module attribute,
-			// because it will be included after content of element be loaded.
-			if (checkScreenMode(object.loadOnScreen) && !_doc.querySelectorAll('[data-load-module="' + id + '"]').length) {
-				_moff.include(id);
 			}
 		});
 	}
@@ -497,38 +438,23 @@ function Core() {
 	}
 
 	/**
-	 *
+	 * Initialize Moff
 	 * @function init
 	 */
 	function init() {
+		_domIsLoaded = true;
 		extendSettings();
 		setBreakpoints();
 		setViewMode();
 		handleEvents();
+		_moff.runCallbacks(_domLoadedCallbacks, this);
 	}
 
 	/**
-	 * Check for CSS3 property support.
-	 * @method supportCSS3
-	 * @param {string} property - CSS3 property
-	 * @returns {boolean}
+	 * Sends ajax request.
+	 * @method ajax
+	 * @param options
 	 */
-	this.supportCSS3 = function(property) {
-		var ucProp = property.charAt(0).toUpperCase() + property.slice(1);
-		var props = (property + ' ' + 'Webkit Moz O ms'.split(' ').join(ucProp + ' ') + ucProp).split(' ');
-		var length = props.length;
-		var i = 0;
-
-		for (; i < length; i++) {
-			property = props[i];
-			if (property.indexOf('-') === -1 && document.createElement('div').style[property] !== undefined) {
-				return true;
-			}
-		}
-
-		return false;
-	};
-
 	this.ajax = function(options) {
 		var params = [];
 		var data;
@@ -585,11 +511,6 @@ function Core() {
 			collection = [];
 		}
 
-		// Normalize arguments
-		if (typeof args === 'undefined') {
-			args = [];
-		}
-
 		_moff.each(collection, function(i, callback) {
 			if (typeof callback === 'function') {
 				callback.apply(context, args);
@@ -603,9 +524,12 @@ function Core() {
 	 * @param {function} callback - Callback assigned on view change
 	 */
 	this.onViewChange = function(callback) {
-		if (typeof callback === 'function') {
-			_changeViewCallbacks.push(callback);
+		if (typeof callback !== 'function') {
+			Moff.debug('Moff.onViewChange callback must be a function');
+			return;
 		}
+
+		_changeViewCallbacks.push(callback);
 	};
 
 	/**
@@ -614,6 +538,11 @@ function Core() {
 	 * @param {function} callback
 	 */
 	this.beforeLoad = function(callback) {
+		if (typeof callback !== 'function') {
+			Moff.debug('Moff.beforeLoad callback must be a function');
+			return;
+		}
+
 		_beforeLoad.push(callback);
 	};
 
@@ -623,6 +552,11 @@ function Core() {
 	 * @param {function} callback
 	 */
 	this.afterLoad = function(callback) {
+		if (typeof callback !== 'function') {
+			Moff.debug('Moff.afterLoad callback must be a function');
+			return;
+		}
+
 		_afterLoad.push(callback);
 	};
 
@@ -645,75 +579,6 @@ function Core() {
 		}
 
 		return viewMode;
-	};
-
-	/**
-	 * Register files to be loaded files.
-	 * @method register
-	 * @param {object} obj - Registered object
-	 */
-	this.register = function(obj) {
-		// Normalize obj properties
-		_registeredFiles[obj.id] = {
-			loaded: false,
-			depend: {
-				js: obj.depend && obj.depend.js || [],
-				css: obj.depend && obj.depend.css || []
-			},
-			file: {
-				js: obj.file && obj.file.js || [],
-				css: obj.file && obj.file.css || []
-			},
-			loadOnScreen: obj.loadOnScreen || [],
-			beforeInclude: obj.beforeInclude || undefined,
-			afterInclude: obj.afterInclude || undefined,
-			onWindowLoad: obj.onWindowLoad || false
-		};
-	};
-
-	/**
-	 * Load registered files by identifier.
-	 * @method include
-	 * @param {string} id - Included object id
-	 * @param {function} [callback] - Function callback
-	 */
-	this.include = function(id, callback) {
-		var register = _registeredFiles[id];
-
-		// Make sure files are not loaded
-		if (register.loaded) {
-			return;
-		}
-
-		// Make sure to load after window load if onWindowLoad is true
-		if (register.onWindowLoad && !_windowIsLoaded) {
-			// Save id to load after window load
-			_deferredObjects.push({id: id, callback: callback});
-			return;
-		}
-
-		// Mark as loaded
-		register.loaded = true;
-
-		if (typeof register.beforeInclude === 'function') {
-			register.beforeInclude();
-		}
-
-		function loadFiles() {
-			_moff.loadAssets(register.file, execCallback);
-		}
-
-		this.loadAssets(register.depend, loadFiles);
-
-		function execCallback() {
-			if (typeof register.afterInclude === 'function') {
-				register.afterInclude();
-			}
-
-			if (typeof callback === 'function') {
-				callback();
-			}
-		}
 	};
 
 	/**
@@ -784,7 +649,7 @@ function Core() {
 	 */
 	this.loadJS = function(src, callback) {
 		if (typeof src !== 'string') {
-			window.console.warn('Moff.loadJS source is not a string');
+			Moff.debug('Moff.loadJS source must be a string');
 			return;
 		}
 
@@ -793,8 +658,6 @@ function Core() {
 
 		// Load script if it is not existing on the page
 		if (!_doc.querySelector('script[src="' + src + '"]')) {
-			// If set src attribute before append
-			// jQuery will load script with ajax request
 			script = _doc.createElement('script');
 
 			if (hasCallback) {
@@ -816,7 +679,7 @@ function Core() {
 	 */
 	this.loadCSS = function(href, callback) {
 		if (typeof href !== 'string') {
-			window.console.warn('Moff.loadCSS source is a string');
+			Moff.debug('Moff.loadCSS source must be a string');
 			return;
 		}
 
@@ -848,61 +711,6 @@ function Core() {
 		} else if (hasCallback) {
 			callback();
 		}
-	};
-
-	/**
-	 * Extend Moff object.
-	 * @method extend
-	 * @param {string} name - Module name
-	 * @param {function} Constructor - Module constructor
-	 * @param {boolean} extend [optionally] - Extend from Moff prototype
-	 */
-	this.extend = function(name, Constructor, extend) {
-		// Make sure not to override existing properties/methods
-		if (!this.hasOwnProperty(name)) {
-			if (extend) {
-				Constructor.prototype = this;
-				Constructor.prototype.constructor = Constructor;
-			}
-
-			this[name] = new Constructor();
-
-			if (typeof this[name].init === 'function') {
-				this[name].init();
-			}
-		}
-	};
-
-	/**
-	 * Overwrites and adds object methods and properties.
-	 * @method reopen
-	 * @param {object} methods - Object of properties or methods
-	 */
-	this.reopen = function(methods) {
-		if (typeof methods !== 'object') {
-			window.console.warn('Reopen method argument must be an object');
-			return;
-		}
-
-		var obj = this;
-		obj.each(methods, function(property, value) {
-			obj[property] = value;
-		});
-	};
-
-	/**
-	 * Extend classes.
-	 * @method extendClass
-	 * @param {function} child - Child constructor
-	 * @param {function} Parent - Parent constructor
-	 */
-	this.extendClass = function(child, Parent) {
-		function F() {}
-
-		F.prototype = new Parent();
-		child.prototype = new F();
-		child.prototype.constructor = child;
-		child.parentClass = Parent.prototype;
 	};
 
 	/**
@@ -959,14 +767,37 @@ function Core() {
 	 * @method $
 	 * @param {Function} arg - Callback function
 	 */
-	this.$ = function(arg) {
-		if (typeof arg === 'function') {
-			if (_domIsLoaded) {
-				arg();
-			} else {
-				_domLoadedCallbacks.push(arg);
-			}
+	this.$ = function(callback) {
+		if (typeof callback !== 'function') {
+			this.debug('Moff.$ argument must be a function');
+			return;
 		}
+
+		if (_domIsLoaded) {
+			callback();
+		} else {
+			_domLoadedCallbacks.push(callback);
+		}
+	};
+
+	/**
+	 * Show debug notification. Removed in Moff production version.
+	 * @method debug
+	 * @namespace Moff
+	 * @param {*} message - A debug message to display
+	 */
+	this.debug = function(message) {
+		if (window.console && window.console.log) {
+			window.console.log('Moff DEBUG: ' + message);
+		}
+	};
+
+	/**
+	 * Display error with stack.
+	 * @method error
+	 */
+	this.error = function() {
+		Error(arguments);
 	};
 
 	/**
@@ -975,16 +806,10 @@ function Core() {
 	 */
 	this.version = '{{version}}';
 
-	_doc.addEventListener('DOMContentLoaded', function() {
-		_domIsLoaded = true;
-		init();
-		_moff.runCallbacks(_domLoadedCallbacks, this);
-	}, false);
+	_doc.addEventListener('DOMContentLoaded', init, false);
 
 	/* Test-code */
 	this._testonly = {
-		_deferredObjects: _deferredObjects,
-		_registeredFiles: _registeredFiles,
 		_cache: _cache
 	};
 	/* End-test-code */

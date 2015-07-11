@@ -1,5 +1,7 @@
 {
 	"test_page": "tests/index.html",
 	"launch_in_ci": ["PhantomJS"],
-	"launch_in_dev": ["Firefox", "Chrome", "IE", "Opera"]
+	"launch_in_dev": ["Chrome", "Firefox", "IE", "Opera"],
+	"before_tests": "gulp test",
+	"on_exit": "rm %filename%"
 }

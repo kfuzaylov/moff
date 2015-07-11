@@ -44,7 +44,7 @@ function Event() {
 		var args = Array.prototype.slice.call(arguments, 1);
 
 		if (typeof _eventStore[name] !== 'undefined') {
-			this.runCallbacks(_eventStore[name], this, args);
+			Moff.runCallbacks(_eventStore[name], this, args);
 		}
 	};
 

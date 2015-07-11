@@ -1,24 +1,31 @@
 {
-	"name": "moff",
-	"directories": {
-		"test": "tests"
-	},
-	"scripts": {
-		"install": "npm i testem -g && npm i gulp -g && bower install",
-		"pretest": "gulp test",
-		"test": "testem"
-	},
-	"devDependencies": {
-		"gulp": "^3.8.11",
-		"gulp-concat": "^2.5.2",
-		"gulp-es6-module-transpiler": "^0.2.1",
-		"gulp-header": "^1.2.2",
-		"gulp-jscs": "^1.5.1",
-		"gulp-jshint": "^1.10.0",
-		"gulp-replace": "^0.5.3",
-		"gulp-sourcemaps": "^1.5.1",
-		"gulp-strip-code": "^0.1.2",
-		"gulp-uglify": "^1.1.0",
-		"run-sequence": "^1.1.0"
-	}
+  "name": "moff",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "install": "npm install testem -g && npm install gulp -g && bower install -g"
+  },
+  "devDependencies": {
+    "babelify": "^6.1.2",
+    "browserify": "^10.2.4",
+    "gulp": "^3.8.11",
+    "gulp-babel": "^5.1.0",
+    "gulp-concat": "^2.5.2",
+    "gulp-header": "^1.2.2",
+    "gulp-jscs": "^1.5.1",
+    "gulp-jshint": "^1.10.0",
+    "gulp-remove-empty-lines": "0.0.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.3",
+    "gulp-sourcemaps": "^1.5.1",
+    "gulp-strip-code": "^0.1.2",
+    "gulp-testem": "0.0.1",
+    "gulp-uglify": "^1.1.0",
+    "run-sequence": "^1.1.0",
+    "testem": "^0.8.5",
+    "vinyl-source-stream": "^1.1.0",
+    "vinyl-source-stream2": "^0.1.1",
+    "yargs": "^3.14.0"
+  }
 }

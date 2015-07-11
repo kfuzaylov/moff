@@ -64,7 +64,7 @@ describe('Moff Detect', function() {
 		});
 	});
 
-	describe('Moff.browser', function() {
+	describe('Moff.detect.browser', function() {
 		it('supports browser detection', function() {
 			expect(Moff.detect.browser.version).not.toBeUndefined();
 			delete Moff.detect.browser.version;
@@ -72,7 +72,7 @@ describe('Moff Detect', function() {
 		});
 	})
 
-	describe('Moff.OS', function() {
+	describe('Moff.detect.OS', function() {
 		it('supports OS detection', function() {
 			expect(['iOS', 'macOS', 'windows', 'android', 'windowsPhone']).toContain(Object.keys(Moff.detect.OS)[0]);
 		});
@@ -81,6 +81,20 @@ describe('Moff Detect', function() {
 	describe('Moff.detect.isMobile', function() {
 		it('support mobile device detection', function() {
 			expect(Moff.detect.isMobile).not.toBeUndefined();
+		});
+	});
+
+	describe('Moff.detect.supportCSS3 method', function() {
+		it('determines CSS3 property support', function() {
+			expect([true, false]).toContain(Moff.detect.supportCSS3('transition'));
+		});
+
+		it('does not throw exception for non-existing property', function() {
+			expect(Moff.detect.supportCSS3('no-property')).toBe(false);
+		});
+
+		it('support CSS2 properties too', function() {
+			expect(Moff.detect.supportCSS3('width')).toBe(true);
 		});
 	});
 });

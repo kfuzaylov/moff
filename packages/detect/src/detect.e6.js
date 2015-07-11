@@ -196,12 +196,34 @@ function Detect() {
 		_detect.isMobile = /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(_ua);
 	}
 
-	this.init = function() {
+	/**
+	 * Check for CSS3 property support.
+	 * @method supportCSS3
+	 * @param {string} property - CSS3 property
+	 * @returns {boolean}
+	 */
+	this.supportCSS3 = function(property) {
+		var ucProp = property.charAt(0).toUpperCase() + property.slice(1);
+		var props = (property + ' ' + 'Webkit Moz O ms'.split(' ').join(ucProp + ' ') + ucProp).split(' ');
+		var length = props.length;
+		var i = 0;
+
+		for (; i < length; i++) {
+			property = props[i];
+			if (property.indexOf('-') === -1 && document.createElement('div').style[property] !== undefined) {
+				return true;
+			}
+		}
+
+		return false;
+	};
+
+	Moff.$(function() {
 		html5Support();
 		detectBrowser();
 		detectOS();
 		detectMobileDevice();
-	};
+	});
 }
 
 export default Detect;
