@@ -525,7 +525,7 @@ function Core() {
 	 */
 	this.onViewChange = function(callback) {
 		if (typeof callback !== 'function') {
-			Moff.debug('Moff.onViewChange callback must be a function');
+			this.debug('Moff.onViewChange callback must be a function');
 			return;
 		}
 
@@ -539,7 +539,7 @@ function Core() {
 	 */
 	this.beforeLoad = function(callback) {
 		if (typeof callback !== 'function') {
-			Moff.debug('Moff.beforeLoad callback must be a function');
+			this.debug('Moff.beforeLoad callback must be a function');
 			return;
 		}
 
@@ -553,7 +553,7 @@ function Core() {
 	 */
 	this.afterLoad = function(callback) {
 		if (typeof callback !== 'function') {
-			Moff.debug('Moff.afterLoad callback must be a function');
+			this.debug('Moff.afterLoad callback must be a function');
 			return;
 		}
 
@@ -649,7 +649,7 @@ function Core() {
 	 */
 	this.loadJS = function(src, callback) {
 		if (typeof src !== 'string') {
-			Moff.debug('Moff.loadJS source must be a string');
+			this.debug('Moff.loadJS source must be a string');
 			return;
 		}
 
@@ -679,7 +679,7 @@ function Core() {
 	 */
 	this.loadCSS = function(href, callback) {
 		if (typeof href !== 'string') {
-			Moff.debug('Moff.loadCSS source must be a string');
+			this.debug('Moff.loadCSS source must be a string');
 			return;
 		}
 
@@ -787,8 +787,8 @@ function Core() {
 	 * @param {*} message - A debug message to display
 	 */
 	this.debug = function(message) {
-		if (window.console && window.console.log) {
-			window.console.log('Moff DEBUG: ' + message);
+		if (window.console && window.console.debug) {
+			window.console.debug('Moff DEBUG: ' + message);
 		}
 	};
 

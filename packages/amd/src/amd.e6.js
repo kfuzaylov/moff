@@ -109,6 +109,11 @@ function AMD() {
 	this.include = function(id, callback) {
 		var register = _registeredFiles[id];
 
+		if (!register) {
+			Moff.debug(id + ' AMD module is not registered.');
+			return;
+		}
+
 		// Make sure files are not loaded
 		if (register.loaded) {
 			return;

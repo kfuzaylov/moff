@@ -32,7 +32,7 @@ npm install
 ```
 Before package installation, npm installs testem, gulp and bower as global binary.
 ```bash
-npm install testem -g && npm install gulp -g && bower install -g
+npm install testem -g && npm install gulp -g && npm install bower -g && bower install
 ```
 ## Compile
 After made changes, need to update framework version in <code>bower.json</code> file and compiled files.

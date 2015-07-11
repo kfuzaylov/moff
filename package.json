@@ -4,7 +4,7 @@
     "test": "tests"
   },
   "scripts": {
-    "install": "npm install testem -g && npm install gulp -g && bower install -g"
+    "install": "npm install testem -g && npm install gulp -g && npm install bower -g && bower install"
   },
   "devDependencies": {
     "babelify": "^6.1.2",
