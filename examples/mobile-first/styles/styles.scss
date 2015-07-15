@@ -1,0 +1,178 @@
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 1.428571429;
+	padding: 0;
+	margin: 0;
+}
+
+.container {
+	padding: 5px 10px;
+	max-width: 1170px;
+	margin: 0 auto;
+
+	.header {
+		&_logo {
+			float: left;
+		}
+
+		&_info {
+			float: right;
+
+			&_company-name {
+				font-weight: bold;
+				font-size: 16px;
+			}
+
+			&_description {
+				font-size: 11px;
+				color: #555;
+			}
+		}
+	}
+
+	.vehicle {
+		clear: both;
+
+		&_images {
+			@media (min-width: 768px) {
+				float: left;
+				width: 45%;
+				margin-right: 5%;
+			}
+
+			&_main {
+				margin-top: 10px;
+				text-align: center;
+
+				img {
+					max-width: 100%;
+					display: block;
+				}
+			}
+
+			&_thumbs {
+				padding: 10px 0;
+			}
+
+			&_thumbs-list {
+				padding: 0;
+			}
+
+			&_thumbs-item {
+				display: inline-block;
+				
+				img {
+					cursor: pointer;
+				}
+			}
+		}
+
+		&_info {
+			@media (min-width: 768px) {
+				float: left;
+				width: 50%;
+			}
+
+			&_title {
+				font-size: 25px;
+			}
+
+			&_description {
+				color: #333;
+				font-size: 14px;
+			}
+		}
+
+		&_details {
+			@media (min-width: 768px) {
+				float: left;
+				width: 45%;
+				margin-right: 5%;
+				clear: both;
+			}
+
+			&_list {
+				padding: 0 0 0 15px;
+			}
+
+			&_label {
+				font-weight: bold;
+				margin-right: 5px;
+				min-width: 60px;
+				list-style: none;
+				display: inline-block;
+			}
+		}
+
+		&_equipment {
+			@media (min-width: 768px) {
+				float: left;
+				width: 50%;
+			}
+
+			&_list {
+				margin-top: 10px;
+				color: #333;
+				padding: 0 0 0 15px;
+			}
+		}
+
+		&_similar {
+			@media (min-width: 768px) {
+				clear: both;
+			}
+
+			&_load-button {
+				font-size: 12px;
+				text-align: right;
+			}
+
+			&_list {
+				padding: 0;
+				list-style: none;
+			}
+
+			&_item {
+				@media (min-width: 768px) {
+					width: 40%;
+					float: left;
+				}
+
+				text-align: left;
+				border-bottom: 1px solid #ccc;
+				margin-bottom: 10px;
+				font-size: 14px;
+
+				img {
+					max-width: 100%;
+					display: block;
+				}
+			}
+		}
+	}
+
+	.footer {
+		overflow: hidden;
+		margin-top: 20px;
+		font-size: 12px;
+		clear: both;
+
+		&_created {
+			float: left;
+			color: #999;
+		}
+
+		&_copy {
+			float: right;
+
+			&_list {
+				margin: 0;
+			}
+
+			&_item {
+				display: inline-block;
+			}
+		}
+	}
+}

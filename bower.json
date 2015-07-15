@@ -6,6 +6,8 @@
 		"html5shiv": "^3.7.2",
 		"respond": "^1.4.2",
 		"slick-carousel": "^1.5.6",
+		"magnific-popup": "^1.0.0",
+		"moff": "^1.6.27",
 		"prism": "git@github.com:PrismJS/prism.git"
 	}
 }

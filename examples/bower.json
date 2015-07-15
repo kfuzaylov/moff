@@ -1,0 +1,10 @@
+{
+	"name": "moff-presentation",
+	"dependencies": {
+		"jquery": "^2.1.3",
+
+		"bootstrap-sass": "^3.3.4",
+		"slick-carousel": "^1.5.5",
+		"moff": "^1.4.22"
+	}
+}

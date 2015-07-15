@@ -4,6 +4,21 @@ body {
 	text-shadow: 0 1px white;
 }
 
+.logo img {
+	vertical-align: top;
+	display: block;
+}
+
+@media (min-width: 768px) {
+	.logo {
+		font-size: 50px;
+	}
+
+	.logo img {
+		display: inline;
+	}
+}
+
 .moff-example {
 	border: 1px solid #ddd;
 	border-radius: 4px;
