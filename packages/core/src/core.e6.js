@@ -443,9 +443,6 @@ function Core() {
 	 */
 	function init() {
 		_domIsLoaded = true;
-		extendSettings();
-		setBreakpoints();
-		setViewMode();
 		handleEvents();
 		_moff.runCallbacks(_domLoadedCallbacks, this);
 	}
@@ -806,6 +803,9 @@ function Core() {
 	 */
 	this.version = '{{version}}';
 
+	extendSettings();
+	setBreakpoints();
+	setViewMode();
 	_doc.addEventListener('DOMContentLoaded', init, false);
 
 	/* Test-code */
