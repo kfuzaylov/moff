@@ -1,7 +1,7 @@
 /**
  * @overview  moff - Mobile First Framework
  * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.6.28
+ * @version   1.7.28
  * @license   Licensed under MIT license
  * @copyright Copyright (c) 2015 Kadir A. Fuzaylov
  */
@@ -833,7 +833,7 @@ function Core() {
   * Moff version.
   * @type {string}
   */
-	this.version = '1.6.28';
+	this.version = '1.7.28';
 	extendSettings();
 	setBreakpoints();
 	setViewMode();
@@ -1304,8 +1304,8 @@ function ModulesApi() {
 	/**
   * Get registered module by name.
   * @method get
-  * @param {string} name - module name
-  * @return {object|Array|undefined} module object or undefined
+  * @param {string} name - Module name
+  * @returns {object|Array|undefined} Module object or undefined
   */
 	this.get = function (name) {
 		return _moduleObjectStorage.hasOwnProperty(name) && _moduleObjectStorage[name] || undefined;
@@ -1317,6 +1317,33 @@ function ModulesApi() {
   */
 	this.getAll = function () {
 		return _moduleObjectStorage;
+	};
+	/**
+  * Get modules by passed property.
+  * @method getBy
+  * @param {string} field - Module property name
+  * @param {*} value - Property value
+  * @returns {Array} Array of modules filtered by property
+  */
+	this.getBy = function (field, value) {
+		var all = this.getAll();
+		var result = [];
+		// Normalize field
+		if (field === 'class') {
+			field = 'moduleName';
+		}
+		Moff.each(all, function (className, object) {
+			if (Array.isArray(object)) {
+				Moff.each(object, function (index, obj) {
+					if (obj[field] && obj[field] === value) {
+						result.push(obj);
+					}
+				});
+			} else if (object[field] && object[field] === value) {
+				result.push(object);
+			}
+		});
+		return result;
 	};
 	/**
   * Remove registered module by name.

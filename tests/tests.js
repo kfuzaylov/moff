@@ -893,6 +893,13 @@ describe('Moff.modules API', function() {
 		});
 	});
 
+	describe('Moff.modules.getBy', function() {
+		it('gets filtered class instances by passed property', function() {
+			expect(Moff.modules.getBy('id', 'modId').length).toEqual(2);
+			expect(Moff.modules.getBy('class', 'Module2').length).toEqual(2);
+		});
+	});
+
 	describe('Moff.modules.remove', function() {
 		it('removes all objects by class name', function() {
 			Moff.modules.remove('Module2');
