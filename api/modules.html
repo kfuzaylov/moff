@@ -93,6 +93,24 @@ Moff.modules.get('NonExistingClass'); // undefined</code></pre>
 });</code></pre>
 				<hr>
 
+				<h4 id="getBy">getBy(property, value)</h4>
+				<p>Gets initialized module instances by specified property.</p>
+				<p>Arguments:</p>
+				<ul>
+					<li><code>property</code> - <small>Property name.</small></li>
+					<li><code>value</code> - <small>Property value.</small></li>
+				</ul>
+				<p>Returns <code>array</code>.</p>
+				<pre><code class="language-javascript">Moff.modules.create('Comments', function() {});
+Moff.modules.initClass('Comments', {id: 'comments_1'});
+Moff.modules.initClass('Comments', {id: 'comments_2'});
+
+Moff.modules.getBy('id', 'comments_1'); // [Comments{id="comments_1"}]
+
+// Also you can get by class name
+Moff.modules.getBy('class', 'Comments'); // [Comments{id="comments_1"}, Comments{id="comments_2"}]</code></pre>
+				<hr>
+
 				<h4 id="initClass">initClass(ClassName, params)</h4>
 				<p>Initialize registered class object. While class initialization this method does the following:</p>
 				<ul>
@@ -167,6 +185,7 @@ Moff.modules.initClass('Comments', {id: 'comments_43'});</code></pre>
 				<ul data-spy="affix" class="nav nav-tabs nav-stacked affix-bar" data-offset-bottom="80" data-offset-top="75">
 					<li><a href="#get">get</a></li>
 					<li><a href="#getAll">getAll</a></li>
+					<li><a href="#getBy">getBy</a></li>
 					<li><a href="#initClass">initClass</a></li>
 					<li><a href="#create">create</a></li>
 					<li><a href="#remove">remove</a></li>
