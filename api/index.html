@@ -115,13 +115,13 @@ Moff.each(['one', 'two'], function(index, value) {
 	// Use array index and value
 });</code></pre>
 				<hr>
-				<h4 id="getMode">getMode</h4>
+				<h4 id="getMode">getMode()</h4>
 				<p>Get current view mode.</p>
 				<p>Returns one of these values: <code>xs</code>, <code>sm</code>, <code>md</code> or <code>lg</code>.</p>
 				<pre><code class="language-javascript">Moff.getMode(); // xs, sm, md or lg</code></pre>
 				<hr>
 
-				<h4 id="handleDataEvents">handleDataEvents</h4>
+				<h4 id="handleDataEvents">handleDataEvents()</h4>
 				<p>This method handle all new elements added to the page dynamically.</p>
 				<pre><code class="language-javascript">Moff.ajax({
 	type: 'GET',
@@ -138,7 +138,7 @@ Moff.each(['one', 'two'], function(index, value) {
 				<p>Arguments:</p>
 				<ul>
 					<li><code>href</code> - <small>Source of loaded css file</small></li>
-					<li><code>callback</code> - <small>On load callback function</small></li>
+					<li><code>callback</code> - <small><u>Optional</u> callback function which will be executed when file be loaded.</small></li>
 				</ul>
 				<pre><code class="language-javascript">Moff.loadCSS('assets/css/style.css', function() { /** File is loaded */});</code></pre>
 				<hr>
@@ -147,8 +147,8 @@ Moff.each(['one', 'two'], function(index, value) {
 					And it will execute callback immediately if no files were passed.</p>
 				<p>Arguments:</p>
 				<ul>
-					<li><code>depend</code> - <small>Object with js and css files</small></li>
-					<li><code>callback</code> - <small>Callback function</small></li>
+					<li><code>depend</code> - <small>Object with js and css files.</small></li>
+					<li><code>callback</code> - <small><u>Optional</u> callback function.</small></li>
 				</ul>
 				<pre><code class="language-javascript">Moff.loadAssets(
 	{
@@ -156,7 +156,7 @@ Moff.each(['one', 'two'], function(index, value) {
 		css: ['/assets/css/style.css']
 	},
 	function() {
-
+		// This callback will be executed when files be loaded
 	}
 );</code></pre>
 				<hr>
@@ -164,8 +164,8 @@ Moff.each(['one', 'two'], function(index, value) {
 				<p>Load javascript file and run callback when it be loaded. It doesn't load file if it is already included and run callback immediately.</p>
 				<p>Arguments:</p>
 				<ul>
-					<li><code>src</code> - <small>Source of javascript file</small></li>
-					<li><code>callback</code> - <small>Callback function</small></li>
+					<li><code>src</code> - <small>Source of javascript file.</small></li>
+					<li><code>callback</code> - <small><u>Optional</u> callback function.</small></li>
 				</ul>
 				<pre><code class="language-javascript">Moff.loadJS('assets/js/script.js', function() { /** Script file is loaded */});</code></pre>
 				<hr>
@@ -176,7 +176,7 @@ Moff.each(['one', 'two'], function(index, value) {
 					<li><code>callback</code> - <small>Callback function. Each callback will get the current view mode - xs, sm, md or lg.</small></li>
 				</ul>
 				<pre><code class="language-javascript">Moff.onViewChange(function() {
-	// get current view mode and do something...
+	// Get current view mode and do something...
 });</code></pre>
 				<hr>
 				<h4 id="reopen">reopen(methods)</h4>
@@ -196,9 +196,9 @@ Moff.each(['one', 'two'], function(index, value) {
 				<p>Runs the array of callbacks in certain context and passes passed arguments.</p>
 				<p>Arguments:</p>
 				<ul>
-					<li><code>collection</code> - <small>Array of callbacks</small></li>
-					<li><code>context</code> - <small>Context object</small></li>
-					<li><code>args</code> - <small>Array of arguments</small></li>
+					<li><code>collection</code> - <small>Array of callbacks.</small></li>
+					<li><code>context</code> - <small>Context object.</small></li>
+					<li><code>args</code> - <small><u>Optional</u> array of arguments.</small></li>
 				</ul>
 				<hr>
 				<pre><code class="language-javascript">var callbacks = [callback1, callback2, callback3];

@@ -93,8 +93,17 @@
 
 		<h3>Include module</h3>
 		<p>Registered modules are included automatically on <code>DOMContentLoaded</code> event by <code>loadOnScreen</code> option if it exists. And there is a ways to do it manually.<br>
-			This is programmatic via Moff API <code>Moff.amd.include</code> method.</p>
-		<pre><code class="language-javascript">Moff.amd.include('liveChat');</code></pre>
+			This is programmatic via Moff API <code>Moff.amd.include</code> method. If module was included before, callback will be executed immediately.</p>
+		<pre><code class="language-javascript">Moff.amd.include('liveChat', function() {
+	// This callback will be executed when all files be loaded
+}, {reload: true});</code></pre>
+		<p>The method gets three arguments:
+			<ul>
+				<li><code>id</code> - Id of registered module.</li>
+				<li><code>callback</code> - Function which will be executed when all registered file be loaded.</li>
+				<li><code>options</code> - Object with the only property <code>reload</code>. Forces to re-include all registered files.</li>
+			</ul>
+		</p>
 	</div>
 </main>
 <footer role="contentinfo">

@@ -128,7 +128,7 @@ Moff.modules.getBy('class', 'Comments'); // [Comments{id="comments_1"}, Comments
 				<p>Arguments:</p>
 				<ul>
 					<li><code>ClassName</code> - <small>Registered class name.</small></li>
-					<li><code>params</code> - <small>Object with additional params. Optional.</small></li>
+					<li><code>params</code> - <small><u>Optional</u> object with additional params which will be applied as class properties.</small></li>
 				</ul>
 				<pre><code class="language-javascript">// comments.js
 Moff.modules.create('Comments', function() {
@@ -159,7 +159,7 @@ Moff.modules.initClass('Comments', {id: 'comments_43'});</code></pre>
 				<p>Arguments:</p>
 				<ul>
 					<li><code>name</code> - <small>Registered class name.</small></li>
-					<li><code>depends</code> - <small>Object of js and css files. Optional.</small></li>
+					<li><code>depends</code> - <small><u>Optional</u> object of js and css files.</small></li>
 					<li><code>Constructor</code> - <small>Class constructor.</small></li>
 				</ul>
 				<pre><code class="language-javascript">Moff.modules.create(
@@ -171,15 +171,17 @@ Moff.modules.initClass('Comments', {id: 'comments_43'});</code></pre>
 	function() { /** Constructor */ }
 );</code></pre>
 				<hr>
-				<h4 id="remove">remove</h4>
-				<p>Remove the current class object. Fist it get the current object id and tries to remove by object <code>id</code> from storage.<br>
-				If id wasn't passed it removes by module name stored in <code>moduleName</code> property.</p>
-				<p>This method removes only initialized object class. So you are still can initialize it again.</p>
-				<pre><code class="language-javascript">Moff.modules.create('Comments', function() {
-	this.disableComments = function() {
-		Moff.modules.remove('Comments');
-	};
-});</code></pre>
+				<h4 id="remove">remove(module)</h4>
+				<p>Removes module instance by passed name or instance. This method removes only initialized object classes. So you are still can initialize it again.</p>
+				<p>Arguments:</p>
+				<ul>
+					<li><code>module</code> - <small>Module name or class instance.</small></li>
+				</ul>
+				<pre><code class="language-javascript">Moff.modules.create('Comments', function() {});
+Moff.modules.remove('Comments'); // Remove by module class name
+
+var comments = Moff.modules.get('Comments');
+Moff.modules.remove(comments); // Remove by class instance</code></pre>
 			</div>
 			<div class="col-sm-3 col-md-3 hidden-xs" id="affixNav">
 				<ul data-spy="affix" class="nav nav-tabs nav-stacked affix-bar" data-offset-bottom="80" data-offset-top="75">

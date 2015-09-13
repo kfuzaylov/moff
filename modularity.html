@@ -63,7 +63,7 @@
 		<p><code>Moff.modules.create</code> method creates new <code>Moff.Module</code> class instance in its modular system.</p>
 		<p>It gets three arguments:</p>
 		<p><code>name</code> - Module name. Try to use unique name for modules.</p>
-		<p><code>depend</code> - Module dependency. All dependency will be loaded before module initialization.<br>If you pass wrong path for dependency file, it will not loaded and module will not be initialized.
+		<p><code>depend</code> - <u>Optional</u> module dependency object. All dependency will be loaded before module initialization.<br>If you pass wrong path for dependency file, it will not loaded and module will not be initialized.
 		<br>If you register module, but not initialize, dependency file will not be loaded. And it will not load file if it is already loaded.</p>
 		<p><code>Constructor</code> - Module constructor class.</p>
 		<pre><code class="language-javascript">Moff.modules.create('Post',
@@ -141,7 +141,7 @@ this.data; // {}</code></pre>
 		<h4>Assign for event</h4>
 		<p>When some module register event, another one can assign for it.</p>
 		<pre><code class="language-javascript">Moff.event.on('afterSearch', function(result) {
-	// do something with result
+	// Do something with result
 };</code></pre>
 		<h3>Getting module</h3>
 		<p>Moff module <code>Moff.modules.get</code> method gets module initialized object by name.</p>

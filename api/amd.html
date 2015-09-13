@@ -59,11 +59,18 @@
 				<h1>API Moff.amd</h1>
 				<p>Moff.amd namespace to work with Asynchronous Module Definition technique.</p>
 
-				<h4 id="include">include(id)</h4>
+				<h4 id="include">include(id, callback, options)</h4>
 				<p>Loads registered module by id.</p>
 				<p>Arguments:</p>
-				<ul><li><code>id</code> - <small>Module identifier</small></li></ul>
-				<pre><code class="language-javascript">Moff.amd.include('liveChat');</code></pre>
+				<ul>
+					<li><code>id</code> - <small>Module identifier.</small></li>
+					<li><code>callback</code> - <small><u>Optional</u> function which will be executed when all registered file be loaded. Callback will be executed immediately if module was included before.</small></li>
+					<li>
+						<code>options</code> - <small><u>Optional</u> object with include parameters:</small><br>
+						<code class="sub-option">reload</code> - Re-include all registered file, even they were included before.
+					</li>
+				</ul>
+				<pre><code class="language-javascript">Moff.amd.include('liveChat', function() {}, {reload: true});</code></pre>
 				<hr>
 				<h4 id="register">register(object)</h4>
 				<p>Register module (simple object) to be loaded later.</p>
@@ -72,16 +79,16 @@
 					<li>
 						<code>object</code> - <small>Object with the following options:<br>
 						<code class="sub-option">id</code> - Module identifier<br>
-						<code class="sub-option">depend</code> - Module dependencies object. Consists from <code>js</code> and <code>css</code> keys:<br>
+						<code class="sub-option">depend</code> - <u>Optional</u> dependency object of module. Consists from <code>js</code> and <code>css</code> keys:<br>
 						<code class="sub-option_sub">js</code> - Array of javascript files.<br>
 						<code class="sub-option_sub">css</code> - Array of css files.<br>
 						<code class="sub-option">file</code> - Object of module main files. Consists from <code>js</code> and <code>css</code> keys:<br>
 						<code class="sub-option_sub">js</code> - Array of javascript files.<br>
 						<code class="sub-option_sub">css</code> - Array of css files.<br>
-						<code class="sub-option">beforeInclude</code> - Callback to be triggered before all files include.<br>
-						<code class="sub-option">afterInclude</code> - Callback to be triggered after all files include.<br>
-						<code class="sub-option">loadOnScreen</code> - Array of screen sizes which indicates when module will be loaded automatically.<br>
-						<code class="sub-option">onWindowLoad</code> - Boolean which determines whether module will be loaded on window <code>load</code> event.<br>
+						<code class="sub-option">beforeInclude</code> - <u>Optional</u> callback to be triggered before all files include.<br>
+						<code class="sub-option">afterInclude</code> - <u>Optional</u> callback to be triggered after all files include.<br>
+						<code class="sub-option">loadOnScreen</code> - <u>Optional</u> array of screen sizes which indicates when module will be loaded automatically.<br>
+						<code class="sub-option">onWindowLoad</code> - <u>Optional</u> boolean which determines whether module will be loaded on window <code>load</code> event.<br>
 					</small>
 					</li>
 				</ul>
