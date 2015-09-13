@@ -173,23 +173,24 @@ function ModulesApi() {
 	};
 
 	/**
-	 * Remove registered module by name.
+	 * Remove registered module by name or instance.
 	 * @method remove
-	 * @param {string} name - Module Class name
+	 * @param {string|object} module - Module Class name or instance.
 	 */
-	this.remove = function(name) {
+	this.remove = function(module) {
 		var i = 0;
-		var storage = _moduleObjectStorage[name];
-		var object, length;
+		var isInstance = typeof module !== 'string';
+		var moduleName = isInstance ? module.moduleName : module;
+		var storage = _moduleObjectStorage[moduleName];
 
 		// Be sure to remove existing module
 		if (Array.isArray(storage)) {
-			length = storage.length;
+			let length = storage.length;
 
 			for (; i < length; i++) {
-				object = storage[i];
+				let object = storage[i];
 
-				if (object.moduleName === name) {
+				if ((isInstance && object === module) || (!isInstance && object.moduleName === moduleName)) {
 					storage.splice(i, 1);
 					length = storage.length;
 					--i;
@@ -197,12 +198,12 @@ function ModulesApi() {
 			}
 
 			if (storage.length === 1) {
-				_moduleObjectStorage[name] = _moduleObjectStorage[name][0];
-			} else if (!_moduleObjectStorage[name].length) {
-				delete _moduleObjectStorage[name];
+				_moduleObjectStorage[moduleName] = _moduleObjectStorage[moduleName][0];
+			} else if (!_moduleObjectStorage[moduleName].length) {
+				delete _moduleObjectStorage[moduleName];
 			}
 		} else {
-			delete _moduleObjectStorage[name];
+			delete _moduleObjectStorage[moduleName];
 		}
 	};
 

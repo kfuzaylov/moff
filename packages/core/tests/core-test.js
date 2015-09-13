@@ -103,6 +103,21 @@ describe('Moff Core', function() {
 				done();
 			});
 		});
+
+		it('it reload files if pass {reload: true} option', function(done) {
+			Moff.loadAssets({
+				js: ['fixtures/depend.js'],
+				css: ['fixtures/depend.css']
+			}, function() {
+				var nodes = document.querySelectorAll('script[src="fixtures/depend.js"], link[href="fixtures/depend.css"]');
+				expect(nodes.length).toEqual(2);
+
+				Moff.each(nodes, function() {
+					this.parentNode.removeChild(this);
+				});
+				done();
+			}, {reload: true});
+		});
 	});
 
 	describe('Moff.loadJS method', function() {
@@ -119,6 +134,16 @@ describe('Moff Core', function() {
 				done();
 			});
 		});
+
+		it('reload existing file if pass {reload: true} option', function(done) {
+			var file1 = document.querySelector('script[src="fixtures/file.js"]');
+			Moff.loadJS('fixtures/file.js', function() {
+				expect(document.querySelectorAll('script[src="fixtures/file.js"]').length).toEqual(1);
+				var file2 = document.querySelector('script[src="fixtures/file.js"]');
+				expect(file1 !== file2).toBe(true);
+				done();
+			}, {reload: true});
+		});
 	});
 
 	describe('Moff.loadCSS method', function() {
@@ -134,6 +159,16 @@ describe('Moff Core', function() {
 				expect(document.querySelectorAll('link[href="fixtures/file.css"]').length).toEqual(1);
 				done();
 			});
+		});
+
+		it('reload existing file if pass {reload: true} option', function(done) {
+			var file1 = document.querySelector('link[href="fixtures/file.css"]');
+			Moff.loadCSS('fixtures/file.css', function() {
+				expect(document.querySelectorAll('link[href="fixtures/file.css"]').length).toEqual(1);
+				var file2 = document.querySelector('link[href="fixtures/file.css"]');
+				expect(file1 !== file2).toBe(true);
+				done();
+			}, {reload: true});
 		});
 	});
 

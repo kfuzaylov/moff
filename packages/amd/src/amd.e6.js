@@ -105,8 +105,9 @@ function AMD() {
 	 * @method include
 	 * @param {string} id - Included object id
 	 * @param {function} [callback] - Function callback
+	 * @param {object} [options] - Include options
 	 */
-	this.include = function(id, callback) {
+	this.include = function(id, callback, options = {}) {
 		var register = _registeredFiles[id];
 
 		if (!register) {
@@ -114,8 +115,14 @@ function AMD() {
 			return;
 		}
 
+		// Normalize arguments
+		if (typeof callback === 'object') {
+			options = callback;
+			callback = undefined;
+		}
+
 		// Make sure files are not loaded
-		if (register.loaded) {
+		if (!options.reload && register.loaded) {
 			return;
 		}
 
@@ -134,10 +141,10 @@ function AMD() {
 		}
 
 		function loadFiles() {
-			Moff.loadAssets(register.file, execCallback);
+			Moff.loadAssets(register.file, execCallback, options);
 		}
 
-		Moff.loadAssets(register.depend, loadFiles);
+		Moff.loadAssets(register.depend, loadFiles, options);
 
 		function execCallback() {
 			if (typeof register.afterInclude === 'function') {

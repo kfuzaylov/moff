@@ -582,9 +582,10 @@ function Core() {
 	 * Load files and run callback.
 	 * @method loadAssets
 	 * @param {object} depend - Object with js and css files to be loaded
-	 * @param {function} callback - Function executed after files be loaded
+	 * @param {function} [callback] - Function executed after files be loaded
+	 * @param {object} [options] - Options of assets loading
 	 */
-	this.loadAssets = function(depend, callback) {
+	this.loadAssets = function(depend, callback, options = {}) {
 		var loaded = 0;
 		var length = 0;
 		var jsIndex = 0;
@@ -612,7 +613,7 @@ function Core() {
 					} else {
 						loadJSArray();
 					}
-				});
+				}, options);
 			}
 		}
 
@@ -629,7 +630,7 @@ function Core() {
 		if (isCSS && depend.css.length) {
 			// Load depend css files
 			this.each(depend.css, function(i, href) {
-				_moff.loadCSS(href, runCallback);
+				_moff.loadCSS(href, runCallback, options);
 			});
 		}
 
@@ -643,26 +644,42 @@ function Core() {
 	 * @method loadJS
 	 * @param {string} src - Array or path of loaded files
 	 * @param {function} [callback] - On load event callback
+	 * @param {object} [options] - Script load options
 	 */
-	this.loadJS = function(src, callback) {
+	this.loadJS = function(src, callback, options = {}) {
 		if (typeof src !== 'string') {
 			this.debug('Moff.loadJS source must be a string');
 			return;
 		}
 
-		var script;
+		// Normalize options
+		if (typeof callback === 'object') {
+			options = callback;
+			callback = undefined;
+		}
+
+		var script = _doc.querySelector(`script[src="${src}"]`);
 		var hasCallback = typeof callback === 'function';
 
-		// Load script if it is not existing on the page
-		if (!_doc.querySelector('script[src="' + src + '"]')) {
-			script = _doc.createElement('script');
+		function appendScript() {
+			var script = _doc.createElement('script');
+			script.setAttribute('src', src);
 
 			if (hasCallback) {
 				script.addEventListener('load', callback, false);
 			}
 
-			script.src = src;
 			_doc.querySelector('body').appendChild(script);
+		}
+
+		if (options.reload) {
+			if (script) {
+				script.parentNode.removeChild(script);
+			}
+
+			appendScript();
+		} else if (!script) {
+			appendScript();
 		} else if (hasCallback) {
 			callback();
 		}
@@ -672,26 +689,32 @@ function Core() {
 	 * Load css file and run callback on load.
 	 * @method loadCSS
 	 * @param {string} href - Array or path of loaded files
-	 * @param {function} callback - On load event callback
+	 * @param {function} [callback] - On load event callback
+	 * @param {object} [options] - Style load options
 	 */
-	this.loadCSS = function(href, callback) {
+	this.loadCSS = function(href, callback, options = {}) {
 		if (typeof href !== 'string') {
 			this.debug('Moff.loadCSS source must be a string');
 			return;
 		}
 
-		var link;
+		// Normalize options
+		if (typeof callback === 'object') {
+			options = callback;
+			callback = undefined;
+		}
+
+		var link = _doc.querySelector(`link[href="${href}"]`);
 		var hasCallback = typeof callback === 'function';
 
-		// Load link if it is not existing on the page
-		if (!_doc.querySelector('link[href="' + href + '"]')) {
-			link = _doc.createElement('link');
+		function appendLink() {
+			var link = _doc.createElement('link');
 
 			if (hasCallback) {
 				link.addEventListener('load', callback, false);
 			}
 
-			link.href = href;
+			link.setAttribute('href', href);
 			link.setAttribute('rel', 'stylesheet');
 			_doc.querySelector('head').appendChild(link);
 
@@ -705,6 +728,16 @@ function Core() {
 					}
 				}
 			};
+		}
+
+		if (options.reload) {
+			if (link) {
+				link.parentNode.removeChild(link);
+			}
+
+			appendLink();
+		} else if (!link) {
+			appendLink();
 		} else if (hasCallback) {
 			callback();
 		}

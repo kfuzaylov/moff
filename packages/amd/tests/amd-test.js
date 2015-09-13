@@ -167,5 +167,13 @@ describe('AMD', function() {
 		it('loads css files', function() {
 			expect(document.querySelectorAll('[href="fixtures/depend.css"], [href="fixtures/file.css"]').length).toEqual(2);
 		});
+
+		it('reloads files if pass {reload:true} option', function(done) {
+			Moff.amd.include('moduleId', function() {
+				expect(document.querySelectorAll('[src="fixtures/depend.js"], [src="fixtures/file.js"]').length).toEqual(2);
+				expect(document.querySelectorAll('[src="fixtures/depend.js"], [src="fixtures/file.js"]').length).toEqual(2);
+				done();
+			}, {reload: true});
+		});
 	});
 });

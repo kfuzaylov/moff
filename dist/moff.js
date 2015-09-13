@@ -1,7 +1,7 @@
 /**
  * @overview  moff - Mobile First Framework
  * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.7.28
+ * @version   1.7.30
  * @license   Licensed under MIT license
  * @copyright Copyright (c) 2015 Kadir A. Fuzaylov
  */
@@ -118,8 +118,11 @@ function AMD() {
   * @method include
   * @param {string} id - Included object id
   * @param {function} [callback] - Function callback
+  * @param {object} [options] - Include options
   */
 	this.include = function (id, callback) {
+		var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+
 		var register = _registeredFiles[id];
 
 		if (!register) {
@@ -127,8 +130,14 @@ function AMD() {
 			return;
 		}
 
+		// Normalize arguments
+		if (typeof callback === 'object') {
+			options = callback;
+			callback = undefined;
+		}
+
 		// Make sure files are not loaded
-		if (register.loaded) {
+		if (!options.reload && register.loaded) {
 			return;
 		}
 
@@ -147,10 +156,10 @@ function AMD() {
 		}
 
 		function loadFiles() {
-			Moff.loadAssets(register.file, execCallback);
+			Moff.loadAssets(register.file, execCallback, options);
 		}
 
-		Moff.loadAssets(register.depend, loadFiles);
+		Moff.loadAssets(register.depend, loadFiles, options);
 
 		function execCallback() {
 			if (typeof register.afterInclude === 'function') {
@@ -765,9 +774,12 @@ function Core() {
   * Load files and run callback.
   * @method loadAssets
   * @param {object} depend - Object with js and css files to be loaded
-  * @param {function} callback - Function executed after files be loaded
+  * @param {function} [callback] - Function executed after files be loaded
+  * @param {object} [options] - Options of assets loading
   */
 	this.loadAssets = function (depend, callback) {
+		var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+
 		var loaded = 0;
 		var length = 0;
 		var jsIndex = 0;
@@ -795,7 +807,7 @@ function Core() {
 					} else {
 						loadJSArray();
 					}
-				});
+				}, options);
 			}
 		}
 
@@ -812,7 +824,7 @@ function Core() {
 		if (isCSS && depend.css.length) {
 			// Load depend css files
 			this.each(depend.css, function (i, href) {
-				_moff.loadCSS(href, runCallback);
+				_moff.loadCSS(href, runCallback, options);
 			});
 		}
 
@@ -826,26 +838,44 @@ function Core() {
   * @method loadJS
   * @param {string} src - Array or path of loaded files
   * @param {function} [callback] - On load event callback
+  * @param {object} [options] - Script load options
   */
 	this.loadJS = function (src, callback) {
+		var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+
 		if (typeof src !== 'string') {
 			this.debug('Moff.loadJS source must be a string');
 			return;
 		}
 
-		var script;
+		// Normalize options
+		if (typeof callback === 'object') {
+			options = callback;
+			callback = undefined;
+		}
+
+		var script = _doc.querySelector('script[src="' + src + '"]');
 		var hasCallback = typeof callback === 'function';
 
-		// Load script if it is not existing on the page
-		if (!_doc.querySelector('script[src="' + src + '"]')) {
-			script = _doc.createElement('script');
+		function appendScript() {
+			var script = _doc.createElement('script');
+			script.setAttribute('src', src);
 
 			if (hasCallback) {
 				script.addEventListener('load', callback, false);
 			}
 
-			script.src = src;
 			_doc.querySelector('body').appendChild(script);
+		}
+
+		if (options.reload) {
+			if (script) {
+				script.parentNode.removeChild(script);
+			}
+
+			appendScript();
+		} else if (!script) {
+			appendScript();
 		} else if (hasCallback) {
 			callback();
 		}
@@ -855,26 +885,34 @@ function Core() {
   * Load css file and run callback on load.
   * @method loadCSS
   * @param {string} href - Array or path of loaded files
-  * @param {function} callback - On load event callback
+  * @param {function} [callback] - On load event callback
+  * @param {object} [options] - Style load options
   */
 	this.loadCSS = function (href, callback) {
+		var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+
 		if (typeof href !== 'string') {
 			this.debug('Moff.loadCSS source must be a string');
 			return;
 		}
 
-		var link;
+		// Normalize options
+		if (typeof callback === 'object') {
+			options = callback;
+			callback = undefined;
+		}
+
+		var link = _doc.querySelector('link[href="' + href + '"]');
 		var hasCallback = typeof callback === 'function';
 
-		// Load link if it is not existing on the page
-		if (!_doc.querySelector('link[href="' + href + '"]')) {
-			link = _doc.createElement('link');
+		function appendLink() {
+			var link = _doc.createElement('link');
 
 			if (hasCallback) {
 				link.addEventListener('load', callback, false);
 			}
 
-			link.href = href;
+			link.setAttribute('href', href);
 			link.setAttribute('rel', 'stylesheet');
 			_doc.querySelector('head').appendChild(link);
 
@@ -888,6 +926,16 @@ function Core() {
 					}
 				}
 			};
+		}
+
+		if (options.reload) {
+			if (link) {
+				link.parentNode.removeChild(link);
+			}
+
+			appendLink();
+		} else if (!link) {
+			appendLink();
 		} else if (hasCallback) {
 			callback();
 		}
@@ -984,7 +1032,7 @@ function Core() {
   * Moff version.
   * @type {string}
   */
-	this.version = '1.7.28';
+	this.version = '1.7.30';
 
 	extendSettings();
 	setBreakpoints();
@@ -1330,105 +1378,22 @@ var _detectSrcDetectE6 = require('../../detect/src/detect.e6');
 
 var _detectSrcDetectE62 = _interopRequireDefault(_detectSrcDetectE6);
 
-var _modulesSrcModuleBaseEs6 = require('../../modules/src/module-base.es6');
+var _modulesSrcBaseEs6 = require('../../modules/src/base.es6');
 
-var _modulesSrcModuleBaseEs62 = _interopRequireDefault(_modulesSrcModuleBaseEs6);
+var _modulesSrcBaseEs62 = _interopRequireDefault(_modulesSrcBaseEs6);
 
-var _modulesSrcModulesApiE6 = require('../../modules/src/modules-api.e6');
+var _modulesSrcApiE6 = require('../../modules/src/api.e6');
 
-var _modulesSrcModulesApiE62 = _interopRequireDefault(_modulesSrcModulesApiE6);
+var _modulesSrcApiE62 = _interopRequireDefault(_modulesSrcApiE6);
 
 window.Moff = new _coreSrcCoreE62['default']();
 window.Moff.amd = new _amdSrcAmdE62['default']();
 window.Moff.event = new _eventSrcEventE62['default']();
-window.Moff.Module = new _modulesSrcModuleBaseEs62['default']();
+window.Moff.Module = new _modulesSrcBaseEs62['default']();
 window.Moff.detect = new _detectSrcDetectE62['default']();
-window.Moff.modules = new _modulesSrcModulesApiE62['default']();
+window.Moff.modules = new _modulesSrcApiE62['default']();
 
-},{"../../amd/src/amd.e6":1,"../../core/src/core.e6":2,"../../detect/src/detect.e6":3,"../../event/src/event.e6":4,"../../modules/src/module-base.es6":6,"../../modules/src/modules-api.e6":7}],6:[function(require,module,exports){
-/**
- * Module base class.
- * @class ModuleBase
- * @constructor
- */
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-	value: true
-});
-function ModuleBase() {
-	/**
-  * @property {null|string} scopeSelector - Module scope selector. CSS selector.
-  */
-	this.scopeSelector = null;
-
-	/**
-  * @property {null|object} scope - Module scope object. HTML element.
-  */
-	this.scope = null;
-
-	/**
-  * @property {Array} events - Array of module events.
-  */
-	this.events = [];
-
-	/**
-  * @property {Function} beforeInit - Before initialization callback
-  */
-	this.beforeInit = function () {};
-
-	/**
-  * @property {Function} init - Initialization callback
-  */
-	this.init = function () {};
-
-	/**
-  * @property {Function} afterInit - After initialization callback
-  */
-	this.afterInit = function () {};
-
-	/**
-  * Register module scope by scope selector.
-  * @method setScope
-  */
-	this.setScope = function () {
-		if (this.scopeSelector) {
-			this.scope = document.querySelector(this.scopeSelector);
-		}
-	};
-
-	/**
-  * Find element in module scope.
-  * @method find
-  * @param {string} selector - CSS selector.
-  * @returns {object} HTML element.
-  */
-	this.find = function (selector) {
-		return this.scope.querySelectorAll(selector);
-	};
-
-	/**
-  * Extends constructor's prototype with additional properties and functions
-  * @method reopen
-  * @param {{}} additions - Additional methods and properties
-  */
-	this.reopen = function (additions) {
-		if (typeof additions !== 'object') {
-			Moff.debug('Reopen method argument must be an object');
-			return;
-		}
-
-		var obj = this;
-		Moff.each(additions, function (property, value) {
-			obj[property] = value;
-		});
-	};
-}
-
-exports['default'] = ModuleBase;
-module.exports = exports['default'];
-
-},{}],7:[function(require,module,exports){
+},{"../../amd/src/amd.e6":1,"../../core/src/core.e6":2,"../../detect/src/detect.e6":3,"../../event/src/event.e6":4,"../../modules/src/api.e6":6,"../../modules/src/base.es6":7}],6:[function(require,module,exports){
 /**
  * Register and control new Moff modules.
  * @module Module.
@@ -1609,36 +1574,37 @@ function ModulesApi() {
 	};
 
 	/**
-  * Remove registered module by name.
+  * Remove registered module by name or instance.
   * @method remove
-  * @param {string} name - Module Class name
+  * @param {string|object} module - Module Class name or instance.
   */
-	this.remove = function (name) {
+	this.remove = function (module) {
 		var i = 0;
-		var storage = _moduleObjectStorage[name];
-		var object, length;
+		var isInstance = typeof module !== 'string';
+		var moduleName = isInstance ? module.moduleName : module;
+		var storage = _moduleObjectStorage[moduleName];
 
 		// Be sure to remove existing module
 		if (Array.isArray(storage)) {
-			length = storage.length;
+			var _length = storage.length;
 
-			for (; i < length; i++) {
-				object = storage[i];
+			for (; i < _length; i++) {
+				var object = storage[i];
 
-				if (object.moduleName === name) {
+				if (isInstance && object === module || !isInstance && object.moduleName === moduleName) {
 					storage.splice(i, 1);
-					length = storage.length;
+					_length = storage.length;
 					--i;
 				}
 			}
 
 			if (storage.length === 1) {
-				_moduleObjectStorage[name] = _moduleObjectStorage[name][0];
-			} else if (!_moduleObjectStorage[name].length) {
-				delete _moduleObjectStorage[name];
+				_moduleObjectStorage[moduleName] = _moduleObjectStorage[moduleName][0];
+			} else if (!_moduleObjectStorage[moduleName].length) {
+				delete _moduleObjectStorage[moduleName];
 			}
 		} else {
-			delete _moduleObjectStorage[name];
+			delete _moduleObjectStorage[moduleName];
 		}
 	};
 
@@ -1651,6 +1617,89 @@ function ModulesApi() {
 }
 
 exports['default'] = ModulesApi;
+module.exports = exports['default'];
+
+},{}],7:[function(require,module,exports){
+/**
+ * Module base class.
+ * @class ModuleBase
+ * @constructor
+ */
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+function ModuleBase() {
+	/**
+  * @property {null|string} scopeSelector - Module scope selector. CSS selector.
+  */
+	this.scopeSelector = null;
+
+	/**
+  * @property {null|object} scope - Module scope object. HTML element.
+  */
+	this.scope = null;
+
+	/**
+  * @property {Array} events - Array of module events.
+  */
+	this.events = [];
+
+	/**
+  * @property {Function} beforeInit - Before initialization callback
+  */
+	this.beforeInit = function () {};
+
+	/**
+  * @property {Function} init - Initialization callback
+  */
+	this.init = function () {};
+
+	/**
+  * @property {Function} afterInit - After initialization callback
+  */
+	this.afterInit = function () {};
+
+	/**
+  * Register module scope by scope selector.
+  * @method setScope
+  */
+	this.setScope = function () {
+		if (this.scopeSelector) {
+			this.scope = document.querySelector(this.scopeSelector);
+		}
+	};
+
+	/**
+  * Find element in module scope.
+  * @method find
+  * @param {string} selector - CSS selector.
+  * @returns {object} HTML element.
+  */
+	this.find = function (selector) {
+		return this.scope.querySelectorAll(selector);
+	};
+
+	/**
+  * Extends constructor's prototype with additional properties and functions
+  * @method reopen
+  * @param {{}} additions - Additional methods and properties
+  */
+	this.reopen = function (additions) {
+		if (typeof additions !== 'object') {
+			Moff.debug('Reopen method argument must be an object');
+			return;
+		}
+
+		var obj = this;
+		Moff.each(additions, function (property, value) {
+			obj[property] = value;
+		});
+	};
+}
+
+exports['default'] = ModuleBase;
 module.exports = exports['default'];
 
 },{}]},{},[5]);

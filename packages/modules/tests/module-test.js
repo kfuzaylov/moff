@@ -132,6 +132,11 @@ describe('Moff.modules API', function() {
 			expect(typeof Moff.modules.get('Module2')).toEqual('object');
 			Moff.modules.remove('Module2');
 			expect(Moff.modules._testonly._moduleObjectStorage['Module2']).toBeUndefined();
+
+			Moff.modules.initClass('Module2', {id: 'modId2'});
+			var module2 = Moff.modules.get('Module2');
+			Moff.modules.remove(module2);
+			expect(Moff.modules._testonly._moduleObjectStorage['Module2']).toBeUndefined();
 		});
 	});
 });
