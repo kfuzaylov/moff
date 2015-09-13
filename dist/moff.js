@@ -1,7 +1,7 @@
 /**
  * @overview  moff - Mobile First Framework
  * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.7.30
+ * @version   1.7.31
  * @license   Licensed under MIT license
  * @copyright Copyright (c) 2015 Kadir A. Fuzaylov
  */
@@ -136,8 +136,13 @@ function AMD() {
 			callback = undefined;
 		}
 
+		var hasCallback = typeof callback === 'function';
+
 		// Make sure files are not loaded
 		if (!options.reload && register.loaded) {
+			if (hasCallback) {
+				callback();
+			}
 			return;
 		}
 
@@ -166,7 +171,7 @@ function AMD() {
 				register.afterInclude();
 			}
 
-			if (typeof callback === 'function') {
+			if (hasCallback) {
 				callback();
 			}
 		}
@@ -785,6 +790,7 @@ function Core() {
 		var jsIndex = 0;
 		var isCSS = Array.isArray(depend.css);
 		var isJS = Array.isArray(depend.js);
+		var hasCallback = typeof callback === 'function';
 
 		if (isJS) {
 			length += depend.js.length;
@@ -792,6 +798,14 @@ function Core() {
 
 		if (isCSS) {
 			length += depend.css.length;
+		}
+
+		if (!length) {
+			Moff.debug('You must pass minimum one js or css file');
+			if (hasCallback) {
+				callback();
+			}
+			return;
 		}
 
 		function loadJSArray() {
@@ -803,7 +817,9 @@ function Core() {
 					loaded++;
 
 					if (loaded === length) {
-						callback();
+						if (hasCallback) {
+							callback();
+						}
 					} else {
 						loadJSArray();
 					}
@@ -816,7 +832,7 @@ function Core() {
 		function runCallback() {
 			loaded++;
 
-			if (loaded === length) {
+			if (loaded === length && hasCallback) {
 				callback();
 			}
 		}
@@ -826,10 +842,6 @@ function Core() {
 			this.each(depend.css, function (i, href) {
 				_moff.loadCSS(href, runCallback, options);
 			});
-		}
-
-		if (!length) {
-			callback();
 		}
 	};
 
@@ -1032,7 +1044,7 @@ function Core() {
   * Moff version.
   * @type {string}
   */
-	this.version = '1.7.30';
+	this.version = '1.7.31';
 
 	extendSettings();
 	setBreakpoints();

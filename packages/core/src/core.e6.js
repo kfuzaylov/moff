@@ -591,6 +591,7 @@ function Core() {
 		var jsIndex = 0;
 		var isCSS = Array.isArray(depend.css);
 		var isJS = Array.isArray(depend.js);
+		var hasCallback = typeof callback === 'function';
 
 		if (isJS) {
 			length += depend.js.length;
@@ -598,6 +599,14 @@ function Core() {
 
 		if (isCSS) {
 			length += depend.css.length;
+		}
+
+		if (!length) {
+			Moff.debug('You must pass minimum one js or css file');
+			if (hasCallback) {
+				callback();
+			}
+			return;
 		}
 
 		function loadJSArray() {
@@ -609,7 +618,9 @@ function Core() {
 					loaded++;
 
 					if (loaded === length) {
-						callback();
+						if (hasCallback) {
+							callback();
+						}
 					} else {
 						loadJSArray();
 					}
@@ -622,7 +633,7 @@ function Core() {
 		function runCallback() {
 			loaded++;
 
-			if (loaded === length) {
+			if (loaded === length && hasCallback) {
 				callback();
 			}
 		}
@@ -632,10 +643,6 @@ function Core() {
 			this.each(depend.css, function(i, href) {
 				_moff.loadCSS(href, runCallback, options);
 			});
-		}
-
-		if (!length) {
-			callback();
 		}
 	};
 

@@ -1,7 +1,7 @@
 /**
  * @overview  moff - Mobile First Framework
  * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.7.30
+ * @version   1.7.31
  * @license   Licensed under MIT license
  * @copyright Copyright (c) 2015 Kadir A. Fuzaylov
  */
@@ -118,8 +118,12 @@ function AMD() {
 			options = callback;
 			callback = undefined;
 		}
+		var hasCallback = typeof callback === 'function';
 		// Make sure files are not loaded
 		if (!options.reload && register.loaded) {
+			if (hasCallback) {
+				callback();
+			}
 			return;
 		}
 		// Make sure to load after window load if onWindowLoad is true
@@ -141,7 +145,7 @@ function AMD() {
 			if (typeof register.afterInclude === 'function') {
 				register.afterInclude();
 			}
-			if (typeof callback === 'function') {
+			if (hasCallback) {
 				callback();
 			}
 		}
@@ -663,11 +667,18 @@ function Core() {
 		var jsIndex = 0;
 		var isCSS = Array.isArray(depend.css);
 		var isJS = Array.isArray(depend.js);
+		var hasCallback = typeof callback === 'function';
 		if (isJS) {
 			length += depend.js.length;
 		}
 		if (isCSS) {
 			length += depend.css.length;
+		}
+		if (!length) {
+			if (hasCallback) {
+				callback();
+			}
+			return;
 		}
 		function loadJSArray() {
 			var src = depend.js[jsIndex];
@@ -676,7 +687,9 @@ function Core() {
 					jsIndex++;
 					loaded++;
 					if (loaded === length) {
-						callback();
+						if (hasCallback) {
+							callback();
+						}
 					} else {
 						loadJSArray();
 					}
@@ -686,7 +699,7 @@ function Core() {
 		loadJSArray();
 		function runCallback() {
 			loaded++;
-			if (loaded === length) {
+			if (loaded === length && hasCallback) {
 				callback();
 			}
 		}
@@ -695,9 +708,6 @@ function Core() {
 			this.each(depend.css, function (i, href) {
 				_moff.loadCSS(href, runCallback, options);
 			});
-		}
-		if (!length) {
-			callback();
 		}
 	};
 	/**
@@ -870,7 +880,7 @@ function Core() {
   * Moff version.
   * @type {string}
   */
-	this.version = '1.7.30';
+	this.version = '1.7.31';
 	extendSettings();
 	setBreakpoints();
 	setViewMode();

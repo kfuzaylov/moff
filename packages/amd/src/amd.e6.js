@@ -121,8 +121,13 @@ function AMD() {
 			callback = undefined;
 		}
 
+		var hasCallback = typeof callback === 'function';
+
 		// Make sure files are not loaded
 		if (!options.reload && register.loaded) {
+			if (hasCallback) {
+				callback();
+			}
 			return;
 		}
 
@@ -151,7 +156,7 @@ function AMD() {
 				register.afterInclude();
 			}
 
-			if (typeof callback === 'function') {
+			if (hasCallback) {
 				callback();
 			}
 		}
