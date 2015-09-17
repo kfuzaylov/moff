@@ -371,11 +371,12 @@ function Core() {
 	 */
 	function handlePopstate(event) {
 		var state = event.state;
-		var element = _historyData[state.elemId];
 
 		if (!state) {
 			return;
 		}
+
+		var element = _historyData[state.elemId];
 
 		if (element) {
 			if (!checkDataScreen(element)) {
