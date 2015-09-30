@@ -175,8 +175,10 @@ Moff.each(['one', 'two'], function(index, value) {
 				<ul>
 					<li><code>callback</code> - <small>Callback function. Each callback will get the current view mode - xs, sm, md or lg.</small></li>
 				</ul>
-				<pre><code class="language-javascript">Moff.onViewChange(function() {
-	// Get current view mode and do something...
+				<pre><code class="language-javascript">Moff.onViewChange(function(viewMode) {
+	if (viewMode === 'lg') {
+		// Do something if view mode is lg
+	}
 });</code></pre>
 				<hr>
 				<h4 id="reopen">reopen(methods)</h4>
