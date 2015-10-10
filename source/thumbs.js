@@ -8,5 +8,5 @@ $('.image-thumbs').slick({
 
 $('.image-thumbs img').on('click', function() {
 	var number = $(this).attr('src').match(/thumb(\d)\.png/)[1];
-	$('.main-image img').attr('src', 'images/preview' + number + '.png');
+	$('.carousel-preview img').attr('src', 'images/preview' + number + '.png');
 });
