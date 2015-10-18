@@ -107,3 +107,7 @@ body {
 .alert-success {
 	margin-top: 15px;
 }
+
+.optional {
+	text-decoration: underline;
+}

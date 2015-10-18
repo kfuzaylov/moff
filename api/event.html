@@ -93,8 +93,26 @@
 });</code></pre>
 				<hr>
 
+				<h4 id="off">off(name, callback)</h4>
+				<p>Remove specified event handler or all handlers.</p>
+				<p>Arguments:</p>
+				<ul>
+					<li><code>name</code> - <small>Event name.</small></li>
+					<li><code>callback</code> - <small><span class="optional">Optional</span> function which will be removed.</small></li>
+				</ul>
+<pre><code class="language-javascript">Moff.modules.create('Comments', function() {
+	this.events = ['beforeSend', 'afterSend'];
+
+	this.removeCommentBox = function() {
+		// do something and remove all events of module
+		Moff.event.off('beforeSend');
+		Moff.event.off('afterSend');
+	};
+});</code></pre>
+				<hr>
+
 				<h4 id="on">on(name, callback)</h4>
-				<p>Assign callback for event. If event is not registered it will register it and assign for.</p>
+				<p>Assign callback for event. Event will be added if it is not added yet.</p>
 				<p>Arguments:</p>
 				<ul>
 					<li><code>name</code> - <small>Event name to assign for.</small></li>
@@ -108,6 +126,24 @@
 	this.init = function() {
 		Moff.$(function() {
 			Moff.event.on('afterPost', loadComments);
+		});
+	};
+});</code></pre>
+				<hr>
+				<h4 id="once">once(name, callback)</h4>
+				<p>Assign callback for event which will be executed one time and after it will be removed. Event will be added if it is not added yet.</p>
+				<p>Arguments:</p>
+				<ul>
+					<li><code>name</code> - <small>Event name to assign for.</small></li>
+					<li><code>callback</code> - <small>Function which will be executed on event trigger one time.</small></li>
+				</ul>
+<pre><code class="language-javascript">Moff.modules.create('Comments', function() {
+	this.getLinks = function() {};
+
+	this.init = function() {
+		var comments = this;
+		Moff.event.once('afterMenuRender', function() {
+			comments.getLinks();
 		});
 	};
 });</code></pre>
@@ -139,7 +175,9 @@
 				<ul data-spy="affix" class="nav nav-tabs nav-stacked affix-bar" data-offset-bottom="80" data-offset-top="75">
 					<li><a href="#add">add</a></li>
 					<li><a href="#get">get</a></li>
+					<li><a href="#off">off</a></li>
 					<li><a href="#on">on</a></li>
+					<li><a href="#once">once</a></li>
 					<li><a href="#trigger">trigger</a></li>
 				</ul>
 			</div>
