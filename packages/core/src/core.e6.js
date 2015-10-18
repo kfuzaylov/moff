@@ -141,8 +141,6 @@ function Core() {
 		_moff.handleDataEvents();
 	}
 
-
-
 	/**
 	 * Window resize or matchMedia event listener handler.
 	 * @function resizeHandler

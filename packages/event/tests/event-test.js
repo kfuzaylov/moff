@@ -1,5 +1,9 @@
 describe('Event system', function() {
 	var trigger;
+	var handler = function() {
+		expect(arguments.length).toEqual(2);
+		trigger = true;
+	};
 
 	it('can register new event', function() {
 		Moff.event.add('newEvent');
@@ -7,10 +11,7 @@ describe('Event system', function() {
 	});
 
 	it('can assign for event only callbacks', function() {
-		Moff.event.on('newEvent', function() {
-			expect(arguments.length).toEqual(2);
-			trigger = true;
-		});
+		Moff.event.on('newEvent', handler);
 
 		expect(typeof Moff.event._testonly._eventStore['newEvent'][0]).toEqual('function');
 		Moff.event.on('newEvent', {});
@@ -23,7 +24,29 @@ describe('Event system', function() {
 	});
 
 	it('can get event from store', function() {
-		expect(Array.isArray(Moff.event.get('newEvent'))).toBe(true)
+		expect(Array.isArray(Moff.event.get('newEvent'))).toBe(true);
 		expect(Moff.event.get('nonexistentEvent')).toBeUndefined();
+	});
+
+	it('can remove event handler', function() {
+		Moff.event.off('newEvent', handler);
+		expect(Moff.event.get('newEvent')).toBeUndefined();
+	});
+
+	it('can remove all handlers', function() {
+		Moff.event.add('newEvent');
+		Moff.event.on('newEvent', function(){});
+		Moff.event.on('newEvent', function(){});
+		expect(Moff.event._testonly._eventStore['newEvent'].length).toEqual(2);
+
+		Moff.event.off('newEvent');
+		expect(Moff.event.get('newEvent')).toBeUndefined();
+	});
+
+	it('can add one time execute handlers', function() {
+		Moff.event.add('oneTime');
+		Moff.event.once('oneTime', function() {});
+		Moff.event.trigger('oneTime');
+		expect(Moff.event.get('oneTime')).toBeUndefined();
 	});
 });
