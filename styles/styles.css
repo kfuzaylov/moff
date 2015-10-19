@@ -16,6 +16,10 @@ body {
 	padding: 10px;
 }
 
+.divider {
+	margin: 10px 0;
+}
+
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
 	background-color: #f8f8f8;
 }
@@ -130,5 +134,9 @@ body {
 
 	.point-description {
 		font-size: 18px;
+	}
+
+	.divider {
+		margin: 40px 0;
 	}
 }
