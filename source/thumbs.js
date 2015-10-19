@@ -7,6 +7,6 @@ $('.image-thumbs').slick({
 });
 
 $('.image-thumbs img').on('click', function() {
-	var number = $(this).attr('src').match(/thumb(\d)\.png/)[1];
-	$('.carousel-preview img').attr('src', 'images/preview' + number + '.png');
+	var number = $(this).attr('src').match(/thumb(\d)\.jpg/)[1];
+	$('.carousel-preview img').attr('src', 'images/preview' + number + '.jpg');
 });

@@ -37,7 +37,7 @@ body {
 }
 
 .image-thumbs {
-	width: 263px;
+	width: 400px;
 	position: relative;
 	padding: 10px 45px;
 }
@@ -50,12 +50,14 @@ body {
 	position: absolute;
 	left: 0;
 	top: 10px;
+	height: 65px;
 }
 
 .image-thumbs .glyphicon-chevron-right {
 	position: absolute;
 	right: 0;
 	top: 10px;
+	height: 65px;
 }
 
 .light-color {
