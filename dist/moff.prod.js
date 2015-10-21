@@ -650,6 +650,16 @@ function Core() {
 			} else if (_matchMedia(_mqSmall).matches) {
 				viewMode = 'sm';
 			}
+		} else {
+			var winWidth = _doc.documentElement.clientWidth;
+			var breakpoints = _settings.breakpoints;
+			if (winWidth >= breakpoints.lg) {
+				viewMode = 'lg';
+			} else if (winWidth >= breakpoints.md) {
+				viewMode = 'md';
+			} else if (winWidth >= breakpoints.sm) {
+				viewMode = 'sm';
+			}
 		}
 		return viewMode;
 	};

@@ -572,6 +572,17 @@ function Core() {
 			} else if (_matchMedia(_mqSmall).matches) {
 				viewMode = 'sm';
 			}
+		} else {
+			let winWidth = _doc.documentElement.clientWidth;
+			let breakpoints = _settings.breakpoints;
+
+			if (winWidth >= breakpoints.lg) {
+				viewMode = 'lg';
+			} else if (winWidth >= breakpoints.md) {
+				viewMode = 'md';
+			} else if (winWidth >= breakpoints.sm) {
+				viewMode = 'sm';
+			}
 		}
 
 		return viewMode;
