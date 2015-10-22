@@ -39,8 +39,6 @@ gulp.task('compile', ['lint'], function() {
 		.pipe(replace(/\{\{version\}\}/, bower.version))
 		.pipe(header(banner, {meta: bower}))
 		.pipe(rename('moff.js'))
-		.pipe(sourcemaps.init())
-		.pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest('dist'));
 
 	browserify({entries: './packages/loader/src/loader.e6.js'})
@@ -55,10 +53,12 @@ gulp.task('compile', ['lint'], function() {
 			start_comment: 'Test-code',
 			end_comment: 'End-test-code'
 		}))
+		.pipe(sourcemaps.init())
 		.pipe(rename('moff.prod.js'))
 		.pipe(gulp.dest('dist'))
 		.pipe(rename('moff.min.js'))
 		.pipe(uglify())
+		.pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest('dist'));
 
 });
