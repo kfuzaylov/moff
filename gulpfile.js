@@ -20,9 +20,10 @@ var testem = require('testem');
 var jshint = require('gulp-jshint');
 var jscs = require('gulp-jscs');
 
+var sass = require('gulp-sass');
 
 
-gulp.task('compile', ['lint'], function() {
+gulp.task('compile', ['lint', 'bootstrap'], function() {
 	var banner = ['/**',
 		' * @overview  <%= meta.name %> - <%= meta.description %>',
 		' * @author    <%= meta.author %>',
@@ -73,7 +74,7 @@ gulp.task('lint', function() {
 		.pipe(jshint.reporter('default'));
 });
 
-gulp.task('test', function () {
+gulp.task('test', function() {
 	var filename = Date.now() + '.json';
 	gulp.src('.testem.json')
 		.pipe(replace('gulp test', 'gulp compile-tests --package=' + argv.package))
@@ -98,4 +99,23 @@ gulp.task('compile-tests', function() {
 	return gulp.src('packages/' + path + '/tests/*.js')
 		.pipe(concat('tests.js'))
 		.pipe(gulp.dest('tests'));
+});
+
+gulp.task('bootstrap', ['bootstrap-scss', 'bootstrap-js', 'bootstrap-fonts']);
+
+gulp.task('bootstrap-scss', function() {
+	return gulp.src(['packages/bootstrap/**/*.scss', '!packages/bootstrap/dependency.scss'])
+		.pipe(sass({outputStyle: 'compressed'}))
+		.pipe(gulp.dest('dist/bootstrap'));
+});
+
+gulp.task('bootstrap-js', function() {
+	return gulp.src('packages/bootstrap/javascripts/*.js')
+		.pipe(uglify())
+		.pipe(gulp.dest('dist/bootstrap/javascripts'));
+});
+
+gulp.task('bootstrap-fonts', function() {
+	return gulp.src('packages/bootstrap/fonts/bootstrap/*.*')
+		.pipe(gulp.dest('dist/bootstrap/fonts/bootstrap'));
 });
