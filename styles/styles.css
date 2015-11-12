@@ -37,9 +37,15 @@ body {
 }
 
 .image-thumbs {
-	width: 400px;
+	width: 100%;
 	position: relative;
 	padding: 10px 45px;
+}
+
+@media (min-width: 450px) {
+	.image-thumbs {
+		width: 400px;
+	}
 }
 
 .image-thumbs img {
@@ -141,4 +147,23 @@ body {
 	.divider {
 		margin: 40px 0;
 	}
+}
+
+.bootstrap-modules .nav .nav {
+	display: none;
+	padding-bottom: 10px;
+	font-size: 12px;
+}
+
+.bootstrap-modules .nav > .active > ul {
+	display: block;
+}
+
+.bootstrap-modules .nav > .active > ul > li.active > a {
+	color: #444;
+	font-weight: bold;
+}
+
+.bootstrap-modules .nav > .active > ul > li > a {
+	padding-left: 30px;
 }
