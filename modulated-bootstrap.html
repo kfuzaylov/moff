@@ -63,12 +63,12 @@
 					But this framework is very heavy (119 KB minified version) and usually we do not use all its components. That is why Moff offers modulated Bootstrap.
 					It is logically separated framework parts which allows you to control loading only parts you are really use.
 				</p>
-				<p>Modules are divided on two parts Core and Components. Core parts consists from normalize, print and other utilities. See detailed list.
+				<p>Modules are divided on three parts Main, Components and JavaScripts. Main parts consists from normalize, print and other utilities. See detailed list.
 				And you can include core module by default in all pages, because it makes Bootstrap framework core.</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/core/core.css"&gt;</code></pre>
+				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/core.css"&gt;</code></pre>
 				<p>And for example if you have Bootstrap grid on only page of your website, you do not need to load grid styles beforehand.
 					Now you can load it only in that page.</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_component/moff/dist/bootstrap/core/grid.css"&gt;
+				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_component/moff/dist/bootstrap/main/grid.css"&gt;
 &lt;link rel="stylesheet" href="bower_component/moff/dist/bootstrap/components/pagination.css"&gt;</code></pre>
 				<p>Also you can use Bootstrap modules with <a href="/amd.html" title="Moff.js - AMD">AMD</a> mechanism by loading as dependency or main file.</p>
 				<pre><code class="language-javascript">Moff.amd.register({
@@ -76,7 +76,7 @@
 	depend: {
 		js: ['bower_components/moff/dist/bootstrap/javascripts/button.js'],
 		css: [
-			'bower_components/moff/dist/bootstrap/core/grid.css',
+			'bower_components/moff/dist/bootstrap/main/grid.css',
 			'bower_components/moff/dist/bootstrap/components/pagination.css',
 		]
 	},
@@ -96,11 +96,11 @@
 &lt;a href="grid.html" data-load-target="#content-target" data-load-module="grid"&gt;Show grid&lt;/a&gt;
 &lt;div id="content-target"&gt;&lt;/div&gt;</code></pre>
 				<hr>
-				<a name="core-part"></a>
+				<a name="main-part"></a>
 
 				<h3 id="buttons-module">Buttons</h3>
 				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/core/buttons.css"&gt;</code></pre>
+				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/buttons.css"&gt;</code></pre>
 				<p>Constituents of Buttons</p>
 				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/buttons';</code></pre>
 
@@ -108,7 +108,7 @@
 
 				<h3 id="core-module">Core</h3>
 				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/core/core.css"&gt;</code></pre>
+				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/core.css"&gt;</code></pre>
 				<p>Constituents of Core</p>
 		<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/normalize';
 @import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/print';
@@ -123,7 +123,7 @@
 
 				<h3 id="forms-module">Forms</h3>
 				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/core/forms.css"&gt;</code></pre>
+				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/forms.css"&gt;</code></pre>
 				<p>Constituents of Forms</p>
 				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/forms';</code></pre>
 
@@ -131,7 +131,7 @@
 
 				<h3 id="gplyphicons-module">Gplyphicons</h3>
 				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/core/gplyphicons.css"&gt;</code></pre>
+				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/gplyphicons.css"&gt;</code></pre>
 				<p>Constituents of Gplyphicons</p>
 				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/glyphicons';</code></pre>
 
@@ -139,7 +139,7 @@
 
 				<h3 id="grid-module">Grid</h3>
 				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/core/grid.css"&gt;</code></pre>
+				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/grid.css"&gt;</code></pre>
 				<p>Constituents of Grid</p>
 		<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/grid';</code></pre>
 
@@ -147,7 +147,7 @@
 
 				<h3 id="tables-module">Tables</h3>
 				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/core/tables.css"&gt;</code></pre>
+				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/tables.css"&gt;</code></pre>
 				<p>Constituents of Tables</p>
 				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/tables';</code></pre>
 
@@ -155,7 +155,7 @@
 
 				<h3 id="typography-module">Typography</h3>
 				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/core/typography.css"&gt;</code></pre>
+				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/typography.css"&gt;</code></pre>
 				<p>Constituents of Typography</p>
 				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/type';
 @import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/code';</code></pre>
@@ -355,7 +355,7 @@
 			<div class="col-sm-3 col-md-3 hidden-xs bootstrap-modules" id="affixNav">
 				<ul data-spy="affix" class="nav nav-tabs nav-stacked affix-bar" data-offset-top="75">
 					<li>
-						<a href="#core-part">Core</a>
+						<a href="#main-part">Main</a>
 						<ul class="nav">
 							<li><a href="#buttons-module">Buttons</a></li>
 							<li><a href="#core-module">Core</a></li>
