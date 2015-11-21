@@ -81,8 +81,8 @@
 		]
 	},
 	file: {
-		js: ['modules/grid.js'],
-		css: ['modules/grid.css']
+		js: ['modules/listing.js'],
+		css: ['modules/listing.css']
 	},
 	loadOnScreen: ['md', 'lg'],
 	onWindowLoad: true
@@ -92,8 +92,8 @@
 	Moff.amd.include('grid');
 }</code></pre>
 				<p>Or with Data Events</p>
-				<pre><code class="language-markup">&lt;!-- grid.html is a view of your grid module --&gt;
-&lt;a href="grid.html" data-load-target="#content-target" data-load-module="grid"&gt;Show grid&lt;/a&gt;
+				<pre><code class="language-markup">&lt;!-- listing.html is a view of your grid module --&gt;
+&lt;a href="listing.html" data-load-target="#content-target" data-load-module="grid"&gt;Show grid&lt;/a&gt;
 &lt;div id="content-target"&gt;&lt;/div&gt;</code></pre>
 				<hr>
 				<a name="main-part"></a>
@@ -102,7 +102,7 @@
 				<p>Module file</p>
 				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/buttons.css"&gt;</code></pre>
 				<p>Constituents of Buttons</p>
-				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/buttons';</code></pre>
+				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/buttons';</code></pre>
 
 				<hr>
 
@@ -110,7 +110,7 @@
 				<p>Module file</p>
 				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/core.css"&gt;</code></pre>
 				<p>Constituents of Core</p>
-		<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/normalize';
+		<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/normalize';
 @import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/print';
 @import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/scaffolding';
 @import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/utilities';
@@ -125,7 +125,7 @@
 				<p>Module file</p>
 				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/forms.css"&gt;</code></pre>
 				<p>Constituents of Forms</p>
-				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/forms';</code></pre>
+				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/forms';</code></pre>
 
 				<hr>
 
@@ -133,7 +133,7 @@
 				<p>Module file</p>
 				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/gplyphicons.css"&gt;</code></pre>
 				<p>Constituents of Gplyphicons</p>
-				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/glyphicons';</code></pre>
+				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/glyphicons';</code></pre>
 
 				<hr>
 
@@ -141,7 +141,7 @@
 				<p>Module file</p>
 				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/grid.css"&gt;</code></pre>
 				<p>Constituents of Grid</p>
-		<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/grid';</code></pre>
+		<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/grid';</code></pre>
 
 				<hr>
 
@@ -149,7 +149,7 @@
 				<p>Module file</p>
 				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/tables.css"&gt;</code></pre>
 				<p>Constituents of Tables</p>
-				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/tables';</code></pre>
+				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/tables';</code></pre>
 
 				<hr>
 
@@ -157,7 +157,7 @@
 				<p>Module file</p>
 				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/typography.css"&gt;</code></pre>
 				<p>Constituents of Typography</p>
-				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/type';
+				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/type';
 @import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/code';</code></pre>
 
 				<hr>
@@ -167,7 +167,7 @@
 				<p>Module file</p>
 				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/alerts.css"&gt;</code></pre>
 				<p>Constituents of Alerts</p>
-				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/alerts';</code></pre>
+				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/alerts';</code></pre>
 
 				<hr>
 
@@ -175,7 +175,7 @@
 				<p>Module file</p>
 				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/badges.css"&gt;</code></pre>
 				<p>Constituents of Badges</p>
-				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/badges';</code></pre>
+				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/badges';</code></pre>
 
 				<hr>
 
@@ -183,7 +183,7 @@
 				<p>Module file</p>
 				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/breadcrumbs.css"&gt;</code></pre>
 				<p>Constituents of Breadcrumbs</p>
-				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/breadcrumbs';</code></pre>
+				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/breadcrumbs';</code></pre>
 
 				<hr>
 
@@ -191,7 +191,7 @@
 				<p>Module file</p>
 				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/button-groups.css"&gt;</code></pre>
 				<p>Constituents of Button groups</p>
-				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/button-groups';</code></pre>
+				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/button-groups';</code></pre>
 
 				<hr>
 
@@ -199,7 +199,7 @@
 				<p>Module file</p>
 				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/dropdowns.css"&gt;</code></pre>
 				<p>Constituents of Dropdowns</p>
-				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/dropdowns';</code></pre>
+				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/dropdowns';</code></pre>
 
 				<hr>
 
@@ -207,7 +207,7 @@
 				<p>Module file</p>
 				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/input-groups.css"&gt;</code></pre>
 				<p>Constituents of Input groups</p>
-				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/input-groups';</code></pre>
+				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/input-groups';</code></pre>
 
 				<hr>
 
@@ -215,7 +215,7 @@
 				<p>Module file</p>
 				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/jumbotron.css"&gt;</code></pre>
 				<p>Constituents of Jumbotron</p>
-				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/jumbotron';</code></pre>
+				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/jumbotron';</code></pre>
 
 				<hr>
 
@@ -223,7 +223,7 @@
 				<p>Module file</p>
 				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/labels.css"&gt;</code></pre>
 				<p>Constituents of Labels</p>
-				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/labels';</code></pre>
+				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/labels';</code></pre>
 
 				<hr>
 
@@ -231,7 +231,7 @@
 				<p>Module file</p>
 				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/list-group.css"&gt;</code></pre>
 				<p>Constituents of List group</p>
-				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/list-group';</code></pre>
+				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/list-group';</code></pre>
 
 				<hr>
 
@@ -239,7 +239,7 @@
 				<p>Module file</p>
 				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/media.css"&gt;</code></pre>
 				<p>Constituents of Media</p>
-				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/media';</code></pre>
+				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/media';</code></pre>
 
 				<hr>
 
@@ -247,7 +247,7 @@
 				<p>Module file</p>
 				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/navbar.css"&gt;</code></pre>
 				<p>Constituents of Navbar</p>
-				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/navbar';</code></pre>
+				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/navbar';</code></pre>
 
 				<hr>
 
@@ -255,7 +255,7 @@
 				<p>Module file</p>
 				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/navs.css"&gt;</code></pre>
 				<p>Constituents of Navs</p>
-				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/navs';</code></pre>
+				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/navs';</code></pre>
 
 				<hr>
 
@@ -263,7 +263,7 @@
 				<p>Module file</p>
 				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/pagination.css"&gt;</code></pre>
 				<p>Constituents of Pagination</p>
-				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/pagination';
+				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/pagination';
 @import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/pager';</code></pre>
 
 				<hr>
@@ -272,7 +272,7 @@
 				<p>Module file</p>
 				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/panels.css"&gt;</code></pre>
 				<p>Constituents of Panels</p>
-				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/panels';</code></pre>
+				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/panels';</code></pre>
 
 				<hr>
 
@@ -280,7 +280,7 @@
 				<p>Module file</p>
 				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/progress-bars.css"&gt;</code></pre>
 				<p>Constituents of Progress bars</p>
-				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/progress-bars';</code></pre>
+				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/progress-bars';</code></pre>
 
 				<hr>
 
@@ -288,7 +288,7 @@
 				<p>Module file</p>
 				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/thumbnails.css"&gt;</code></pre>
 				<p>Constituents of Thumbnails</p>
-				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/thumbnails';</code></pre>
+				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/thumbnails';</code></pre>
 
 				<hr>
 
@@ -296,7 +296,7 @@
 				<p>Module file</p>
 				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/wells.css"&gt;</code></pre>
 				<p>Constituents of Wells</p>
-				<pre><code class="language-scss">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/wells';</code></pre>
+				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/wells';</code></pre>
 
 				<hr>
 				<a name="javascripts-part"></a>
