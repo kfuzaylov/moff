@@ -15,6 +15,7 @@
 	<link rel="stylesheet" href="/libs/prism/themes/prism.css">
 </head>
 <body>
+<div id="fb-root"></div>
 <header role="banner">
 	<nav class="navbar navbar-default" role="navigation">
 		<div class="container">
@@ -79,6 +80,10 @@
 				<img src="/images/responsive.png">
 				<p class="point-description">Easy extend for desktop screen.</p>
 			</div>
+		</div>
+		<div class="social-buttons">
+			<div class="fb-follow" data-href="https://www.facebook.com/moffjs" data-layout="button_count"></div>
+			<a class="github-button" href="https://github.com/kfuzaylov/moff" data-count-href="/kfuzaylov/moff/stargazers" data-count-api="/repos/kfuzaylov/moff#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star kfuzaylov/moff on GitHub">Star</a>
 		</div>
 		<div>
 			<hr class="divider">
@@ -160,7 +165,6 @@ $('.image-thumbs img').on('click', function() {
 			</div>
 			<div class="alert alert-success" role="alert">Thus, we reduced page size for <strong>727 KB.</strong> by loading needed sources only by user request!</div>
 		</div>
-
 	</div>
 </main>
 <footer role="contentinfo">
@@ -184,6 +188,13 @@ $('.image-thumbs img').on('click', function() {
 <script src="/libs/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/libs/prism/prism.js"></script>
 <script src="/source/moff.min.js"></script>
+<script>(function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0];
+	if (d.getElementById(id)) return;
+	js = d.createElement(s); js.id = id;
+	js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+	fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 <script>
 	Moff.amd.register({
 		id: 'thumbsModule',
@@ -204,5 +215,6 @@ $('.image-thumbs img').on('click', function() {
 	ga('create', 'UA-68993546-1', 'auto');
 	ga('send', 'pageview');
 </script>
+<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
 </body>
 </html>
