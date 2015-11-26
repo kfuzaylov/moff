@@ -1,4 +1,3 @@
 User-agent: *
-Disallow: /libs/
 Disallow: /node_modules/
 Disallow: /bower_components/
