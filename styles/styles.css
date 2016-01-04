@@ -2,11 +2,58 @@ body {
 	background-color: #f8f8f8;
 	color: #555;
 	text-shadow: 0 1px white;
+	font-family: 'Exo 2', sans-serif;
+}
+
+.logo {
+	margin: 25px 0 50px;
+}
+
+.examples {
+	margin-bottom: 20px;
+}
+
+.exp-header {
+	color: #a58681;
+}
+
+.logo small {
+	vertical-align: bottom;
+	margin-left: 10px;
+	font-size: 16px;
+}
+
+.logo .dash {
+	margin: 0 5px;
+}
+
+.logo h1,
+.logo .dash {
+	display: inline;
+	vertical-align: bottom;
+	line-height: 45px;
+	font-size: 50px;
+	color: #a58681;
+}
+
+.logo .slogan {
+	font-size: 16px;
+	color: #a59997;
+	font-style: italic;
+	margin-top: 5px;
 }
 
 .logo img {
-	vertical-align: top;
-	display: block;
+	display: inline;
+}
+
+.point-description {
+	font-size: 16px;
+	margin-top: 7px;
+}
+
+.divider {
+	margin: 40px 0;
 }
 
 .moff-example {
@@ -16,8 +63,8 @@ body {
 	padding: 10px;
 }
 
-.divider {
-	margin: 10px 0;
+.moff-description {
+	margin-top: 40px;
 }
 
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
@@ -124,29 +171,6 @@ body {
 
 .optional {
 	text-decoration: underline;
-}
-
-.point-description {
-	margin-top: 10px;
-	font-size: 14px;
-}
-
-@media (min-width: 768px) {
-	.logo {
-		font-size: 50px;
-	}
-
-	.logo img {
-		display: inline;
-	}
-
-	.point-description {
-		font-size: 18px;
-	}
-
-	.divider {
-		margin: 40px 0;
-	}
 }
 
 .bootstrap-modules .nav .nav {

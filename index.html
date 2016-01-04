@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/styles/styles.css">
 	<link rel="stylesheet" href="/libs/prism/themes/prism.css">
+	<link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div id="fb-root"></div>
@@ -27,13 +28,11 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/" title="Moff - Mobile First Framework">
-					<img src="images/logo.png" alt="Moff.js - Mobile First Framework" height="30">
-				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="/getting-started.html" title="Moff.js - Getting started">Getting started <span class="sr-only">(current)</span></a></li>
+					<li class="active"><a href="/" title="Moff.js - Mobile First Framework">Home</a></li>
+					<li><a href="/getting-started.html" title="Moff.js - Getting started">Getting started</a></li>
 					<li><a href="/data-events.html" title="Moff.js - Data Events">Data events</a></li>
 					<li><a href="/amd.html" title="Moff.js - AMD">AMD</a></li>
 					<li class="dropdown">
@@ -62,34 +61,42 @@
 </header>
 <main role="main">
 	<div class="container">
-		<h1 class="logo">Mobile First Framework <small class="light-color">v. 1.9.34</small></h1>
-		<p>Moff is a javascript framework designed to offer best practices for mobile first development.
-			It has rich API to work with browser, files and modularity system.
-			Also it support Asynchronous Module Definition (AMD) which help to control loading of your modules. Data events system allows to load content with the least efforts.
-			And it has pluggable system which allows to create plugins and extend the framework.</p>
+		<div class="logo">
+			<img src="/images/logo-big.png" class="img-responsive">
+			<span class="dash">-</span>
+			<h1>Mobile First Framework.</h1><small class="light-color">v. 1.9.34</small>
+			<div class="slogan">Create for mobile, extend to desktop.</div>
+		</div>
+		<p class="description"></p>
 		<div class="row text-center">
 			<div class="col-sm-4">
 				<img src="/images/mobile.png">
-				<p class="point-description">Optimize for mobile device first.</p>
-			</div>
-			<div class="col-sm-4">
-				<img src="/images/light-page.png">
-				<p class="point-description">Reduce page size more than 60%.</p>
+				<p class="point-description">Create light, fast and best optimized websites for mobile devices first</p>
 			</div>
 			<div class="col-sm-4">
 				<img src="/images/responsive.png">
-				<p class="point-description">Easy extend for desktop screen.</p>
+				<p class="point-description">Easily extend your website from mobile to tablet and desktop screens</p>
+			</div>
+			<div class="col-sm-4">
+				<img src="/images/tools.png">
+				<p class="point-description">Rich API, Modularity system, Data Events and AMD make your development easy</p>
 			</div>
 		</div>
+		<p class="moff-description">Moff is a JavaScript framework designed to offer best practices for mobile first development.
+			It has rich API to work with browser, files and modularity system.
+			Also it support Asynchronous Module Definition (AMD) which help to control loading of your modules. Data events system allows to load content with the least efforts.
+			And it has pluggable system which allows to create plugins and extend the framework.</p>
 		<div class="social-buttons">
 			<div class="fb-share-button" data-href="http://moffjs.com" data-layout="button_count"></div>
 			<a class="github-button" href="https://github.com/kfuzaylov/moff" data-count-href="/kfuzaylov/moff/stargazers" data-count-api="/repos/kfuzaylov/moff#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star kfuzaylov/moff on GitHub">Star</a>
 			<div data-action="share" data-annotation="bubble" class="g-plus"></div>
 			<a href="https://twitter.com/share" class="twitter-share-button"{count}>Tweet</a>
 		</div>
+
 		<div>
+			<h2 class="examples">Examples:</h2>
 			<hr class="divider">
-			<h3>Instantly and easy load content into specified target with powerful data event helpers</h3>
+			<h3 class="exp-header">Instantly and easy load content into specified target with powerful data event helpers</h3>
 			<ul class="nav nav-tabs" role="tablist">
 				<li role="presentation" class="active"><a href="#preview" aria-controls="preview" role="tab" data-toggle="tab">Preview</a></li>
 				<li role="presentation"><a href="#html" aria-controls="html" role="tab" data-toggle="tab">HTML</a></li>
@@ -107,7 +114,7 @@
 				</div>
 			</div>
 			<hr class="divider">
-			<h3>Load additional data with Data events + AMD</h3>
+			<h3 class="exp-header">Load additional data with Data events + AMD</h3>
 			<ul class="nav nav-tabs" role="tablist">
 				<li role="presentation" class="active"><a href="#preview2" aria-controls="preview2" role="tab" data-toggle="tab">Preview</a></li>
 				<li role="presentation"><a href="#html2" aria-controls="html2" role="tab" data-toggle="tab">HTML</a></li>
