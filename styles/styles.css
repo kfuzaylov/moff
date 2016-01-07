@@ -23,6 +23,14 @@ body {
 	font-size: 16px;
 }
 
+.margin-bottom {
+	margin-bottom: 50px;
+}
+
+.margin-top {
+	margin-top: 9%;
+}
+
 .logo .dash {
 	margin: 0 5px;
 }
@@ -32,7 +40,7 @@ body {
 	display: inline;
 	vertical-align: bottom;
 	line-height: 45px;
-	font-size: 50px;
+	font-size: 42px;
 	color: #a58681;
 }
 

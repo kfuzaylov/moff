@@ -64,28 +64,78 @@
 		<div class="logo">
 			<img src="/images/logo-big.png" class="img-responsive">
 			<span class="dash">-</span>
-			<h1>Mobile First Framework.</h1><small class="light-color">v. 1.9.34</small>
-			<div class="slogan">Create for mobile, extend to desktop.</div>
+			<h1>Create for mobile, extend to desktop.</h1>
+			<div class="slogan">JavaScript Mobile First Framework. v. 1.9.34</div>
 		</div>
-		<p class="description"></p>
+		<h3 class="exp-header margin-bottom">Create mobile first website then extend to tablet and desktop is so easy now!</h3>
+		<div class="row">
+			<div class="col-sm-3">
+				<a href="#" data-toggle="modal" data-target="#mobileWebsite"><img src="/images/mobile-website.png" class="img-responsive" style="max-height: 338px;"></a>
+			</div>
+			<div class="col-sm-1 margin-top hidden-xs"><img src="/images/arrow.png" class="img-responsive"></div>
+			<div class="col-sm-3">
+				<a href="#" data-toggle="modal" data-target="#tabletWebsite"><img src="/images/tablet-website.png" class="img-responsive"></a>
+			</div>
+			<div class="col-sm-1 margin-top hidden-xs"><img src="/images/arrow.png" class="img-responsive"></div>
+			<div class="col-sm-4">
+				<a href="#" data-toggle="modal" data-target="#desktopWebsite"><img src="/images/desktop-website.png" class="img-responsive"></a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<div>
+					<h3 class="text-center">1. Create mobile first website</h3>
+					<p>
+						Create website only for mobile device.
+						And display the main information needed for user.
+						All other, additional parts could be registered as <a href="/amd.html">AMD modules</a> and
+						will be loaded by user request. E.g. red color links "More images", "Show on the map" and "Share this page".
+						Thus you will maximum reduce page size, show main content and will show user availability of additional information.
+					</p>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div>
+					<h3 class="text-center">2. Extend needed parts to tablet</h3>
+					<p>
+						You can adjust parts of the page which will be loaded automatically on tablet.
+						<a href="/data-events.html">Data Events</a> will help to load AMD module which will apply all needed functionality.
+						E.g. on tablet you can see thumbnails carousel with slideshow.
+					</p>
+				</div>
+			</div>
+			<div>
+				<h3 class="text-center">3. Get fully featured website on desktop</h3>
+				<p>
+					Then same way as on tablet you can load all website features on desktop.
+					E.g. additionally loaded Google Map module.
+				</p>
+			</div>
+		</div>
+		<h2 class="margin-bottom exp-header">Advantages</h2>
 		<div class="row text-center">
-			<div class="col-sm-4">
-				<img src="/images/mobile.png">
-				<p class="point-description">Create light, fast and best optimized websites for mobile devices first</p>
+			<div class="col-sm-3">
+				<img src="/images/module-icon.png">
+				<p class="point-description">Modular system</p>
+				<p>Moff modular system allow to create independent modules with own scope and rich event system.</p>
 			</div>
-			<div class="col-sm-4">
-				<img src="/images/responsive.png">
-				<p class="point-description">Easily extend your website from mobile to tablet and desktop screens</p>
+			<div class="col-sm-3">
+				<img src="/images/event-icon.png">
+				<p class="point-description">Event system</p>
+				<p>Event system for modules communication between each other via events.
+					Which allows to register, sign and trigger events.</p>
 			</div>
-			<div class="col-sm-4">
-				<img src="/images/tools.png">
-				<p class="point-description">Rich API, Modularity system, Data Events and AMD make your development easy</p>
+			<div class="col-sm-3">
+				<img src="/images/amd-icon.png">
+				<p class="point-description">AMD</p>
+				<p>AMD - Asynchronous Module Definition API. This is a mechanism to define modules, load it and its dependencies asynchronously.</p>
+			</div>
+			<div class="col-sm-3">
+				<img src="/images/api-icon.png">
+				<p class="point-description">API</p>
+				<p>Moff has a rich API to work with mobile first approach. It has a big number of modules to work with detection, event system and AMD.</p>
 			</div>
 		</div>
-		<p class="moff-description">Moff is a JavaScript framework designed to offer best practices for mobile first development.
-			It has rich API to work with browser, files and modularity system.
-			Also it support Asynchronous Module Definition (AMD) which help to control loading of your modules. Data events system allows to load content with the least efforts.
-			And it has pluggable system which allows to create plugins and extend the framework.</p>
 		<div class="social-buttons">
 			<div class="fb-share-button" data-href="http://moffjs.com" data-layout="button_count"></div>
 			<a class="github-button" href="https://github.com/kfuzaylov/moff" data-count-href="/kfuzaylov/moff/stargazers" data-count-api="/repos/kfuzaylov/moff#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star kfuzaylov/moff on GitHub">Star</a>
@@ -94,9 +144,9 @@
 		</div>
 
 		<div>
-			<h2 class="examples">Examples:</h2>
+			<h2 class="exp-header examples">Examples:</h2>
 			<hr class="divider">
-			<h3 class="exp-header">Instantly and easy load content into specified target with powerful data event helpers</h3>
+			<h3>Instantly and easy load content into specified target with powerful data event helpers</h3>
 			<ul class="nav nav-tabs" role="tablist">
 				<li role="presentation" class="active"><a href="#preview" aria-controls="preview" role="tab" data-toggle="tab">Preview</a></li>
 				<li role="presentation"><a href="#html" aria-controls="html" role="tab" data-toggle="tab">HTML</a></li>
@@ -114,7 +164,7 @@
 				</div>
 			</div>
 			<hr class="divider">
-			<h3 class="exp-header">Load additional data with Data events + AMD</h3>
+			<h3>Load additional data with Data events + AMD</h3>
 			<ul class="nav nav-tabs" role="tablist">
 				<li role="presentation" class="active"><a href="#preview2" aria-controls="preview2" role="tab" data-toggle="tab">Preview</a></li>
 				<li role="presentation"><a href="#html2" aria-controls="html2" role="tab" data-toggle="tab">HTML</a></li>
@@ -173,6 +223,45 @@ $('.image-thumbs img').on('click', function() {
 				</div>
 			</div>
 			<div class="alert alert-success" role="alert">Thus, we reduced page size for <strong>727 KB.</strong> by loading needed sources only by user request!</div>
+		</div>
+		<div class="modal fade" id="mobileWebsite" tabindex="-1" role="dialog" aria-labelledby="mobileWebsiteLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="font-family: Arial, sans-serif;">&times;</span></button>
+						<h4 class="modal-title" id="mobileWebsiteLabel">Mobile website</h4>
+					</div>
+					<div class="modal-body text-center">
+						<img src="/images/mobile-website.png">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="tabletWebsite" tabindex="-1" role="dialog" aria-labelledby="tabletWebsiteLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="font-family: Arial, sans-serif;">&times;</span></button>
+						<h4 class="modal-title" id="tabletWebsiteLabel">Tablet website</h4>
+					</div>
+					<div class="modal-body text-center">
+						<img src="/images/tablet-website.png">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="desktopWebsite" tabindex="-1" role="dialog" aria-labelledby="desktopWebsiteLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="font-family: Arial, sans-serif;">&times;</span></button>
+						<h4 class="modal-title" id="desktopWebsiteLabel">Desktop website</h4>
+					</div>
+					<div class="modal-body text-center">
+						<img src="/images/desktop-website.png">
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </main>
