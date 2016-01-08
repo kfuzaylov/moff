@@ -1,10 +1,47 @@
-# Moff - Mobile First Framework
+# Moff - Create for mobile, extend to desktop.
 Website: [moffjs.com](http://moffjs.com/ "Moff - Mobile First Framework")
 
-Moff is a javascript framework designed to offer best practices for mobile first development. It has rich API to work with browser, files and modularity system. Also it support Asynchronous Module Definition (AMD) which help to control loading of your modules. Data events system allows to load content with the least efforts. And it has pluggable system which allows to create plugins and extend the framework.
+###Create mobile first website then extend to tablet and desktop is so easy now!
+
+<table>
+    <tr>
+        <td style="width: 273px;"><img src="http://moffjs.com/images/mobile-website.png"></td>
+        <td valign="top"><h3>1. Create mobile first website</h3>
+            Create website only for mobile device. And display the main information needed for user.
+            All other, additional parts could be registered as <a href="http://moffjs.com/amd.html">AMD modules</a> and will be loaded by user request.
+            E.g. red color links "More images", "Show on the map" and "Share this page".
+            Thus you will maximum reduce page size, show main content and will show user availability of additional information.
+        </td>
+    </tr>
+</table>
+
+<table>
+ <tr>
+        <td style="width: 397px;"><img src="http://moffjs.com/images/tablet-website.png"></td>
+        <td valign="top">
+            <h3>2. Extend needed parts to tablet</h3>
+            You can adjust parts of the page which will be loaded automatically on tablet.
+            <a href="http://moffjs.com/data-events.html">Data Events</a> will help to load AMD module which will apply all needed functionality.
+            E.g. on tablet you can see thumbnails carousel with slideshow.
+        </td>
+    </tr>
+</table>
+
+<table>
+<tr>
+        <td valign="top">
+            <h3>3. Get fully featured website on desktop</h3>
+            Then same way as on tablet you can load all website features on desktop. E.g. additionally loaded Google Map module.
+           <div>
+            <img src="http://moffjs.com/images/desktop-website.png">
+            </div>
+        </td>
+    </tr>
+</table>
+
 
 ## Install
-Before installing be sure bower is installed.
+Before installing be sure <code>bower</code> is installed.
 ```bash
 npm install bower -g
 ```
