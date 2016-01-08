@@ -67,6 +67,12 @@
 			<h1>Create for mobile, extend to desktop.</h1>
 			<div class="slogan">JavaScript Mobile First Framework. v. 1.9.34</div>
 		</div>
+		<div class="social-buttons">
+			<div class="fb-share-button" data-href="http://moffjs.com" data-layout="button_count"></div>
+			<a class="github-button" href="https://github.com/kfuzaylov/moff" data-count-href="/kfuzaylov/moff/stargazers" data-count-api="/repos/kfuzaylov/moff#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star kfuzaylov/moff on GitHub">Star</a>
+			<div data-action="share" data-annotation="bubble" class="g-plus"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button"{count}>Tweet</a>
+		</div>
 		<h3 class="exp-header margin-bottom">Create mobile first website then extend to tablet and desktop is so easy now!</h3>
 		<div class="row">
 			<div class="col-sm-3">
@@ -112,7 +118,8 @@
 				</p>
 			</div>
 		</div>
-		<h2 class="margin-bottom exp-header">Advantages</h2>
+		<hr class="divider">
+		<h2 class="margin-bottom exp-header">Make your development easy with Moff tools</h2>
 		<div class="row text-center">
 			<div class="col-sm-3">
 				<img src="/images/module-icon.png">
@@ -120,15 +127,15 @@
 				<p>Moff modular system allow to create independent modules with own scope and rich event system.</p>
 			</div>
 			<div class="col-sm-3">
-				<img src="/images/event-icon.png">
-				<p class="point-description">Event system</p>
-				<p>Event system for modules communication between each other via events.
-					Which allows to register, sign and trigger events.</p>
-			</div>
-			<div class="col-sm-3">
 				<img src="/images/amd-icon.png">
 				<p class="point-description">AMD</p>
 				<p>AMD - Asynchronous Module Definition API. This is a mechanism to define modules, load it and its dependencies asynchronously.</p>
+			</div>
+			<div class="col-sm-3">
+				<img src="/images/event-icon.png">
+				<p class="point-description">Event system</p>
+				<p>Event system for modules communication between each other via events.
+				Which allows to register, sign and trigger events.</p>
 			</div>
 			<div class="col-sm-3">
 				<img src="/images/api-icon.png">
@@ -136,34 +143,9 @@
 				<p>Moff has a rich API to work with mobile first approach. It has a big number of modules to work with detection, event system and AMD.</p>
 			</div>
 		</div>
-		<div class="social-buttons">
-			<div class="fb-share-button" data-href="http://moffjs.com" data-layout="button_count"></div>
-			<a class="github-button" href="https://github.com/kfuzaylov/moff" data-count-href="/kfuzaylov/moff/stargazers" data-count-api="/repos/kfuzaylov/moff#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star kfuzaylov/moff on GitHub">Star</a>
-			<div data-action="share" data-annotation="bubble" class="g-plus"></div>
-			<a href="https://twitter.com/share" class="twitter-share-button"{count}>Tweet</a>
-		</div>
-
+		<hr class="divider">
+		<h2 class="exp-header examples">Examples:</h2>
 		<div>
-			<h2 class="exp-header examples">Examples:</h2>
-			<hr class="divider">
-			<h3>Instantly and easy load content into specified target with powerful data event helpers</h3>
-			<ul class="nav nav-tabs" role="tablist">
-				<li role="presentation" class="active"><a href="#preview" aria-controls="preview" role="tab" data-toggle="tab">Preview</a></li>
-				<li role="presentation"><a href="#html" aria-controls="html" role="tab" data-toggle="tab">HTML</a></li>
-			</ul>
-			<div class="tab-content">
-				<div role="tabpanel" class="tab-pane active" id="preview">
-					<div class="moff-example">
-						<a href="source/additional-content.html" data-load-target="#content-target">Load additional content</a>
-						<div id="content-target" style="margin-top: 15px;"><i>Target is empty now...</i></div>
-					</div>
-				</div>
-				<div role="tabpanel" class="tab-pane" id="html">
-					<pre><code class="language-markup">&lt;a href="additional-content.html" data-load-target="#content-target"&gt;Load additional content&lt;/a&gt;
-&lt;div id="content-target"&gt;&lt;/div&gt;</code></pre>
-				</div>
-			</div>
-			<hr class="divider">
 			<h3>Load additional data with Data events + AMD</h3>
 			<ul class="nav nav-tabs" role="tablist">
 				<li role="presentation" class="active"><a href="#preview2" aria-controls="preview2" role="tab" data-toggle="tab">Preview</a></li>
@@ -223,6 +205,24 @@ $('.image-thumbs img').on('click', function() {
 				</div>
 			</div>
 			<div class="alert alert-success" role="alert">Thus, we reduced page size for <strong>727 KB.</strong> by loading needed sources only by user request!</div>
+			<hr class="divider">
+			<h3>Instantly and easy load content into specified target with powerful data event helpers</h3>
+			<ul class="nav nav-tabs" role="tablist">
+				<li role="presentation" class="active"><a href="#preview" aria-controls="preview" role="tab" data-toggle="tab">Preview</a></li>
+				<li role="presentation"><a href="#html" aria-controls="html" role="tab" data-toggle="tab">HTML</a></li>
+			</ul>
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane active" id="preview">
+					<div class="moff-example">
+						<a href="source/additional-content.html" data-load-target="#content-target">Load additional content</a>
+						<div id="content-target" style="margin-top: 15px;"><i>Target is empty now...</i></div>
+					</div>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="html">
+					<pre><code class="language-markup">&lt;a href="additional-content.html" data-load-target="#content-target"&gt;Load additional content&lt;/a&gt;
+						&lt;div id="content-target"&gt;&lt;/div&gt;</code></pre>
+				</div>
+			</div>
 		</div>
 		<div class="modal fade" id="mobileWebsite" tabindex="-1" role="dialog" aria-labelledby="mobileWebsiteLabel">
 			<div class="modal-dialog" role="document">
