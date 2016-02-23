@@ -74,7 +74,7 @@ gulp.task('lint', function() {
 		.pipe(jshint.reporter('default'));
 });
 
-gulp.task('test', function() {
+gulp.task('test', ['compile'], function() {
 	var filename = Date.now() + '.json';
 	gulp.src('.testem.json')
 		.pipe(replace('gulp test', 'gulp compile-tests --package=' + argv.package))

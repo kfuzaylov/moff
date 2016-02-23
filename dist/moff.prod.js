@@ -1,9 +1,9 @@
 /**
  * @overview  moff - Mobile First Framework
  * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.9.34
+ * @version   1.10.34
  * @license   Licensed under MIT license
- * @copyright Copyright (c) 2015 Kadir A. Fuzaylov
+ * @copyright Copyright (c) 2015-2016 Kadir A. Fuzaylov
  */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
@@ -183,6 +183,11 @@ function Core() {
   */
 	var _doc = _win.document;
 	/**
+  * @property {null} _loader - CSS preloader object
+  * @private
+  */
+	var _loader2 = null;
+	/**
   * @property {boolean} _matchMediaSupport - Match media support and link.
   * @private
   */
@@ -243,6 +248,11 @@ function Core() {
   */
 	var _cache = {};
 	/**
+  * @property {[]} _loadOnViewport - Array of elements to be loaded on viewport
+  * @private
+  */
+	var _loadOnViewport = [];
+	/**
   * @property {object} _settings - Local default settings.
   * @private
   */
@@ -280,8 +290,30 @@ function Core() {
 			// If matchMedia is not supported use resize fallback
 			_win.addEventListener('resize', resizeHandler, false);
 		}
+		_win.addEventListener('scroll', scrollHandler, false);
 		_win.addEventListener('popstate', handlePopstate, false);
 		_moff.handleDataEvents();
+	}
+	function addPreloaderStyles() {
+		var style = document.createElement('style');
+		style.appendChild(document.createTextNode('\n\t\t\t.moff-loader {\n\t\t\t\tdisplay: none;\n\t\t\t\tposition: fixed;\n\t\t\t\twidth: 50px;\n\t\t\t\theight: 50px;\n\t\t\t\ttop: 12px;\n\t\t\t\tleft: 50%;\n\t\t\t\tmargin-left: -25px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px solid transparent;\n\t\t\t\tborder-top-color: #3498db;\n\t\t\t\t-webkit-animation: spin 2s linear infinite;\n\t\t\t\tanimation: spin 2s linear infinite;\n\t\t\t\tz-index: 9999;\n\t\t\t}\n\t\t\t.moff-loader.__visible {\n\t\t\t\tdisplay: block;\n\t\t\t}\n\t\t\t.moff-loader:before {\n\t\t\t\tcontent: "";\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 2px;\n\t\t\t\tleft: 2px;\n\t\t\t\tright: 2px;\n\t\t\t\tbottom: 2px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px solid transparent;\n\t\t\t\tborder-top-color: #e74c3c;\n\t\t\t\t-webkit-animation: spin 3s linear infinite;\n\t\t\t\tanimation: spin 3s linear infinite;\n\t\t\t}\n\t\t\t.moff-loader:after {\n\t\t\t\tcontent: "";\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 5px;\n\t\t\t\tleft: 5px;\n\t\t\t\tright: 5px;\n\t\t\t\tbottom: 5px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px solid transparent;\n\t\t\t\tborder-top-color: #f9c922;\n\t\t\t\t-webkit-animation: spin 1.5s linear infinite;\n\t\t\t\tanimation: spin 1.5s linear infinite;\n\t\t\t}\n\t\t\t@-webkit-keyframes spin {\n\t\t\t\t0% {\n\t\t\t\t\t-webkit-transform: rotate(0deg);\n\t\t\t\t\t-ms-transform: rotate(0deg);\n\t\t\t\t\ttransform: rotate(0deg);\n\t\t\t\t}\n\t\t\t\t100% {\n\t\t\t\t\t-webkit-transform: rotate(360deg);\n\t\t\t\t\t-ms-transform: rotate(360deg);\n\t\t\t\t\ttransform: rotate(360deg);\n\t\t\t\t}\n\t\t\t}\n\t\t\t@keyframes spin {\n\t\t\t\t0% {\n\t\t\t\t\t-webkit-transform: rotate(0deg);\n\t\t\t\t\t-ms-transform: rotate(0deg);\n\t\t\t\t\ttransform: rotate(0deg);\n\t\t\t\t}\n\t\t\t\t100% {\n\t\t\t\t\t-webkit-transform: rotate(360deg);\n\t\t\t\t\t-ms-transform: rotate(360deg);\n\t\t\t\t\ttransform: rotate(360deg);\n\t\t\t\t}\n\t\t\t}\n\t\t'));
+		document.querySelector('head').appendChild(style);
+	}
+	function addPreloader() {
+		_loader2 = _doc.createElement('div');
+		_loader2.setAttribute('class', 'moff-loader');
+		_doc.body.appendChild(_loader2);
+	}
+	function showPreloader() {
+		var className = _loader2.className;
+		if (className.indexOf('__visible') === -1) {
+			className += ' __visible';
+			_loader2.setAttribute('class', className);
+		}
+	}
+	function hidePreloader() {
+		var className = _loader2.className.replace(/(^| )__visible( |$)/, '');
+		_loader2.setAttribute('class', className);
 	}
 	/**
   * Window resize or matchMedia event listener handler.
@@ -311,6 +343,12 @@ function Core() {
 				_moff.$(function () {
 					handleLink(element);
 				});
+			} else if (event === 'scroll') {
+				if (_moff.inViewport(element)) {
+					handleLink(element);
+				} else {
+					_loadOnViewport.push(element);
+				}
 			} else {
 				if (event === 'click' && _settings.loadOnHover && !_moff.detect.isMobile) {
 					element.addEventListener('mouseenter', function () {
@@ -385,6 +423,22 @@ function Core() {
 	function setViewMode() {
 		_lastViewMode = _moff.getMode();
 	}
+	function scrollHandler() {
+		if (!_loadOnViewport.length) {
+			return;
+		}
+		var i = 0;
+		var elements = _loadOnViewport.slice(0);
+		var length = elements.length;
+		for (; i < length; i++) {
+			var element = elements[i];
+			if (_moff.inViewport(element)) {
+				// Remove element from array not to be handled twice
+				_loadOnViewport.splice(i, 1);
+				handleLink(element);
+			}
+		}
+	}
 	/**
   * Load data.
   * @param {string} url - Load url
@@ -414,6 +468,7 @@ function Core() {
 		var push = element.getAttribute('data-push-url');
 		var loadModule = element.getAttribute('data-load-module');
 		if (url) {
+			showPreloader();
 			url = handleUrlTemplate(element, url);
 			// Remove data attributes not to handle twice
 			element.removeAttribute('data-load-event');
@@ -424,6 +479,7 @@ function Core() {
 				_historyData[id] = element;
 			}
 			loadContent(element, url, target, function () {
+				hidePreloader();
 				// If element has data-load-module attribute
 				// include this module and then run after load callbacks.
 				if (loadModule) {
@@ -541,8 +597,22 @@ function Core() {
 	function init() {
 		_domIsLoaded = true;
 		handleEvents();
+		addPreloaderStyles();
+		addPreloader();
 		_moff.runCallbacks(_domLoadedCallbacks, this);
 	}
+	this.inViewport = function (element) {
+		var top = element.offsetTop;
+		var left = element.offsetLeft;
+		var width = element.offsetWidth;
+		var height = element.offsetHeight;
+		while (element.offsetParent) {
+			element = element.offsetParent;
+			top += element.offsetTop;
+			left += element.offsetLeft;
+		}
+		return top < _win.pageYOffset + _win.innerHeight && left < _win.pageXOffset + _win.innerWidth && top + height > _win.pageYOffset && left + width > _win.pageXOffset;
+	};
 	/**
   * Sends ajax request.
   * @method ajax
@@ -574,7 +644,7 @@ function Core() {
 		xhr.onload = function () {
 			var status = this.status;
 			if (status >= 200 && status < 300 || status === 304) {
-				options.success(this.response, this);
+				options.success(this.responseText, this);
 			} else {
 				options.error(this);
 			}
@@ -890,7 +960,7 @@ function Core() {
   * Moff version.
   * @type {string}
   */
-	this.version = '1.9.34';
+	this.version = '1.10.34';
 	extendSettings();
 	setBreakpoints();
 	setViewMode();

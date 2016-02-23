@@ -23,6 +23,12 @@ function Core() {
 	var _doc = _win.document;
 
 	/**
+	 * @property {null} _loader - CSS preloader object
+	 * @private
+	 */
+	var _loader = null;
+
+	/**
 	 * @property {boolean} _matchMediaSupport - Match media support and link.
 	 * @private
 	 */
@@ -95,6 +101,12 @@ function Core() {
 	var _cache = {};
 
 	/**
+	 * @property {[]} _loadOnViewport - Array of elements to be loaded on viewport
+	 * @private
+	 */
+	var _loadOnViewport = [];
+
+	/**
 	 * @property {object} _settings - Local default settings.
 	 * @private
 	 */
@@ -137,8 +149,105 @@ function Core() {
 			_win.addEventListener('resize', resizeHandler, false);
 		}
 
+		_win.addEventListener('scroll', scrollHandler, false);
 		_win.addEventListener('popstate', handlePopstate, false);
 		_moff.handleDataEvents();
+	}
+
+	function addPreloaderStyles() {
+		var style = document.createElement('style');
+		style.appendChild(document.createTextNode(`
+			.moff-loader {
+				display: none;
+				position: fixed;
+				width: 50px;
+				height: 50px;
+				top: 12px;
+				left: 50%;
+				margin-left: -25px;
+				border-radius: 50%;
+				border: 1px solid transparent;
+				border-top-color: #3498db;
+				-webkit-animation: spin 2s linear infinite;
+				animation: spin 2s linear infinite;
+				z-index: 9999;
+			}
+			.moff-loader.__visible {
+				display: block;
+			}
+			.moff-loader:before {
+				content: "";
+				position: absolute;
+				top: 2px;
+				left: 2px;
+				right: 2px;
+				bottom: 2px;
+				border-radius: 50%;
+				border: 1px solid transparent;
+				border-top-color: #e74c3c;
+				-webkit-animation: spin 3s linear infinite;
+				animation: spin 3s linear infinite;
+			}
+			.moff-loader:after {
+				content: "";
+				position: absolute;
+				top: 5px;
+				left: 5px;
+				right: 5px;
+				bottom: 5px;
+				border-radius: 50%;
+				border: 1px solid transparent;
+				border-top-color: #f9c922;
+				-webkit-animation: spin 1.5s linear infinite;
+				animation: spin 1.5s linear infinite;
+			}
+			@-webkit-keyframes spin {
+				0% {
+					-webkit-transform: rotate(0deg);
+					-ms-transform: rotate(0deg);
+					transform: rotate(0deg);
+				}
+				100% {
+					-webkit-transform: rotate(360deg);
+					-ms-transform: rotate(360deg);
+					transform: rotate(360deg);
+				}
+			}
+			@keyframes spin {
+				0% {
+					-webkit-transform: rotate(0deg);
+					-ms-transform: rotate(0deg);
+					transform: rotate(0deg);
+				}
+				100% {
+					-webkit-transform: rotate(360deg);
+					-ms-transform: rotate(360deg);
+					transform: rotate(360deg);
+				}
+			}
+		`));
+
+		document.querySelector('head').appendChild(style);
+	}
+
+	function addPreloader() {
+		_loader = _doc.createElement('div');
+		_loader.setAttribute('class', 'moff-loader');
+		_doc.body.appendChild(_loader);
+	}
+
+	function showPreloader() {
+		var className = _loader.className;
+
+		if (className.indexOf('__visible') === -1) {
+			className += ' __visible';
+			_loader.setAttribute('class', className);
+		}
+	}
+
+	function hidePreloader() {
+		var className = _loader.className.replace(/(^| )__visible( |$)/, '');
+		_loader.setAttribute('class', className);
 	}
 
 	/**
@@ -162,7 +271,7 @@ function Core() {
 	this.handleDataEvents = function() {
 		loadByScreenSize();
 
-		_moff.each(_doc.querySelectorAll('[' + _dataEvent + ']'), function() {
+		_moff.each(_doc.querySelectorAll(`[${_dataEvent}]`), function() {
 			let element = this;
 
 			if (element.handled) {
@@ -172,9 +281,15 @@ function Core() {
 			let event = (element.getAttribute('data-load-event') || 'click').toLowerCase();
 
 			if (event === 'dom') {
-				_moff.$(function() {
+				_moff.$(function () {
 					handleLink(element);
 				});
+			} else if (event === 'scroll') {
+				if (_moff.inViewport(element)) {
+					handleLink(element);
+				} else {
+					_loadOnViewport.push(element);
+				}
 			} else {
 				if (event === 'click' && _settings.loadOnHover && !_moff.detect.isMobile) {
 					element.addEventListener('mouseenter', function() {
@@ -261,6 +376,26 @@ function Core() {
 		_lastViewMode = _moff.getMode();
 	}
 
+	function scrollHandler() {
+		if (!_loadOnViewport.length) {
+			return;
+		}
+
+		var i = 0;
+		var elements = _loadOnViewport.slice(0);
+		var length = elements.length;
+
+		for (; i < length; i++) {
+			let element = elements[i];
+
+			if (_moff.inViewport(element)) {
+				// Remove element from array not to be handled twice
+				_loadOnViewport.splice(i, 1);
+				handleLink(element);
+			}
+		}
+	}
+
 	/**
 	 * Load data.
 	 * @param {string} url - Load url
@@ -292,6 +427,7 @@ function Core() {
 		var loadModule = element.getAttribute('data-load-module');
 
 		if (url) {
+			showPreloader();
 			url = handleUrlTemplate(element, url);
 			// Remove data attributes not to handle twice
 			element.removeAttribute('data-load-event');
@@ -304,6 +440,7 @@ function Core() {
 			}
 
 			loadContent(element, url, target, function() {
+				hidePreloader();
 				// If element has data-load-module attribute
 				// include this module and then run after load callbacks.
 				if (loadModule) {
@@ -443,8 +580,31 @@ function Core() {
 	function init() {
 		_domIsLoaded = true;
 		handleEvents();
+		addPreloaderStyles();
+		addPreloader();
 		_moff.runCallbacks(_domLoadedCallbacks, this);
 	}
+
+	this.inViewport = function(element) {
+		var top = element.offsetTop;
+		var left = element.offsetLeft;
+		var width = element.offsetWidth;
+		var height = element.offsetHeight;
+
+		while(element.offsetParent) {
+			element = element.offsetParent;
+
+			top += element.offsetTop;
+			left += element.offsetLeft;
+		}
+
+		return (
+			top < (_win.pageYOffset + _win.innerHeight) &&
+			left < (_win.pageXOffset + _win.innerWidth) &&
+			(top + height) > _win.pageYOffset &&
+			(left + width) > _win.pageXOffset
+		);
+	};
 
 	/**
 	 * Sends ajax request.
@@ -485,7 +645,7 @@ function Core() {
 		xhr.onload = function() {
 			var status = this.status;
 			if (status >= 200 && status < 300 || status === 304) {
-				options.success(this.response, this);
+				options.success(this.responseText, this);
 			} else {
 				options.error(this);
 			}
@@ -860,7 +1020,12 @@ function Core() {
 
 	/* Test-code */
 	this._testonly = {
-		_cache: _cache
+		_cache,
+		_showPreloader: showPreloader,
+		_hidePreloader: hidePreloader,
+		_loader() {
+			return _loader;
+		}
 	};
 	/* End-test-code */
 }
