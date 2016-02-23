@@ -236,4 +236,24 @@ describe('Moff Core', function() {
 			expect(doneFn).toHaveBeenCalledWith('awesome response post');
 		});
 	});
+
+	describe('Private showPreloader method', function() {
+		it('should be able to add __visible class name', function() {
+			Moff._testonly._showPreloader();
+			expect(Moff._testonly._loader().getAttribute('class').match(/__visible/g).length).toEqual(1);
+		});
+
+		it('adds __visible class name only once', function() {
+			Moff._testonly._showPreloader();
+			Moff._testonly._showPreloader();
+			expect(Moff._testonly._loader().getAttribute('class').match(/__visible/g).length).toEqual(1);
+		});
+	});
+
+	describe('Private hidePreloader method', function() {
+		it('should remove __visible class name', function() {
+			Moff._testonly._hidePreloader();
+			expect(Moff._testonly._loader().getAttribute('class').match(/__visible/g)).toEqual(null);
+		});
+	});
 });
