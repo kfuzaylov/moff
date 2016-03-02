@@ -703,6 +703,13 @@ function Core() {
 		return window.moffConfig || {};
 	}
 
+	function domIsReady() {
+		if (_doc.readyState !== 'loading') {
+			init();
+			_doc.removeEventListener('readystatechange', domIsReady);
+		}
+	}
+
 	/**
   * Initialize Moff
   * @function init
@@ -1147,7 +1154,8 @@ function Core() {
 	extendSettings();
 	setBreakpoints();
 	setViewMode();
-	_doc.addEventListener('DOMContentLoaded', init, false);
+
+	_doc.addEventListener('readystatechange', domIsReady);
 
 	/* Test-code */
 	this._testonly = {
