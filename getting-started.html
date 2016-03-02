@@ -59,9 +59,15 @@
 		<h3>Install with Bower</h3>
 		<p><pre><code class="language-bash">$ bower install moff --save</code></pre></p>
 		<p>If you don't use <code>bower</code> you can download <a href="/source/moff.js">development</a> or <a href="/source/moff.min.js">minified</a> version with <a href="source/moff.min.js.map">map</a>.</p>
+		<h3>Include</h3>
+		<p>
+			Include Moff in document header with <code>async</code> attribute.
+		<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/moff.min.js" async&gt;&lt;/script&gt;</code></pre>
+		</p>
 		<h3>Setting up</h3>
-		<p>Moff is initialized automatically on DOMContentLoaded event. But you can pass settings value for initialization by defining <code>window.moffConfig</code> object.
-			If you do not define config object Moff it will be initialized with default setting values.</p>
+		<p>Moff is initialized automatically when DOM is ready with default settings.
+			But you can pass your settings value for initialization in <code>window.moffConfig</code> object.
+		</p>
 		<pre><code class="language-javascript">window.moffConfig = {
 	// Website CSS breakpoints.
 	// Default values from Twitter Bootstrap.
@@ -74,7 +80,7 @@
 	loadOnHover: true,
 	cacheLiveTime: 2000
 };</code></pre>
-		<h3>Initialization options</h3>
+		<h3>Setting options</h3>
 		<ul>
 			<li><code>breakpoints</code> - Sets break points which are used by framework to determine what is the current screen size.<br>
 				If you customized Twitter Bootstrap break points do not forget to change them for <code>window.moffConfig</code> too.
@@ -84,10 +90,6 @@
 			<li><code>cacheLiveTime</code> - Sets cache live time loaded on element hover. Default is 2 seconds. If you increase the value it starts to use more memory<br>
 			and may be the cause of showing old, expired data.</li>
 		</ul>
-		<p>
-			And include moff after config.
-			<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/moff.min.js"&gt;&lt;/script&gt;</code></pre>
-		</p>
 		<h3>Browser support</h3>
 		<p>Moff supports major of modern web browsers.
 		<ul>
