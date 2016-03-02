@@ -1,7 +1,7 @@
 /**
  * @overview  moff - Mobile First Framework
  * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.10.34
+ * @version   1.10.35
  * @license   Licensed under MIT license
  * @copyright Copyright (c) 2015-2016 Kadir A. Fuzaylov
  */
@@ -272,7 +272,7 @@ function Core() {
 	var _changeViewCallbacks = [];
 
 	/**
-  * @property {Array} _domLoadedCallbacks - Array of callbacks to trigger on DOMContentLoaded event.
+  * @property {Array} _domLoadedCallbacks - Array of callbacks to trigger when DOM is ready.
   * @private
   */
 	var _domLoadedCallbacks = [];
@@ -705,8 +705,9 @@ function Core() {
 
 	function domIsReady() {
 		if (_doc.readyState !== 'loading') {
-			init();
+			_domIsLoaded = true;
 			_doc.removeEventListener('readystatechange', domIsReady);
+			init();
 		}
 	}
 
@@ -715,7 +716,6 @@ function Core() {
   * @function init
   */
 	function init() {
-		_domIsLoaded = true;
 		handleEvents();
 		addPreloaderStyles();
 		addPreloader();
@@ -1107,7 +1107,7 @@ function Core() {
 	};
 
 	/**
-  * Adds callbacks for DOMContentLoaded event.
+  * Adds callbacks to be triggered when on DOM ready.
   * If event is occurred it runs callback.
   * @method $
   * @param {Function} arg - Callback function
@@ -1149,7 +1149,7 @@ function Core() {
   * Moff version.
   * @type {string}
   */
-	this.version = '1.10.34';
+	this.version = '1.10.35';
 
 	extendSettings();
 	setBreakpoints();
