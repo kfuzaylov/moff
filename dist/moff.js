@@ -1,7 +1,7 @@
 /**
  * @overview  moff - Mobile First Framework
  * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.10.34
+ * @version   1.10.37
  * @license   Licensed under MIT license
  * @copyright Copyright (c) 2015-2016 Kadir A. Fuzaylov
  */
@@ -703,13 +703,6 @@ function Core() {
 		return window.moffConfig || {};
 	}
 
-	function domIsReady() {
-		if (_doc.readyState !== 'loading') {
-			init();
-			_doc.removeEventListener('readystatechange', domIsReady);
-		}
-	}
-
 	/**
   * Initialize Moff
   * @function init
@@ -1149,13 +1142,12 @@ function Core() {
   * Moff version.
   * @type {string}
   */
-	this.version = '1.10.34';
+	this.version = '1.10.37';
 
 	extendSettings();
 	setBreakpoints();
 	setViewMode();
-
-	_doc.addEventListener('readystatechange', domIsReady);
+	_doc.addEventListener('DOMContentLoaded', init, false);
 
 	/* Test-code */
 	this._testonly = {
