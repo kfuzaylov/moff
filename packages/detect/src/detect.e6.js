@@ -218,12 +218,10 @@ function Detect() {
 		return false;
 	};
 
-	Moff.$(function() {
-		html5Support();
-		detectBrowser();
-		detectOS();
-		detectMobileDevice();
-	});
+	html5Support();
+	detectBrowser();
+	detectOS();
+	detectMobileDevice();
 }
 
 export default Detect;
