@@ -71,7 +71,11 @@
 		<p>Moff is initialized automatically when DOM is ready with default settings.
 			But you can pass your settings value for initialization in <code>window.moffConfig</code> object.
 		</p>
-		<pre><code class="language-javascript">window.moffConfig = {
+		<pre><code class="language-markup">&lt;body&gt;
+...
+&lt;script src="bower_components/moff/dist/moff.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+window.moffConfig = {
 	// Website CSS breakpoints.
 	// Default values from Twitter Bootstrap.
 	// No need to set xs, because of Mobile first approach.
@@ -82,7 +86,9 @@
 	},
 	loadOnHover: true,
 	cacheLiveTime: 2000
-};</code></pre>
+};
+&lt;/script&gt;
+&lt;/body&gt;</code></pre>
 		<h3>Setting options</h3>
 		<ul>
 			<li><code>breakpoints</code> - Sets break points which are used by framework to determine what is the current screen size.<br>
