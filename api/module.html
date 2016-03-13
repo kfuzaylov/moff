@@ -88,8 +88,10 @@
 });</code></pre>
 				<hr>
 				<h4 id="find">find(selector)</h4>
-				<p>Finds any DOM element inside module scope. In the example will be found <code>.comment</code> element located only inside module scope,<br>
-					event another one with the same class name will be located outside of the module scope.</p>
+				<p>Finds any DOM element inside module scope. In the example will be found <code>.comment</code>
+					element located only inside module scope, even another one with the same class name
+					will be located outside of the module scope.
+				</p>
 				<p>Arguments:</p>
 				<ul>
 					<li><code>selector</code> - <small>String containing one or more CSS selectors separated by commas.</small></li>
@@ -97,7 +99,11 @@
 				<p>Returns <code>NodeList</code> of elements matched by selector.</p>
 				<pre><code class="language-javascript">Moff.modules.create('Comments', function() {
 	this.afterInit = function() {
-		this.find('.comment:first').addClass('__first');
+		var firstComments = this.find('.comment:first');
+
+		Moff.each(firstComments, function() {
+			this.style.display = 'none';
+		});
 	};
 });</code></pre>
 				<hr>
