@@ -133,6 +133,11 @@ Moff.each(['one', 'two'], function(index, value) {
 });</code></pre>
 				<hr>
 
+				<h4 id="hidePreloader">hidePreloader()</h4>
+				<p>Hides preloader on the page.</p>
+				<pre><code class="language-javascript">Moff.hidePreloader();</code></pre>
+				<hr>
+
 				<h4 id="loadCSS">loadCSS(href, callback)</h4>
 				<p>Load CSS file and run callback when it be loaded. It does not load file if it is already included and run callback immediately.</p>
 				<p>Arguments:</p>
@@ -181,6 +186,17 @@ Moff.each(['one', 'two'], function(index, value) {
 	}
 });</code></pre>
 				<hr>
+
+				<h4 id="positionPreloader">positionPreloader(left, top)</h4>
+				<p>Show preloader and set its position to passed arguments. Position of the preloader is <code>absolute</code>.</p>
+				<p>Arguments:</p>
+				<ul>
+					<li><code>left</code> - <small>Number. Position of the left point on the page.</small></li>
+					<li><code>top</code> - <small>Number. Position of the top point on the page.</small></li>
+				</ul>
+				<pre><code class="language-javascript">Moff.positionPreloader(50, 150);</code></pre>
+				<hr>
+
 				<h4 id="reopen">reopen(methods)</h4>
 				<p>Overwrites and adds object methods and properties.</p>
 				<p>Arguments:</p>
@@ -219,6 +235,12 @@ this.run = function() {
 				<pre><code class="language-javascript">Moff.settings('cache'); // true
 Moff.settings('cache', false); // false</code></pre>
 				<hr>
+
+				<h4 id="showPreloader">showPreloader()</h4>
+				<p>Show preloader with <code>fixed</code> position on the top of the page.</p>
+				<pre><code class="language-javascript">Moff.showPreloader();</code></pre>
+				<hr>
+
 				<h4 id="version">version</h4>
 				<p>Get Moff version.</p>
 				<p>Returns string.</p>
@@ -238,13 +260,16 @@ Moff.settings('cache', false); // false</code></pre>
 					<li><a href="#each">each</a></li>
 					<li><a href="#getMode">getMode</a></li>
 					<li><a href="#handleDataEvents">handleDataEvents</a></li>
+					<li><a href="#hidePreloader">hidePreloader</a></li>
 					<li><a href="#loadCSS">loadCSS</a></li>
 					<li><a href="#loadAssets">loadAssets</a></li>
 					<li><a href="#loadJS">loadJS</a></li>
 					<li><a href="#onViewChange">onViewChange</a></li>
+					<li><a href="#positionPreloader">positionPreloader</a></li>
 					<li><a href="#reopen">reopen</a></li>
 					<li><a href="#runCallbacks">runCallbacks</a></li>
 					<li><a href="#settings">settings</a></li>
+					<li><a href="#showPreloader">showPreloader</a></li>
 					<li><a href="#version">version</a></li>
 					<li><a href="#dom">$</a></li>
 				</ul>
