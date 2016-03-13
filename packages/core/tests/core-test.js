@@ -237,23 +237,48 @@ describe('Moff Core', function() {
 		});
 	});
 
-	describe('Private showPreloader method', function() {
-		it('should be able to add __visible class name', function() {
-			Moff._testonly._showPreloader();
+	describe('Moff.showPreloader method', function() {
+		it('should be able to add __visible __default class names', function() {
+			Moff.showPreloader();
+
 			expect(Moff._testonly._loader().getAttribute('class').match(/__visible/g).length).toEqual(1);
+			expect(Moff._testonly._loader().getAttribute('class').match(/__default/g).length).toEqual(1);
+		});
+
+		it('should be able to add __visible class names', function() {
+			Moff.showPreloader(false);
+
+			expect(Moff._testonly._loader().getAttribute('class').match(/__visible/g).length).toEqual(1);
+			expect(Moff._testonly._loader().getAttribute('class').match(/__default/g)).toEqual(null);
 		});
 
 		it('adds __visible class name only once', function() {
-			Moff._testonly._showPreloader();
-			Moff._testonly._showPreloader();
+			Moff.showPreloader();
+			Moff.showPreloader();
+
 			expect(Moff._testonly._loader().getAttribute('class').match(/__visible/g).length).toEqual(1);
+			expect(Moff._testonly._loader().getAttribute('class').match(/__default/g).length).toEqual(1);
 		});
 	});
 
-	describe('Private hidePreloader method', function() {
+	describe('Moff.hidePreloader method', function() {
 		it('should remove __visible class name', function() {
-			Moff._testonly._hidePreloader();
+			Moff.hidePreloader();
+
 			expect(Moff._testonly._loader().getAttribute('class').match(/__visible/g)).toEqual(null);
+			expect(Moff._testonly._loader().getAttribute('class').match(/__defaulte/g)).toEqual(null);
+		});
+	});
+
+	describe('Moff.positionPreloader method', function() {
+		it('should position preloader in passed coordinates', function() {
+			Moff.positionPreloader(200, 290);
+
+			expect(Moff._testonly._loader().getAttribute('style').match(/-webkit-transform: translate\(200px, 290px\);/).length).toEqual(1);
+			expect(Moff._testonly._loader().getAttribute('style').match(/-moz-transform: translate\(200px, 290px\);/).length).toEqual(1);
+			expect(Moff._testonly._loader().getAttribute('style').match(/-o-transform: translate\(200px, 290px\);/).length).toEqual(1);
+			expect(Moff._testonly._loader().getAttribute('style').match(/transform: translate\(200px, 290px\);/).length).toEqual(1);
+			expect(Moff._testonly._loader().getAttribute('class').indexOf('__default')).toEqual(-1);
 		});
 	});
 });

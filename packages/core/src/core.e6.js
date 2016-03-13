@@ -29,6 +29,12 @@ function Core() {
 	var _loader = null;
 
 	/**
+	 * @property {null} _loaderBox - CSS preloader object
+	 * @private
+	 */
+	var _loaderBox = null;
+
+	/**
 	 * @property {boolean} _matchMediaSupport - Match media support and link.
 	 * @private
 	 */
@@ -159,23 +165,44 @@ function Core() {
 		style.appendChild(document.createTextNode(`
 			.moff-loader {
 				display: none;
-				position: fixed;
+				position: absolute;
 				width: 50px;
 				height: 50px;
+				left: 0;
+				top: 0;
+				z-index: 9999;
+				-webkit-transition: 0s ease-in;
+				-moz-transition: 0s ease-in;
+				-o-transition: 0s ease-in;
+				transition: 0s ease-in;
+			}
+			.moff-loader.__default {
 				top: 12px;
 				left: 50%;
 				margin-left: -25px;
+				position: fixed;
+			}
+			.moff-loader.__ie9-preloader {
+				background: url('http://moffjs.com/images/ie9-preloader.gif');
+			}
+			.moff-loader.__ie9-preloader .moff-loader_box {
+				display: none;
+
+			}
+			.moff-loader.__visible {
+				display: block;
+			}
+			.moff-loader_box {
+				position: absolute;
+				width: 100%;
+				height: 100%;
 				border-radius: 50%;
 				border: 1px solid transparent;
 				border-top-color: #3498db;
 				-webkit-animation: spin 2s linear infinite;
 				animation: spin 2s linear infinite;
-				z-index: 9999;
 			}
-			.moff-loader.__visible {
-				display: block;
-			}
-			.moff-loader:before {
+			.moff-loader_box:before {
 				content: "";
 				position: absolute;
 				top: 2px;
@@ -188,7 +215,7 @@ function Core() {
 				-webkit-animation: spin 3s linear infinite;
 				animation: spin 3s linear infinite;
 			}
-			.moff-loader:after {
+			.moff-loader_box:after {
 				content: "";
 				position: absolute;
 				top: 5px;
@@ -232,23 +259,65 @@ function Core() {
 
 	function addPreloader() {
 		_loader = _doc.createElement('div');
+		_loaderBox = _doc.createElement('div');
+
 		_loader.setAttribute('class', 'moff-loader');
+		_loaderBox.setAttribute('class', 'moff-loader_box');
+
 		_doc.body.appendChild(_loader);
+		_loader.appendChild(_loaderBox);
 	}
 
-	function showPreloader() {
+	this.showPreloader = function(position = true) {
+		this.hidePreloader();
 		var className = _loader.className;
 
 		if (className.indexOf('__visible') === -1) {
 			className += ' __visible';
-			_loader.setAttribute('class', className);
 		}
-	}
 
-	function hidePreloader() {
-		var className = _loader.className.replace(/(^| )__visible( |$)/, '');
+		if (position && className.indexOf('__default') === -1) {
+			className += ' __default';
+		}
+
+		if (!_moff.detect.supportCSS3('transition')) {
+			className += ' __ie9-preloader';
+		}
+
 		_loader.setAttribute('class', className);
-	}
+	};
+
+	this.hidePreloader = function() {
+		var className = _loader.className.replace(/(^| )__visible( |$)/, ' ');
+		className = className.replace(/(^| )__default( |$)/, ' ');
+		className = className.replace(/(^| )__ie9-preloader( |$)/, ' ');
+
+		_loader.setAttribute('class', className.trim());
+		_loader.removeAttribute('style');
+	};
+
+	this.positionPreloader = function(x, y) {
+		this.showPreloader(false);
+
+		if (typeof x === 'number' && typeof y === 'number') {
+
+			var style = '';
+
+			if (_moff.detect.supportCSS3('transition')) {
+				let coords = `${x}px, ${y}px`;
+				style = `-webkit-transform: translate(${coords});
+				-moz-transform: translate(${coords});
+				-o-transform: translate(${coords});
+				transform: translate(${coords});`;
+			} else {
+				// for IE 9.0
+				style = `left: ${x}px; top: ${y}px`;
+				_loader.className = `${_loader.className} __ie9-preloader`;
+			}
+
+			_loader.setAttribute('style', style);
+		}
+	};
 
 	/**
 	 * Window resize or matchMedia event listener handler.
@@ -427,7 +496,7 @@ function Core() {
 		var loadModule = element.getAttribute('data-load-module');
 
 		if (url) {
-			showPreloader();
+			_moff.showPreloader();
 			url = handleUrlTemplate(element, url);
 			// Remove data attributes not to handle twice
 			element.removeAttribute('data-load-event');
@@ -440,7 +509,7 @@ function Core() {
 			}
 
 			loadContent(element, url, target, function() {
-				hidePreloader();
+				_moff.hidePreloader();
 				// If element has data-load-module attribute
 				// include this module and then run after load callbacks.
 				if (loadModule) {
@@ -1021,8 +1090,6 @@ function Core() {
 	/* Test-code */
 	this._testonly = {
 		_cache,
-		_showPreloader: showPreloader,
-		_hidePreloader: hidePreloader,
 		_loader() {
 			return _loader;
 		}

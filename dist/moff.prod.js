@@ -1,7 +1,7 @@
 /**
  * @overview  moff - Mobile First Framework
  * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.10.38
+ * @version   1.10.39
  * @license   Licensed under MIT license
  * @copyright Copyright (c) 2015-2016 Kadir A. Fuzaylov
  */
@@ -188,6 +188,11 @@ function Core() {
   */
 	var _loader2 = null;
 	/**
+  * @property {null} _loaderBox - CSS preloader object
+  * @private
+  */
+	var _loaderBox = null;
+	/**
   * @property {boolean} _matchMediaSupport - Match media support and link.
   * @private
   */
@@ -296,25 +301,54 @@ function Core() {
 	}
 	function addPreloaderStyles() {
 		var style = document.createElement('style');
-		style.appendChild(document.createTextNode('\n\t\t\t.moff-loader {\n\t\t\t\tdisplay: none;\n\t\t\t\tposition: fixed;\n\t\t\t\twidth: 50px;\n\t\t\t\theight: 50px;\n\t\t\t\ttop: 12px;\n\t\t\t\tleft: 50%;\n\t\t\t\tmargin-left: -25px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px solid transparent;\n\t\t\t\tborder-top-color: #3498db;\n\t\t\t\t-webkit-animation: spin 2s linear infinite;\n\t\t\t\tanimation: spin 2s linear infinite;\n\t\t\t\tz-index: 9999;\n\t\t\t}\n\t\t\t.moff-loader.__visible {\n\t\t\t\tdisplay: block;\n\t\t\t}\n\t\t\t.moff-loader:before {\n\t\t\t\tcontent: "";\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 2px;\n\t\t\t\tleft: 2px;\n\t\t\t\tright: 2px;\n\t\t\t\tbottom: 2px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px solid transparent;\n\t\t\t\tborder-top-color: #e74c3c;\n\t\t\t\t-webkit-animation: spin 3s linear infinite;\n\t\t\t\tanimation: spin 3s linear infinite;\n\t\t\t}\n\t\t\t.moff-loader:after {\n\t\t\t\tcontent: "";\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 5px;\n\t\t\t\tleft: 5px;\n\t\t\t\tright: 5px;\n\t\t\t\tbottom: 5px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px solid transparent;\n\t\t\t\tborder-top-color: #f9c922;\n\t\t\t\t-webkit-animation: spin 1.5s linear infinite;\n\t\t\t\tanimation: spin 1.5s linear infinite;\n\t\t\t}\n\t\t\t@-webkit-keyframes spin {\n\t\t\t\t0% {\n\t\t\t\t\t-webkit-transform: rotate(0deg);\n\t\t\t\t\t-ms-transform: rotate(0deg);\n\t\t\t\t\ttransform: rotate(0deg);\n\t\t\t\t}\n\t\t\t\t100% {\n\t\t\t\t\t-webkit-transform: rotate(360deg);\n\t\t\t\t\t-ms-transform: rotate(360deg);\n\t\t\t\t\ttransform: rotate(360deg);\n\t\t\t\t}\n\t\t\t}\n\t\t\t@keyframes spin {\n\t\t\t\t0% {\n\t\t\t\t\t-webkit-transform: rotate(0deg);\n\t\t\t\t\t-ms-transform: rotate(0deg);\n\t\t\t\t\ttransform: rotate(0deg);\n\t\t\t\t}\n\t\t\t\t100% {\n\t\t\t\t\t-webkit-transform: rotate(360deg);\n\t\t\t\t\t-ms-transform: rotate(360deg);\n\t\t\t\t\ttransform: rotate(360deg);\n\t\t\t\t}\n\t\t\t}\n\t\t'));
+		style.appendChild(document.createTextNode('\n\t\t\t.moff-loader {\n\t\t\t\tdisplay: none;\n\t\t\t\tposition: absolute;\n\t\t\t\twidth: 50px;\n\t\t\t\theight: 50px;\n\t\t\t\tleft: 0;\n\t\t\t\ttop: 0;\n\t\t\t\tz-index: 9999;\n\t\t\t\t-webkit-transition: 0s ease-in;\n\t\t\t\t-moz-transition: 0s ease-in;\n\t\t\t\t-o-transition: 0s ease-in;\n\t\t\t\ttransition: 0s ease-in;\n\t\t\t}\n\t\t\t.moff-loader.__default {\n\t\t\t\ttop: 12px;\n\t\t\t\tleft: 50%;\n\t\t\t\tmargin-left: -25px;\n\t\t\t\tposition: fixed;\n\t\t\t}\n\t\t\t.moff-loader.__ie9-preloader {\n\t\t\t\tbackground: url(\'http://moffjs.com/images/ie9-preloader.gif\');\n\t\t\t}\n\t\t\t.moff-loader.__ie9-preloader .moff-loader_box {\n\t\t\t\tdisplay: none;\n\n\t\t\t}\n\t\t\t.moff-loader.__visible {\n\t\t\t\tdisplay: block;\n\t\t\t}\n\t\t\t.moff-loader_box {\n\t\t\t\tposition: absolute;\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px solid transparent;\n\t\t\t\tborder-top-color: #3498db;\n\t\t\t\t-webkit-animation: spin 2s linear infinite;\n\t\t\t\tanimation: spin 2s linear infinite;\n\t\t\t}\n\t\t\t.moff-loader_box:before {\n\t\t\t\tcontent: "";\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 2px;\n\t\t\t\tleft: 2px;\n\t\t\t\tright: 2px;\n\t\t\t\tbottom: 2px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px solid transparent;\n\t\t\t\tborder-top-color: #e74c3c;\n\t\t\t\t-webkit-animation: spin 3s linear infinite;\n\t\t\t\tanimation: spin 3s linear infinite;\n\t\t\t}\n\t\t\t.moff-loader_box:after {\n\t\t\t\tcontent: "";\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 5px;\n\t\t\t\tleft: 5px;\n\t\t\t\tright: 5px;\n\t\t\t\tbottom: 5px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px solid transparent;\n\t\t\t\tborder-top-color: #f9c922;\n\t\t\t\t-webkit-animation: spin 1.5s linear infinite;\n\t\t\t\tanimation: spin 1.5s linear infinite;\n\t\t\t}\n\t\t\t@-webkit-keyframes spin {\n\t\t\t\t0% {\n\t\t\t\t\t-webkit-transform: rotate(0deg);\n\t\t\t\t\t-ms-transform: rotate(0deg);\n\t\t\t\t\ttransform: rotate(0deg);\n\t\t\t\t}\n\t\t\t\t100% {\n\t\t\t\t\t-webkit-transform: rotate(360deg);\n\t\t\t\t\t-ms-transform: rotate(360deg);\n\t\t\t\t\ttransform: rotate(360deg);\n\t\t\t\t}\n\t\t\t}\n\t\t\t@keyframes spin {\n\t\t\t\t0% {\n\t\t\t\t\t-webkit-transform: rotate(0deg);\n\t\t\t\t\t-ms-transform: rotate(0deg);\n\t\t\t\t\ttransform: rotate(0deg);\n\t\t\t\t}\n\t\t\t\t100% {\n\t\t\t\t\t-webkit-transform: rotate(360deg);\n\t\t\t\t\t-ms-transform: rotate(360deg);\n\t\t\t\t\ttransform: rotate(360deg);\n\t\t\t\t}\n\t\t\t}\n\t\t'));
 		document.querySelector('head').appendChild(style);
 	}
 	function addPreloader() {
 		_loader2 = _doc.createElement('div');
+		_loaderBox = _doc.createElement('div');
 		_loader2.setAttribute('class', 'moff-loader');
+		_loaderBox.setAttribute('class', 'moff-loader_box');
 		_doc.body.appendChild(_loader2);
+		_loader2.appendChild(_loaderBox);
 	}
-	function showPreloader() {
+	this.showPreloader = function () {
+		var position = arguments.length <= 0 || arguments[0] === undefined ? true : arguments[0];
+		this.hidePreloader();
 		var className = _loader2.className;
 		if (className.indexOf('__visible') === -1) {
 			className += ' __visible';
-			_loader2.setAttribute('class', className);
 		}
-	}
-	function hidePreloader() {
-		var className = _loader2.className.replace(/(^| )__visible( |$)/, '');
+		if (position && className.indexOf('__default') === -1) {
+			className += ' __default';
+		}
+		if (!_moff.detect.supportCSS3('transition')) {
+			className += ' __ie9-preloader';
+		}
 		_loader2.setAttribute('class', className);
-	}
+	};
+	this.hidePreloader = function () {
+		var className = _loader2.className.replace(/(^| )__visible( |$)/, ' ');
+		className = className.replace(/(^| )__default( |$)/, ' ');
+		className = className.replace(/(^| )__ie9-preloader( |$)/, ' ');
+		_loader2.setAttribute('class', className.trim());
+		_loader2.removeAttribute('style');
+	};
+	this.positionPreloader = function (x, y) {
+		this.showPreloader(false);
+		if (typeof x === 'number' && typeof y === 'number') {
+			var style = '';
+			if (_moff.detect.supportCSS3('transition')) {
+				var coords = x + 'px, ' + y + 'px';
+				style = '-webkit-transform: translate(' + coords + ');\n\t\t\t\t-moz-transform: translate(' + coords + ');\n\t\t\t\t-o-transform: translate(' + coords + ');\n\t\t\t\ttransform: translate(' + coords + ');';
+			} else {
+				// for IE 9.0
+				style = 'left: ' + x + 'px; top: ' + y + 'px';
+				_loader2.className = _loader2.className + ' __ie9-preloader';
+			}
+			_loader2.setAttribute('style', style);
+		}
+	};
 	/**
   * Window resize or matchMedia event listener handler.
   * @function resizeHandler
@@ -468,7 +502,7 @@ function Core() {
 		var push = element.getAttribute('data-push-url');
 		var loadModule = element.getAttribute('data-load-module');
 		if (url) {
-			showPreloader();
+			_moff.showPreloader();
 			url = handleUrlTemplate(element, url);
 			// Remove data attributes not to handle twice
 			element.removeAttribute('data-load-event');
@@ -479,7 +513,7 @@ function Core() {
 				_historyData[id] = element;
 			}
 			loadContent(element, url, target, function () {
-				hidePreloader();
+				_moff.hidePreloader();
 				// If element has data-load-module attribute
 				// include this module and then run after load callbacks.
 				if (loadModule) {
@@ -960,7 +994,7 @@ function Core() {
   * Moff version.
   * @type {string}
   */
-	this.version = '1.10.38';
+	this.version = '1.10.39';
 	extendSettings();
 	setBreakpoints();
 	setViewMode();
