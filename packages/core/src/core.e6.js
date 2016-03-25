@@ -128,12 +128,6 @@ function Core() {
 	};
 
 	/**
-	 * @property {string} _dataEvent - Data load event selector.
-	 * @private
-	 */
-	var _dataEvent = 'data-load-target';
-
-	/**
 	 * @property {{}} _historyData - History data store.
 	 * @private
 	 */
@@ -340,7 +334,7 @@ function Core() {
 	this.handleDataEvents = function() {
 		loadByScreenSize();
 
-		_moff.each(_doc.querySelectorAll(`[${_dataEvent}]`), function() {
+		_moff.each(_doc.querySelectorAll('[data-load-target], [data-load-module]'), function() {
 			let element = this;
 
 			if (element.handled) {
@@ -1072,8 +1066,8 @@ function Core() {
 	 * Display error with stack.
 	 * @method error
 	 */
-	this.error = function() {
-		Error(arguments);
+	this.error = function(error) {
+		throw error;
 	};
 
 	/**

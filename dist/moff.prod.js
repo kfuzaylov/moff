@@ -1,7 +1,7 @@
 /**
  * @overview  moff - Mobile First Framework
  * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.10.39
+ * @version   1.10.40
  * @license   Licensed under MIT license
  * @copyright Copyright (c) 2015-2016 Kadir A. Fuzaylov
  */
@@ -271,11 +271,6 @@ function Core() {
 		cacheLiveTime: 2000
 	};
 	/**
-  * @property {string} _dataEvent - Data load event selector.
-  * @private
-  */
-	var _dataEvent = 'data-load-target';
-	/**
   * @property {{}} _historyData - History data store.
   * @private
   */
@@ -367,7 +362,7 @@ function Core() {
   */
 	this.handleDataEvents = function () {
 		loadByScreenSize();
-		_moff.each(_doc.querySelectorAll('[' + _dataEvent + ']'), function () {
+		_moff.each(_doc.querySelectorAll('[data-load-target], [data-load-module]'), function () {
 			var element = this;
 			if (element.handled) {
 				return;
@@ -987,14 +982,14 @@ function Core() {
   * Display error with stack.
   * @method error
   */
-	this.error = function () {
-		Error(arguments);
+	this.error = function (error) {
+		throw error;
 	};
 	/**
   * Moff version.
   * @type {string}
   */
-	this.version = '1.10.39';
+	this.version = '1.10.40';
 	extendSettings();
 	setBreakpoints();
 	setViewMode();
