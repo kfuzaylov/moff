@@ -115,6 +115,20 @@ Moff.each(['one', 'two'], function(index, value) {
 	// Use array index and value
 });</code></pre>
 				<hr>
+
+				<h4 id="error">error(error)</h4>
+				<p>Throws passed error. Shows error with stack.</p>
+				<p>Arguments:</p>
+				<ul>
+					<li><code>error</code> - <small>Error object</small></li>
+				</ul>
+				<pre><code class="language-javascript">try {
+	// Run some logic here
+} catch (error) {
+	Moff.error(error);
+}</code></pre>
+				<hr>
+
 				<h4 id="getMode">getMode()</h4>
 				<p>Get current view mode.</p>
 				<p>Returns one of these values: <code>xs</code>, <code>sm</code>, <code>md</code> or <code>lg</code>.</p>
@@ -258,6 +272,7 @@ Moff.settings('cache', false); // false</code></pre>
 					<li><a href="#ajax">ajax</a></li>
 					<li><a href="#beforeLoad">beforeLoad</a></li>
 					<li><a href="#each">each</a></li>
+					<li><a href="#error">error</a></li>
 					<li><a href="#getMode">getMode</a></li>
 					<li><a href="#handleDataEvents">handleDataEvents</a></li>
 					<li><a href="#hidePreloader">hidePreloader</a></li>
