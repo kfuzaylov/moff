@@ -1,7 +1,7 @@
 /**
  * @overview  moff - Mobile First Framework
  * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.10.40
+ * @version   1.10.41
  * @license   Licensed under MIT license
  * @copyright Copyright (c) 2015-2016 Kadir A. Fuzaylov
  */
@@ -271,6 +271,11 @@ function Core() {
 		cacheLiveTime: 2000
 	};
 	/**
+  * @property {string[]} _dataAttrs - Array of data event attributes
+  * @private
+  */
+	var _dataAttrs = ['[data-load-target]', '[data-load-module]', '[data-load-event]', '[data-load-url]', '[data-load-screen]', '[data-push-url]', '[data-page-title]'];
+	/**
   * @property {{}} _historyData - History data store.
   * @private
   */
@@ -362,7 +367,7 @@ function Core() {
   */
 	this.handleDataEvents = function () {
 		loadByScreenSize();
-		_moff.each(_doc.querySelectorAll('[data-load-target], [data-load-module]'), function () {
+		_moff.each(_doc.querySelectorAll(_dataAttrs.join(', ')), function () {
 			var element = this;
 			if (element.handled) {
 				return;
@@ -378,11 +383,11 @@ function Core() {
 				} else {
 					_loadOnViewport.push(element);
 				}
-			} else {
-				if (event === 'click' && _settings.loadOnHover && !_moff.detect.isMobile) {
-					element.addEventListener('mouseenter', function () {
-						element = this;
-						var url = element.href || element.getAttribute('data-load-url');
+			} else if (event === 'click' && _settings.loadOnHover && !_moff.detect.isMobile) {
+				element.addEventListener('mouseenter', function () {
+					element = this;
+					var url = element.href || element.getAttribute('data-load-url');
+					if (url) {
 						url = removeHash(url);
 						if (url) {
 							url = handleUrlTemplate(element, url);
@@ -394,8 +399,8 @@ function Core() {
 								}, _settings.cacheLiveTime);
 							});
 						}
-					}, false);
-				}
+					}
+				}, false);
 				element.addEventListener(event, function (event) {
 					handleLink(this);
 					event.preventDefault();
@@ -519,6 +524,11 @@ function Core() {
 					_moff.runCallbacks(_afterLoad, element);
 				}
 			});
+		} else if (loadModule) {
+			_moff.showPreloader();
+			_moff.amd.include(loadModule, function () {
+				_moff.hidePreloader();
+			});
 		}
 	}
 	/**
@@ -545,7 +555,10 @@ function Core() {
 		url = removeHash(url);
 		function applyContent(html) {
 			var title = element.getAttribute('data-page-title');
-			_doc.querySelector(target).innerHTML = html;
+			var targetElement = _doc.querySelector(target);
+			if (targetElement !== null) {
+				targetElement.innerHTML = html;
+			}
 			if (title) {
 				_doc.title = title;
 			}
@@ -603,6 +616,7 @@ function Core() {
 			var element = this;
 			if (checkDataScreen(element)) {
 				element.removeAttribute(screenAttribute);
+				element.handled = true;
 				handleLink(element);
 			}
 		});
@@ -989,7 +1003,7 @@ function Core() {
   * Moff version.
   * @type {string}
   */
-	this.version = '1.10.40';
+	this.version = '1.10.41';
 	extendSettings();
 	setBreakpoints();
 	setViewMode();

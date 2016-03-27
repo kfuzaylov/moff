@@ -128,6 +128,20 @@ function Core() {
 	};
 
 	/**
+	 * @property {string[]} _dataAttrs - Array of data event attributes
+	 * @private
+	 */
+	var _dataAttrs = [
+		'[data-load-target]',
+		'[data-load-module]',
+		'[data-load-event]',
+		'[data-load-url]',
+		'[data-load-screen]',
+		'[data-push-url]',
+		'[data-page-title]'
+	];
+
+	/**
 	 * @property {{}} _historyData - History data store.
 	 * @private
 	 */
@@ -334,7 +348,7 @@ function Core() {
 	this.handleDataEvents = function() {
 		loadByScreenSize();
 
-		_moff.each(_doc.querySelectorAll('[data-load-target], [data-load-module]'), function() {
+		_moff.each(_doc.querySelectorAll(_dataAttrs.join(', ')), function() {
 			let element = this;
 
 			if (element.handled) {
@@ -353,27 +367,29 @@ function Core() {
 				} else {
 					_loadOnViewport.push(element);
 				}
-			} else {
-				if (event === 'click' && _settings.loadOnHover && !_moff.detect.isMobile) {
-					element.addEventListener('mouseenter', function() {
-						element = this;
-						let url = element.href || element.getAttribute('data-load-url');
+			} else if (event === 'click'&& _settings.loadOnHover && !_moff.detect.isMobile) {
+				element.addEventListener('mouseenter', function() {
+					element = this;
+					let url = element.href || element.getAttribute('data-load-url');
+
+					if (url) {
 						url = removeHash(url);
 
 						if (url) {
 							url = handleUrlTemplate(element, url);
 
-							load(url, function(data) {
+							load(url, function (data) {
 								_cache[url] = data;
 
 								// Clear cache each n seconds to prevent memory leak.
-								setTimeout(function() {
+								setTimeout(function () {
 									delete _cache[url];
 								}, _settings.cacheLiveTime);
 							});
 						}
-					}, false);
-				}
+					}
+				}, false);
+
 
 				element.addEventListener(event, function(event) {
 					handleLink(this);
@@ -394,6 +410,7 @@ function Core() {
 	function checkDataScreen(element) {
 		var screen = element.getAttribute('data-load-screen');
 		var modes = screen.split(' ');
+
 		return screen ? (modes.length && modes.indexOf(_moff.getMode()) !== -1) : true;
 	}
 
@@ -492,18 +509,21 @@ function Core() {
 		if (url) {
 			_moff.showPreloader();
 			url = handleUrlTemplate(element, url);
+
 			// Remove data attributes not to handle twice
 			element.removeAttribute('data-load-event');
 			_moff.runCallbacks(_beforeLoad, element);
 
 			if (_moff.detect.history && push) {
 				let id = Date.now();
+
 				_win.history.pushState({elemId: id, url: url}, title, url);
 				_historyData[id] = element;
 			}
 
 			loadContent(element, url, target, function() {
 				_moff.hidePreloader();
+
 				// If element has data-load-module attribute
 				// include this module and then run after load callbacks.
 				if (loadModule) {
@@ -513,6 +533,11 @@ function Core() {
 				} else {
 					_moff.runCallbacks(_afterLoad, element);
 				}
+			});
+		} else if (loadModule) {
+			_moff.showPreloader();
+			_moff.amd.include(loadModule, function() {
+				_moff.hidePreloader();
 			});
 		}
 	}
@@ -542,8 +567,12 @@ function Core() {
 		url = removeHash(url);
 
 		function applyContent(html) {
-			let title = element.getAttribute('data-page-title');
-			_doc.querySelector(target).innerHTML = html;
+			var title = element.getAttribute('data-page-title');
+			var targetElement = _doc.querySelector(target);
+
+			if (targetElement !== null) {
+				targetElement.innerHTML = html;
+			}
 
 			if (title) {
 				_doc.title = title;
@@ -614,6 +643,7 @@ function Core() {
 
 			if (checkDataScreen(element)) {
 				element.removeAttribute(screenAttribute);
+				element.handled = true;
 				handleLink(element);
 			}
 		});

@@ -1,7 +1,7 @@
 /**
  * @overview  moff - Mobile First Framework
  * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.10.40
+ * @version   1.10.41
  * @license   Licensed under MIT license
  * @copyright Copyright (c) 2015-2016 Kadir A. Fuzaylov
  */
@@ -329,6 +329,12 @@ function Core() {
 	};
 
 	/**
+  * @property {string[]} _dataAttrs - Array of data event attributes
+  * @private
+  */
+	var _dataAttrs = ['[data-load-target]', '[data-load-module]', '[data-load-event]', '[data-load-url]', '[data-load-screen]', '[data-push-url]', '[data-page-title]'];
+
+	/**
   * @property {{}} _historyData - History data store.
   * @private
   */
@@ -444,7 +450,7 @@ function Core() {
 	this.handleDataEvents = function () {
 		loadByScreenSize();
 
-		_moff.each(_doc.querySelectorAll('[data-load-target], [data-load-module]'), function () {
+		_moff.each(_doc.querySelectorAll(_dataAttrs.join(', ')), function () {
 			var element = this;
 
 			if (element.handled) {
@@ -463,11 +469,12 @@ function Core() {
 				} else {
 					_loadOnViewport.push(element);
 				}
-			} else {
-				if (event === 'click' && _settings.loadOnHover && !_moff.detect.isMobile) {
-					element.addEventListener('mouseenter', function () {
-						element = this;
-						var url = element.href || element.getAttribute('data-load-url');
+			} else if (event === 'click' && _settings.loadOnHover && !_moff.detect.isMobile) {
+				element.addEventListener('mouseenter', function () {
+					element = this;
+					var url = element.href || element.getAttribute('data-load-url');
+
+					if (url) {
 						url = removeHash(url);
 
 						if (url) {
@@ -482,8 +489,8 @@ function Core() {
 								}, _settings.cacheLiveTime);
 							});
 						}
-					}, false);
-				}
+					}
+				}, false);
 
 				element.addEventListener(event, function (event) {
 					handleLink(this);
@@ -504,6 +511,7 @@ function Core() {
 	function checkDataScreen(element) {
 		var screen = element.getAttribute('data-load-screen');
 		var modes = screen.split(' ');
+
 		return screen ? modes.length && modes.indexOf(_moff.getMode()) !== -1 : true;
 	}
 
@@ -602,18 +610,21 @@ function Core() {
 		if (url) {
 			_moff.showPreloader();
 			url = handleUrlTemplate(element, url);
+
 			// Remove data attributes not to handle twice
 			element.removeAttribute('data-load-event');
 			_moff.runCallbacks(_beforeLoad, element);
 
 			if (_moff.detect.history && push) {
 				var id = Date.now();
+
 				_win.history.pushState({ elemId: id, url: url }, title, url);
 				_historyData[id] = element;
 			}
 
 			loadContent(element, url, target, function () {
 				_moff.hidePreloader();
+
 				// If element has data-load-module attribute
 				// include this module and then run after load callbacks.
 				if (loadModule) {
@@ -623,6 +634,11 @@ function Core() {
 				} else {
 					_moff.runCallbacks(_afterLoad, element);
 				}
+			});
+		} else if (loadModule) {
+			_moff.showPreloader();
+			_moff.amd.include(loadModule, function () {
+				_moff.hidePreloader();
 			});
 		}
 	}
@@ -653,7 +669,11 @@ function Core() {
 
 		function applyContent(html) {
 			var title = element.getAttribute('data-page-title');
-			_doc.querySelector(target).innerHTML = html;
+			var targetElement = _doc.querySelector(target);
+
+			if (targetElement !== null) {
+				targetElement.innerHTML = html;
+			}
 
 			if (title) {
 				_doc.title = title;
@@ -724,6 +744,7 @@ function Core() {
 
 			if (checkDataScreen(element)) {
 				element.removeAttribute(screenAttribute);
+				element.handled = true;
 				handleLink(element);
 			}
 		});
@@ -1183,7 +1204,7 @@ function Core() {
   * Moff version.
   * @type {string}
   */
-	this.version = '1.10.40';
+	this.version = '1.10.41';
 
 	extendSettings();
 	setBreakpoints();
