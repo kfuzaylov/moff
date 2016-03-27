@@ -514,7 +514,7 @@ function Core() {
 			element.removeAttribute('data-load-event');
 			_moff.runCallbacks(_beforeLoad, element);
 
-			if (_moff.detect.history && push) {
+			if (_moff.detect.history && push !== null) {
 				let id = Date.now();
 
 				_win.history.pushState({elemId: id, url: url}, title, url);
@@ -672,9 +672,9 @@ function Core() {
 	 */
 	function init() {
 		_domIsLoaded = true;
-		handleEvents();
 		addPreloaderStyles();
 		addPreloader();
+		handleEvents();
 		_moff.runCallbacks(_domLoadedCallbacks, this);
 	}
 

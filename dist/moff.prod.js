@@ -507,7 +507,7 @@ function Core() {
 			// Remove data attributes not to handle twice
 			element.removeAttribute('data-load-event');
 			_moff.runCallbacks(_beforeLoad, element);
-			if (_moff.detect.history && push) {
+			if (_moff.detect.history && push !== null) {
 				var id = Date.now();
 				_win.history.pushState({ elemId: id, url: url }, title, url);
 				_historyData[id] = element;
@@ -639,9 +639,9 @@ function Core() {
   */
 	function init() {
 		_domIsLoaded = true;
-		handleEvents();
 		addPreloaderStyles();
 		addPreloader();
+		handleEvents();
 		_moff.runCallbacks(_domLoadedCallbacks, this);
 	}
 	this.inViewport = function (element) {
