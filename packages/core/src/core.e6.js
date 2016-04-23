@@ -357,6 +357,10 @@ function Core() {
 
 			let event = (element.getAttribute('data-load-event') || 'click').toLowerCase();
 
+			if (Moff.detect.isMobile && event === 'click') {
+				event = 'touchstart';
+			}
+
 			if (event === 'dom') {
 				_moff.$(function () {
 					handleLink(element);
@@ -367,29 +371,31 @@ function Core() {
 				} else {
 					_loadOnViewport.push(element);
 				}
-			} else if (event === 'click'&& _settings.loadOnHover && !_moff.detect.isMobile) {
-				element.addEventListener('mouseenter', function() {
-					element = this;
-					let url = element.href || element.getAttribute('data-load-url');
+			} else if (event === 'click' || event === 'touchstart') {
 
-					if (url) {
-						url = removeHash(url);
+				if (_settings.loadOnHover && !_moff.detect.isMobile) {
+					element.addEventListener('mouseenter', function () {
+						element = this;
+						let url = element.href || element.getAttribute('data-load-url');
 
 						if (url) {
-							url = handleUrlTemplate(element, url);
+							url = removeHash(url);
 
-							load(url, function (data) {
-								_cache[url] = data;
+							if (url) {
+								url = handleUrlTemplate(element, url);
 
-								// Clear cache each n seconds to prevent memory leak.
-								setTimeout(function () {
-									delete _cache[url];
-								}, _settings.cacheLiveTime);
-							});
+								load(url, function (data) {
+									_cache[url] = data;
+
+									// Clear cache each n seconds to prevent memory leak.
+									setTimeout(function () {
+										delete _cache[url];
+									}, _settings.cacheLiveTime);
+								});
+							}
 						}
-					}
-				}, false);
-
+					}, false);
+				}
 
 				element.addEventListener(event, function(event) {
 					handleLink(this);
