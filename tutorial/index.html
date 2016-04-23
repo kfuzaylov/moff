@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Moff.js - Blog</title>
+	<title>Moff.js - Tutorial</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,7 +27,7 @@
 			<div class="collapse navbar-collapse" id="navbar-collapse">
 				<ul class="nav navbar-nav">
 					<li><a href="/" title="Moff.js - Mobile First Framework">Home</a></li>
-					<li><a href="/tutorial/index.html" title="Moff.js - Tutorials">Tutorials</a></li>
+					<li class="active"><a href="/tutorial/index.html" title="Moff.js - Tutorials">Tutorials</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">API <span class="caret"></span><span class="sr-only">(current)</span></a>
 						<ul class="dropdown-menu" role="menu">
@@ -39,7 +39,7 @@
 							<li><a href="/api/module.html" title="Moff.js - Moff.Module API">Moff.Module</a></li>
 						</ul>
 					</li>
-					<li class="active"><a href="/blog/index.html" title="Moff.js - Blog">Blog</a></li>
+					<li><a href="/blog/index.html" title="Moff.js - Blog">Blog</a></li>
 				</ul>
 			</div>
 		</div>
@@ -47,39 +47,21 @@
 </header>
 <main role="main">
 	<div class="container">
-		<article>
-			<h3><a href="/blog/why-mobile-first.html">Why mobile first?</a></h3>
-			<p>Much has been written about Mobile First, and there are good books about this topic.
-				Still, the majority of developers and companies do not use it in their projects, or are not even aware of this approach.
-				This is why I want to tell you about it briefly and using examples; this will be useful information for those who never heard about this approach.
-			</p>
-			<p><a href="/blog/why-mobile-first.html">Read more...</a></p>
-		</article>
-		<hr>
-		<article>
-			<h3><a href="/blog/moff-and-modulated-bootstrap.html">Moff.js and modulated Bootstrap.</a></h3>
-			<img src="/images/moff_and_bootstrap.png" class="img-responsive" alt="Moff.js and modulated Bootstrap">
-			<p>In the previous <a href="/blog/why-mobile-first.html">article</a> I wrote about how the <a href="http://moffjs.com">Moff.js</a> framework can
-				facilitate the creation of a Mobile First page without using the CSS framework.
-				However, currently the majority of projects use various types of CSS frameworks, one of which is <a href="http://getbootstrap.com/">Bootstrap</a>.
-				We can say with confidence that Bootstrap is the most popular Mobile First framework.
-				The biggest disadvantage of this framework is its size. Even a minimized version is <strong>154.9 KB</strong>, and that is only the size of CSS and JS files.
-			</p>
-			<p><a href="/blog/moff-and-modulated-bootstrap.html">Read more...</a></p>
-		</article>
-		<hr>
-		<article>
-			<h3><a href="/blog/start-with-mobile-first-website.html">Start with Mobile First website.</a></h3>
-			<p><img src="/images/start-with-mobile-first.png" class="img-responsive left-align" alt="Start with Mobile First website">
-				Before I wrote about advantages of mobile first websites. Now I decided to write tutorial to show full picture of creating mobile first website and how to make it fully featured on desktop.
-				So, Moff follows these main purposes:
-				<ul class="next-image">
-					<li>How to create light, fast and designed for mobile devices website first.</li>
-					<li>And how to make this website fully featured on desktop, like even it was not designed for mobile devices.</li>
+		<div class="row">
+			<div class="col-xs-3">
+				<ul class="tutorials">
+					<li><a href="/tutorial/getting-started.html" title="Moff.js tutorial - Getting started">Getting started</a></li>
+					<li><a href="/tutorial/data-events.html" title="Moff.js tutorial - Data events">Data events</a></li>
+					<li><a href="/tutorial/amd.html" title="Moff.js tutorial - AMD">AMD</a></li>
+					<li><a href="/tutorial/modularity.html" title="Moff.js tutorial - Modularity">Modularity</a></li>
+					<li><a href="/tutorial/modulated-bootstrap.html" title="Moff.js tutorial - Modulated Bootstrap">Modulated Bootstrap</a></li>
 				</ul>
-			<p><a href="/blog/start-with-mobile-first-website.html">Read more...</a></p>
-			</p>
-		</article>
+			</div>
+			<div class="col-xs-9">
+				<h1>Moff.js tutorials</h1>
+				<p>Welcome Moff.js tutorials! These tutorials will teach you how to use all advantages of Moff framework.</p>
+			</div>
+		</div>
 	</div>
 </main>
 <footer role="contentinfo">
