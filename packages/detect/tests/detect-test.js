@@ -68,7 +68,7 @@ describe('Moff Detect', function() {
 		it('supports browser detection', function() {
 			expect(Moff.detect.browser.version).not.toBeUndefined();
 			delete Moff.detect.browser.version;
-			expect(['chrome', 'msie', 'mozilla', 'opera', 'webkit']).toContain(Object.keys(Moff.detect.browser)[0]);
+			expect(['chrome', 'msie', 'mozilla', 'opera', 'webkit', 'edge']).toContain(Object.keys(Moff.detect.browser)[0]);
 		});
 	})
 

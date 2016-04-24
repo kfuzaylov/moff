@@ -1,7 +1,7 @@
 /**
  * @overview  moff - Mobile First Framework
  * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.10.42
+ * @version   1.10.43
  * @license   Licensed under MIT license
  * @copyright Copyright (c) 2015-2016 Kadir A. Fuzaylov
  */
@@ -1008,7 +1008,7 @@ function Core() {
   * Moff version.
   * @type {string}
   */
-	this.version = '1.10.42';
+	this.version = '1.10.43';
 	extendSettings();
 	setBreakpoints();
 	setViewMode();
@@ -1146,7 +1146,7 @@ function Detect() {
   * @function detectBrowser
   */
 	function detectBrowser() {
-		var match = /(chrome)[ \/]([\w.]+)/.exec(_ua) || /(webkit)[ \/]([\w.]+)/.exec(_ua) || /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(_ua) || /(msie) ([\w.]+)/.exec(_ua) || _ua.indexOf('compatible') < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(_ua) || [];
+		var match = /(edge)[\/]([0-9\.]+)/.exec(_ua) || /(chrome)[ \/]([\w.]+)/.exec(_ua) || /(webkit)[ \/]([\w.]+)/.exec(_ua) || /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(_ua) || /(msie) ([\w.]+)/.exec(_ua) || _ua.indexOf('compatible') < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(_ua) || [];
 		if (match[1]) {
 			_detect.browser[match[1]] = true;
 		}

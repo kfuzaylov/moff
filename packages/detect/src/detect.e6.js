@@ -144,7 +144,8 @@ function Detect() {
 	 * @function detectBrowser
 	 */
 	function detectBrowser() {
-		var match = /(chrome)[ \/]([\w.]+)/.exec(_ua) ||
+		var match = /(edge)[\/]([0-9\.]+)/.exec(_ua) ||
+			/(chrome)[ \/]([\w.]+)/.exec(_ua) ||
 			/(webkit)[ \/]([\w.]+)/.exec(_ua) ||
 			/(opera)(?:.*version|)[ \/]([\w.]+)/.exec(_ua) ||
 			/(msie) ([\w.]+)/.exec(_ua) ||
