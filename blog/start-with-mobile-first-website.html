@@ -188,10 +188,10 @@
 	&lt;div class="achieve"&gt;
 		&lt;div class="achieve_button __prev"&gt;&lt;/div&gt;
 		&lt;ul class="achieve_container"&gt;
-			&lt;li class="achieve_container_slide __active"&gt;&lt;img src="images/preview1.jpg" class="img-responsive"&gt;&lt;/li&gt;
-			&lt;li class="achieve_container_slide"&gt;&lt;img data-src="images/preview2.jpg" class="img-responsive"&gt;&lt;/li&gt;
-			&lt;li class="achieve_container_slide"&gt;&lt;img data-src="images/preview3.jpg" class="img-responsive"&gt;&lt;/li&gt;
-			&lt;li class="achieve_container_slide"&gt;&lt;img data-src="images/preview4.jpg" class="img-responsive"&gt;&lt;/li&gt;
+			&lt;li class="achieve_container_slide __active"&gt;&lt;img src="images/preview1.jpg"&gt;&lt;/li&gt;
+			&lt;li class="achieve_container_slide"&gt;&lt;img data-src="images/preview2.jpg"&gt;&lt;/li&gt;
+			&lt;li class="achieve_container_slide"&gt;&lt;img data-src="images/preview3.jpg"&gt;&lt;/li&gt;
+			&lt;li class="achieve_container_slide"&gt;&lt;img data-src="images/preview4.jpg"&gt;&lt;/li&gt;
 		&lt;/ul&gt;
 		&lt;div class="achieve_button __next"&gt;&lt;/div&gt;
 	&lt;/div&gt;
@@ -200,58 +200,58 @@
 				Best way is to load them by lazy loading on user request (when he clicks "next" button).</p>
 			<p>Next step we should markup this gallery.</p>
 			<pre><code class="language-css">.achieve {
-   position: relative;
+	position: relative;
 }
 
 .achieve_button {
-   position: absolute;
-   width: 20px;
-   height: 20px;
-   top: 50%;
-   margin-top: -10px;
-   text-align: center;
-   font-size: 18px;
-   line-height: 20px;
-   background: rgba(225, 225, 225, 0.4);
-   cursor: pointer;
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	top: 50%;
+	margin-top: -10px;
+	text-align: center;
+	font-size: 18px;
+	line-height: 20px;
+	background: rgba(225, 225, 225, 0.4);
+	cursor: pointer;
 }
 
 .achieve_button:hover {
-   background: #fff;
+	background: #fff;
 }
 
 .achieve_button.__prev {
-   left: 0;
+	left: 0;
 }
 
 .achieve_button.__prev::after {
-   display: block;
-   content: '<';
-   font-weight: bold;
+	display: block;
+	content: '<';
+	font-weight: bold;
 }
 
 .achieve_button.__next {
-   right: 0;
+	right: 0;
 }
 
 .achieve_button.__next::after {
-   display: block;
-   content: '>';
-   font-weight: bold;
+	display: block;
+	content: '>';
+	font-weight: bold;
 }
 
 .achieve_container {
-   list-style: none;
-   padding: 0;
+	list-style: none;
+	padding: 0;
 }
 
 .achieve_container_slide {
-   width: 100%;
-   display: none;
+	width: 100%;
+	display: none;
 }
 
 .achieve_container_slide.__active {
-   display: block;
+	display: block;
 }</code></pre>
 			<p>And include it into head tag.</p>
 			<pre><code class="language-markup">&lt;head&gt;
@@ -268,72 +268,72 @@
 			<p>And the second step we have to add dynamic for our gallery.</p>
 			<p>Now we will add <a href="/tutorial/modularity.html">Moff module</a> to describe gallery class.</p>
 			<pre><code class="language-javascript">Moff.modules.create('Gallery', function() {
-   var _module = this;
+	var _module = this;
 
-   var _activeSlideIndex = 0;
+	var _activeSlideIndex = 0;
 
-   var _slides;
+	var _slides;
 
-   this.scopeSelector = '.achieve';
+	this.scopeSelector = '.achieve';
 
-   function handleEvents() {
-      _module.find('.achieve_button.__prev')[0].addEventListener('click', showPrev, false);
-      _module.find('.achieve_button.__next')[0].addEventListener('click', showNext, false);
-   }
+	function handleEvents() {
+		_module.find('.achieve_button.__prev')[0].addEventListener('click', showPrev, false);
+		_module.find('.achieve_button.__next')[0].addEventListener('click', showNext, false);
+	}
 
-   function getSlides() {
-      _slides = _module.find('.achieve_container_slide');
-   }
+	function getSlides() {
+		_slides = _module.find('.achieve_container_slide');
+	}
 
-   function inactiveAll() {
-      Moff.each(_slides, function() {
-         var className = this.className.replace(/(^| )__active( |$)/, ' ');
+	function inactiveAll() {
+		Moff.each(_slides, function() {
+			var className = this.className.replace(/(^| )__active( |$)/, ' ');
 
-         this.className = className.trim();
-      });
-   }
+			this.className = className.trim();
+		});
+	}
 
-   function activate() {
-      var slide = _slides[_activeSlideIndex];
-      var className = slide.className + ' __active';
+	function activate() {
+		var slide = _slides[_activeSlideIndex];
+		var className = slide.className + ' __active';
 
-      slide.className = className;
-   }
+		slide.className = className;
+	}
 
-   function showSlide() {
-      var image = _slides[_activeSlideIndex].querySelector('img');
-      var dataSrc = image.getAttribute('data-src');
+	function showSlide() {
+		var image = _slides[_activeSlideIndex].querySelector('img');
+		var dataSrc = image.getAttribute('data-src');
 
-      if (dataSrc) {
-         image.src = dataSrc;
-         image.removeAttribute('data-src');
-      }
-   }
+		if (dataSrc) {
+			image.src = dataSrc;
+			image.removeAttribute('data-src');
+		}
+	}
 
-   function showPrev() {
-      if (_activeSlideIndex) {
-         _activeSlideIndex--;
+	function showPrev() {
+		if (_activeSlideIndex) {
+			_activeSlideIndex--;
 
-         inactiveAll();
-         activate();
-         showSlide();
-      }
-   }
+			inactiveAll();
+			activate();
+			showSlide();
+		}
+	}
 
-   function showNext() {
-      if (_activeSlideIndex < _slides.length - 1) {
-         _activeSlideIndex++;
+	function showNext() {
+		if (_activeSlideIndex < _slides.length - 1) {
+			_activeSlideIndex++;
 
-         inactiveAll();
-         activate();
-         showSlide();
-      }
-   }
+			inactiveAll();
+			activate();
+			showSlide();
+		}
+	}
 
-   this.init = function() {
-      handleEvents();
-      getSlides();
-   }
+	this.init = function() {
+		handleEvents();
+		getSlides();
+	}
 });</code></pre>
 			<p>In this class we have created logic to handle next and previous buttons on the gallery.</p>
 			<p>And include module into the page and initialize it.</p>
@@ -387,20 +387,20 @@
 			<pre><code class="language-javascript">// modules/map/map.js
 
 $('#map').goMap({
-   address: 'New York, NY, USA',
-   maptype: 'ROADMAP'
+	address: 'New York, NY, USA',
+	maptype: 'ROADMAP'
 });</code></pre>
 			<pre><code class="language-css">/* modules/map/map.css */
 
 #map {
-   width: 100%;
-   height: 200px;
+	width: 100%;
+	height: 200px;
 }
 
 .gomapMarker {
-   display: block;
-   width: 150px;
-   height: auto;
+	display: block;
+	width: 150px;
+	height: auto;
 }</code></pre>
 			<h3>Improve render time</h3>
 			<p>To improve render time of our website we should minimize and concatenate CSS and JS files.
@@ -421,17 +421,17 @@ var concat = require('gulp-concat');
 
 // Concatenate and minify CSS
 gulp.task('css', function() {
-   return gulp.src([
-         'modules/**/*.css',
-         'styles/style.css',
-         'bower_components/moff/dist/bootstrap/main/core.css',
-         'bower_components/moff/dist/bootstrap/main/grid.css',
-         'bower_components/moff/dist/bootstrap/main/typography.css',
-         'bower_components/moff/dist/bootstrap/components/navs.css'
-      ])
-      .pipe(concat('index.css'))
-      .pipe(cleanCSS())
-      .pipe(gulp.dest('styles'))
+	return gulp.src([
+		'modules/**/*.css',
+		'styles/style.css',
+		'bower_components/moff/dist/bootstrap/main/core.css',
+		'bower_components/moff/dist/bootstrap/main/grid.css',
+		'bower_components/moff/dist/bootstrap/main/typography.css',
+		'bower_components/moff/dist/bootstrap/components/navs.css'
+	])
+	.pipe(concat('index.css'))
+	.pipe(cleanCSS())
+	.pipe(gulp.dest('styles'))
 });</code></pre>
 			<p>And run</p>
 			<pre><code class="language-markup">$ gulp css</code></pre>
@@ -450,12 +450,14 @@ gulp.task('css', function() {
 
 // Generate & Inline Critical-path CSS
 gulp.task('critical', function () {
-   return critical.generate({
-         base: './',
-         src: 'index.html',
-         minify: true,
-         inline: true,
-         dest: 'index.html'
+	return critical.generate({
+		base: './',
+		src: 'index.html',
+		minify: true,
+		width: 1920,
+		height: 980,
+		inline: true,
+		dest: 'index.html'
       });
 });</code></pre>
 			<p>And run</p>
@@ -478,15 +480,15 @@ gulp.task('critical', function () {
 
 // Concatenate and minify JS
 gulp.task('js', function() {
-   return gulp.src([
-         'bower_components/jquery/dist/jquery.min.js',
-         'bower_components/moff/dist/bootstrap/javascripts/collapse.js',
-         'bower_components/moff/dist/moff.js',
-         'modules/gallery/gallery.js'
-      ])
-      .pipe(concat('index.js'))
-      .pipe(uglify())
-      .pipe(gulp.dest('scripts'));
+	return gulp.src([
+		 'bower_components/jquery/dist/jquery.min.js',
+		 'bower_components/moff/dist/bootstrap/javascripts/collapse.js',
+		 'bower_components/moff/dist/moff.js',
+		 'modules/gallery/gallery.js'
+	])
+	.pipe(concat('index.js'))
+	.pipe(uglify())
+	.pipe(gulp.dest('scripts'));
 });</code></pre>
 			<p>Run command</p>
 			<pre><code class="language-markup">$ gulp js</code></pre>
@@ -541,7 +543,6 @@ gulp.task('js', function() {
 
 	ga('create', 'UA-68993546-1', 'auto');
 	ga('send', 'pageview');
-
 </script>
 </body>
 </html>
