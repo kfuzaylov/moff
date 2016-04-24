@@ -1,0 +1,11 @@
+/* Map */
+#map {
+	width: 100%;
+	height: 200px;
+}
+/* Info window size (optional) */
+.gomapMarker {
+	display: block;
+	width: 150px;
+	height: auto;
+}

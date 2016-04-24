@@ -1,0 +1,54 @@
+.achieve {
+	position: relative;
+}
+
+.achieve_button {
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	top: 50%;
+	margin-top: -10px;
+	text-align: center;
+	font-size: 18px;
+	line-height: 20px;
+	background: rgba(225, 225, 225, 0.4);
+	cursor: pointer;
+}
+
+.achieve_button:hover {
+	background: #fff;
+}
+
+.achieve_button.__prev {
+	left: 0;
+}
+
+.achieve_button.__prev::after {
+	display: block;
+	content: '<';
+	font-weight: bold;
+}
+
+.achieve_button.__next {
+	right: 0;
+}
+
+.achieve_button.__next::after {
+	display: block;
+	content: '>';
+	font-weight: bold;
+}
+
+.achieve_container {
+	list-style: none;
+	padding: 0;
+}
+
+.achieve_container_slide {
+	width: 100%;
+	display: none;
+}
+
+.achieve_container_slide.__active {
+	display: block;
+}

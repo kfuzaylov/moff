@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Mobile First website.</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style type="text/css">
+	body{height:452px;overflow: hidden;}.container:after,.nav:after,.navbar-collapse:after,.navbar-header:after,.navbar:after{clear:both}#map{width:100%;height:200px}.achieve{position:relative}.achieve_button{position:absolute;width:20px;height:20px;top:50%;margin-top:-10px;text-align:center;font-size:18px;line-height:20px;background:rgba(225,225,225,.4)}body,button{margin:0}.navbar-toggle,a{background-color:transparent}.achieve_button.__prev{left:0}.achieve_button.__prev::after{display:block;content:'<';font-weight:700}.achieve_button.__next{right:0}.achieve_button.__next::after{display:block;content:'>';font-weight:700}.achieve_container{list-style:none;padding:0}.achieve_container_slide{width:100%;display:none}.achieve_container_slide.__active,header,main,nav,section{display:block}html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}a{color:#337ab7;text-decoration:none}strong{font-weight:700}h1{margin:.67em 0}img{border:0;vertical-align:middle}button{font:inherit;overflow:visible;text-transform:none;-webkit-appearance:button}address,body{line-height:1.42857}button::-moz-focus-inner{border:0;padding:0}*,:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}html{font-size:10px}body{background-color:#fff;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;color:#333}button,h1,h3{color:inherit;font-family:inherit}button{font-size:inherit;line-height:inherit}.img-responsive{display:block;max-width:100%;height:auto}.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);border:0}h1,h3,ul{margin-bottom:10px}.container{margin-right:auto;margin-left:auto;padding-left:15px;padding-right:15px}@-ms-viewport{width:device-width}.collapse{display:none}.container:after,.container:before,.nav:after,.nav:before{display:table;content:" "}@media (min-width:768px){.container{width:750px}}@media (min-width:992px){.container{width:970px}}@media (min-width:1200px){.container{width:1170px}}h1,h3{font-weight:500;line-height:1.1;margin-top:20px}h1{font-size:36px}h3{font-size:24px}p{margin:0 0 10px}address{margin-bottom:20px;font-style:normal}ul{margin-top:0}abbr[title]{border-bottom:1px dotted #777}.nav{margin-bottom:0;padding-left:0;list-style:none}.nav>li,.nav>li>a{display:block;position:relative}.nav>li>a{padding:10px 15px}.navbar-collapse:after,.navbar-collapse:before,.navbar-header:after,.navbar-header:before,.navbar:after,.navbar:before{content:" ";display:table}.navbar{position:relative;min-height:50px;margin-bottom:20px;border:1px solid transparent}.navbar-collapse{overflow-x:visible;padding-right:15px;padding-left:15px;border-top:1px solid transparent;box-shadow:inset 0 1px 0 rgba(255,255,255,.1);-webkit-overflow-scrolling:touch}.container>.navbar-collapse,.container>.navbar-header{margin-right:-15px;margin-left:-15px}@media (min-width:768px){.navbar{border-radius:4px}.navbar-header{float:left}.navbar-collapse{width:auto;border-top:0;box-shadow:none}.navbar-collapse.collapse{display:block!important;height:auto!important;padding-bottom:0;overflow:visible!important}.container>.navbar-collapse,.container>.navbar-header{margin-right:0;margin-left:0}}.navbar-toggle{position:relative;float:right;margin-right:15px;padding:9px 10px;margin-top:8px;margin-bottom:8px;background-image:none;border:1px solid transparent;border-radius:4px}.navbar-toggle .icon-bar{display:block;width:22px;height:2px;border-radius:1px}.navbar-toggle .icon-bar+.icon-bar{margin-top:4px}.navbar-nav{margin:7.5px -15px}.navbar-nav>li>a{padding-top:10px;padding-bottom:10px;line-height:20px}@media (min-width:768px){.navbar-toggle{display:none}.navbar-nav{float:left;margin:0}.navbar-nav>li{float:left}.navbar-nav>li>a{padding-top:15px;padding-bottom:15px}}.navbar-default{background-color:#f8f8f8;border-color:#e7e7e7}.navbar-default .navbar-nav>li>a{color:#777}.navbar-default .navbar-toggle{border-color:#ddd}.navbar-default .navbar-toggle .icon-bar{background-color:#888}.navbar-default .navbar-collapse{border-color:#e7e7e7}
+	</style>
+	<script id="loadcss">
+		(function(u,s){!function(e){"use strict";var n=function(n,t,o){var l,r=e.document,i=r.createElement("link");if(t)l=t;else{var a=(r.body||r.getElementsByTagName("head")[0]).childNodes;l=a[a.length-1]}var d=r.styleSheets;i.rel="stylesheet",i.href=n,i.media="only x",l.parentNode.insertBefore(i,t?l:l.nextSibling);var f=function(e){for(var n=i.href,t=d.length;t--;)if(d[t].href===n)return e();setTimeout(function(){f(e)})};return i.onloadcssdefined=f,f(function(){i.media=o||"all"}),i};"undefined"!=typeof module?module.exports=n:e.loadCSS=n}("undefined"!=typeof global?global:this);for(var i in u){loadCSS(u[i],s);}}(['styles/index.css'],document.getElementById("loadcss")));
+	</script>
+	<noscript>
+		<link rel="stylesheet" href="styles/index.css">
+	</noscript>
+</head>
+<body>
+<header>
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="collapse navbar-collapse" id="navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="/#about-us" title="Comapny - About us">About Us</a></li>
+					<li><a href="/#our-achievements" title="Company - Our achievements">Our achievements</a></li>
+					<li><a href="/#contact-us" title="Company - Contact us">Contact us</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+<main>
+	<div id="about-us" class="container">
+		<section>
+			<h1>Company Name</h1>
+			<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+				The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using
+				'Content here, content here', making it look like readable English. Many desktop publishing packages and web page
+				editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.
+				Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+			</p>
+		</section>
+		<a name="our-achievements"></a>
+		<section>
+			<h3>Our achievements</h3>
+			<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+				The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using
+				'Content here, content here', making it look like readable English.
+			</p>
+			<div class="achieve">
+				<div class="achieve_button __prev"></div>
+				<ul class="achieve_container">
+					<li class="achieve_container_slide __active"><img src="images/preview1.jpg" class="img-responsive"></li>
+					<li class="achieve_container_slide"><img data-src="images/preview2.jpg" class="img-responsive"></li>
+					<li class="achieve_container_slide"><img data-src="images/preview3.jpg" class="img-responsive"></li>
+					<li class="achieve_container_slide"><img data-src="images/preview4.jpg" class="img-responsive"></li>
+				</ul>
+				<div class="achieve_button __next"></div>
+			</div>
+		</section>
+		<a name="contact-us"></a>
+		<section>
+			<h3>Our contacts</h3>
+			<address>
+				<strong>Company, Inc.</strong><br>
+				453 Some Street, Suite 410<br>
+				San Francisco, CA 59874<br>
+				<abbr title="Phone">P:</abbr> (257) 145-9578
+			</address>
+			<div class="js-map">
+				<a href="#" data-load-module="map">See us on the map</a>
+			</div>
+		</section>
+	</div>
+</main>
+<footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6">
+				<ul class="list-inline">
+					<li><a href="#about-us">About us</a></li>
+					<li><a href="#our-achievements">Our achievements</a></li>
+					<li><a href="#contact-us">Contact us</a></li>
+				</ul>
+			</div>
+			<div class="col-xs-12 col-sm-6">Copyright &copy; 2016 Company Inc.</div>
+		</div>
+	</div>
+</footer>
+<script src="scripts/index.js"></script>
+<script>
+	Moff.modules.initClass('Gallery');
+	Moff.amd.register({
+		id: 'map',
+		depend: {
+			js: [
+				'http://maps.google.com/maps/api/js',
+				'/examples/start-with-mobile-first/modules/map/jquery.gomap-1.3.3.min.js'
+			]
+		},
+		file: {
+			js: ['/examples/start-with-mobile-first/modules/map/map.js'],
+			css: ['/examples/start-with-mobile-first/modules/map/map.css']
+		},
+		beforeInclude: function() {
+			$('.js-map').attr('id', 'map');
+		}
+	});
+	Moff.amd.register({
+		id: 'scrollbar',
+		depend: {
+			js: ['/examples/start-with-mobile-first/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js'],
+			css: ['/examples/start-with-mobile-first/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css']
+		},
+		afterInclude: function() {
+			$('body').mCustomScrollbar({
+				theme: 'minimal-dark'
+			});
+		},
+		loadOnScreen: ['xs'],
+		onWindowLoad: true
+	});
+</script>
+</body>
+</html>

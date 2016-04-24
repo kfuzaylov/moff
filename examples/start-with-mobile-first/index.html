@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Mobile First website.</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		.mobile-phone {
+			width: 280px;
+			height: 570px;
+			background: url(/images/iframe-bg.png) left top no-repeat;
+			margin: 20px auto;
+			position: relative;
+		}
+		.iframe {
+			width: 260px;
+			height: 452px;
+			position: absolute;
+			border: 0;
+			left: 10px;
+			top: 63px;
+		}
+	</style>
+</head>
+<body>
+	<div class="mobile-phone">
+		<iframe class="iframe" src="iframe.html"></iframe>
+	</div>
+</body>
+</html>
