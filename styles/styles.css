@@ -201,10 +201,6 @@ body {
 	margin-right: 15px;
 }
 
-.next-image {
-	margin-left: 360px;
-}
-
 .mobile-phone {
 	width: 280px;
 	height: 568px;
@@ -265,4 +261,11 @@ body {
 }
 .desc2 {
 	display: none;
+}
+article {
+	overflow: auto;
+}
+time {
+	display: block;
+	margin-bottom: 15px;
 }
