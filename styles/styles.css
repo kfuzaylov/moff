@@ -92,35 +92,7 @@ body {
 	border-radius: 4px;
 }
 
-.image-thumbs {
-	width: 100%;
-	position: relative;
-	padding: 10px 45px;
-}
 
-@media (min-width: 450px) {
-	.image-thumbs {
-		width: 400px;
-	}
-}
-
-.image-thumbs img {
-	cursor: pointer;
-}
-
-.image-thumbs .glyphicon-chevron-left {
-	position: absolute;
-	left: 0;
-	top: 10px;
-	height: 65px;
-}
-
-.image-thumbs .glyphicon-chevron-right {
-	position: absolute;
-	right: 0;
-	top: 10px;
-	height: 65px;
-}
 
 .light-color {
 	color: #9a9a9a;
@@ -203,8 +175,9 @@ body {
 
 .social-buttons {
 	line-height: 10px;
-	text-align: center;
-	padding-bottom: 20px;
+	text-align: right;
+	margin-top: 15px;
+	float: right;
 }
 
 .tutorials {
@@ -230,4 +203,66 @@ body {
 
 .next-image {
 	margin-left: 360px;
+}
+
+.mobile-phone {
+	width: 280px;
+	height: 568px;
+	background: url(/images/iframe-bg.png) left top no-repeat;
+	margin: 20px auto;
+	position: relative;
+	transition: background .2s ease-in;
+}
+.mobile-phone .iframe {
+	width: 260px;
+	height: 452px;
+	position: absolute;
+	border: 0;
+	left: 10px;
+	top: 62px;
+	transition: left .2s, width .2s, height .2s;
+}
+.desktop {
+	width: 1300px;
+	height: 774px;
+	background: url(/images/desktop-bg.png) left top no-repeat;
+	margin: 20px auto;
+	position: relative;
+	transition: background .2s ease-out;
+}
+.desktop .iframe {
+	width: 1229px;
+	height: 692px;
+	position: absolute;
+	border: 0;
+	left: 36px;
+	top: 40px;
+	transition: left .2s, width .2s, height .2s;
+}
+
+.description {
+	max-width: 800px;
+	font-size: 18px;
+	margin: 0 auto;
+}
+
+.tools {
+	display: block;
+	text-align: center;
+	margin-bottom: 15px;
+}
+
+.tools img {
+	margin: 0 auto;
+}
+
+.short-desc {
+	max-width: 400px;
+	margin: 0 auto;
+}
+.title2 {
+	display: none;
+}
+.desc2 {
+	display: none;
 }

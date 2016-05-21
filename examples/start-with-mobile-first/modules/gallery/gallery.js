@@ -8,8 +8,8 @@ Moff.modules.create('Gallery', function() {
 	this.scopeSelector = '.achieve';
 
 	function handleEvents() {
-		_module.find('.achieve_button.__prev')[0].addEventListener('click', showPrev, false);
-		_module.find('.achieve_button.__next')[0].addEventListener('click', showNext, false);
+		_module.find('.achieve_button.__prev')[0].addEventListener('click', _module.showPrev.bind(_module), false);
+		_module.find('.achieve_button.__next')[0].addEventListener('click', _module.showNext.bind(_module), false);
 	}
 
 	function getSlides() {
@@ -30,36 +30,39 @@ Moff.modules.create('Gallery', function() {
 
 		slide.className = className;
 	}
+	
+	this.setIndex = function(index) {
+		_activeSlideIndex = index;
+	};
 
-	function showSlide() {
+	this.showSlide = function() {
 		var image = _slides[_activeSlideIndex].querySelector('img');
 		var dataSrc = image.getAttribute('data-src');
+
+		inactiveAll();
+		activate();
 
 		if (dataSrc) {
 			image.src = dataSrc;
 			image.removeAttribute('data-src');
 		}
-	}
+	};
 
-	function showPrev() {
+	this.showPrev = function() {
 		if (_activeSlideIndex) {
 			_activeSlideIndex--;
 
-			inactiveAll();
-			activate();
-			showSlide();
+			this.showSlide();
 		}
-	}
+	};
 
-	function showNext() {
+	this.showNext = function() {
 		if (_activeSlideIndex < _slides.length - 1) {
 			_activeSlideIndex++;
 
-			inactiveAll();
-			activate();
-			showSlide();
+			this.showSlide();
 		}
-	}
+	};
 
 	this.init = function() {
 		handleEvents();
