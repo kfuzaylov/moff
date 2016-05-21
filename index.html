@@ -65,8 +65,8 @@
 		</div>
 	</div>
 	<div class="preview text-center">
-		<div class="btn-group" role="group">
-			<button type="button" class="btn btn-default mb">Mobile First</button>
+		<div class="btn-group btn-group-lg" role="group">
+			<button type="button" class="btn btn-primary mb">Mobile First</button>
 			<button type="button" class="btn btn-default fd">Featured Desktop</button>
 		</div>
 		<div class="slide">
@@ -135,12 +135,18 @@
 		$('.title1, .desc1').show();
 		$('.desktop').removeClass('desktop').addClass('mobile-phone');
 		$('.mobile-phone iframe')[0].contentWindow.location.reload();
+		$('.fd').removeClass('btn-primary').addClass('btn-default');
+		$(this).addClass('btn-primary').removeClass('btn-default');
 	});
 	$('.fd').on('click', function() {
 		$('.title2, .desc2').show();
 		$('.title1, .desc1').hide();
 		$('.mobile-phone').removeClass('mobile-phone').addClass('desktop');
+		$('.desktop iframe')[0].contentWindow.location.reload();
+		$('.mb').removeClass('btn-primary').addClass('btn-default');
+		$(this).addClass('btn-primary').removeClass('btn-default');
 	});
+	(new Image()).src = '/images/desktop-bg.png';
 </script>
 <script>
 	(function (d, s, id) {
