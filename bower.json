@@ -7,6 +7,7 @@
 		"respond": "^1.4.2",
 		"slick-carousel": "^1.5.6",
 		"magnific-popup": "^1.0.0",
-		"prism": "git@github.com:PrismJS/prism.git"
+		"prism": "git@github.com:PrismJS/prism.git",
+		"moff": "^1.10.43"
 	}
 }

@@ -1,0 +1,375 @@
+@import "variables";
+
+body {
+	font-family: $font-family;
+	color: $font-color;
+	font-weight: 400;
+}
+
+a {
+	color: $brand-color;
+	text-decoration: none;
+
+	&:hover {
+		color: $brand-color;
+		text-decoration: underline;
+	}
+}
+
+.container {
+	&_header {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+
+	&_brand {
+		text-align: center;
+		position: relative;
+		overflow: hidden;
+
+		@media (min-width: $tablet) {
+			text-align: left;
+			height: 218px;
+		}
+
+		@media (min-width: $desktop) {
+			height: 342px;
+		}
+	}
+
+	&_text-center {
+		text-align: center;
+	}
+}
+
+.m-logo {
+	&_left {
+		float: left;
+	}
+
+	&__image {
+		width: 52px;
+
+		@media (min-width: $tablet) {
+			width: 75px;
+		}
+
+		@media (min-width: $desktop) {
+			width: 121px;
+		}
+	}
+}
+
+.m-navigation {
+	display: block;
+	float: right;
+
+	@media (min-width: $tablet) {
+		float: left;
+		margin-top: 5px;
+		margin-left: 25px;
+	}
+
+	@media (min-width: $desktop) {
+		margin-top: 12px;
+		margin-left: 80px;
+	}
+
+	&__list {
+		margin: 0;
+		padding: 0;
+
+		&-item {
+			display: inline-block;
+			margin: 0 8px;
+		}
+
+		&-link {
+			text-decoration: none;
+			font-size: 13px;
+
+			@media (min-width: $tablet) {
+				font-size: 14px;
+				font-weight: 600;
+			}
+
+			@media (min-width: $desktop) {
+				font-size: 16px;
+				font-weight: 600;
+			}
+
+			&_active {
+				color: $secondary-color;
+				cursor: default;
+				pointer-events: none;
+
+				&:hover {
+					color: $secondary-color;
+					text-decoration: none;
+				}
+			}
+		}
+	}
+}
+
+.m-brand-block {
+	background-color: $brand-color;
+}
+
+.m-title {
+	color: #fff;
+	font-weight: 400;
+	font-size: 28px;
+	margin-top: 18px;
+	margin-bottom: 18px;
+
+	@media (min-width: $desktop) {
+		font-size: 36px;
+		margin-top: 75px;
+	}
+}
+
+.m-sub-title {
+	color: $brand-color;
+	font-size: 20px;
+	text-align: center;
+	margin-top: 16px;
+	margin-bottom: 16px;
+	font-weight: 400;
+}
+
+.m-slogan {
+	color: #fff;
+	letter-spacing: .5px;
+
+	@media (min-width: $tablet) {
+		font-size: 18px;
+	}
+}
+
+.m-button {
+	background: $secondary-color 0 0 no-repeat;
+	border: 0;
+	border-radius: 4px;
+	color: #fff;
+	font-size: 16px;
+	padding: 13px 22px;
+	display: inline-block;
+	margin: 20px 0;
+
+	&:hover {
+		color: #fff;
+		text-decoration: none;
+		background-color: #19323a;
+	}
+}
+
+.m-feature {
+	position: relative;
+
+	&__icon {
+		float: left;
+		width: 44px;
+		height: 44px;
+		border-radius: 4px;
+		background-color: $brand-color;
+		margin-top: 3px;
+		background-image: url(/images/icons.png);
+		background-repeat: no-repeat;
+
+		&_bolt {
+			background-position: 0 0;
+		}
+
+		&_monitor {
+			background-position: -44px 0;
+		}
+
+		&_sync {
+			background-position: -88px 0;
+		}
+
+		&_clock {
+			background-position: -132px 0;
+		}
+
+		&_settings {
+			background-position: 0 -44px;
+		}
+
+		&_modules {
+			background-position: -44px -44px;
+		}
+	}
+
+	&__title {
+		margin: 0 0 0 50px;
+		font-weight: 600;
+
+		&-link {
+			color: $font-color;
+			text-decoration: none;
+		}
+	}
+
+	&__description {
+		margin-left: 50px;
+		margin-top: 5px;
+	}
+}
+
+.m-gray-block {
+	background-color: $gray;
+	padding: 10px 0;
+}
+
+.m-copy {
+	color: #fff;
+	font-size: 12px;
+	margin: 10px 0;
+}
+
+.m-link-icon {
+	position: relative;
+	color: #fff;
+	padding-left: 37px;
+	height: 32px;
+	line-height: 32px;
+	display: inline-block;
+	margin: 10px 0;
+
+	&:hover {
+		color: #fff;
+	}
+
+	&_github {
+		&::after {
+			width: 32px;
+			height: 32px;
+			position: absolute;
+			display: block;
+			content: '';
+			left: 0;
+			top: 0;
+			background-image: url(/images/icons.png);
+			background-repeat: no-repeat;
+			background-position: -94px -50px;
+		}
+	}
+
+	&_bugs {
+		&::after {
+			width: 32px;
+			height: 32px;
+			position: absolute;
+			display: block;
+			content: '';
+			left: 0;
+			top: 0;
+			background-image: url(/images/icons.png);
+			background-repeat: no-repeat;
+			background-position: -142px -50px;
+		}
+	}
+}
+
+.m-cogs {
+	background-image: url(/images/cogs.png);
+	background-repeat: no-repeat;
+	position: absolute;
+	opacity: .3;
+
+	&_full {
+		width: 180px;
+		height: 186px;
+		bottom: -45px;
+		right: 280px;
+		background-position: 0 0;
+		
+		@media (min-width: $desktop) {
+			right: 352px;
+			bottom: 10px;
+		}
+	}
+
+	&_small {
+		width: 30px;
+		height: 58px;
+		background-position: 0 -55px;
+		left: 0;
+		bottom: 20px;
+		transform: rotate(180deg);
+
+		@media (min-width: $tablet) {
+			bottom: -14px;
+			left: 30px;
+			transform: rotate(90deg);
+		}
+	}
+
+	&_medium {
+		width: 60px;
+		height: 86px;
+		background-position: -58px 0px;
+		right: 0;
+		bottom: 0;
+
+		@media (min-width: $desktop) {
+			width: 84px;
+			height: 42px;
+			left: 0;
+			top: 0;
+			background-position: -14px -146px;
+		}
+	}
+}
+
+.m-mobile {
+	width: 230px;
+	height: 207px;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+
+	@media (min-width: $desktop) {
+		width: 302px;
+		height: 310px;
+	}
+
+	&__image {
+		width: 100%
+	}
+
+	&__msg {
+		position: absolute;
+		left: 12px;
+		right: 12px;
+		top: 48px;
+		bottom: 0;
+		color: #efefef;
+		font-size: 12px;
+		letter-spacing: .5px;
+
+		&-title {
+			font-weight: 600;
+			font-size: 12px;
+			margin: 0;
+		}
+		
+		@media (min-width: $desktop) {
+			top: 63px;
+			left: 15px;
+			right: 15px;
+			font-size: 13px;
+		}
+	}
+}
+
+.m-text-left {
+	text-align: left;
+}
+
+.m-text-right {
+	text-align: right;
+}
