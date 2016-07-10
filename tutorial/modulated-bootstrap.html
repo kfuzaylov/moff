@@ -1,131 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Moff.js - Modularity</title>
+	<title>Moff.js tutorial - Modulated Bootstrap</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/styles/styles.css">
+	<link href="/libs/moff/dist/bootstrap/main/core.css" rel="stylesheet">
+	<link href="/libs/moff/dist/bootstrap/main/grid.css" rel="stylesheet">
+	<link href="/styles/styles.css" rel="stylesheet">
 	<link rel="stylesheet" href="/libs/prism/themes/prism.css">
-	<link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css">
 </head>
 <body data-spy="scroll" data-target="#affixNav">
-<header role="banner">
-	<nav class="navbar navbar-default" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-					data-target="#navbar-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-			</div>
-			<div class="collapse navbar-collapse" id="navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li><a href="/" title="Moff.js - Mobile First Framework">Home</a></li>
-					<li class="active"><a href="/tutorial/index.html" title="Moff.js - Tutorials">Tutorials</a></li>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">API <span class="caret"></span><span class="sr-only">(current)</span></a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="/api/index.html" title="Moff.js - API">Moff</a></li>
-							<li><a href="/api/amd.html" title="Moff.js - Moff.amd API">Moff.amd</a></li>
-							<li><a href="/api/detect.html" title="Moff.js - Moff.detect API">Moff.detect</a></li>
-							<li><a href="/api/event.html" title="Moff.js - Moff.event API">Moff.event</a></li>
-							<li><a href="/api/modules.html" title="Moff.js - Moff.modules API">Moff.modules</a></li>
-							<li><a href="/api/module.html" title="Moff.js - Moff.Module API">Moff.Module</a></li>
-						</ul>
-					</li>
-					<li><a href="/blog/index.html" title="Moff.js - Blog">Blog</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-</header>
-<main role="main">
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-3">
-				<ul class="tutorials">
-					<li><a href="/tutorial/getting-started.html" title="Moff.js tutorial - Getting started">Getting started</a></li>
-					<li><a href="/tutorial/data-events.html" title="Moff.js tutorial - Data events">Data events</a></li>
-					<li><a href="/tutorial/amd.html" title="Moff.js tutorial - AMD">AMD</a></li>
-					<li><a href="/tutorial/modularity.html" title="Moff.js tutorial - Modularity">Modularity</a></li>
-					<li class="active"><a href="/tutorial/modulated-bootstrap.html" title="Moff.js tutorial - Modulated Bootstrap">Modulated Bootstrap</a></li>
-				</ul>
-				<hr>
-				<div class="hidden-xs bootstrap-modules" id="affixNav">
-					<ul data-spy="affix" class="nav nav-tabs nav-stacked affix-bar" data-offset-top="170">
-						<li>
-							<a href="#main-part">Main</a>
-							<ul class="nav">
-								<li><a href="#buttons-module">Buttons</a></li>
-								<li><a href="#core-module">Core</a></li>
-								<li><a href="#forms-module">Forms</a></li>
-								<li><a href="#gplyphicons-module">Gplyphicons</a></li>
-								<li><a href="#grid-module">Grid</a></li>
-								<li><a href="#tables-module">Tables</a></li>
-								<li><a href="#typography-module">Typography</a></li>
-							</ul>
-						</li>
-						<li>
-							<a href="#components-part">Components</a>
-							<ul class="nav">
-								<li><a href="#alerts-module">Alerts</a></li>
-								<li><a href="#badges-module">Badges</a></li>
-								<li><a href="#breadcrumbs-module">Breadcrumbs</a></li>
-								<li><a href="#button-groups-module">Button groups</a></li>
-								<li><a href="#dropdowns-module">Dropdowns</a></li>
-								<li><a href="#input-groups-module">Input groups</a></li>
-								<li><a href="#jumbotron-module">Jumbotron</a></li>
-								<li><a href="#labels-module">Labels</a></li>
-								<li><a href="#list-group-module">List group</a></li>
-								<li><a href="#media-module">Media</a></li>
-								<li><a href="#navs-module">Navs</a></li>
-								<li><a href="#pagination-module">Pagination</a></li>
-								<li><a href="#panels-module">Panels</a></li>
-								<li><a href="#progress-bars-module">Progress bars</a></li>
-								<li><a href="#thumbnails-module">Thumbnails</a></li>
-								<li><a href="#wells-module">Wells</a></li>
-							</ul>
-						</li>
-						<li>
-							<a href="#javascripts-part">JavaScripts</a>
-							<ul class="nav">
-								<li><a href="#affix-module">Affix</a></li>
-								<li><a href="#alert-module">Alert</a></li>
-								<li><a href="#button-module">Button</a></li>
-								<li><a href="#carousel-module">Carousel</a></li>
-								<li><a href="#collapse-module">Collapse</a></li>
-								<li><a href="#dropdown-module">Dropdown</a></li>
-								<li><a href="#modal-module">Modal</a></li>
-								<li><a href="#popover-module">Popover</a></li>
-								<li><a href="#scrollspy-module">Scrollspy</a></li>
-								<li><a href="#tab-module">Tab</a></li>
-								<li><a href="#tooltip-module">Tooltip</a></li>
-								<li><a href="#transition-module">Transition</a></li>
-							</ul>
-						</li>
-					</ul>
+<div class="m-wrapper">
+	<div class="m-content">
+		<header role="banner">
+			<div class="container container_header">
+				<div class="m-logo m-logo_left">
+					<a href="/" title="Moff.js - Home">
+						<img src="/images/logo.png" alt="Moff logo" class="m-logo__image">
+					</a>
 				</div>
+				<nav role="navigation" class="m-navigation">
+					<ul class="m-navigation__list">
+						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/">Home</a></li>
+						<li class="m-navigation__list-item"><a class="m-navigation__list-link m-navigation__list-link_active" href="/tutorial/getting-started.html">Tutorials</a></li>
+						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/api/index.html">API</a></li>
+						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/blog/index.html">Blog</a></li>
+					</ul>
+				</nav>
 			</div>
-			<div class="col-xs-9">
-				<h1>Modulated Twitter Bootstrap</h1>
-				<p><a href="http://getbootstrap.com" rel="nofollow" target="_blank">Twitter Bootstrap</a> is most popular mobile first CSS framework. Many developers use Bootstrap to markup their websites.
-					But this framework is very heavy (119 KB minified version) and usually we do not use all its components. That is why Moff offers modulated Bootstrap.
-					It is logically separated framework parts which allows you to control loading only parts you are really use.
-				</p>
-				<p>Modules are divided on three parts Main, Components and JavaScripts. Main parts consists from normalize, print and other utilities. See detailed list.
-				And you can include core module by default in all pages, because it makes Bootstrap framework core.</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/core.css"&gt;</code></pre>
-				<p>And for example if you have Bootstrap grid on only page of your website, you do not need to load grid styles beforehand.
-					Now you can load it only in that page.</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_component/moff/dist/bootstrap/main/grid.css"&gt;
+		</header>
+		<main role="main">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-sm-3">
+						<select class="m-select visible-xs">
+							<option value="/tutorial/getting-started.html">Getting started</option>
+							<option value="/tutorial/data-events.html">Data events</option>
+							<option value="/tutorial/amd.html">AMD</option>
+							<option value="/tutorial/modularity.html">Modularity</option>
+							<option value="/tutorial/modulated-bootstrap.html" selected>Modulated Bootstrap</option>
+						</select>
+						<ul class="m-sub-nav hidden-xs">
+							<li class="m-sub-nav__item"><a href="/tutorial/getting-started.html" title="Moff.js tutorial - Getting started">Getting started</a></li>
+							<li class="m-sub-nav__item"><a href="/tutorial/data-events.html" title="Moff.js tutorial - Data events">Data events</a></li>
+							<li class="m-sub-nav__item"><a href="/tutorial/amd.html" title="Moff.js tutorial - AMD">AMD</a></li>
+							<li class="m-sub-nav__item"><a href="/tutorial/modularity.html" title="Moff.js tutorial - Modularity">Modularity</a></li>
+							<li class="m-sub-nav__item"><a href="/tutorial/modulated-bootstrap.html" title="Moff.js tutorial - Modulated Bootstrap">Modulated Bootstrap</a></li>
+						</ul>
+						<hr>
+						<div class="hidden-xs" id="affixNav">
+							<a href="/tutorial/mod-bootstrap-affix.html" data-load-target="#affixNav" data-load-module="affix" data-load-screen="sm md lg" class="hidden-xs"></a>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-9">
+						<h1 class="m-title m-title_tm6">Modulated Twitter Bootstrap</h1>
+						<div class="m-brand-block m-brand-block_wide">
+							<p><a href="http://getbootstrap.com" rel="nofollow" target="_blank" class="m-brand-block__link">Twitter Bootstrap</a> is most popular mobile first CSS framework. Many developers use Bootstrap to markup their websites.
+								But this framework is very heavy (119 KB minified version) and usually they don't use all its components. That is why Moff offers modulated Bootstrap.
+								It is logically separated parts of the framework which allows you to control loading only components you are really use.
+							</p>
+						</div>
+						<p>Modules are divided on three parts: Main, Components and JavaScripts. Main part consists from normalize, print and other utilities. See detailed list.
+						And you can include core module by default in all pages, because it makes Bootstrap framework core.</p>
+						<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/core.css"&gt;</code></pre>
+						<p>For example if you have Bootstrap grid on the only page of your website, you don't need to load grid styles beforehand.
+							Now you can load it only in that page.</p>
+						<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_component/moff/dist/bootstrap/main/grid.css"&gt;
 &lt;link rel="stylesheet" href="bower_component/moff/dist/bootstrap/components/pagination.css"&gt;</code></pre>
-				<p>Also you can use Bootstrap modules with <a href="/amd.html" title="Moff.js - AMD">AMD</a> mechanism by loading as dependency or main file.</p>
-				<pre><code class="language-javascript">Moff.amd.register({
+						<p>Also you can use Bootstrap modules with <a href="/amd.html" title="Moff.js - AMD">AMD</a> mechanism by loading as dependency.</p>
+						<pre><code class="language-javascript">Moff.amd.register({
 	id: 'grid',
 	depend: {
 		js: ['bower_components/moff/dist/bootstrap/javascripts/button.js'],
@@ -141,30 +86,31 @@
 	loadOnScreen: ['md', 'lg'],
 	onWindowLoad: true
 });</code></pre>
-				<p>And include it on any callback.</p>
-				<pre><code class="language-javascript">function loadGrid() {
+						<p>And include it on any callback.</p>
+						<pre><code class="language-javascript">function loadGrid() {
 	Moff.amd.include('grid');
 }</code></pre>
-				<p>Or with Data Events</p>
-				<pre><code class="language-markup">&lt;!-- listing.html is a view of your grid module --&gt;
+						<p>Or with Data Events</p>
+						<pre><code class="language-markup">&lt;!-- listing.html is a view of your grid module --&gt;
 &lt;a href="listing.html" data-load-target="#content-target" data-load-module="grid"&gt;Show grid&lt;/a&gt;
 &lt;div id="content-target"&gt;&lt;/div&gt;</code></pre>
-				<hr>
-				<a name="main-part"></a>
+						<hr>
+						<a name="main-part"></a>
+						<h2 class="m-sub-title m-text-left">Main</h2>
 
-				<h3 id="buttons-module">Buttons</h3>
-				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/buttons.css"&gt;</code></pre>
-				<p>Constituents of Buttons</p>
-				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/buttons';</code></pre>
+						<h3 id="buttons-module">Buttons</h3>
+						<p>Module file</p>
+						<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/buttons.css"&gt;</code></pre>
+						<p>Constituents of Buttons</p>
+						<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/buttons';</code></pre>
 
-				<hr>
+						<hr>
 
-				<h3 id="core-module">Core</h3>
-				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/core.css"&gt;</code></pre>
-				<p>Constituents of Core</p>
-		<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/normalize';
+						<h3 id="core-module">Core</h3>
+						<p>Module file</p>
+						<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/core.css"&gt;</code></pre>
+						<p>Constituents of Core</p>
+				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/normalize';
 @import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/print';
 @import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/scaffolding';
 @import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/utilities';
@@ -173,262 +119,282 @@
 @import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/responsive-embed';
 @import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/close';</code></pre>
 
-				<hr>
+						<hr>
 
-				<h3 id="forms-module">Forms</h3>
-				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/forms.css"&gt;</code></pre>
-				<p>Constituents of Forms</p>
-				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/forms';</code></pre>
+						<h3 id="forms-module">Forms</h3>
+						<p>Module file</p>
+						<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/forms.css"&gt;</code></pre>
+						<p>Constituents of Forms</p>
+						<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/forms';</code></pre>
 
-				<hr>
+						<hr>
 
-				<h3 id="gplyphicons-module">Gplyphicons</h3>
-				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/gplyphicons.css"&gt;</code></pre>
-				<p>Constituents of Gplyphicons</p>
-				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/glyphicons';</code></pre>
+						<h3 id="gplyphicons-module">Gplyphicons</h3>
+						<p>Module file</p>
+						<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/gplyphicons.css"&gt;</code></pre>
+						<p>Constituents of Gplyphicons</p>
+						<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/glyphicons';</code></pre>
 
-				<hr>
+						<hr>
 
-				<h3 id="grid-module">Grid</h3>
-				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/grid.css"&gt;</code></pre>
-				<p>Constituents of Grid</p>
-		<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/grid';</code></pre>
+						<h3 id="grid-module">Grid</h3>
+						<p>Module file</p>
+						<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/grid.css"&gt;</code></pre>
+						<p>Constituents of Grid</p>
+				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/grid';</code></pre>
 
-				<hr>
+						<hr>
 
-				<h3 id="tables-module">Tables</h3>
-				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/tables.css"&gt;</code></pre>
-				<p>Constituents of Tables</p>
-				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/tables';</code></pre>
+						<h3 id="tables-module">Tables</h3>
+						<p>Module file</p>
+						<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/tables.css"&gt;</code></pre>
+						<p>Constituents of Tables</p>
+						<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/tables';</code></pre>
 
-				<hr>
+						<hr>
 
-				<h3 id="typography-module">Typography</h3>
-				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/typography.css"&gt;</code></pre>
-				<p>Constituents of Typography</p>
-				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/type';
+						<h3 id="typography-module">Typography</h3>
+						<p>Module file</p>
+						<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/typography.css"&gt;</code></pre>
+						<p>Constituents of Typography</p>
+						<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/type';
 @import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/code';</code></pre>
 
-				<hr>
-				<a name="components-part"></a>
+						<hr>
+						<a name="components-part"></a>
+						<h2 class="m-sub-title m-text-left">Components</h2>
 
-				<h3 id="alerts-module">Alerts</h3>
-				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/alerts.css"&gt;</code></pre>
-				<p>Constituents of Alerts</p>
-				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/alerts';</code></pre>
+						<h3 id="alerts-module">Alerts</h3>
+						<p>Module file</p>
+						<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/alerts.css"&gt;</code></pre>
+						<p>Constituents of Alerts</p>
+						<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/alerts';</code></pre>
 
-				<hr>
+						<hr>
 
-				<h3 id="badges-module">Badges</h3>
-				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/badges.css"&gt;</code></pre>
-				<p>Constituents of Badges</p>
-				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/badges';</code></pre>
+						<h3 id="badges-module">Badges</h3>
+						<p>Module file</p>
+						<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/badges.css"&gt;</code></pre>
+						<p>Constituents of Badges</p>
+						<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/badges';</code></pre>
 
-				<hr>
+						<hr>
 
-				<h3 id="breadcrumbs-module">Breadcrumbs</h3>
-				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/breadcrumbs.css"&gt;</code></pre>
-				<p>Constituents of Breadcrumbs</p>
-				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/breadcrumbs';</code></pre>
+						<h3 id="breadcrumbs-module">Breadcrumbs</h3>
+						<p>Module file</p>
+						<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/breadcrumbs.css"&gt;</code></pre>
+						<p>Constituents of Breadcrumbs</p>
+						<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/breadcrumbs';</code></pre>
 
-				<hr>
+						<hr>
 
-				<h3 id="button-groups-module">Button groups</h3>
-				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/button-groups.css"&gt;</code></pre>
-				<p>Constituents of Button groups</p>
-				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/button-groups';</code></pre>
+						<h3 id="button-groups-module">Button groups</h3>
+						<p>Module file</p>
+						<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/button-groups.css"&gt;</code></pre>
+						<p>Constituents of Button groups</p>
+						<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/button-groups';</code></pre>
 
-				<hr>
+						<hr>
 
-				<h3 id="dropdowns-module">Dropdowns</h3>
-				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/dropdowns.css"&gt;</code></pre>
-				<p>Constituents of Dropdowns</p>
-				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/dropdowns';</code></pre>
+						<h3 id="dropdowns-module">Dropdowns</h3>
+						<p>Module file</p>
+						<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/dropdowns.css"&gt;</code></pre>
+						<p>Constituents of Dropdowns</p>
+						<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/dropdowns';</code></pre>
 
-				<hr>
+						<hr>
 
-				<h3 id="input-groups-module">Input groups</h3>
-				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/input-groups.css"&gt;</code></pre>
-				<p>Constituents of Input groups</p>
-				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/input-groups';</code></pre>
+						<h3 id="input-groups-module">Input groups</h3>
+						<p>Module file</p>
+						<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/input-groups.css"&gt;</code></pre>
+						<p>Constituents of Input groups</p>
+						<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/input-groups';</code></pre>
 
-				<hr>
+						<hr>
 
-				<h3 id="jumbotron-module">Jumbotron</h3>
-				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/jumbotron.css"&gt;</code></pre>
-				<p>Constituents of Jumbotron</p>
-				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/jumbotron';</code></pre>
+						<h3 id="jumbotron-module">Jumbotron</h3>
+						<p>Module file</p>
+						<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/jumbotron.css"&gt;</code></pre>
+						<p>Constituents of Jumbotron</p>
+						<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/jumbotron';</code></pre>
 
-				<hr>
+						<hr>
 
-				<h3 id="labels-module">Labels</h3>
-				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/labels.css"&gt;</code></pre>
-				<p>Constituents of Labels</p>
-				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/labels';</code></pre>
+						<h3 id="labels-module">Labels</h3>
+						<p>Module file</p>
+						<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/labels.css"&gt;</code></pre>
+						<p>Constituents of Labels</p>
+						<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/labels';</code></pre>
 
-				<hr>
+						<hr>
 
-				<h3 id="list-group-module">List group</h3>
-				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/list-group.css"&gt;</code></pre>
-				<p>Constituents of List group</p>
-				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/list-group';</code></pre>
+						<h3 id="list-group-module">List group</h3>
+						<p>Module file</p>
+						<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/list-group.css"&gt;</code></pre>
+						<p>Constituents of List group</p>
+						<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/list-group';</code></pre>
 
-				<hr>
+						<hr>
 
-				<h3 id="media-module">Media</h3>
-				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/media.css"&gt;</code></pre>
-				<p>Constituents of Media</p>
-				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/media';</code></pre>
+						<h3 id="media-module">Media</h3>
+						<p>Module file</p>
+						<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/media.css"&gt;</code></pre>
+						<p>Constituents of Media</p>
+						<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/media';</code></pre>
 
-				<hr>
+						<hr>
 
-				<h3 id="navs-module">Navs</h3>
-				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/navs.css"&gt;</code></pre>
-				<p>Constituents of Navs</p>
-				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/navs';
+						<h3 id="navs-module">Navs</h3>
+						<p>Module file</p>
+						<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/navs.css"&gt;</code></pre>
+						<p>Constituents of Navs</p>
+						<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/navs';
 @import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/navbar';</code></pre>
 
-				<hr>
+						<hr>
 
-				<h3 id="pagination-module">Pagination</h3>
-				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/pagination.css"&gt;</code></pre>
-				<p>Constituents of Pagination</p>
-				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/pagination';
+						<h3 id="pagination-module">Pagination</h3>
+						<p>Module file</p>
+						<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/pagination.css"&gt;</code></pre>
+						<p>Constituents of Pagination</p>
+						<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/pagination';
 @import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/pager';</code></pre>
 
-				<hr>
+						<hr>
 
-				<h3 id="panels-module">Panels</h3>
-				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/panels.css"&gt;</code></pre>
-				<p>Constituents of Panels</p>
-				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/panels';</code></pre>
+						<h3 id="panels-module">Panels</h3>
+						<p>Module file</p>
+						<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/panels.css"&gt;</code></pre>
+						<p>Constituents of Panels</p>
+						<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/panels';</code></pre>
 
-				<hr>
+						<hr>
 
-				<h3 id="progress-bars-module">Progress bars</h3>
-				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/progress-bars.css"&gt;</code></pre>
-				<p>Constituents of Progress bars</p>
-				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/progress-bars';</code></pre>
+						<h3 id="progress-bars-module">Progress bars</h3>
+						<p>Module file</p>
+						<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/progress-bars.css"&gt;</code></pre>
+						<p>Constituents of Progress bars</p>
+						<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/progress-bars';</code></pre>
 
-				<hr>
+						<hr>
 
-				<h3 id="thumbnails-module">Thumbnails</h3>
-				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/thumbnails.css"&gt;</code></pre>
-				<p>Constituents of Thumbnails</p>
-				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/thumbnails';</code></pre>
+						<h3 id="thumbnails-module">Thumbnails</h3>
+						<p>Module file</p>
+						<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/thumbnails.css"&gt;</code></pre>
+						<p>Constituents of Thumbnails</p>
+						<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/thumbnails';</code></pre>
 
-				<hr>
+						<hr>
 
-				<h3 id="wells-module">Wells</h3>
-				<p>Module file</p>
-				<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/wells.css"&gt;</code></pre>
-				<p>Constituents of Wells</p>
-				<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/wells';</code></pre>
+						<h3 id="wells-module">Wells</h3>
+						<p>Module file</p>
+						<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/wells.css"&gt;</code></pre>
+						<p>Constituents of Wells</p>
+						<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/wells';</code></pre>
 
-				<hr>
-				<a name="javascripts-part"></a>
-				<h2>JavaScripts</h2>
-				<p>Also you have separated JavaScript files which can be included with components or core.</p>
-				<div class="alert alert-warning" role="alert">Remember! jQuery is required dependency for Bootstrap.</div>
+						<hr>
+						<a name="javascripts-part"></a>
+						<h2 class="m-sub-title m-text-left">JavaScripts</h2>
+						<p>Also you have separated JavaScript files which can be included with components or core.</p>
+						<div class="alert alert-warning" role="alert">Remember! jQuery is required dependency for Bootstrap.</div>
 
-				<p id="affix-module">Affix.js</p>
-				<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/bootstrap/javascripts/affix.js"&gt;&lt;/script&gt;</code></pre>
+						<p id="affix-module">Affix.js</p>
+						<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/bootstrap/javascripts/affix.js"&gt;&lt;/script&gt;</code></pre>
 
-				<hr>
-				<p id="alert-module">Alert.js</p>
-				<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/bootstrap/javascripts/alert.js"&gt;&lt;/script&gt;</code></pre>
+						<hr>
+						<p id="alert-module">Alert.js</p>
+						<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/bootstrap/javascripts/alert.js"&gt;&lt;/script&gt;</code></pre>
 
-				<hr>
-				<p id="button-module">Button.js</p>
-				<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/bootstrap/javascripts/button.js"&gt;&lt;/script&gt;</code></pre>
+						<hr>
+						<p id="button-module">Button.js</p>
+						<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/bootstrap/javascripts/button.js"&gt;&lt;/script&gt;</code></pre>
 
-				<hr>
-				<p id="carousel-module">Carousel.js</p>
-				<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/bootstrap/javascripts/carousel.js"&gt;&lt;/script&gt;</code></pre>
+						<hr>
+						<p id="carousel-module">Carousel.js</p>
+						<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/bootstrap/javascripts/carousel.js"&gt;&lt;/script&gt;</code></pre>
 
-				<hr>
-				<p id="collapse-module">Collapse.js</p>
-				<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/bootstrap/javascripts/collapse.js"&gt;&lt;/script&gt;</code></pre>
+						<hr>
+						<p id="collapse-module">Collapse.js</p>
+						<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/bootstrap/javascripts/collapse.js"&gt;&lt;/script&gt;</code></pre>
 
-				<hr>
-				<p id="dropdown-module">Dropdown.js</p>
-				<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/bootstrap/javascripts/dropdown.js"&gt;&lt;/script&gt;</code></pre>
+						<hr>
+						<p id="dropdown-module">Dropdown.js</p>
+						<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/bootstrap/javascripts/dropdown.js"&gt;&lt;/script&gt;</code></pre>
 
-				<hr>
-				<p id="modal-module">Modal.js</p>
-				<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/bootstrap/javascripts/modal.js"&gt;&lt;/script&gt;</code></pre>
+						<hr>
+						<p id="modal-module">Modal.js</p>
+						<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/bootstrap/javascripts/modal.js"&gt;&lt;/script&gt;</code></pre>
 
-				<hr>
-				<p id="popover-module">Popover.js</p>
-				<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/bootstrap/javascripts/popover.js"&gt;&lt;/script&gt;</code></pre>
+						<hr>
+						<p id="popover-module">Popover.js</p>
+						<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/bootstrap/javascripts/popover.js"&gt;&lt;/script&gt;</code></pre>
 
-				<hr>
-				<p id="scrollspy-module">Scrollspy.js</p>
-				<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/bootstrap/javascripts/scrollspy.js"&gt;&lt;/script&gt;</code></pre>
+						<hr>
+						<p id="scrollspy-module">Scrollspy.js</p>
+						<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/bootstrap/javascripts/scrollspy.js"&gt;&lt;/script&gt;</code></pre>
 
-				<hr>
-				<p id="tab-module">Tab.js</p>
-				<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/bootstrap/javascripts/tab.js"&gt;&lt;/script&gt;</code></pre>
+						<hr>
+						<p id="tab-module">Tab.js</p>
+						<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/bootstrap/javascripts/tab.js"&gt;&lt;/script&gt;</code></pre>
 
-				<hr>
-				<p id="tooltip-module">Tooltip.js</p>
-				<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/bootstrap/javascripts/tooltip.js"&gt;&lt;/script&gt;</code></pre>
+						<hr>
+						<p id="tooltip-module">Tooltip.js</p>
+						<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/bootstrap/javascripts/tooltip.js"&gt;&lt;/script&gt;</code></pre>
 
-				<hr>
-				<p id="transition-module">Transition.js</p>
-				<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/bootstrap/javascripts/transition.js"&gt;&lt;/script&gt;</code></pre>
+						<hr>
+						<p id="transition-module">Transition.js</p>
+						<pre><code class="language-markup">&lt;script src="bower_components/moff/dist/bootstrap/javascripts/transition.js"&gt;&lt;/script&gt;</code></pre>
 
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+	<footer role="contentinfo">
+		<div class="m-brand-block">
+			<div class="container container_text-center">
+				<div class="row">
+					<div class="col-xs-6 m-text-right">
+						<a class="m-link-icon m-link-icon_github" href="https://github.com/kfuzaylov/moff" title="Moff GitHub repository">GitHub</a>
+					</div>
+					<div class="col-xs-6 m-text-left">
+						<a class="m-link-icon m-link-icon_bugs" href="https://github.com/kfuzaylov/moff/issues" title="Moff issues">Issues</a>
+					</div>
+				</div>
+				<div class="m-copy">Copyright &copy; 2015-2016 Kadir A. Fuzaylov</div>
 			</div>
 		</div>
-	</div>
-</main>
-<footer role="contentinfo">
-	<div class="website-footer">
-		<div class="container">
-			<div class="text-center">
-				<ul class="footer-links">
-					<li><a href="https://github.com/kfuzaylov/moff" title="Moff GitHub repository">GitHub</a></li>
-					<li class="footer-separator">.</li>
-					<li><a href="https://github.com/kfuzaylov/moff/issues" title="Moff issues repository">Issues</a>
-					</li>
-				</ul>
-				<div><small>Copyright (c) 2015 - 2016 Kadir A. Fuzaylov.</small></div>
-			</div>
-		</div>
-	</div>
-</footer>
-<script src="/libs/jquery/dist/jquery.min.js"></script>
-<script src="/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+	</footer>
+</div>
 <script src="/libs/prism/prism.js"></script>
+<script src="/libs/moff/dist/moff.js"></script>
 <script>
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	document.querySelector('.m-select').addEventListener('change', function() {
+		window.location.href = this.value;
+	}, false);
+	Moff.amd.register({
+		id: 'affix',
+		depend: {
+			js: ['/libs/jquery/dist/jquery.min.js']
+		},
+		file: {
+			js: ['/libs/moff/dist/bootstrap/javascripts/affix.js', '/libs/moff/dist/bootstrap/javascripts/scrollspy.js']
+		}
+	});
+	(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r;
+		i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date();
+		a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0];
+		a.async = 1;
+		a.src = g;
+		m.parentNode.insertBefore(a, m)
+	})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
 	ga('create', 'UA-68993546-1', 'auto');
 	ga('send', 'pageview');
-
 </script>
 </body>
 </html>
