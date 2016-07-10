@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta property="og:title" content="Moff.js - JavaScript Mobile First Framework.">
 	<meta property="og:description" content="It is designed to offer best practices for mobile first development. It has rich API to work with browser, files and modularity system.">
-	<meta property="og:image" content="images/moff-logo.jpg">
+	<meta property="og:image" content="images/logo.png">
 	<meta property="og:url" content="http://moffjs.com">
 	<link href="/libs/moff/dist/bootstrap/main/core.css" rel="stylesheet">
 	<link href="/libs/moff/dist/bootstrap/main/grid.css" rel="stylesheet">
@@ -15,135 +15,167 @@
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css">
 </head>
 <body>
-<header role="banner">
-	<div class="container container_header">
-		<div class="m-logo m-logo_left">
-			<a href="/" title="Moff.js - Home">
-				<img src="/images/logo.png" alt="Moff logo" class="m-logo__image">
-			</a>
-		</div>
-		<nav role="navigation" class="m-navigation">
-			<ul class="m-navigation__list">
-				<li class="m-navigation__list-item"><a class="m-navigation__list-link m-navigation__list-link_active" href="/">Home</a></li>
-				<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/">Tutorials</a></li>
-				<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/">API</a></li>
-				<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/">Blog</a></li>
-				<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/">Demo</a></li>
-			</ul>
-		</nav>
+<div id="fb-root"></div>
+<div class="m-wrapper">
+	<div class="m-content">
+		<header role="banner">
+			<div class="container container_header">
+				<div class="m-logo m-logo_left">
+					<a href="/" title="Moff.js - Home">
+						<img src="/images/logo.png" alt="Moff logo" class="m-logo__image">
+					</a>
+				</div>
+				<nav role="navigation" class="m-navigation">
+					<ul class="m-navigation__list">
+						<li class="m-navigation__list-item"><a class="m-navigation__list-link m-navigation__list-link_active" href="/">Home</a></li>
+						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/tutorial/getting-started.html">Tutorials</a></li>
+						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/api/index.html">API</a></li>
+						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/blog/index.html">Blog</a></li>
+						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/demo/index.html">Demo</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+		<main role="main">
+			<div class="m-brand-block">
+				<div class="container container_brand">
+					<h1 class="m-title m-title_white">JavaScript Mobile First framework</h1>
+					<div class="m-slogan">Create for mobile, extend to desktop.</div>
+					<a href="/tutorial/getting-started.html" class="m-button">Get started</a>
+					<div id="js-mobile-placeholder">
+						<span data-load-target="#js-mobile-placeholder" data-load-url="/mobile-phone.html" data-load-screen="sm md lg"></span>
+					</div>
+					<div class="m-cogs m-cogs_small"></div>
+					<div class="m-cogs m-cogs_medium hidden-sm"></div>
+					<div class="m-cogs m-cogs_full hidden-xs"></div>
+				</div>
+			</div>
+			<div class="container">
+				<h2 class="m-sub-title">Advantages</h2>
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<div class="m-feature">
+							<div class="m-feature__icon m-feature__icon_bolt"></div>
+							<h4 class="m-feature__title">Light and fast mobile website</h4>
+							<p class="m-feature__description">Moff is designed for mobile first websites. You can make website light and fast on loading.
+							No extra parts of markup, stylesheets and scripts needed only on bigger screens.
+							They can be easily loaded by adjusting screen size which they should be automatically loaded in.</p>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<div class="m-feature">
+							<div class="m-feature__icon m-feature__icon_monitor"></div>
+							<h4 class="m-feature__title">Fully featured desktop website</h4>
+							<p class="m-feature__description">Moff can load all parts of markup needed on desktop screen through Data Events.
+							Apply any features for them by loading its scripts and styles as AMD modules. These tools make your website like it was designed for the desktop.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="m-gray-block">
+				<div class="container_text-center m-social-buttons">
+					<a href="/social-button.html" data-load-screen="sm md lg" data-load-target=".m-social-buttons" data-load-module="social">Support us in social</a>
+				</div>
+			</div>
+			<div class="container">
+				<h2 class="m-sub-title">Features</h2>
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-lg-3">
+						<div class="m-feature">
+							<a href="/tutorial/modularity.html" title="Moff.js - Modularity" class="m-feature__title-link">
+								<div class="m-feature__icon m-feature__icon_modules"></div>
+								<h4 class="m-feature__title">Modular system</h4>
+							</a>
+							<p class="m-feature__description">Moff modular system allows you to create classes with its own DOM scope and rich event system.
+							It also has API which allows you to get, create, remove and do other operations with them.</p>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-lg-3">
+						<div class="m-feature">
+							<a href="/tutorial/amd.html" title="Moff.js - AMD" class="m-feature__title-link">
+								<div class="m-feature__icon m-feature__icon_sync"></div>
+								<h4 class="m-feature__title">AMD</h4>
+							</a>
+							<p class="m-feature__description">Moff provides AMD way to work with modules.
+							They can load any css, js files and their dependency. Also it could be loaded automatically depended on screen size.</p>
+						</div>
+					</div>
+					<div class="clearfix visible-sm visible-md"></div>
+					<div class="col-xs-12 col-sm-6 col-lg-3">
+						<div class="m-feature">
+							<a href="/api/event.html" title="Moff.js - Moff.event API" class="m-feature__title-link">
+								<div class="m-feature__icon m-feature__icon_clock"></div>
+								<h4 class="m-feature__title">Event system</h4>
+							</a>
+							<p class="m-feature__description">Moff event system is a part of modular system.
+								It complements modules with very flexible way to create, trigger, assign and remove events.</p>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-lg-3">
+						<div class="m-feature">
+							<a href="/tutorial/data-events.html" title="Moff.js - Data events" class="m-feature__title-link">
+								<div class="m-feature__icon m-feature__icon_settings"></div>
+								<h4 class="m-feature__title">Data events</h4>
+							</a>
+							<p class="m-feature__description">Moff Data events are powerful html data attributes. They allow to load content on certain event with minimum efforts.
+								It is possible to set loading target, cache loaded content and show on certain screen size and other more.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
 	</div>
-</header>
-<main role="main">
-	<div class="m-brand-block">
-		<div class="container container_brand">
-			<h1 class="m-title">JavaScript Mobile First framework</h1>
-			<div class="m-slogan">Create for mobile, extend to desktop.</div>
-			<a href="/tutorial/getting-started.html" class="m-button">Get started</a>
-			<div id="js-mobile-placeholder">
-				<span data-load-target="#js-mobile-placeholder" data-load-url="/mobile-phone.html" data-load-screen="sm md lg"></span>
-			</div>
-			<div class="m-cogs m-cogs_small"></div>
-			<div class="m-cogs m-cogs_medium hidden-sm"></div>
-			<div class="m-cogs m-cogs_full hidden-xs"></div>
-		</div>
-	</div>
-	<div class="container">
-		<h2 class="m-sub-title">Advantages</h2>
-		<div class="row">
-			<div class="col-xs-12 col-sm-6">
-				<div class="m-feature">
-					<div class="m-feature__icon m-feature__icon_bolt"></div>
-					<h4 class="m-feature__title">Light and fast mobile website</h4>
-					<p class="m-feature__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Aliquam commodo dolor quis urna rhoncus faucibus. Cras porta libero id nisl iaculis vehicula.
-						Duis tincidunt condimentum sem in pharetra.
-						In consectetur massa nulla, sed gravida dolor convallis non.
-						Sed sit amet vestibulum odio.</p>
+	<footer role="contentinfo">
+		<div class="m-brand-block">
+			<div class="container container_text-center">
+				<div class="row">
+					<div class="col-xs-6 m-text-right">
+						<a class="m-link-icon m-link-icon_github" href="https://github.com/kfuzaylov/moff" title="Moff GitHub repository">GitHub</a>
+					</div>
+					<div class="col-xs-6 m-text-left">
+						<a class="m-link-icon m-link-icon_bugs" href="https://github.com/kfuzaylov/moff/issues" title="Moff issues">Issues</a>
+					</div>
 				</div>
-			</div>
-			<div class="col-xs-12 col-sm-6">
-				<div class="m-feature">
-					<div class="m-feature__icon m-feature__icon_monitor"></div>
-					<h4 class="m-feature__title">Fully featured desktop website</h4>
-					<p class="m-feature__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Aliquam commodo dolor quis urna rhoncus faucibus. Cras porta libero id nisl iaculis vehicula.
-						Duis tincidunt condimentum sem in pharetra.
-						In consectetur massa nulla, sed gravida dolor convallis non.
-						Sed sit amet vestibulum odio.</p>
-				</div>
+				<div class="m-copy">Copyright &copy; 2015-2016 Kadir A. Fuzaylov</div>
 			</div>
 		</div>
-	</div>
-	<div class="m-gray-block">
-		<div class="container_text-center">
-			<a href="#">Support us in social</a>
-		</div>
-	</div>
-	<div class="container">
-		<h2 class="m-sub-title">Features</h2>
-		<div class="row">
-			<div class="col-xs-12 col-sm-6 col-lg-3">
-				<div class="m-feature">
-					<div class="m-feature__icon m-feature__icon_modules"></div>
-					<h4 class="m-feature__title"><a href="/tutorial/modularity.html" title="Moff.js - Modularity" class="m-feature__title-link">Modular system</a></h4>
-					<p class="m-feature__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Aliquam commodo dolor quis urna rhoncus faucibus. Cras porta libero id nisl iaculis vehicula.
-						Duis tincidunt condimentum sem in pharetra.
-						In consectetur massa nulla, sed gravida dolor convallis non.
-						Sed sit amet vestibulum odio.</p>
-				</div>
-			</div>
-			<div class="col-xs-12 col-sm-6 col-lg-3">
-				<div class="m-feature">
-					<div class="m-feature__icon m-feature__icon_sync"></div>
-					<h4 class="m-feature__title"><a href="/tutorial/amd.html" title="Moff.js - AMD" class="m-feature__title-link">AMD</a></h4>
-					<p class="m-feature__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Aliquam commodo dolor quis urna rhoncus faucibus. Cras porta libero id nisl iaculis vehicula.
-						Duis tincidunt condimentum sem in pharetra.
-						In consectetur massa nulla, sed gravida dolor convallis non.
-						Sed sit amet vestibulum odio.</p>
-				</div>
-			</div>
-			<div class="col-xs-12 col-sm-6 col-lg-3">
-				<div class="m-feature">
-					<div class="m-feature__icon m-feature__icon_clock"></div>
-					<h4 class="m-feature__title"><a href="/api/event.html" title="Moff.js - Moff.event API" class="m-feature__title-link">Event system</a></h4>
-					<p class="m-feature__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Aliquam commodo dolor quis urna rhoncus faucibus. Cras porta libero id nisl iaculis vehicula.
-						Duis tincidunt condimentum sem in pharetra.
-						In consectetur massa nulla, sed gravida dolor convallis non.
-						Sed sit amet vestibulum odio.</p>
-				</div>
-			</div>
-			<div class="col-xs-12 col-sm-6 col-lg-3">
-				<div class="m-feature">
-					<div class="m-feature__icon m-feature__icon_settings"></div>
-					<h4 class="m-feature__title"><a href="/api/index.html" title="Moff.js - API" class="m-feature__title-link">API</a></h4>
-					<p class="m-feature__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Aliquam commodo dolor quis urna rhoncus faucibus. Cras porta libero id nisl iaculis vehicula.
-						Duis tincidunt condimentum sem in pharetra.
-						In consectetur massa nulla, sed gravida dolor convallis non.
-						Sed sit amet vestibulum odio.</p>
-				</div>
-			</div>
-		</div>
-	</div>
-</main>
-<footer role="contentinfo">
-	<div class="m-brand-block">
-		<div class="container container_text-center">
-			<div class="row">
-				<div class="col-xs-6 m-text-right">
-					<a class="m-link-icon m-link-icon_github" href="#">GitHub</a>
-				</div>
-				<div class="col-xs-6 m-text-left">
-					<a class="m-link-icon m-link-icon_bugs" href="#">Issues</a>
-				</div>
-			</div>
-			<div class="m-copy">Copyright &copy; 2015-2016 Kadir A. Fuzaylov</div>
-		</div>
-	</div>
-</footer>
+	</footer>
+</div>
 <script src="/libs/moff/dist/moff.js"></script>
+<script>
+	Moff.amd.register({
+		id: 'social',
+		depend: {
+			js: ['https://buttons.github.io/buttons.js', 'https://apis.google.com/js/platform.js']
+		},
+		afterInclude: function() {
+			(function (d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) return;
+				js = d.createElement(s);
+				js.id = id;
+				js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+					(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			ga('create', 'UA-68993546-1', 'auto');
+			ga('send', 'pageview');
+
+			!function (d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+				if (!d.getElementById(id)) {
+					js = d.createElement(s);
+					js.id = id;
+					js.src = p + '://platform.twitter.com/widgets.js';
+					fjs.parentNode.insertBefore(js, fjs);
+				}
+			}(document, 'script', 'twitter-wjs');
+		}
+	});
+</script>
 </body>
 </html>

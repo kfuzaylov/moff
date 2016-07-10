@@ -1,7 +1,29 @@
+html,
+body,
+.m-wrapper {
+  height: 100%; }
+
 body {
   font-family: "Open Sans", sans-serif;
   color: #102025;
-  font-weight: 400; }
+  font-weight: 400;
+  line-height: 1.52857; }
+
+.m-content {
+  min-height: 100%;
+  padding-bottom: 100px; }
+
+footer {
+  height: 90px;
+  margin-top: -90px; }
+
+blockquote {
+  border-left: 2px solid #102025;
+  color: #666;
+  font-size: 16px;
+  font-style: italic;
+  padding-left: 20px;
+  margin-left: 0; }
 
 a {
   color: #57abc1;
@@ -10,8 +32,28 @@ a {
     color: #57abc1;
     text-decoration: underline; }
 
+p {
+  line-height: 21px; }
+
+pre code {
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+  white-space: pre-wrap;
+  background-color: transparent;
+  border-radius: 0; }
+
+code {
+  padding: 0 4px;
+  font-size: 13px;
+  color: #fff;
+  background-color: #57abc1;
+  border-radius: 4px;
+  display: inline-block;
+  margin: 1px 0; }
+
 .container_header {
-  margin-top: 10px;
+  padding-top: 10px;
   margin-bottom: 10px; }
 
 .container_brand {
@@ -33,13 +75,13 @@ a {
   float: left; }
 
 .m-logo__image {
-  width: 52px; }
+  width: 60px; }
   @media (min-width: 768px) {
     .m-logo__image {
-      width: 75px; } }
+      width: 85px; } }
   @media (min-width: 992px) {
     .m-logo__image {
-      width: 121px; } }
+      width: 128px; } }
 
 .m-navigation {
   display: block;
@@ -58,7 +100,13 @@ a {
     padding: 0; }
     .m-navigation__list-item {
       display: inline-block;
-      margin: 0 8px; }
+      margin: 0 3px; }
+      @media (min-width: 350px) {
+        .m-navigation__list-item {
+          margin: 0 5px; } }
+      @media (min-width: 768px) {
+        .m-navigation__list-item {
+          margin: 0 8px; } }
     .m-navigation__list-link {
       text-decoration: none;
       font-size: 13px; }
@@ -71,33 +119,55 @@ a {
           font-size: 16px;
           font-weight: 600; } }
       .m-navigation__list-link_active {
-        color: #102025;
-        cursor: default;
-        pointer-events: none; }
+        color: #fff;
+        background-color: #57abc1;
+        padding: 3px; }
+        @media (min-width: 992px) {
+          .m-navigation__list-link_active {
+            padding: 3px 8px; } }
         .m-navigation__list-link_active:hover {
-          color: #102025;
-          text-decoration: none; }
+          color: #fff; }
 
 .m-brand-block {
-  background-color: #57abc1; }
+  background-color: #57abc1;
+  color: #fff; }
+  .m-brand-block_wide {
+    margin: 0 -15px;
+    padding: 1px 15px; }
+  .m-brand-block__link {
+    color: #fff;
+    text-decoration: underline; }
+    .m-brand-block__link:hover {
+      color: #fff;
+      text-decoration: none; }
 
 .m-title {
-  color: #fff;
   font-weight: 400;
   font-size: 28px;
   margin-top: 18px;
-  margin-bottom: 18px; }
+  margin-bottom: 18px;
+  color: #57abc1; }
+  .m-title_white {
+    color: #fff; }
   @media (min-width: 992px) {
     .m-title {
       font-size: 36px;
-      margin-top: 75px; } }
+      margin-top: 75px; }
+      .m-title_tm6 {
+        margin-top: 6px; } }
 
 .m-sub-title {
   color: #57abc1;
   font-size: 20px;
   text-align: center;
-  margin-top: 16px;
-  margin-bottom: 16px;
+  margin: 20px 0;
+  font-weight: 400; }
+
+.m-sub-sub-title {
+  color: #57abc1;
+  font-size: 16px;
+  text-align: center;
+  margin: 20px 0;
   font-weight: 400; }
 
 .m-slogan {
@@ -146,17 +216,22 @@ a {
       background-position: -44px -44px; }
   .m-feature__title {
     margin: 0 0 0 50px;
-    font-weight: 600; }
+    font-weight: 600;
+    color: #57abc1;
+    font-size: 15px; }
     .m-feature__title-link {
-      color: #102025;
       text-decoration: none; }
   .m-feature__description {
     margin-left: 50px;
-    margin-top: 5px; }
+    margin-top: 5px;
+    margin-bottom: 30px; }
 
 .m-gray-block {
   background-color: #dfe9ed;
   padding: 10px 0; }
+  @media (min-width: 768px) {
+    .m-gray-block {
+      margin: 15px 0; } }
 
 .m-copy {
   color: #fff;
@@ -233,7 +308,7 @@ a {
       .m-cogs_medium {
         width: 84px;
         height: 42px;
-        left: 0;
+        left: 95px;
         top: 0;
         background-position: -14px -146px; } }
 
@@ -262,7 +337,7 @@ a {
     .m-mobile__msg-title {
       font-weight: 600;
       font-size: 12px;
-      margin: 0; }
+      margin: 0 0 7px; }
     @media (min-width: 992px) {
       .m-mobile__msg {
         top: 63px;
@@ -275,3 +350,77 @@ a {
 
 .m-text-right {
   text-align: right; }
+
+.m-social-buttons {
+  line-height: 10px; }
+
+/* Tutorials AMD */
+.m-select {
+  width: 100%;
+  background: url(/images/arrow.png) right center no-repeat;
+  border: 1px solid #57abc1;
+  padding: 3px 5px;
+  color: #102025;
+  margin-top: 10px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  outline: none; }
+  .m-select::-ms-expand {
+    display: none; }
+
+.m-sub-nav {
+  padding: 0;
+  margin: 0;
+  list-style: none; }
+  .m-sub-nav__item {
+    margin: 16px 0; }
+
+.m-list {
+  padding-left: 0;
+  list-style-type: none; }
+  .m-list_square {
+    list-style-type: square;
+    padding-left: 19px; }
+
+.m-affix-bar {
+  top: 0; }
+  .m-affix-bar__category {
+    padding: 7px 0; }
+    .m-affix-bar__category.active {
+      background-color: #57abc1;
+      padding: 7px 20px 7px 7px; }
+      .m-affix-bar__category.active .m-affix-bar__category-list {
+        display: block; }
+      .m-affix-bar__category.active a {
+        color: #fff; }
+    .m-affix-bar__category-list {
+      list-style-type: none;
+      padding-left: 20px;
+      display: none; }
+      .m-affix-bar__category-list-item {
+        margin: 7px 0;
+        font-size: 13px; }
+        .m-affix-bar__category-list-item.active a {
+          text-decoration: underline; }
+
+.m-sub-option {
+  margin-left: 15px; }
+  .m-sub-option__sub {
+    margin-left: 30px; }
+
+.m-arguments-list {
+  font-size: 13px; }
+
+.m-date {
+  font-size: 13px;
+  color: #999; }
+
+.m-example {
+  border: 1px dashed #ccc;
+  padding: 10px; }
+  .m-example__title {
+    color: #999;
+    margin-bottom: 10px; }

@@ -1,9 +1,35 @@
 @import "variables";
 
+html,
+body,
+.m-wrapper {
+	height: 100%;
+}
+
 body {
 	font-family: $font-family;
 	color: $font-color;
 	font-weight: 400;
+	line-height: 1.52857;
+}
+
+.m-content {
+	min-height: 100%;
+	padding-bottom: 100px;
+}
+
+footer {
+	height: 90px;
+	margin-top: -90px;
+}
+
+blockquote {
+	border-left: 2px solid $secondary-color;
+	color: #666;
+	font-size: 16px;
+	font-style: italic;
+	padding-left: 20px;
+	margin-left: 0;
 }
 
 a {
@@ -16,9 +42,32 @@ a {
 	}
 }
 
+p {
+	line-height: 21px;
+}
+
+pre code  {
+	padding: 0;
+	font-size: inherit;
+	color: inherit;
+	white-space: pre-wrap;
+	background-color: transparent;
+	border-radius: 0;
+}
+
+code {
+	padding: 0 4px;
+	font-size: 13px;
+	color: #fff;
+	background-color: $brand-color;
+	border-radius: 4px;
+	display: inline-block;
+	margin: 1px 0;
+}
+
 .container {
 	&_header {
-		margin-top: 10px;
+		padding-top: 10px;
 		margin-bottom: 10px;
 	}
 
@@ -48,14 +97,14 @@ a {
 	}
 
 	&__image {
-		width: 52px;
+		width: 60px;
 
 		@media (min-width: $tablet) {
-			width: 75px;
+			width: 85px;
 		}
 
 		@media (min-width: $desktop) {
-			width: 121px;
+			width: 128px;
 		}
 	}
 }
@@ -81,7 +130,15 @@ a {
 
 		&-item {
 			display: inline-block;
-			margin: 0 8px;
+			margin: 0 3px;
+			
+			@media (min-width: 350px) {
+				margin: 0 5px;
+			}
+
+			@media (min-width: $tablet) {
+				margin: 0 8px;
+			}
 		}
 
 		&-link {
@@ -99,13 +156,17 @@ a {
 			}
 
 			&_active {
-				color: $secondary-color;
-				cursor: default;
-				pointer-events: none;
+				color: #fff;
+				background-color: $brand-color;
+				padding: 3px;
+
+				@media (min-width: $desktop) {
+					padding: 3px 8px;
+				}
+
 
 				&:hover {
-					color: $secondary-color;
-					text-decoration: none;
+					color: #fff;
 				}
 			}
 		}
@@ -114,18 +175,42 @@ a {
 
 .m-brand-block {
 	background-color: $brand-color;
+	color: #fff;
+
+	&_wide {
+		margin: 0 -15px;
+		padding: 1px 15px;
+	}
+
+	&__link {
+		color: #fff;
+		text-decoration: underline;
+
+		&:hover {
+			color: #fff;
+			text-decoration: none;
+		}
+	}
 }
 
 .m-title {
-	color: #fff;
 	font-weight: 400;
 	font-size: 28px;
 	margin-top: 18px;
 	margin-bottom: 18px;
+	color: $brand-color;
+
+	&_white {
+		color: #fff;
+	}
 
 	@media (min-width: $desktop) {
 		font-size: 36px;
 		margin-top: 75px;
+
+		&_tm6 {
+			margin-top: 6px;
+		}
 	}
 }
 
@@ -133,8 +218,15 @@ a {
 	color: $brand-color;
 	font-size: 20px;
 	text-align: center;
-	margin-top: 16px;
-	margin-bottom: 16px;
+	margin: 20px 0;
+	font-weight: 400;
+}
+
+.m-sub-sub-title {
+	color: $brand-color;
+	font-size: 16px;
+	text-align: center;
+	margin: 20px 0;
 	font-weight: 400;
 }
 
@@ -205,9 +297,10 @@ a {
 	&__title {
 		margin: 0 0 0 50px;
 		font-weight: 600;
+		color: $brand-color;
+		font-size: 15px;
 
 		&-link {
-			color: $font-color;
 			text-decoration: none;
 		}
 	}
@@ -215,12 +308,17 @@ a {
 	&__description {
 		margin-left: 50px;
 		margin-top: 5px;
+		margin-bottom: 30px;
 	}
 }
 
 .m-gray-block {
 	background-color: $gray;
 	padding: 10px 0;
+
+	@media (min-width: $tablet) {
+		margin: 15px 0;
+	}
 }
 
 .m-copy {
@@ -285,7 +383,7 @@ a {
 		bottom: -45px;
 		right: 280px;
 		background-position: 0 0;
-		
+
 		@media (min-width: $desktop) {
 			right: 352px;
 			bottom: 10px;
@@ -317,7 +415,7 @@ a {
 		@media (min-width: $desktop) {
 			width: 84px;
 			height: 42px;
-			left: 0;
+			left: 95px;
 			top: 0;
 			background-position: -14px -146px;
 		}
@@ -354,9 +452,9 @@ a {
 		&-title {
 			font-weight: 600;
 			font-size: 12px;
-			margin: 0;
+			margin: 0 0 7px;
 		}
-		
+
 		@media (min-width: $desktop) {
 			top: 63px;
 			left: 15px;
@@ -372,4 +470,112 @@ a {
 
 .m-text-right {
 	text-align: right;
+}
+
+.m-social-buttons {
+	line-height: 10px;
+}
+
+/* Tutorials AMD */
+.m-select {
+	width: 100%;
+	background: url(/images/arrow.png) right center no-repeat;
+	border: 1px solid $brand-color;
+	padding: 3px 5px;
+	color: $secondary-color;
+	margin-top: 10px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+	outline: none;
+
+	&::-ms-expand {
+		display: none;
+	}
+}
+.m-sub-nav {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+
+	&__item {
+		margin: 16px 0;
+	}
+}
+
+.m-list {
+	padding-left: 0;
+	list-style-type: none;
+
+	&_square {
+		list-style-type: square;
+		padding-left: 19px;
+	}
+}
+
+.m-affix-bar {
+	top: 0;
+
+	&__category {
+		padding: 7px 0;
+
+		&.active {
+			background-color: $brand-color;
+			padding: 7px 20px 7px 7px;
+
+			.m-affix-bar__category-list {
+				display: block;
+			}
+
+			a {
+				color: #fff;
+			}
+		}
+
+		&-list {
+			list-style-type: none;
+			padding-left: 20px;
+			display: none;
+
+			&-item {
+				margin: 7px 0;
+				font-size: 13px;
+
+				&.active {
+					a {
+						text-decoration: underline;
+					}
+				}
+			}
+		}
+	}
+}
+
+.m-sub-option {
+	margin-left: 15px;
+
+	&__sub {
+		margin-left: 30px;
+	}
+}
+
+.m-arguments-list {
+	font-size: 13px;
+}
+
+.m-date {
+	font-size: 13px;
+	color: #999;
+}
+
+.m-example {
+	border: 1px dashed #ccc;
+	padding: 10px;
+
+	&__title {
+		color: #999;
+		margin-bottom: 10px;
+	}
 }

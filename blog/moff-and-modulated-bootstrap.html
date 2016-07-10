@@ -5,94 +5,82 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/styles/styles.scss">
+	<meta name="description" content="The most interesting publications on Mobile First theme and the latest news about Front-end technologies.">
+	<link href="/libs/moff/dist/bootstrap/main/core.css" rel="stylesheet">
+	<link href="/libs/moff/dist/bootstrap/main/grid.css" rel="stylesheet">
+	<link href="/styles/styles.css" rel="stylesheet">
 	<link rel="stylesheet" href="/libs/prism/themes/prism.css">
-	<link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css">
 </head>
 <body>
-<header role="banner">
-	<nav class="navbar navbar-default" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-					data-target="#navbar-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
+<div class="m-wrapper">
+	<div class="m-content">
+		<header role="banner">
+			<div class="container container_header">
+				<div class="m-logo m-logo_left">
+					<a href="/" title="Moff.js - Home">
+						<img src="/images/logo.png" alt="Moff logo" class="m-logo__image">
+					</a>
+				</div>
+				<nav role="navigation" class="m-navigation">
+					<ul class="m-navigation__list">
+						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/">Home</a></li>
+						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/tutorial/getting-started.html">Tutorials</a></li>
+						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/api/index.html">API</a></li>
+						<li class="m-navigation__list-item"><a class="m-navigation__list-link m-navigation__list-link_active" href="/blog/index.html">Blog</a></li>
+						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/demo/index.html">Demo</a></li>
+					</ul>
+				</nav>
 			</div>
-			<div class="collapse navbar-collapse" id="navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li><a href="/" title="Moff.js - Mobile First Framework">Home</a></li>
-					<li><a href="/tutorial/index.html" title="Moff.js - Tutorials">Tutorials</a></li>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">API <span class="caret"></span><span class="sr-only">(current)</span></a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="/api/index.html" title="Moff.js - API">Moff</a></li>
-							<li><a href="/api/amd.html" title="Moff.js - Moff.amd API">Moff.amd</a></li>
-							<li><a href="/api/detect.html" title="Moff.js - Moff.detect API">Moff.detect</a></li>
-							<li><a href="/api/event.html" title="Moff.js - Moff.event API">Moff.event</a></li>
-							<li><a href="/api/modules.html" title="Moff.js - Moff.modules API">Moff.modules</a></li>
-							<li><a href="/api/module.html" title="Moff.js - Moff.Module API">Moff.Module</a></li>
-						</ul>
-					</li>
-					<li class="active"><a href="/blog/index.html" title="Moff.js - Blog">Blog</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-</header>
-<main role="main">
-	<div class="container">
-		<article>
-		<h1>Moff.js and modulated Bootstrap.</h1>
-			<time datetime="2015-11-21"><span class="glyphicon glyphicon-calendar"></span> November 21, 2015</time>
-			<p>In the previous <a href="/blog/why-mobile-first.html">article</a> I wrote about how the <a href="http://moffjs.com">Moff.js</a> framework can
-				facilitate the creation of a Mobile First page without using the CSS framework.
-			</p>
+		</header>
+		<main role="main">
+			<div class="container">
+				<article>
+					<h1 class="m-title">Moff.js and modulated Bootstrap.</h1>
+					<time datetime="2015-11-21" class="m-date">November 21, 2015</time>
+					<p>In the previous <a href="/blog/why-mobile-first.html">article</a> I wrote about how the <a href="http://moffjs.com">Moff.js</a> framework can
+						facilitate the creation of a Mobile First page without using the CSS framework.
+					</p>
 
-			<p>However, currently the majority of projects use various types of CSS frameworks, one of which is <a href="http://getbootstrap.com/">Bootstrap</a>.
-				We can say with confidence that Bootstrap is the most popular Mobile First framework.
-			</p>
+					<p>However, currently the majority of projects use various types of CSS frameworks, one of which is <a href="http://getbootstrap.com/">Bootstrap</a>.
+						We can say with confidence that Bootstrap is the most popular Mobile First framework.
+					</p>
 
-			<p>The biggest disadvantage of this framework is its size. Even a minimized version is <strong>154.9 KB</strong>, and that is only the size of CSS and JS files.</p>
+					<p>The biggest disadvantage of this framework is its size. Even a minimized version is <strong>154.9 KB</strong>, and that is only the size of CSS and JS files.</p>
 
-			<img src="/images/moff_and_bootstrap.png" class="img-responsive" alt="Moff.js and modulated Bootstrap">
-			<p>Often developers only need some of the functionality, but they connect the entire framework.
-				Therefore, mobile device users have to download a larger volume of needless traffic.
-				The solution to this problem was the division of the framework into groups of modules that are seldom or often used,
-				and that are easy to use within the Mobile First approach.
-				Each of these groups was delineated as individual modules in Moff.
-			</p>
-			<p>The modules are divided into three categories:</p>
-			<ul>
-				<li>Main</li>
-				<li>Components</li>
-				<li>JavaScripts</li>
-			</ul>
-			<p>The following modules are in the Main category:</p>
-			<ul>
-				<li>Buttons – Button styling</li>
-				<li>Core – Contains base styles</li>
-				<li>Forms – Responsible for forms</li>
-				<li>Glyphicons – Glyphicon styling</li>
-				<li>Grid – The grid system</li>
-				<li>Tables – Responsible for tables</li>
-				<li>Typography – Responsible for typography</li>
-			</ul>
-			<p>The <strong>Components</strong> category contains all Bootstrap components:</p>
-			<p>Alerts, Badges, Breadcrumbs, Button groups, Dropdown and etc.</p>
-			<p>The <strong>JavaScript</strong> category contains all Bootstrap JS modules:</p>
-			<p>Affix, Alert, Button, Carousel and etc.</p>
-			<p>Detailed list of module you can read on Moff <a href="http://moffjs.com/modulated-bootstrap.html">page.</a></p>
+					<p>Often developers only need some of the functionality, but they connect the entire framework.
+						Therefore, mobile device users have to download a larger volume of needless traffic.
+						The solution to this problem was the division of the framework into groups of modules that are seldom or often used,
+						and that are easy to use within the Mobile First approach.
+						Each of these groups was delineated as individual modules in Moff.
+					</p>
+					<p>The modules are divided into three categories:</p>
+					<ul>
+						<li>Main</li>
+						<li>Components</li>
+						<li>JavaScripts</li>
+					</ul>
+					<p>The following modules are in the Main category:</p>
+					<ul>
+						<li>Buttons – Button styling</li>
+						<li>Core – Contains base styles</li>
+						<li>Forms – Responsible for forms</li>
+						<li>Glyphicons – Glyphicon styling</li>
+						<li>Grid – The grid system</li>
+						<li>Tables – Responsible for tables</li>
+						<li>Typography – Responsible for typography</li>
+					</ul>
+					<p>The <strong>Components</strong> category contains all Bootstrap components:</p>
+					<p>Alerts, Badges, Breadcrumbs, Button groups, Dropdown and etc.</p>
+					<p>The <strong>JavaScript</strong> category contains all Bootstrap JS modules:</p>
+					<p>Affix, Alert, Button, Carousel and etc.</p>
+					<p>Detailed list of module you can read on Moff <a href="http://moffjs.com/modulated-bootstrap.html">page.</a></p>
 
-			<h2>Ways of using modules</h2>
-			<p>Core Module is fundamental, and is connected to all pages as the main dependency for all other modules.</p>
-			<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/core.css"&gt;</code></pre>
-			<p>It consists of the following Bootstrap Sass modules.</p>
-			<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/normalize';
+					<h2 class="m-sub-title m-text-left">Ways of using modules</h2>
+					<p>Core Module is fundamental, and is connected to all pages as the main dependency for all other modules.</p>
+					<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/core.css"&gt;</code></pre>
+					<p>It consists of the following Bootstrap Sass modules.</p>
+					<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/normalize';
 @import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/print';
 @import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/scaffolding';
 @import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/utilities';
@@ -100,10 +88,10 @@
 @import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/component-animations';
 @import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/responsive-embed';
 @import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/close';</code></pre>
-			<p>The rest of the modules can be loaded in two ways.</p>
-			<h3>AMD (Asynchronous module definition)</h3>
-			<p>A module can be added using <a href="http://moffjs.com/amd.html">AMD</a>.</p>
-			<pre><code class="language-javascript">Moff.amd.register({
+					<p>The rest of the modules can be loaded in two ways.</p>
+					<h3 class="m-sub-sub-title m-text-left">AMD (Asynchronous module definition)</h3>
+					<p>A module can be added using <a href="http://moffjs.com/amd.html">AMD</a>.</p>
+					<pre><code class="language-javascript">Moff.amd.register({
 	id: 'grid',
 	depend: {
 		js: ['bower_components/moff/dist/bootstrap/javascripts/button.js'],
@@ -119,48 +107,46 @@
 	loadOnScreen: ['md', 'lg'],
 	onWindowLoad: true
 });</code></pre>
-			<p>When registering the module it needs to be downloaded in order to start using it. It can be downloaded using two ways:</p>
-			<p>using AMD</p>
-			<pre><code class="language-javascript">Moff.amd.include('grid');</code></pre>
-			<p>or using <a href="http://moffjs.com/data-events.html">Data Events</a></p>
-			<pre><code class="language-markup">&lt;!-- listing.html is a view of your grid module --&gt;
+					<p>When registering the module it needs to be downloaded in order to start using it. It can be downloaded using two ways:</p>
+					<p>using AMD</p>
+					<pre><code class="language-javascript">Moff.amd.include('grid');</code></pre>
+					<p>or using <a href="http://moffjs.com/data-events.html">Data Events</a></p>
+					<pre><code class="language-markup">&lt;!-- listing.html is a view of your grid module --&gt;
 &lt;a href="listing.html" data-load-target="#content-target" data-load-module="grid"&gt;Show grid&lt;/a&gt;
 &lt;div id="content-target"&gt;&lt;/div&gt;</code></pre>
 
-			<h3>HTML</h3>
-			<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/core.css"&gt;
+					<h3 class="m-sub-sub-title m-text-left">HTML</h3>
+					<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/core.css"&gt;
 &lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/grid.css"&gt;
 &lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/typography.css"&gt;</code></pre>
-			<p>
-				Both approaches have a disadvantage. It is the large amount of time spent at the HTTP connection due to the great number of files.
-				However, this problem only applies to the first download, after that the files are loaded from cache.
-				File merging can be a solution. Currently, this can be done manually, but in the future a CLI for Moff will be created,
-				that can solve such issues.
-			</p>
+					<p>
+						Both approaches have a disadvantage. It is the large amount of time spent at the HTTP connection due to the great number of files.
+						However, this problem only applies to the first download, after that the files are loaded from cache.
+						File merging can be a solution. Currently, this can be done manually, but in the future a CLI for Moff will be created,
+						that can solve such issues.
+					</p>
 
-			<p>P.S. The modular version of Bootstrap in Moff helps download only the required framework parts to lighten up the page size.</p>
-		</article>
+					<p>P.S. The modular version of Bootstrap in Moff helps download only the required framework parts to lighten up the page size.</p>
+				</article>
+			</div>
+		</main>
 	</div>
-</main>
-<footer role="contentinfo">
-	<div class="website-footer">
-		<div class="container">
-			<div class="text-center">
-				<ul class="footer-links">
-					<li><a href="https://github.com/kfuzaylov/moff" title="Moff GitHub repository">GitHub</a></li>
-					<li class="footer-separator">.</li>
-					<li><a href="https://github.com/kfuzaylov/moff/issues" title="Moff issues repository">Issues</a>
-					</li>
-				</ul>
-				<div>
-					<small>Copyright (c) 2015 - 2016 Kadir A. Fuzaylov.</small>
+	<footer role="contentinfo">
+		<div class="m-brand-block">
+			<div class="container container_text-center">
+				<div class="row">
+					<div class="col-xs-6 m-text-right">
+						<a class="m-link-icon m-link-icon_github" href="https://github.com/kfuzaylov/moff" title="Moff GitHub repository">GitHub</a>
+					</div>
+					<div class="col-xs-6 m-text-left">
+						<a class="m-link-icon m-link-icon_bugs" href="https://github.com/kfuzaylov/moff/issues" title="Moff issues">Issues</a>
+					</div>
 				</div>
+				<div class="m-copy">Copyright &copy; 2015-2016 Kadir A. Fuzaylov</div>
 			</div>
 		</div>
-	</div>
-</footer>
-<script src="/libs/jquery/dist/jquery.min.js"></script>
-<script src="/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+	</footer>
+</div>
 <script src="/libs/prism/prism.js"></script>
 <script>
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

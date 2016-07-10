@@ -1,0 +1,29 @@
+{
+	"name": "moff",
+	"version": "1.10.43",
+	"homepage": "http://moffjs.com",
+	"author": "Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>",
+	"description": "Mobile First Framework",
+	"copyright": "Copyright (c) 2015-2016 Kadir A. Fuzaylov",
+	"main": "dist/moff.js",
+	"keywords": [
+		"mobile",
+		"first",
+		"framework"
+	],
+	"license": "Licensed under MIT license",
+	"ignore": [
+		"**/.*",
+		"*.md",
+		"node_modules",
+		"bower_components",
+		"tests",
+		"gulpfile.js",
+		"packages",
+		"package.json"
+	],
+	"devDependencies": {
+		"jasmine-ajax": "^3.1.0",
+		"jasmine-core": "^2.3.0"
+	}
+}
