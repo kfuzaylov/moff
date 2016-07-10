@@ -27,7 +27,6 @@
 						<li class="m-navigation__list-item"><a class="m-navigation__list-link m-navigation__list-link_active" href="/tutorial/getting-started.html">Tutorials</a></li>
 						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/api/index.html">API</a></li>
 						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/blog/index.html">Blog</a></li>
-						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/demo/index.html">Demo</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -37,7 +36,6 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-3">
 						<select class="m-select visible-xs">
-							<option value="/tutorial/index.html">Tutorials</option>
 							<option value="/tutorial/getting-started.html">Getting started</option>
 							<option value="/tutorial/data-events.html" selected>Data events</option>
 							<option value="/tutorial/amd.html">AMD</option>
@@ -55,8 +53,7 @@
 					<div class="col-xs-12 col-sm-9">
 						<h1 class="m-title m-title_tm6">Data Events</h1>
 						<div class="m-brand-block m-brand-block_wide">
-							<p>Data event attributes are powerful helpers which allow to load content on certain event with minimum
-								efforts. It has rich API to work with events. It is possible to set loading target, cache loaded content and show on certain screen size and other
+							<p>Data event attributes are powerful helpers which allow to load content on certain event with minimum efforts. It has rich API to work with events. It is possible to set loading target, cache loaded content and show on certain screen size and other
 								more.
 							</p>
 						</div>
@@ -134,37 +131,52 @@
 						<h2 class="m-sub-title m-text-left">Load module</h2>
 						<p><code>data-load-module</code> loads <code>amd</code> module after content from <code>href</code> or <code>data-load-url</code> is loaded.<br>
 							In ths example first is loaded module view and them js and css styles.</p>
-						<pre><code class="language-markup">&lt;a href="slideshow.html" data-load-target="#content-target" data-load-module="slideshow"&gt;Show slideshow&lt;/a&gt;
+						<pre><code class="language-markup">&lt;a href="map.html" data-load-target="#content-target" data-load-module="map"&gt;Show Google Map&lt;/a&gt;
 &lt;script&gt;
 Moff.amd.register({
-	id: 'slideshow',
-	depend: {
-		js: ['/libs/jquery/dist/jquery.min.js'],
-		css: ['/libs/']
-	},
-	file: {
-		js: ['modules/my-chat.js'],
-		css: ['modules/my-chat.css']
-	}
-});
+		id: 'map',
+		depend: {
+			js: [
+				'http://maps.google.com/maps/api/js',
+				'/libs/jquery/dist/jquery.min.js',
+				'/libs/gomap/jquery.gomap-1.3.3.min.js'
+			]
+		},
+		file: {
+			js: ['/libs/modules/map/map.js'],
+			css: ['/libs/modules/map/map.css']
+		}
+	});
 &lt;/script&gt;</code></pre>
+						<pre><code class="language-markup">&lt;!-- map.html --&gt;
+&lt;div class="js-map" id="map"&gt;&lt;/div&gt;</code></pre>
 						<div class="m-example">
 							<div class="m-example__title">Example:</div>
-							<a href="/examples/liveChat.html" data-load-target="#content-target" data-load-module="comments">Show live chat</a>
-							<div id="content-target6" style="margin-bottom: 10px;"></div>
-
-							<a  href="/examples/data.html" data-load-target="#content-target7" data-load-screen="xs sm md">Load on xs, sm and md screen sizes</a>
-							<div id="content-target7"></div>
+							<a href="/examples/map.html" data-load-target="#content-target8" data-load-module="map">Show Google Map</a>
+							<div id="content-target8"></div>
 						</div>
 
+						<hr>
+
 						<h2 class="m-sub-title m-text-left">Push URL</h2>
-						<p><code>data-push-url</code> pushes element url to address bar via HTML5 JavaScript History API.</p>
+						<p><code>data-push-url</code> pushes element <code>href</code> or <code>data-load-url</code> to address bar via HTML5 JavaScript History API.</p>
 						<pre><code class="language-markup">&lt;a href="content.html" data-push-url data-load-target="#content-target"&gt;Load content&lt;/a&gt;</code></pre>
+						<div class="m-example">
+							<div class="m-example__title">Example:</div>
+							<a href="/examples/data.html" data-load-target="#content-target10" data-push-url>Load content</a>
+							<div id="content-target10"></div>
+						</div>
+
+						<hr>
 
 						<h2 class="m-sub-title m-text-left">Page title</h2>
-						<p><code>data-page-title</code> specifies title will be applied on <code>data-load-event</code>. Usually
-							can be used with <code>data-push-url</code> attribute.</p>
+						<p><code>data-page-title</code> sets page new title. Usually can be used with <code>data-push-url</code> attribute.</p>
 						<pre><code class="language-markup">&lt;a href="content.html" data-push-url data-page-title="New page title" data-load-target="#content-target"&gt;Load content&lt;/a&gt;</code></pre>
+						<div class="m-example">
+							<div class="m-example__title">Example:</div>
+							<a href="/examples/data.html" data-load-target="#content-target11" data-push-url data-page-title="New page title">Load content and update page title</a>
+							<div id="content-target11"></div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -192,6 +204,20 @@ Moff.amd.register({
 	document.querySelector('.m-select').addEventListener('change', function() {
 		window.location.href = this.value;
 	}, false);
+	Moff.amd.register({
+		id: 'map',
+		depend: {
+			js: [
+				'http://maps.google.com/maps/api/js',
+				'/libs/jquery/dist/jquery.min.js',
+				'/examples/start-with-mobile-first/modules/map/jquery.gomap-1.3.3.min.js'
+			]
+		},
+		file: {
+			js: ['/examples/start-with-mobile-first/modules/map/map.js'],
+			css: ['/examples/start-with-mobile-first/modules/map/map.css']
+		}
+	});
 	(function (i, s, o, g, r, a, m) {
 		i['GoogleAnalyticsObject'] = r;
 		i[r] = i[r] || function () {
