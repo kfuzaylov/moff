@@ -48,6 +48,7 @@ gulp.task('compile', ['lint', 'bootstrap'], function() {
 		.pipe(source('./packages/loader/src/loader.e6.js'))
 		.pipe(replace(/\{\{version\}\}/, bower.version))
 		.pipe(replace(/Moff\.debug\(.+?\);/gm, ''))
+		.pipe(replace(/this\.debug\(.+?\);/gm, ''))
 		.pipe(replace(/^[\s\t]*[\r\n]/gm, ''))
 		.pipe(header(banner, {meta: bower}))
 		.pipe(stripCode({

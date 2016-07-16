@@ -763,7 +763,6 @@ function Core() {
   */
 	this.onViewChange = function (callback) {
 		if (typeof callback !== 'function') {
-			this.debug('Moff.onViewChange callback must be a function');
 			return;
 		}
 		_changeViewCallbacks.push(callback);
@@ -775,7 +774,6 @@ function Core() {
   */
 	this.beforeLoad = function (callback) {
 		if (typeof callback !== 'function') {
-			this.debug('Moff.beforeLoad callback must be a function');
 			return;
 		}
 		_beforeLoad.push(callback);
@@ -787,7 +785,6 @@ function Core() {
   */
 	this.afterLoad = function (callback) {
 		if (typeof callback !== 'function') {
-			this.debug('Moff.afterLoad callback must be a function');
 			return;
 		}
 		_afterLoad.push(callback);
@@ -887,7 +884,6 @@ function Core() {
 	this.loadJS = function (src, callback) {
 		var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
 		if (typeof src !== 'string') {
-			this.debug('Moff.loadJS source must be a string');
 			return;
 		}
 		// Normalize options
@@ -926,7 +922,6 @@ function Core() {
 	this.loadCSS = function (href, callback) {
 		var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
 		if (typeof href !== 'string') {
-			this.debug('Moff.loadCSS source must be a string');
 			return;
 		}
 		// Normalize options
@@ -1015,7 +1010,6 @@ function Core() {
   */
 	this.$ = function (callback) {
 		if (typeof callback !== 'function') {
-			this.debug('Moff.$ argument must be a function');
 			return;
 		}
 		if (_domIsLoaded) {
