@@ -42,14 +42,15 @@ describe('Data events', function() {
 		it('specifies target content to be loaded in', function() {
 			jasmine.Ajax.withMock(function() {
 				var event = document.createEvent('Event');
+
 				event.initEvent('click', true, true);
 
 				document.querySelector('#load_target').dispatchEvent(event);
 
 				jasmine.Ajax.requests.mostRecent().respondWith({
-					"status": 200,
-					"contentType": 'text/plain',
-					"responseText": 'hello'
+					status: 200,
+					contentType: 'text/plain',
+					responseText: 'hello'
 				});
 
 				expect(document.querySelector('#content_target').innerHTML).toEqual('hello');
@@ -87,6 +88,7 @@ describe('Data events', function() {
 				Moff.handleDataEvents();
 
 				var event = document.createEvent('Event');
+
 				event.initEvent('mouseenter', true, true);
 
 				document.querySelector('#load_target').dispatchEvent(event);
@@ -134,6 +136,7 @@ describe('Data events', function() {
 		it('sets load url for an element', function() {
 			jasmine.Ajax.withMock(function() {
 				var event = document.createEvent('Event');
+
 				event.initEvent('click', true, true);
 				document.querySelector('#load_target').dispatchEvent(event);
 
@@ -176,6 +179,7 @@ describe('Data events', function() {
 		it('changes document title', function() {
 			jasmine.Ajax.withMock(function() {
 				var event = document.createEvent('Event');
+
 				event.initEvent('click', true, true);
 				document.querySelector('#load_target').dispatchEvent(event);
 

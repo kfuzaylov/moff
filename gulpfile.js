@@ -15,13 +15,13 @@ var source = require('vinyl-source-stream2');
 var rename = require('gulp-rename');
 
 var argv = require('yargs').argv;
-var testem = require('testem');
+var Testem = require('testem');
 
 var jshint = require('gulp-jshint');
 var jscs = require('gulp-jscs');
 
 var sass = require('gulp-sass');
-
+var glob = require('glob');
 
 gulp.task('compile', ['lint', 'bootstrap'], function() {
 	var banner = ['/**',
@@ -75,19 +75,20 @@ gulp.task('lint', function() {
 });
 
 gulp.task('test', ['compile'], function() {
-	var filename = Date.now() + '.json';
+	var filename = `${Date.now()}.json`;
+
 	gulp.src('.testem.json')
-		.pipe(replace('gulp test', 'gulp compile-tests --package=' + argv.package))
-		.pipe(replace('rm %filename%', 'rm ' + filename))
+		.pipe(replace('gulp test', `gulp compile-tests --package=${argv.package}`))
+		.pipe(replace('rm %filename%', `rm ${filename}`))
 		.pipe(rename(filename))
 		.pipe(gulp.dest('./'));
 
 	setTimeout(function() {
-		var server = new testem();
+		var server = new Testem();
+
 		server.startDev({file: filename});
 	}, 500);
 });
-
 
 gulp.task('compile-tests', function() {
 	var path = '**';
@@ -96,9 +97,14 @@ gulp.task('compile-tests', function() {
 		path = argv.package === 'all' ? '**' : argv.package;
 	}
 
-	return gulp.src('packages/' + path + '/tests/*.js')
-		.pipe(concat('tests.js'))
-		.pipe(gulp.dest('tests'));
+	glob(`packages/${path}/tests/*.js`, function(error, files) {
+		browserify(files)
+			.transform(babelify)
+			.bundle()
+			.pipe(source(`packages/${path}/tests/*.js`))
+			.pipe(rename('tests.js'))
+			.pipe(gulp.dest('tests'));
+	});
 });
 
 gulp.task('bootstrap', ['bootstrap-scss', 'bootstrap-js', 'bootstrap-fonts']);

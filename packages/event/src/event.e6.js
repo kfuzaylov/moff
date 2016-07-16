@@ -83,9 +83,9 @@ function Event() {
 
 		if (Array.isArray(event) && event.length) {
 			return event;
-		} else {
-			return undefined;
 		}
+
+		return undefined;
 	};
 
 	/**
@@ -97,12 +97,14 @@ function Event() {
 	this.off = function(name, handler) {
 		if (!handler) {
 			_eventStore[name] = [];
+
 			return;
 		}
 
 		Moff.each(_eventStore[name], function(index, callback) {
 			if (callback === handler) {
 				_eventStore[name].splice(index, 1);
+
 				return false;
 			}
 		});
@@ -110,7 +112,7 @@ function Event() {
 
 	/* Test-code */
 	this._testonly = {
-		_eventStore: _eventStore
+		_eventStore
 	};
 	/* End-test-code */
 }

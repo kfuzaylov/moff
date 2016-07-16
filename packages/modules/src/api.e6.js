@@ -47,7 +47,7 @@ function ModulesApi() {
 		if (typeof _moduleClassStorage[name] === 'undefined') {
 			_moduleClassStorage[name] = {
 				constructor: Constructor,
-				depend: depend
+				depend
 			};
 		}
 	};
@@ -62,7 +62,8 @@ function ModulesApi() {
 		var moduleObject = _moduleClassStorage[ClassName];
 
 		if (!moduleObject) {
-			Moff.debug(ClassName + ' Class is not registered');
+			Moff.debug(`${ClassName} Class is not registered`);
+
 			return;
 		}
 
@@ -209,8 +210,8 @@ function ModulesApi() {
 
 	/* Test-code */
 	this._testonly = {
-		_moduleClassStorage: _moduleClassStorage,
-		_moduleObjectStorage: _moduleObjectStorage
+		_moduleClassStorage,
+		_moduleObjectStorage
 	};
 	/* End-test-code */
 }

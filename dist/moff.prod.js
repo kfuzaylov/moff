@@ -1,19 +1,20 @@
 /**
  * @overview  moff - Mobile First Framework
  * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.10.43
+ * @version   1.11.00
  * @license   Licensed under MIT license
  * @copyright Copyright (c) 2015-2016 Kadir A. Fuzaylov
  */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+'use strict';
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 /**
  * Moff AMD component
  * @constructor
  */
-'use strict';
-Object.defineProperty(exports, '__esModule', {
-	value: true
-});
 function AMD() {
 	/**
   * @property {AMD} _amd - Link to AMD object.
@@ -70,8 +71,7 @@ function AMD() {
   */
 	function includeRegister() {
 		Moff.each(_registeredFiles, function (id, object) {
-			// Don't load register if it is used in data-load-module attribute,
-			// because it will be included after content of element be loaded.
+			// Don't load register if it is used in data-load-module attribute because it will be included after content of element be loaded.
 			if (object.loadOnScreen.length && object.loadOnScreen.indexOf(Moff.getMode()) !== -1 && !_doc.querySelectorAll('[data-load-module="' + id + '"]').length) {
 				_amd.include(id);
 			}
@@ -114,7 +114,7 @@ function AMD() {
 			return;
 		}
 		// Normalize arguments
-		if (typeof callback === 'object') {
+		if ((typeof callback === 'undefined' ? 'undefined' : _typeof(callback)) === 'object') {
 			options = callback;
 			callback = undefined;
 		}
@@ -155,17 +155,17 @@ function AMD() {
 		includeRegister();
 	});
 }
-exports['default'] = AMD;
-module.exports = exports['default'];
+exports.default = AMD;
 },{}],2:[function(require,module,exports){
+'use strict';
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 /**
  * Moff class
  * @constructor
  */
-'use strict';
-Object.defineProperty(exports, '__esModule', {
-	value: true
-});
 function Core() {
 	/**
   * @property {window} _win - Link to window object.
@@ -301,7 +301,7 @@ function Core() {
 	}
 	function addPreloaderStyles() {
 		var style = document.createElement('style');
-		style.appendChild(document.createTextNode('\n\t\t\t.moff-loader {\n\t\t\t\tdisplay: none;\n\t\t\t\tposition: absolute;\n\t\t\t\twidth: 50px;\n\t\t\t\theight: 50px;\n\t\t\t\tleft: 0;\n\t\t\t\ttop: 0;\n\t\t\t\tz-index: 9999;\n\t\t\t\t-webkit-transition: 0s ease-in;\n\t\t\t\t-moz-transition: 0s ease-in;\n\t\t\t\t-o-transition: 0s ease-in;\n\t\t\t\ttransition: 0s ease-in;\n\t\t\t}\n\t\t\t.moff-loader.__default {\n\t\t\t\ttop: 12px;\n\t\t\t\tleft: 50%;\n\t\t\t\tmargin-left: -25px;\n\t\t\t\tposition: fixed;\n\t\t\t}\n\t\t\t.moff-loader.__ie9-preloader {\n\t\t\t\tbackground: url(\'http://moffjs.com/images/ie9-preloader.gif\');\n\t\t\t}\n\t\t\t.moff-loader.__ie9-preloader .moff-loader_box {\n\t\t\t\tdisplay: none;\n\n\t\t\t}\n\t\t\t.moff-loader.__visible {\n\t\t\t\tdisplay: block;\n\t\t\t}\n\t\t\t.moff-loader_box {\n\t\t\t\tposition: absolute;\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px solid transparent;\n\t\t\t\tborder-top-color: #3498db;\n\t\t\t\t-webkit-animation: spin 2s linear infinite;\n\t\t\t\tanimation: spin 2s linear infinite;\n\t\t\t}\n\t\t\t.moff-loader_box:before {\n\t\t\t\tcontent: "";\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 2px;\n\t\t\t\tleft: 2px;\n\t\t\t\tright: 2px;\n\t\t\t\tbottom: 2px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px solid transparent;\n\t\t\t\tborder-top-color: #e74c3c;\n\t\t\t\t-webkit-animation: spin 3s linear infinite;\n\t\t\t\tanimation: spin 3s linear infinite;\n\t\t\t}\n\t\t\t.moff-loader_box:after {\n\t\t\t\tcontent: "";\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 5px;\n\t\t\t\tleft: 5px;\n\t\t\t\tright: 5px;\n\t\t\t\tbottom: 5px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px solid transparent;\n\t\t\t\tborder-top-color: #f9c922;\n\t\t\t\t-webkit-animation: spin 1.5s linear infinite;\n\t\t\t\tanimation: spin 1.5s linear infinite;\n\t\t\t}\n\t\t\t@-webkit-keyframes spin {\n\t\t\t\t0% {\n\t\t\t\t\t-webkit-transform: rotate(0deg);\n\t\t\t\t\t-ms-transform: rotate(0deg);\n\t\t\t\t\ttransform: rotate(0deg);\n\t\t\t\t}\n\t\t\t\t100% {\n\t\t\t\t\t-webkit-transform: rotate(360deg);\n\t\t\t\t\t-ms-transform: rotate(360deg);\n\t\t\t\t\ttransform: rotate(360deg);\n\t\t\t\t}\n\t\t\t}\n\t\t\t@keyframes spin {\n\t\t\t\t0% {\n\t\t\t\t\t-webkit-transform: rotate(0deg);\n\t\t\t\t\t-ms-transform: rotate(0deg);\n\t\t\t\t\ttransform: rotate(0deg);\n\t\t\t\t}\n\t\t\t\t100% {\n\t\t\t\t\t-webkit-transform: rotate(360deg);\n\t\t\t\t\t-ms-transform: rotate(360deg);\n\t\t\t\t\ttransform: rotate(360deg);\n\t\t\t\t}\n\t\t\t}\n\t\t'));
+		style.appendChild(document.createTextNode('\n\t\t\t.moff-loader {\n\t\t\t\tdisplay: none;\n\t\t\t\tposition: absolute;\n\t\t\t\twidth: 50px;\n\t\t\t\theight: 50px;\n\t\t\t\tleft: 0;\n\t\t\t\ttop: 0;\n\t\t\t\tz-index: 9999;\n\t\t\t\t-webkit-transition: 0s ease-in;\n\t\t\t\t-moz-transition: 0s ease-in;\n\t\t\t\t-o-transition: 0s ease-in;\n\t\t\t\ttransition: 0s ease-in;\n\t\t\t}\n\t\t\t.moff-loader.__default {\n\t\t\t\ttop: 12px;\n\t\t\t\tleft: 50%;\n\t\t\t\tmargin-left: -25px;\n\t\t\t\tposition: fixed;\n\t\t\t}\n\t\t\t.moff-loader.__ie9-preloader {\n\t\t\t\tbackground: url(\'http://moffjs.com/images/ie9-preloader.gif\');\n\t\t\t}\n\t\t\t.moff-loader.__ie9-preloader .moff-loader_box {\n\t\t\t\tdisplay: none;\n\n\t\t\t}\n\t\t\t.moff-loader.__visible {\n\t\t\t\tdisplay: block;\n\t\t\t}\n\t\t\t.moff-loader_box {\n\t\t\t\tposition: absolute;\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px solid transparent;\n\t\t\t\tborder-top-color: #3498db;\n\t\t\t\t-webkit-animation: spin 2s linear infinite;\n\t\t\t\tanimation: spin 2s linear infinite;\n\t\t\t}\n\t\t\t.moff-loader_box:before {\n\t\t\t\tcontent: "";\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 2px;\n\t\t\t\tleft: 2px;\n\t\t\t\tright: 2px;\n\t\t\t\tbottom: 2px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px solid transparent;\n\t\t\t\tborder-top-color: #e74c3c;\n\t\t\t\t-webkit-animation: spin 3s linear infinite;\n\t\t\t\tanimation: spin 3s linear infinite;\n\t\t\t}\n\t\t\t.moff-loader_box:after {\n\t\t\t\tcontent: "";\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 5px;\n\t\t\t\tleft: 5px;\n\t\t\t\tright: 5px;\n\t\t\t\tbottom: 5px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px solid transparent;\n\t\t\t\tborder-top-color: #f9c922;\n\t\t\t\t-webkit-animation: spin 1.5s linear infinite;\n\t\t\t\tanimation: spin 1.5s linear infinite;\n\t\t\t}\n\t\t\t.moff-hidden {\n\t\t\t\tdisplay: none;\n\t\t\t}\n\t\t\t@-webkit-keyframes spin {\n\t\t\t\t0% {\n\t\t\t\t\t-webkit-transform: rotate(0deg);\n\t\t\t\t\t-ms-transform: rotate(0deg);\n\t\t\t\t\ttransform: rotate(0deg);\n\t\t\t\t}\n\t\t\t\t100% {\n\t\t\t\t\t-webkit-transform: rotate(360deg);\n\t\t\t\t\t-ms-transform: rotate(360deg);\n\t\t\t\t\ttransform: rotate(360deg);\n\t\t\t\t}\n\t\t\t}\n\t\t\t@keyframes spin {\n\t\t\t\t0% {\n\t\t\t\t\t-webkit-transform: rotate(0deg);\n\t\t\t\t\t-ms-transform: rotate(0deg);\n\t\t\t\t\ttransform: rotate(0deg);\n\t\t\t\t}\n\t\t\t\t100% {\n\t\t\t\t\t-webkit-transform: rotate(360deg);\n\t\t\t\t\t-ms-transform: rotate(360deg);\n\t\t\t\t\ttransform: rotate(360deg);\n\t\t\t\t}\n\t\t\t}\n\t\t'));
 		document.querySelector('head').appendChild(style);
 	}
 	function addPreloader() {
@@ -315,23 +315,16 @@ function Core() {
 	this.showPreloader = function () {
 		var position = arguments.length <= 0 || arguments[0] === undefined ? true : arguments[0];
 		this.hidePreloader();
-		var className = _loader2.className;
-		if (className.indexOf('__visible') === -1) {
-			className += ' __visible';
-		}
-		if (position && className.indexOf('__default') === -1) {
-			className += ' __default';
+		this.addClass(_loader2, '__visible');
+		if (position) {
+			this.addClass(_loader2, '__default');
 		}
 		if (!_moff.detect.supportCSS3('transition')) {
-			className += ' __ie9-preloader';
+			this.addClass(_loader2, '__ie9-preloader');
 		}
-		_loader2.setAttribute('class', className);
 	};
 	this.hidePreloader = function () {
-		var className = _loader2.className.replace(/(^| )__visible( |$)/, ' ');
-		className = className.replace(/(^| )__default( |$)/, ' ');
-		className = className.replace(/(^| )__ie9-preloader( |$)/, ' ');
-		_loader2.setAttribute('class', className.trim());
+		this.removeClass(_loader2, '__visible __default __ie9-preloader');
 		_loader2.removeAttribute('style');
 	};
 	this.positionPreloader = function (x, y) {
@@ -342,12 +335,47 @@ function Core() {
 				var coords = x + 'px, ' + y + 'px';
 				style = '-webkit-transform: translate(' + coords + ');\n\t\t\t\t-moz-transform: translate(' + coords + ');\n\t\t\t\t-o-transform: translate(' + coords + ');\n\t\t\t\ttransform: translate(' + coords + ');';
 			} else {
-				// for IE 9.0
+				// For IE 9.0
 				style = 'left: ' + x + 'px; top: ' + y + 'px';
-				_loader2.className = _loader2.className + ' __ie9-preloader';
+				this.addClass(_loader2, '__ie9-preloader');
 			}
 			_loader2.setAttribute('style', style);
 		}
+	};
+	this.addClass = function (element, names) {
+		if (!element) {
+			return;
+		}
+		var names = names.split(/\s/);
+		var len = names.length;
+		var c = 0;
+		var name, elemClass;
+		elemClass = ' ' + element.className + ' ';
+		for (; c < len; c++) {
+			name = names[c];
+			if (elemClass.indexOf(' ' + name + ' ') < 0) {
+				elemClass += name + ' ';
+			}
+		}
+		element.className = elemClass.trim();
+	};
+	this.removeClass = function (element, names) {
+		if (!element) {
+			return;
+		}
+		var names = names ? names.split(/\s/) : [];
+		var len = names.length;
+		var elemClass = element.className || '';
+		var c = 0;
+		for (; c < len; c++) {
+			var regExp = new RegExp('(^| )' + names[c] + '( |$)');
+			elemClass = elemClass.replace(regExp, ' ');
+		}
+		if (element.className == elemClass && !len) {
+			elemClass = '';
+		}
+		element.className = elemClass.trim();
+		return element;
 	};
 	/**
   * Window resize or matchMedia event listener handler.
@@ -368,6 +396,7 @@ function Core() {
 	this.handleDataEvents = function () {
 		loadByScreenSize();
 		_moff.each(_doc.querySelectorAll(_dataAttrs.join(', ')), function () {
+			var _this = this;
 			var element = this;
 			if (element.handled) {
 				return;
@@ -380,6 +409,8 @@ function Core() {
 				_moff.$(function () {
 					handleLink(element);
 				});
+				// Element should be loaded on click in case DOMContentLoaded event is waiting too long
+				event = 'click';
 			} else if (event === 'scroll') {
 				if (_moff.inViewport(element)) {
 					handleLink(element);
@@ -389,7 +420,7 @@ function Core() {
 			} else if (event === 'click' || event === 'touchstart') {
 				if (_settings.loadOnHover && !_moff.detect.isMobile) {
 					element.addEventListener('mouseenter', function () {
-						element = this;
+						element = _this;
 						var url = element.href || element.getAttribute('data-load-url');
 						if (url) {
 							url = removeHash(url);
@@ -406,11 +437,11 @@ function Core() {
 						}
 					}, false);
 				}
-				element.addEventListener(event, function (event) {
-					handleLink(this);
-					event.preventDefault();
-				}, false);
 			}
+			element.addEventListener(event, function (event) {
+				handleLink(this);
+				event.preventDefault();
+			}, false);
 			element.handled = true;
 		});
 	};
@@ -518,14 +549,17 @@ function Core() {
 				_historyData[id] = element;
 			}
 			loadContent(element, url, target, function () {
-				_moff.hidePreloader();
-				// If element has data-load-module attribute
-				// include this module and then run after load callbacks.
+				var targetElement = document.querySelector(target);
+				// If element has data-load-module attribute include this module and then run after load callbacks.
 				if (loadModule) {
 					_moff.amd.include(loadModule, function () {
+						_moff.hidePreloader();
+						_moff.removeClass(targetElement, 'moff-hidden');
 						_moff.runCallbacks(_afterLoad, element);
 					});
 				} else {
+					_moff.hidePreloader();
+					_moff.removeClass(targetElement, 'moff-hidden');
 					_moff.runCallbacks(_afterLoad, element);
 				}
 			});
@@ -545,7 +579,11 @@ function Core() {
   */
 	function handleUrlTemplate(element, url) {
 		return url.replace(/\{\{(.*?)\}\}/g, function () {
-			return element.getAttribute(arguments[1]);
+			var attr = arguments[1];
+			if (attr.indexOf('-') !== -1) {
+				return element.getAttribute(attr);
+			}
+			return element[attr];
 		});
 	}
 	/**
@@ -562,14 +600,15 @@ function Core() {
 			var title = element.getAttribute('data-page-title');
 			var targetElement = _doc.querySelector(target);
 			if (targetElement !== null) {
+				_moff.addClass(targetElement, 'moff-hidden');
 				targetElement.innerHTML = html;
 			}
 			if (title) {
 				_doc.title = title;
 			}
+			callback();
 			// Handle events of new added elements
 			_moff.handleDataEvents();
-			callback();
 		}
 		// If data is cached load it from cache
 		if (_cache[url]) {
@@ -628,7 +667,7 @@ function Core() {
 	}
 	function nodeList(node) {
 		var type = Object.prototype.toString.call(node);
-		return typeof /^\[object (HTMLCollection|NodeList)\]$/.test(type) && node.hasOwnProperty('length') && (node.length === 0 || typeof node[0] === 'object' && node[0].nodeType > 0);
+		return _typeof(/^\[object (HTMLCollection|NodeList)\]$/.test(type)) && node.hasOwnProperty('length') && (node.length === 0 || _typeof(node[0]) === 'object' && node[0].nodeType > 0);
 	}
 	/**
   * Gets Moff settings
@@ -672,7 +711,7 @@ function Core() {
 		// Make type upper case
 		options.type = options.type.toUpperCase();
 		// Set data object to send them as POST or GET params
-		if (typeof options.data === 'object') {
+		if (_typeof(options.data) === 'object') {
 			data = options.data;
 			this.each(data, function (key, value) {
 				params.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
@@ -852,7 +891,7 @@ function Core() {
 			return;
 		}
 		// Normalize options
-		if (typeof callback === 'object') {
+		if ((typeof callback === 'undefined' ? 'undefined' : _typeof(callback)) === 'object') {
 			options = callback;
 			callback = undefined;
 		}
@@ -891,7 +930,7 @@ function Core() {
 			return;
 		}
 		// Normalize options
-		if (typeof callback === 'object') {
+		if ((typeof callback === 'undefined' ? 'undefined' : _typeof(callback)) === 'object') {
 			options = callback;
 			callback = undefined;
 		}
@@ -936,9 +975,8 @@ function Core() {
 	this.settings = function (key, value) {
 		if (typeof value === 'undefined') {
 			return _settings[key];
-		} else {
-			_settings[key] = value;
 		}
+		_settings[key] = value;
 	};
 	/**
   * Iterates over object or array and run callback for each iteration.
@@ -1008,23 +1046,22 @@ function Core() {
   * Moff version.
   * @type {string}
   */
-	this.version = '1.10.43';
+	this.version = '1.11.00';
 	extendSettings();
 	setBreakpoints();
 	setViewMode();
 	_doc.addEventListener('DOMContentLoaded', init, false);
 }
-exports['default'] = Core;
-module.exports = exports['default'];
+exports.default = Core;
 },{}],3:[function(require,module,exports){
+'use strict';
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 /**
  * Detects OS, browser and another features support.
  * @module Detect
  */
-'use strict';
-Object.defineProperty(exports, '__esModule', {
-	value: true
-});
 function Detect() {
 	/**
   * @property {Window} _win - Link to Window object.
@@ -1059,25 +1096,24 @@ function Detect() {
   * @function html5Support
   */
 	function html5Support() {
-		// Determine whether browser support touch JavaScript API
-		// It does not mean touch device
+		// Determine whether browser support touch JavaScript API. It does not mean touch device
 		_detect.touch = !!('ontouchstart' in _win || _win.DocumentTouch && _doc instanceof _win.DocumentTouch);
 		_detect.applicationCache = !!_win.applicationCache;
-		_detect.canvas = (function () {
+		_detect.canvas = function () {
 			var canvas = _doc.createElement('canvas');
 			return !!(canvas.getContext && canvas.getContext('2d'));
-		})();
+		}();
 		_detect.canvasText = !!(_detect.canvas && typeof _doc.createElement('canvas').getContext('2d').fillText === 'function');
-		_detect.dragAndDrop = (function () {
+		_detect.dragAndDrop = function () {
 			var div = _doc.createElement('div');
 			return 'draggable' in div || 'ondragstart' in div && 'ondrop' in div;
-		})();
+		}();
 		_detect.hashChange = !!('onhashchange' in _win && (typeof _doc.documentMode === 'undefined' || _doc.documentMode > 7));
 		_detect.history = !!(_win.history && history.pushState);
 		_detect.postMessage = !!_win.postMessage;
 		_detect.webSockets = !!('WebSocket' in _win || 'MozWebSocket' in _win);
 		_detect.webWorkers = !!_win.Worker;
-		_detect.audio = (function () {
+		_detect.audio = function () {
 			var audio = _doc.createElement('audio');
 			var bool = false;
 			try {
@@ -1090,8 +1126,8 @@ function Detect() {
 				}
 			} catch (error) {}
 			return bool;
-		})();
-		_detect.video = (function () {
+		}();
+		_detect.video = function () {
 			var video = _doc.createElement('video');
 			var bool = false;
 			try {
@@ -1103,8 +1139,8 @@ function Detect() {
 				}
 			} catch (error) {}
 			return bool;
-		})();
-		_detect.indexedDB = (function () {
+		}();
+		_detect.indexedDB = function () {
 			var props = ['indexedDB', 'webkitIndexedDB', 'mozIndexedDB', 'OIndexedDB', 'msIndexedDB'];
 			for (var i in props) {
 				if (props.hasOwnProperty(i)) {
@@ -1121,8 +1157,8 @@ function Detect() {
 				}
 			}
 			return false;
-		})();
-		_detect.localStorage = (function () {
+		}();
+		_detect.localStorage = function () {
 			try {
 				localStorage.setItem(_detect.mode, _detect.mode);
 				localStorage.removeItem(_detect.mode);
@@ -1130,8 +1166,8 @@ function Detect() {
 			} catch (error) {
 				return false;
 			}
-		})();
-		_detect.sessionStorage = (function () {
+		}();
+		_detect.sessionStorage = function () {
 			try {
 				sessionStorage.setItem(_detect.mode, _detect.mode);
 				sessionStorage.removeItem(_detect.mode);
@@ -1139,7 +1175,7 @@ function Detect() {
 			} catch (error) {
 				return false;
 			}
-		})();
+		}();
 	}
 	/**
   * Detect browser
@@ -1211,17 +1247,16 @@ function Detect() {
 	detectOS();
 	detectMobileDevice();
 }
-exports['default'] = Detect;
-module.exports = exports['default'];
+exports.default = Detect;
 },{}],4:[function(require,module,exports){
+'use strict';
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 /**
  * Moff Event module.
  * @module Event.
  */
-'use strict';
-Object.defineProperty(exports, '__esModule', {
-	value: true
-});
 function Event() {
 	/**
   * @private {{}} _eventStore - Events storage.
@@ -1293,9 +1328,8 @@ function Event() {
 		var event = _eventStore[name];
 		if (Array.isArray(event) && event.length) {
 			return event;
-		} else {
-			return undefined;
 		}
+		return undefined;
 	};
 	/**
   * Removes event handler
@@ -1316,38 +1350,37 @@ function Event() {
 		});
 	};
 }
-exports['default'] = Event;
-module.exports = exports['default'];
+exports.default = Event;
 },{}],5:[function(require,module,exports){
 'use strict';
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-var _amdSrcAmdE6 = require('../../amd/src/amd.e6');
-var _amdSrcAmdE62 = _interopRequireDefault(_amdSrcAmdE6);
-var _coreSrcCoreE6 = require('../../core/src/core.e6');
-var _coreSrcCoreE62 = _interopRequireDefault(_coreSrcCoreE6);
-var _eventSrcEventE6 = require('../../event/src/event.e6');
-var _eventSrcEventE62 = _interopRequireDefault(_eventSrcEventE6);
-var _detectSrcDetectE6 = require('../../detect/src/detect.e6');
-var _detectSrcDetectE62 = _interopRequireDefault(_detectSrcDetectE6);
-var _modulesSrcBaseEs6 = require('../../modules/src/base.es6');
-var _modulesSrcBaseEs62 = _interopRequireDefault(_modulesSrcBaseEs6);
-var _modulesSrcApiE6 = require('../../modules/src/api.e6');
-var _modulesSrcApiE62 = _interopRequireDefault(_modulesSrcApiE6);
-window.Moff = new _coreSrcCoreE62['default']();
-window.Moff.amd = new _amdSrcAmdE62['default']();
-window.Moff.event = new _eventSrcEventE62['default']();
-window.Moff.Module = new _modulesSrcBaseEs62['default']();
-window.Moff.detect = new _detectSrcDetectE62['default']();
-window.Moff.modules = new _modulesSrcApiE62['default']();
+var _amd = require('../../amd/src/amd.e6');
+var _amd2 = _interopRequireDefault(_amd);
+var _core = require('../../core/src/core.e6');
+var _core2 = _interopRequireDefault(_core);
+var _event = require('../../event/src/event.e6');
+var _event2 = _interopRequireDefault(_event);
+var _detect = require('../../detect/src/detect.e6');
+var _detect2 = _interopRequireDefault(_detect);
+var _base = require('../../modules/src/base.es6');
+var _base2 = _interopRequireDefault(_base);
+var _api = require('../../modules/src/api.e6');
+var _api2 = _interopRequireDefault(_api);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+window.Moff = new _core2.default();
+window.Moff.amd = new _amd2.default();
+window.Moff.event = new _event2.default();
+window.Moff.Module = new _base2.default();
+window.Moff.detect = new _detect2.default();
+window.Moff.modules = new _api2.default();
 },{"../../amd/src/amd.e6":1,"../../core/src/core.e6":2,"../../detect/src/detect.e6":3,"../../event/src/event.e6":4,"../../modules/src/api.e6":6,"../../modules/src/base.es6":7}],6:[function(require,module,exports){
+'use strict';
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 /**
  * Register and control new Moff modules.
  * @module Module.
  */
-'use strict';
-Object.defineProperty(exports, '__esModule', {
-	value: true
-});
 function ModulesApi() {
 	/**
   * @private {{}} _moduleObjectStorage - Modules storage.
@@ -1505,12 +1538,12 @@ function ModulesApi() {
 		var storage = _moduleObjectStorage[moduleName];
 		// Be sure to remove existing module
 		if (Array.isArray(storage)) {
-			var _length = storage.length;
-			for (; i < _length; i++) {
+			var length = storage.length;
+			for (; i < length; i++) {
 				var object = storage[i];
 				if (isInstance && object === module || !isInstance && object.moduleName === moduleName) {
 					storage.splice(i, 1);
-					_length = storage.length;
+					length = storage.length;
 					--i;
 				}
 			}
@@ -1524,18 +1557,18 @@ function ModulesApi() {
 		}
 	};
 }
-exports['default'] = ModulesApi;
-module.exports = exports['default'];
+exports.default = ModulesApi;
 },{}],7:[function(require,module,exports){
+'use strict';
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 /**
  * Module base class.
  * @class ModuleBase
  * @constructor
  */
-'use strict';
-Object.defineProperty(exports, '__esModule', {
-	value: true
-});
 function ModuleBase() {
 	/**
   * @property {null|string} scopeSelector - Module scope selector. CSS selector.
@@ -1585,15 +1618,14 @@ function ModuleBase() {
   * @param {{}} additions - Additional methods and properties
   */
 	this.reopen = function (additions) {
-		if (typeof additions !== 'object') {
+		var _this = this;
+		if ((typeof additions === 'undefined' ? 'undefined' : _typeof(additions)) !== 'object') {
 			return;
 		}
-		var obj = this;
 		Moff.each(additions, function (property, value) {
-			obj[property] = value;
+			_this[property] = value;
 		});
 	};
 }
-exports['default'] = ModuleBase;
-module.exports = exports['default'];
+exports.default = ModuleBase;
 },{}]},{},[5]);

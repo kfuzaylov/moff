@@ -31,10 +31,12 @@ describe('Moff.modules API', function() {
 
 		beforeAll(function(done) {
 			var div = document.createElement('div');
+
 			div.innerHTML = '<div class="inside"></div>';
 			div.className = 'mod-wrapper';
 
 			var inside = document.createElement('div');
+
 			inside.className = 'inside';
 
 			document.body.appendChild(div);
@@ -64,7 +66,7 @@ describe('Moff.modules API', function() {
 			Moff.modules.initClass('Slideshow', {
 				id: 43,
 				config: {},
-				afterInit: function() {
+				afterInit() {
 					done();
 				}
 			});
@@ -73,6 +75,7 @@ describe('Moff.modules API', function() {
 		it('loads all dependency files', function() {
 			expect(document.querySelectorAll('[src="fixtures/depend.js"], [href="fixtures/depend.css"]').length).toEqual(2);
 			var s = document.querySelector('script[src="fixtures/depend.js"]');
+
 			s.parentNode.removeChild(s);
 		});
 
@@ -91,13 +94,14 @@ describe('Moff.modules API', function() {
 		});
 
 		it('register events', function() {
-			expect(Array.isArray(Moff.event._testonly._eventStore['event1'])).toBe(true);
-			expect(Array.isArray(Moff.event._testonly._eventStore['event2'])).toBe(true);
+			expect(Array.isArray(Moff.event._testonly._eventStore.event1)).toBe(true);
+			expect(Array.isArray(Moff.event._testonly._eventStore.event2)).toBe(true);
 		});
 	});
 
 	describe('Moff.modules.get', function() {
 		var moduleObject;
+
 		beforeAll(function() {
 			moduleObject = Moff.modules.get('Module2');
 		});
@@ -131,12 +135,13 @@ describe('Moff.modules API', function() {
 			Moff.modules.initClass('Module2', {id: 'modId2'});
 			expect(typeof Moff.modules.get('Module2')).toEqual('object');
 			Moff.modules.remove('Module2');
-			expect(Moff.modules._testonly._moduleObjectStorage['Module2']).toBeUndefined();
+			expect(Moff.modules._testonly._moduleObjectStorage.Module2).toBeUndefined();
 
 			Moff.modules.initClass('Module2', {id: 'modId2'});
 			var module2 = Moff.modules.get('Module2');
+
 			Moff.modules.remove(module2);
-			expect(Moff.modules._testonly._moduleObjectStorage['Module2']).toBeUndefined();
+			expect(Moff.modules._testonly._moduleObjectStorage.Module2).toBeUndefined();
 		});
 	});
 });
@@ -189,10 +194,11 @@ describe('Moff.Module Base Class', function() {
 
 	describe('Moff.Module.reopen method', function() {
 		var test;
+
 		beforeAll(function() {
 			Moff.Module.reopen({
 				newProp: 1,
-				newMethod: function() {
+				newMethod() {
 					return 1;
 				}
 			});

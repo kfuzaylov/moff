@@ -5,7 +5,6 @@ import Detect from '../../detect/src/detect.e6';
 import Module from '../../modules/src/base.es6';
 import ModulesApi from '../../modules/src/api.e6';
 
-
 window.Moff = new Core();
 window.Moff.amd = new AMD();
 window.Moff.event = new Event();

@@ -70,7 +70,7 @@ describe('Moff Detect', function() {
 			delete Moff.detect.browser.version;
 			expect(['chrome', 'msie', 'mozilla', 'opera', 'webkit', 'edge']).toContain(Object.keys(Moff.detect.browser)[0]);
 		});
-	})
+	});
 
 	describe('Moff.detect.OS', function() {
 		it('supports OS detection', function() {

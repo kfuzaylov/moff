@@ -1,7 +1,7 @@
 describe('AMD', function() {
 	var before, after;
-	
 	var div = document.createElement('div');
+
 	div.setAttribute('data-load-module', 'load-data');
 	document.body.appendChild(div);
 
@@ -33,12 +33,14 @@ describe('AMD', function() {
 			js: ['fixtures/file.js'],
 			css: ['fixtures/file.css']
 		},
-		beforeInclude: function() {
+		beforeInclude() {
 			before = true;
 		},
-		afterInclude: function() {
+
+		afterInclude() {
 			after = true;
 		},
+
 		onWindowLoad: true
 	});
 
@@ -53,14 +55,15 @@ describe('AMD', function() {
 
 		afterAll(function() {
 			var nodes = document.querySelectorAll('[src="fixtures/depend.js"], [src="fixtures/file.js"], [href="fixtures/depend.css"], [href="fixtures/file.css"]');
+
 			Moff.each(nodes, function() {
 				this.parentNode.removeChild(this);
 			});
 		});
-		
+
 		it('marks register as loaded', function(done) {
 			Moff.$(function() {
-				expect(Moff.amd._testonly._registeredFiles['load'].loaded).toBeTruthy();
+				expect(Moff.amd._testonly._registeredFiles.load.loaded).toBeTruthy();
 				done();
 			});
 		});
@@ -79,7 +82,7 @@ describe('AMD', function() {
 
 		it('does not load register w/o this flag', function(done) {
 			Moff.$(function() {
-				expect(Moff.amd._testonly._registeredFiles['moduleId'].loaded).toBeFalsy();
+				expect(Moff.amd._testonly._registeredFiles.moduleId.loaded).toBeFalsy();
 				done();
 			});
 		});
@@ -134,15 +137,17 @@ describe('AMD', function() {
 
 		afterAll(function() {
 			var nodes = document.querySelectorAll('[src="fixtures/depend.js"], [src="fixtures/file.js"], [href="fixtures/depend.css"], [href="fixtures/file.css"]');
+
 			Moff.each(nodes, function() {
 				this.parentNode.removeChild(this);
 			});
 		});
 
-		it ('push register as deferred if onWindowLoad is true and register was being included before load', function() {
+		it('push register as deferred if onWindowLoad is true and register was being included before load', function() {
 			Moff.each(Moff.amd._testonly._deferredObjects, function(i, obj) {
 				if (obj.id === 'push') {
 					expect(true).toBe(true);
+
 					return false;
 				}
 			});

@@ -62,12 +62,12 @@ function ModuleBase() {
 	this.reopen = function(additions) {
 		if (typeof additions !== 'object') {
 			Moff.debug('Reopen method argument must be an object');
+
 			return;
 		}
 
-		var obj = this;
-		Moff.each(additions, function(property, value) {
-			obj[property] = value;
+		Moff.each(additions, (property, value) => {
+			this[property] = value;
 		});
 	}
 }

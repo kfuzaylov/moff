@@ -9,6 +9,7 @@ describe('Moff Core', function() {
 	describe('Moff.getMode method', function() {
 		it('gets current screen mode', function() {
 			var mode = Moff.getMode();
+
 			expect(['xs', 'sm', 'md', 'lg']).toContain(mode);
 		});
 	});
@@ -22,6 +23,7 @@ describe('Moff Core', function() {
 		it('has setter', function() {
 			Moff.settings('anySetting', 14);
 			var anySetting = Moff.settings('anySetting');
+
 			expect(anySetting).toEqual(14);
 		});
 
@@ -32,13 +34,13 @@ describe('Moff Core', function() {
 
 	describe('Moff.each method', function() {
 		it('goes through array', function() {
-			Moff.each([1,2,3,4], function(index, value) {
+			Moff.each([1, 2, 3, 4], function(index, value) {
 				if (value === 1) {
-					expect(index).toEqual(0)
+					expect(index).toEqual(0);
 				}
 
 				if (index === 0) {
-					expect(value).toEqual(1)
+					expect(value).toEqual(1);
 				}
 
 				expect(this).toEqual(value);
@@ -48,11 +50,11 @@ describe('Moff Core', function() {
 		it('goes through object', function() {
 			Moff.each({one: 1, two: 2}, function(key, value) {
 				if (value === 1) {
-					expect(key).toEqual('one')
+					expect(key).toEqual('one');
 				}
 
 				if (key === 'one') {
-					expect(value).toEqual(1)
+					expect(value).toEqual(1);
 				}
 
 				expect(this).toEqual(value);
@@ -64,7 +66,6 @@ describe('Moff Core', function() {
 		var callbacks = [function(arg1) {
 			this[arg1] = true;
 		}];
-
 		var object = {};
 
 		beforeAll(function() {
@@ -95,6 +96,7 @@ describe('Moff Core', function() {
 				css: ['fixtures/depend.css']
 			}, function() {
 				var nodes = document.querySelectorAll('script[src="fixtures/depend.js"], link[href="fixtures/depend.css"]');
+
 				expect(nodes.length).toEqual(2);
 
 				Moff.each(nodes, function() {
@@ -110,6 +112,7 @@ describe('Moff Core', function() {
 				css: ['fixtures/depend.css']
 			}, function() {
 				var nodes = document.querySelectorAll('script[src="fixtures/depend.js"], link[href="fixtures/depend.css"]');
+
 				expect(nodes.length).toEqual(2);
 
 				Moff.each(nodes, function() {
@@ -137,9 +140,11 @@ describe('Moff Core', function() {
 
 		it('reload existing file if pass {reload: true} option', function(done) {
 			var file1 = document.querySelector('script[src="fixtures/file.js"]');
+
 			Moff.loadJS('fixtures/file.js', function() {
 				expect(document.querySelectorAll('script[src="fixtures/file.js"]').length).toEqual(1);
 				var file2 = document.querySelector('script[src="fixtures/file.js"]');
+
 				expect(file1 !== file2).toBe(true);
 				done();
 			}, {reload: true});
@@ -163,9 +168,11 @@ describe('Moff Core', function() {
 
 		it('reload existing file if pass {reload: true} option', function(done) {
 			var file1 = document.querySelector('link[href="fixtures/file.css"]');
+
 			Moff.loadCSS('fixtures/file.css', function() {
 				expect(document.querySelectorAll('link[href="fixtures/file.css"]').length).toEqual(1);
 				var file2 = document.querySelector('link[href="fixtures/file.css"]');
+
 				expect(file1 !== file2).toBe(true);
 				done();
 			}, {reload: true});
@@ -193,12 +200,12 @@ describe('Moff Core', function() {
 		});
 
 		it('can can make GET request', function() {
-			var doneFn = jasmine.createSpy("success");
+			var doneFn = jasmine.createSpy('success');
 
 			Moff.ajax({
 				type: 'GET',
 				url: 'content.html',
-				success: function(html) {
+				success(html) {
 					doneFn(html);
 				}
 			});
@@ -206,21 +213,21 @@ describe('Moff Core', function() {
 			expect(jasmine.Ajax.requests.mostRecent().method).toBe('GET');
 
 			jasmine.Ajax.requests.mostRecent().respondWith({
-				"status": 200,
-				"contentType": 'text/plain',
-				"responseText": 'awesome response'
+				status: 200,
+				contentType: 'text/plain',
+				responseText: 'awesome response'
 			});
 
 			expect(doneFn).toHaveBeenCalledWith('awesome response');
 		});
 
 		it('can can make POST request', function() {
-			var doneFn = jasmine.createSpy("success");
+			var doneFn = jasmine.createSpy('success');
 
 			Moff.ajax({
 				type: 'POST',
 				url: 'content2.html',
-				success: function(html) {
+				success(html) {
 					doneFn(html);
 				}
 			});
@@ -228,9 +235,9 @@ describe('Moff Core', function() {
 			expect(jasmine.Ajax.requests.mostRecent().method).toBe('POST');
 
 			jasmine.Ajax.requests.mostRecent().respondWith({
-				"status": 200,
-				"contentType": 'text/plain',
-				"responseText": 'awesome response post'
+				status: 200,
+				contentType: 'text/plain',
+				responseText: 'awesome response post'
 			});
 
 			expect(doneFn).toHaveBeenCalledWith('awesome response post');
@@ -279,6 +286,40 @@ describe('Moff Core', function() {
 			expect(Moff._testonly._loader().getAttribute('style').match(/-o-transform: translate\(200px, 290px\);/).length).toEqual(1);
 			expect(Moff._testonly._loader().getAttribute('style').match(/transform: translate\(200px, 290px\);/).length).toEqual(1);
 			expect(Moff._testonly._loader().getAttribute('class').indexOf('__default')).toEqual(-1);
+		});
+	});
+
+	describe('Moff.addClass method', function() {
+		it('should add one or several class name to element', function() {
+			var div = document.createElement('div');
+
+			Moff.addClass(div, 'one');
+			expect(div.className).toEqual('one');
+
+			Moff.addClass(div, 'three four');
+			expect(/three/.test(div.className)).toBe(true);
+			expect(/four/.test(div.className)).toBe(true);
+		});
+
+		it('should not add the same class twice', function() {
+			var div = document.createElement('div');
+
+			Moff.addClass(div, 'one one');
+			expect(div.className).toEqual('one');
+		});
+	});
+
+	describe('Moff.removeClass method', function() {
+		it('should remove one or several class name of element', function() {
+			var div = document.createElement('div');
+
+			Moff.addClass(div, 'one two');
+			Moff.removeClass(div, 'two');
+			expect(div.className).toEqual('one');
+
+			Moff.addClass(div, 'three four');
+			Moff.removeClass(div, 'one four');
+			expect(div.className).toEqual('three');
 		});
 	});
 });

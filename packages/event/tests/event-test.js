@@ -7,15 +7,15 @@ describe('Event system', function() {
 
 	it('can register new event', function() {
 		Moff.event.add('newEvent');
-		expect(Array.isArray(Moff.event._testonly._eventStore['newEvent'])).toBe(true);
+		expect(Array.isArray(Moff.event._testonly._eventStore.newEvent)).toBe(true);
 	});
 
 	it('can assign for event only callbacks', function() {
 		Moff.event.on('newEvent', handler);
 
-		expect(typeof Moff.event._testonly._eventStore['newEvent'][0]).toEqual('function');
+		expect(typeof Moff.event._testonly._eventStore.newEvent[0]).toEqual('function');
 		Moff.event.on('newEvent', {});
-		expect(Moff.event._testonly._eventStore['newEvent'].length).toEqual(1);
+		expect(Moff.event._testonly._eventStore.newEvent.length).toEqual(1);
 	});
 
 	it('can trigger callbacks and pass all arguments', function() {
@@ -37,7 +37,7 @@ describe('Event system', function() {
 		Moff.event.add('newEvent');
 		Moff.event.on('newEvent', function(){});
 		Moff.event.on('newEvent', function(){});
-		expect(Moff.event._testonly._eventStore['newEvent'].length).toEqual(2);
+		expect(Moff.event._testonly._eventStore.newEvent.length).toEqual(2);
 
 		Moff.event.off('newEvent');
 		expect(Moff.event.get('newEvent')).toBeUndefined();

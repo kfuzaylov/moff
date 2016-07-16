@@ -42,18 +42,19 @@ function Detect() {
 	 * @function html5Support
 	 */
 	function html5Support() {
-		// Determine whether browser support touch JavaScript API
-		// It does not mean touch device
+		// Determine whether browser support touch JavaScript API. It does not mean touch device
 		_detect.touch = !!(('ontouchstart' in _win) || _win.DocumentTouch && _doc instanceof _win.DocumentTouch);
 		_detect.applicationCache = !!_win.applicationCache;
 		_detect.canvas = (function() {
 			var canvas = _doc.createElement('canvas');
+
 			return !!(canvas.getContext && canvas.getContext('2d'));
 		})();
 
 		_detect.canvasText = !!(_detect.canvas && typeof _doc.createElement('canvas').getContext('2d').fillText === 'function');
 		_detect.dragAndDrop = (function() {
 			var div = _doc.createElement('div');
+
 			return ('draggable' in div) || ('ondragstart' in div && 'ondrop' in div);
 		})();
 
@@ -101,6 +102,7 @@ function Detect() {
 			for (var i in props) {
 				if (props.hasOwnProperty(i)) {
 					var item = _win[props[i]];
+
 					if (item !== undefined) {
 						if (item === false) {
 							return props[i];
@@ -122,6 +124,7 @@ function Detect() {
 			try {
 				localStorage.setItem(_detect.mode, _detect.mode);
 				localStorage.removeItem(_detect.mode);
+
 				return true;
 			} catch (error) {
 				return false;
@@ -132,6 +135,7 @@ function Detect() {
 			try {
 				sessionStorage.setItem(_detect.mode, _detect.mode);
 				sessionStorage.removeItem(_detect.mode);
+
 				return true;
 			} catch (error) {
 				return false;
@@ -205,12 +209,13 @@ function Detect() {
 	 */
 	this.supportCSS3 = function(property) {
 		var ucProp = property.charAt(0).toUpperCase() + property.slice(1);
-		var props = (property + ' ' + 'Webkit Moz O ms'.split(' ').join(ucProp + ' ') + ucProp).split(' ');
+		var props = (`${property} ${'Webkit Moz O ms'.split(' ').join(`${ucProp} `)}${ucProp}`).split(' ');
 		var length = props.length;
 		var i = 0;
 
 		for (; i < length; i++) {
 			property = props[i];
+
 			if (property.indexOf('-') === -1 && document.createElement('div').style[property] !== undefined) {
 				return true;
 			}

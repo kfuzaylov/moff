@@ -68,8 +68,7 @@ function AMD() {
 	 */
 	function includeRegister() {
 		Moff.each(_registeredFiles, function(id, object) {
-			// Don't load register if it is used in data-load-module attribute,
-			// because it will be included after content of element be loaded.
+			// Don't load register if it is used in data-load-module attribute because it will be included after content of element be loaded.
 			if (object.loadOnScreen.length && object.loadOnScreen.indexOf(Moff.getMode()) !== -1 && !_doc.querySelectorAll(`[data-load-module="${id}"]`).length) {
 				_amd.include(id);
 			}
@@ -111,7 +110,8 @@ function AMD() {
 		var register = _registeredFiles[id];
 
 		if (!register) {
-			Moff.debug(id + ' AMD module is not registered.');
+			Moff.debug(`${id} AMD module is not registered.`);
+
 			return;
 		}
 
@@ -128,13 +128,15 @@ function AMD() {
 			if (hasCallback) {
 				callback();
 			}
+
 			return;
 		}
 
 		// Make sure to load after window load if onWindowLoad is true
 		if (register.onWindowLoad && !_windowIsLoaded) {
 			// Save id to load after window load
-			_deferredObjects.push({id: id, callback: callback});
+			_deferredObjects.push({id, callback});
+
 			return;
 		}
 
@@ -169,8 +171,8 @@ function AMD() {
 
 	/* Test-code */
 	this._testonly = {
-		_deferredObjects: _deferredObjects,
-		_registeredFiles: _registeredFiles
+		_deferredObjects,
+		_registeredFiles
 	};
 	/* End-test-code */
 

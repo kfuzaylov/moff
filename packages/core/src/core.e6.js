@@ -170,6 +170,7 @@ function Core() {
 
 	function addPreloaderStyles() {
 		var style = document.createElement('style');
+
 		style.appendChild(document.createTextNode(`
 			.moff-loader {
 				display: none;
@@ -236,6 +237,9 @@ function Core() {
 				-webkit-animation: spin 1.5s linear infinite;
 				animation: spin 1.5s linear infinite;
 			}
+			.moff-hidden {
+				display: none;
+			}
 			@-webkit-keyframes spin {
 				0% {
 					-webkit-transform: rotate(0deg);
@@ -278,29 +282,20 @@ function Core() {
 
 	this.showPreloader = function(position = true) {
 		this.hidePreloader();
-		var className = _loader.className;
+		this.addClass(_loader, '__visible');
 
-		if (className.indexOf('__visible') === -1) {
-			className += ' __visible';
-		}
-
-		if (position && className.indexOf('__default') === -1) {
-			className += ' __default';
+		if (position) {
+			this.addClass(_loader, '__default');
 		}
 
 		if (!_moff.detect.supportCSS3('transition')) {
-			className += ' __ie9-preloader';
+			this.addClass(_loader, '__ie9-preloader');
 		}
 
-		_loader.setAttribute('class', className);
 	};
 
 	this.hidePreloader = function() {
-		var className = _loader.className.replace(/(^| )__visible( |$)/, ' ');
-		className = className.replace(/(^| )__default( |$)/, ' ');
-		className = className.replace(/(^| )__ie9-preloader( |$)/, ' ');
-
-		_loader.setAttribute('class', className.trim());
+		this.removeClass(_loader, '__visible __default __ie9-preloader');
 		_loader.removeAttribute('style');
 	};
 
@@ -313,18 +308,67 @@ function Core() {
 
 			if (_moff.detect.supportCSS3('transition')) {
 				let coords = `${x}px, ${y}px`;
+
 				style = `-webkit-transform: translate(${coords});
 				-moz-transform: translate(${coords});
 				-o-transform: translate(${coords});
 				transform: translate(${coords});`;
 			} else {
-				// for IE 9.0
+				// For IE 9.0
 				style = `left: ${x}px; top: ${y}px`;
-				_loader.className = `${_loader.className} __ie9-preloader`;
+				this.addClass(_loader, '__ie9-preloader');
 			}
 
 			_loader.setAttribute('style', style);
 		}
+	};
+
+	this.addClass = function(element, names) {
+		if (!element) {
+			return;
+		}
+
+		var names = names.split(/\s/);
+		var len = names.length;
+		var c = 0;
+		var name, elemClass;
+
+		elemClass = ` ${element.className} `;
+
+		for (; c < len; c++) {
+			name = names[c];
+
+			if (elemClass.indexOf(` ${name} `) < 0) {
+				elemClass += `${name} `;
+			}
+		}
+
+		element.className = elemClass.trim();
+	};
+
+	this.removeClass = function(element, names) {
+		if (!element) {
+			return;
+		}
+
+		var names = names ? names.split(/\s/) : [];
+		var len = names.length;
+		var elemClass = element.className || '';
+		var c = 0;
+
+		for (; c < len; c++) {
+			let regExp = new RegExp(`(^| )${names[c]}( |$)`);
+
+			elemClass = elemClass.replace(regExp, ' ');
+		}
+
+		if (element.className == elemClass && !len) {
+			elemClass = '';
+		}
+
+		element.className = elemClass.trim();
+
+		return element;
 	};
 
 	/**
@@ -362,9 +406,12 @@ function Core() {
 			}
 
 			if (event === 'dom') {
-				_moff.$(function () {
+				_moff.$(() => {
 					handleLink(element);
 				});
+
+				// Element should be loaded on click in case DOMContentLoaded event is waiting too long
+				event = 'click';
 			} else if (event === 'scroll') {
 				if (_moff.inViewport(element)) {
 					handleLink(element);
@@ -374,7 +421,7 @@ function Core() {
 			} else if (event === 'click' || event === 'touchstart') {
 
 				if (_settings.loadOnHover && !_moff.detect.isMobile) {
-					element.addEventListener('mouseenter', function () {
+					element.addEventListener('mouseenter', () => {
 						element = this;
 						let url = element.href || element.getAttribute('data-load-url');
 
@@ -384,11 +431,11 @@ function Core() {
 							if (url) {
 								url = handleUrlTemplate(element, url);
 
-								load(url, function (data) {
+								load(url, (data) => {
 									_cache[url] = data;
 
 									// Clear cache each n seconds to prevent memory leak.
-									setTimeout(function () {
+									setTimeout(() => {
 										delete _cache[url];
 									}, _settings.cacheLiveTime);
 								});
@@ -396,12 +443,12 @@ function Core() {
 						}
 					}, false);
 				}
-
-				element.addEventListener(event, function(event) {
-					handleLink(this);
-					event.preventDefault();
-				}, false);
 			}
+
+			element.addEventListener(event, function(event) {
+				handleLink(this);
+				event.preventDefault();
+			}, false);
 
 			element.handled = true;
 		});
@@ -439,6 +486,7 @@ function Core() {
 	function setBreakpoints() {
 		if (_settings.breakpoints && _matchMediaSupport) {
 			let breakpoints = _settings.breakpoints;
+
 			_mqSmall = _mqSmall.replace('%d', breakpoints.sm);
 			_mqMedium = _mqMedium.replace('%d', breakpoints.md);
 			_mqLarge = _mqLarge.replace('%d', breakpoints.lg);
@@ -491,7 +539,7 @@ function Core() {
 		_moff.ajax({
 			url,
 			type: 'GET',
-			success: function(data) {
+			success(data) {
 				if (typeof callback === 'function') {
 					callback(data);
 				}
@@ -523,20 +571,23 @@ function Core() {
 			if (_moff.detect.history && push !== null) {
 				let id = Date.now();
 
-				_win.history.pushState({elemId: id, url: url}, title, url);
+				_win.history.pushState({elemId: id, url}, title, url);
 				_historyData[id] = element;
 			}
 
 			loadContent(element, url, target, function() {
-				_moff.hidePreloader();
+				var targetElement = document.querySelector(target);
 
-				// If element has data-load-module attribute
-				// include this module and then run after load callbacks.
+				// If element has data-load-module attribute include this module and then run after load callbacks.
 				if (loadModule) {
 					_moff.amd.include(loadModule, function() {
+						_moff.hidePreloader();
+						_moff.removeClass(targetElement, 'moff-hidden');
 						_moff.runCallbacks(_afterLoad, element);
 					});
 				} else {
+					_moff.hidePreloader();
+					_moff.removeClass(targetElement, 'moff-hidden');
 					_moff.runCallbacks(_afterLoad, element);
 				}
 			});
@@ -557,8 +608,15 @@ function Core() {
 	 */
 	function handleUrlTemplate(element, url) {
 		return url.replace(/\{\{(.*?)\}\}/g, function() {
-			return element.getAttribute(arguments[1]);
+			var attr = arguments[1];
+
+			if (attr.indexOf('-') !== -1) {
+				return element.getAttribute(attr);
+			}
+
+			return element[attr];
 		});
+
 	}
 
 	/**
@@ -577,6 +635,7 @@ function Core() {
 			var targetElement = _doc.querySelector(target);
 
 			if (targetElement !== null) {
+				_moff.addClass(targetElement, 'moff-hidden');
 				targetElement.innerHTML = html;
 			}
 
@@ -584,9 +643,10 @@ function Core() {
 				_doc.title = title;
 			}
 
+			callback();
+
 			// Handle events of new added elements
 			_moff.handleDataEvents();
-			callback();
 		}
 
 		// If data is cached load it from cache
@@ -634,6 +694,7 @@ function Core() {
 	 */
 	function removeHash(url) {
 		var index = url.indexOf('#');
+
 		return index === -1 ? url : url.substr(0, index);
 	}
 
@@ -690,7 +751,7 @@ function Core() {
 		var width = element.offsetWidth;
 		var height = element.offsetHeight;
 
-		while(element.offsetParent) {
+		while (element.offsetParent) {
 			element = element.offsetParent;
 
 			top += element.offsetTop;
@@ -722,7 +783,7 @@ function Core() {
 			data = options.data;
 
 			this.each(data, function(key, value) {
-				params.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
+				params.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
 			});
 
 			options.data = params.join('&');
@@ -736,6 +797,7 @@ function Core() {
 		}
 
 		var xhr = new XMLHttpRequest();
+
 		xhr.open(options.type, options.url, true);
 
 		xhr.setRequestHeader('Content-Type', options.contentType || 'application/x-www-form-urlencoded; charset=UTF-8');
@@ -743,6 +805,7 @@ function Core() {
 
 		xhr.onload = function() {
 			var status = this.status;
+
 			if (status >= 200 && status < 300 || status === 304) {
 				options.success(this.responseText, this);
 			} else {
@@ -781,6 +844,7 @@ function Core() {
 	this.onViewChange = function(callback) {
 		if (typeof callback !== 'function') {
 			this.debug('Moff.onViewChange callback must be a function');
+
 			return;
 		}
 
@@ -795,6 +859,7 @@ function Core() {
 	this.beforeLoad = function(callback) {
 		if (typeof callback !== 'function') {
 			this.debug('Moff.beforeLoad callback must be a function');
+
 			return;
 		}
 
@@ -809,6 +874,7 @@ function Core() {
 	this.afterLoad = function(callback) {
 		if (typeof callback !== 'function') {
 			this.debug('Moff.afterLoad callback must be a function');
+
 			return;
 		}
 
@@ -872,9 +938,11 @@ function Core() {
 
 		if (!length) {
 			Moff.debug('You must pass minimum one js or css file');
+
 			if (hasCallback) {
 				callback();
 			}
+
 			return;
 		}
 
@@ -925,6 +993,7 @@ function Core() {
 	this.loadJS = function(src, callback, options = {}) {
 		if (typeof src !== 'string') {
 			this.debug('Moff.loadJS source must be a string');
+
 			return;
 		}
 
@@ -939,6 +1008,7 @@ function Core() {
 
 		function appendScript() {
 			var script = _doc.createElement('script');
+
 			script.setAttribute('src', src);
 
 			if (hasCallback) {
@@ -971,6 +1041,7 @@ function Core() {
 	this.loadCSS = function(href, callback, options = {}) {
 		if (typeof href !== 'string') {
 			this.debug('Moff.loadCSS source must be a string');
+
 			return;
 		}
 
@@ -996,6 +1067,7 @@ function Core() {
 
 			link.onreadystatechange = function() {
 				var state = link.readyState;
+
 				if (state === 'loaded' || state === 'complete') {
 					link.onreadystatechange = null;
 
@@ -1029,9 +1101,9 @@ function Core() {
 	this.settings = function(key, value) {
 		if (typeof value === 'undefined') {
 			return _settings[key];
-		} else {
-			_settings[key] = value;
 		}
+
+		_settings[key] = value;
 	};
 
 	/**
@@ -1076,6 +1148,7 @@ function Core() {
 	this.$ = function(callback) {
 		if (typeof callback !== 'function') {
 			this.debug('Moff.$ argument must be a function');
+
 			return;
 		}
 
@@ -1094,7 +1167,7 @@ function Core() {
 	 */
 	this.debug = function(message) {
 		if (window.console && window.console.debug) {
-			window.console.debug('Moff DEBUG: ' + message);
+			window.console.debug(`Moff DEBUG: ${message}`);
 		}
 	};
 
