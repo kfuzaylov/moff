@@ -539,12 +539,26 @@ function Core() {
 		_moff.ajax({
 			url,
 			type: 'GET',
+			crossDomain: isCrossDomainRequest(url),
 			success(data) {
 				if (typeof callback === 'function') {
 					callback(data);
 				}
 			}
 		});
+	}
+
+	/**
+	 * Determine whether request is cross-domain
+	 * @param {string} url - Request url
+	 * @returns {boolean}
+	 */
+	function isCrossDomainRequest(url) {
+		var parser = document.createElement('a');
+
+		parser.href = url;
+
+		return _doc.domain !== parser.hostname;
 	}
 
 	/**
