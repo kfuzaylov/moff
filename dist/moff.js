@@ -1,7 +1,7 @@
 /**
  * @overview  moff - Mobile First Framework
  * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.11.0
+ * @version   1.11.1
  * @license   Licensed under MIT license
  * @copyright Copyright (c) 2015-2016 Kadir A. Fuzaylov
  */
@@ -900,7 +900,10 @@ function Core() {
 		xhr.open(options.type, options.url, true);
 
 		xhr.setRequestHeader('Content-Type', options.contentType || 'application/x-www-form-urlencoded; charset=UTF-8');
-		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+		if (!options.crossDomain) {
+			xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+		}
 
 		xhr.onload = function () {
 			var status = this.status;
@@ -1288,7 +1291,7 @@ function Core() {
   * Moff version.
   * @type {string}
   */
-	this.version = '1.11.0';
+	this.version = '1.11.1';
 
 	extendSettings();
 	setBreakpoints();

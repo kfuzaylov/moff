@@ -801,7 +801,10 @@ function Core() {
 		xhr.open(options.type, options.url, true);
 
 		xhr.setRequestHeader('Content-Type', options.contentType || 'application/x-www-form-urlencoded; charset=UTF-8');
-		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+		if (!options.crossDomain) {
+			xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+		}
 
 		xhr.onload = function() {
 			var status = this.status;
