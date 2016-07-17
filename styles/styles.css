@@ -216,15 +216,16 @@ code {
       background-position: -44px -44px; }
   .m-feature__title {
     margin: 0 0 0 50px;
-    font-weight: 600;
+    font-weight: 400;
     color: #57abc1;
-    font-size: 15px; }
+    font-size: 17px; }
     .m-feature__title-link {
       text-decoration: none; }
   .m-feature__description {
     margin-left: 50px;
     margin-top: 5px;
-    margin-bottom: 30px; }
+    margin-bottom: 30px;
+    line-height: 25px; }
 
 .m-gray-block {
   background-color: #dfe9ed;

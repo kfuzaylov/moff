@@ -296,9 +296,9 @@ code {
 
 	&__title {
 		margin: 0 0 0 50px;
-		font-weight: 600;
+		font-weight: 400;
 		color: $brand-color;
-		font-size: 15px;
+		font-size: 17px;
 
 		&-link {
 			text-decoration: none;
@@ -309,6 +309,7 @@ code {
 		margin-left: 50px;
 		margin-top: 5px;
 		margin-bottom: 30px;
+		line-height: 25px;
 	}
 }
 
