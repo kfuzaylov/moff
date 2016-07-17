@@ -63,8 +63,20 @@
 							<p>Moff has a rich API to work with mobile first approach. It has a big number of modules to work with detection, event system and AMD.</p>
 						</div>
 
+						<h2 class="m-sub-title m-text-left" id="addClass">addClass(element, classNames)</h2>
+						<p>Adds class name to element.</p>
+						<p><strong>Arguments:</strong></p>
+						<p class="m-arguments-list">
+							<code>element</code> - HTML element.<br>
+							<code>classNames</code> - Class name or several class names separated by space.
+						</p>
+						<pre><code class="language-javascript">var element = document.querySelector('.content');
+
+Moff.addClass(element, 'first-child __active');</code></pre>
+						<hr>
+
 						<h2 class="m-sub-title m-text-left" id="afterLoad">afterLoad(callback)</h2>
-						<p>Adds callback after content loading collection for data events.</p>
+						<p>Adds callback after content loading collection. This callback will be executed when content be loaded via Data Events.</p>
 						<p><strong>Arguments:</strong></p>
 						<p class="m-arguments-list"><code>callback</code> - Callback function</p>
 						<pre><code class="language-javascript">Moff.afterLoad(function() {
@@ -79,6 +91,7 @@
 							<code class="m-sub-option">type</code> - Type of HTTP request. GET or POST<br>
 							<code class="m-sub-option">url</code> - String containing the request URL<br>
 							<code class="m-sub-option">data</code> - String or object with data to be sent to the server<br>
+							<code class="m-sub-option">crossDomain</code> - Boolean to determine whether request is cross domain<br>
 							<code class="m-sub-option">contentType</code> - Content type of sending data. Default is "application/x-www-form-urlencoded; charset=UTF-8"<br>
 							<code class="m-sub-option">success(result)</code> - Callback for success request. Gets result responded by the server.<br>
 							<code class="m-sub-option">error(xmlHttp)</code> - Callback for error request. Gets XMLHttpRequest.<br>
@@ -210,6 +223,19 @@ Moff.each(['one', 'two'], function(index, value) {
 							<code>top</code> - Number. Position of the top point on the page.
 						</p>
 						<pre><code class="language-javascript">Moff.positionPreloader(50, 150);</code></pre>
+						<hr>
+
+						<h2 class="m-sub-title m-text-left" id="removeClass">removeClass(element, classNames)</h2>
+						<p>Removes element class name.</p>
+						<p><strong>Arguments:</strong></p>
+						<p class="m-arguments-list">
+							<code>element</code> - HTML element.<br>
+							<code>classNames</code> - Class name or several class names separated by space.
+						</p>
+						<pre><code class="language-javascript">var element = document.querySelector('.content');
+
+Moff.removeClass(element, '__active');</code></pre>
+
 						<hr>
 
 						<h2 class="m-sub-title m-text-left" id="reopen">reopen(methods)</h2>
