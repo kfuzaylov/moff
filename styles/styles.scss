@@ -220,6 +220,20 @@ code {
 	text-align: center;
 	margin: 20px 0;
 	font-weight: 400;
+
+	&_large {
+		@media (min-width: $tablet) {
+			font-size: 23px;
+			margin: 27px 0;
+		}
+
+		@media (min-width: $desktop) {
+			font-size: 25px;
+			margin: 35px 0;
+		}
+	}
+	
+
 }
 
 .m-sub-sub-title {
