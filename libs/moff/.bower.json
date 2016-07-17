@@ -1,6 +1,6 @@
 {
   "name": "moff",
-  "version": "1.11.0",
+  "version": "1.11.1",
   "homepage": "http://moffjs.com",
   "author": "Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>",
   "description": "Mobile First Framework",
@@ -26,13 +26,13 @@
     "jasmine-ajax": "^3.1.0",
     "jasmine-core": "^2.3.0"
   },
-  "_release": "1.11.0",
+  "_release": "1.11.1",
   "_resolution": {
     "type": "version",
-    "tag": "v1.11.0",
-    "commit": "eabdedfee992eb41e1b8c56a82a5dd55ff0b5c97"
+    "tag": "v1.11.1",
+    "commit": "e8004ab0778a293bfe88679e095d5c95ecf17509"
   },
   "_source": "https://github.com/kfuzaylov/moff.git",
-  "_target": "^1.11.0",
+  "_target": "^1.11.1",
   "_originalSource": "moff"
 }

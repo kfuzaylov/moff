@@ -100,13 +100,13 @@
 						</div>
 
 						<p>Also <code>href</code> and <code>data-load-url</code> have an ability to get attribute value in url via <code>{{attribute name}}</code>.</p>
-				<pre><code class="language-markup">&lt;input data-load-url="search.php?query={{value}}" data-load-target="#content-target" data-load-event="keyup" type="text"&gt;
+				<pre><code class="language-markup">&lt;input data-load-url="https://maps.googleapis.com/maps/api/geocode/json?address={{value}}" data-load-target="#content-target" data-load-event="keyup" type="text"&gt;
 &lt;div id="content-target"&gt;&lt;/div&gt;</code></pre>
 
 						<div class="m-example">
 							<div class="m-example__title">Example:</div>
-							<input placeholder="Search" data-load-url="/examples/search.php?query={{value}}" data-load-target="#content-target5" data-load-event="keyup" type="text">
-							<div id="content-target5">Search query:</div>
+							<input placeholder="Address" data-load-url="https://maps.googleapis.com/maps/api/geocode/json?address={{value}}" data-load-target="#content-target5" data-load-event="keyup" type="text">
+							<div id="content-target5"></div>
 						</div>
 
 						<hr>
