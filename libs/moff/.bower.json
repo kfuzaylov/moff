@@ -30,7 +30,7 @@
   "_resolution": {
     "type": "version",
     "tag": "v1.11.1",
-    "commit": "e8004ab0778a293bfe88679e095d5c95ecf17509"
+    "commit": "e5d7ad1151022d39b0c27f5f6a4744930649da03"
   },
   "_source": "https://github.com/kfuzaylov/moff.git",
   "_target": "^1.11.1",
