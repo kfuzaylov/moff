@@ -1,2 +1,7 @@
 # PhpStorm project
 .idea
+
+node_modules
+bower_components
+gulpfile.js
+index.src.html
