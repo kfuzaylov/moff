@@ -286,7 +286,7 @@ function Core() {
   */
 	function handleEvents() {
 		// Check for addListener method
-		// because respond.js emulates matchMedia method
+		// because respond.assets emulates matchMedia method
 		if (_matchMediaSupport) {
 			_matchMedia(_mqLarge).addListener(resizeHandler);
 			_matchMedia(_mqMedium).addListener(resizeHandler);
@@ -833,7 +833,7 @@ function Core() {
 	/**
   * Load files and run callback.
   * @method loadAssets
-  * @param {object} depend - Object with js and css files to be loaded
+  * @param {object} depend - Object with assets and css files to be loaded
   * @param {function} [callback] - Function executed after files be loaded
   * @param {object} [options] - Options of assets loading
   */
@@ -888,7 +888,7 @@ function Core() {
 		}
 	};
 	/**
-  * Load js file and run callback on load.
+  * Load assets file and run callback on load.
   * @method loadJS
   * @param {string} src - Array or path of loaded files
   * @param {function} [callback] - On load event callback
@@ -1412,7 +1412,7 @@ function ModulesApi() {
   * Creates new module class.
   * @method create
   * @param {string} name - module name
-  * @param {object} [depend] - object of js and css files
+  * @param {object} [depend] - object of assets and css files
   * @param {function} Constructor - constructor
   */
 	this.create = function (name, depend, Constructor) {

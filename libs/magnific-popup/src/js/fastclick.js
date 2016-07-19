@@ -27,7 +27,7 @@
 		ns = '.'+eName;
 
 
-	// As Zepto.js doesn't have an easy way to add custom events (like jQuery), so we implement it in this way
+	// As Zepto.assets doesn't have an easy way to add custom events (like jQuery), so we implement it in this way
 	$.fn.mfpFastClick = function(callback) {
 
 		return $(this).each(function() {

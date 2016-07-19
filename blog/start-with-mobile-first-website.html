@@ -6,10 +6,10 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="The most interesting publications on Mobile First theme and the latest news about Front-end technologies.">
-	<link href="/libs/moff/dist/bootstrap/main/core.css" rel="stylesheet">
-	<link href="/libs/moff/dist/bootstrap/main/grid.css" rel="stylesheet">
-	<link href="/styles/styles.css" rel="stylesheet">
-	<link rel="stylesheet" href="/libs/prism/themes/prism.css">
+	<link href="/assets/core-1468949512196.css" rel="stylesheet">
+	<link href="/assets/grid-1468949512196.css" rel="stylesheet">
+	<link href="/assets/styles-1468949512196.css" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/prism-1468949512196.css">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css">
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -152,7 +152,7 @@
 	&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/navs.css"&gt;
 &lt;/head&gt;</code></pre>
 					<p>And these scrips into body right before it close. We include jQuery, because it is dependency of the Bootstrap.</p>
-					<pre><code class="language-markup">&lt;script src="bower_components/jquery/dist/jquery.min.js"&gt;&lt;/script&gt;
+					<pre><code class="language-markup">&lt;script src="bower_components/jquery/dist/jquery.min-1468949512196.js"&gt;&lt;/script&gt;
 &lt;script src="bower_components/moff/dist/bootstrap/javascripts/collapse.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</code></pre>
 					<p>And now ours styles and script size is <strong>121.34 KB.</strong>
@@ -168,7 +168,7 @@
 					<pre><code class="language-markup">$ bower install moff --save</code></pre>
 					<p>In other cases, you can download it from <a href="/tutorial/getting-started.html">framework website</a>. In the tutorial we use bower.
 						After installation, need to include Moff into the page.</p>
-					<pre><code class="language-markup">&lt;script src="bower_components/jquery/dist/jquery.min.js"&gt;&lt;/script&gt;
+					<pre><code class="language-markup">&lt;script src="bower_components/jquery/dist/jquery.min-1468949512196.js"&gt;&lt;/script&gt;
 &lt;script src="bower_components/moff/dist/bootstrap/javascripts/collapse.js"&gt;&lt;/script&gt;
 &lt;script src="bower_components/moff/dist/moff.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</code></pre>
@@ -333,7 +333,7 @@
 });</code></pre>
 					<p>In this class, we have created logic to handle next and previous buttons on the gallery.</p>
 					<p>And include module into the page and initialize it.</p>
-					<pre><code class="language-markup">&lt;script src="bower_components/jquery/dist/jquery.min.js"&gt;&lt;/script&gt;
+					<pre><code class="language-markup">&lt;script src="bower_components/jquery/dist/jquery.min-1468949512196.js"&gt;&lt;/script&gt;
 &lt;script src="bower_components/moff/dist/bootstrap/javascripts/collapse.js"&gt;&lt;/script&gt;
 &lt;script src="bower_components/moff/dist/moff.js"&gt;&lt;/script&gt;
 &lt;script src="modules/gallery/gallery.js"&gt;&lt;/script&gt;
@@ -479,7 +479,7 @@ gulp.task('critical', function () {
 // Concatenate and minify JS
 gulp.task('js', function() {
 	return gulp.src([
-		 'bower_components/jquery/dist/jquery.min.js',
+		 'bower_components/jquery/dist/jquery.min-1468949512196.js',
 		 'bower_components/moff/dist/bootstrap/javascripts/collapse.js',
 		 'bower_components/moff/dist/moff.js',
 		 'modules/gallery/gallery.js'
@@ -491,7 +491,7 @@ gulp.task('js', function() {
 					<p>Run command</p>
 					<pre><code class="language-markup">$ gulp js</code></pre>
 					<p>After this you will see scripts folder with index.js file inside. And you can replace all your scripts</p>
-					<pre><code class="language-markup">&lt;script src="bower_components/jquery/dist/jquery.min.js"&gt;&lt;/script&gt;
+					<pre><code class="language-markup">&lt;script src="bower_components/jquery/dist/jquery.min-1468949512196.js"&gt;&lt;/script&gt;
 &lt;script src="bower_components/moff/dist/bootstrap/javascripts/collapse.js"&gt;&lt;/script&gt;
 &lt;script src="bower_components/moff/dist/moff.js"&gt;&lt;/script&gt;
 &lt;script src="modules/gallery/gallery.js"&gt;&lt;/script&gt;</code></pre>
@@ -529,7 +529,7 @@ gulp.task('js', function() {
 		</div>
 	</footer>
 </div>
-<script src="/libs/prism/prism.js"></script>
+<script src="/assets/prism-1468949512196.js"></script>
 <script>
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

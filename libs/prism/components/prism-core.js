@@ -3,7 +3,7 @@ var _self = (typeof window !== 'undefined')
 	: (
 		(typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope)
 		? self // if in worker
-		: {}   // if in node js
+		: {}   // if in node assets
 	);
 
 /**
@@ -388,7 +388,7 @@ Token.stringify = function(o, language, parent) {
 
 if (!_self.document) {
 	if (!_self.addEventListener) {
-		// in Node.js
+		// in Node.assets
 		return _self.Prism;
 	}
  	// In worker
@@ -428,7 +428,7 @@ if (typeof module !== 'undefined' && module.exports) {
 	module.exports = Prism;
 }
 
-// hack for components to work correctly in node.js
+// hack for components to work correctly in node.assets
 if (typeof global !== 'undefined') {
 	global.Prism = Prism;
 }

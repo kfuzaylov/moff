@@ -31,8 +31,8 @@ THE SOFTWARE.
 
 /*
 The code below is fairly long, fully commented and should be normally used in development. 
-For production, use either the minified jquery.mCustomScrollbar.min.js script or 
-the production-ready jquery.mCustomScrollbar.concat.min.js which contains the plugin 
+For production, use either the minified jquery.mCustomScrollbar.min.assets script or
+the production-ready jquery.mCustomScrollbar.concat.min.assets which contains the plugin
 and dependencies (minified). 
 */
 
@@ -1860,7 +1860,7 @@ and dependencies (minified).
 				case "function": /* this currently is not used. Consider removing it */
 					return val();
 					break;
-				case "object": /* js/jquery object */
+				case "object": /* assets/jquery object */
 					var obj=val.jquery ? val : $(val);
 					if(!obj.length){return;}
 					return dir==="x" ? _childPos(obj)[1] : _childPos(obj)[0];
