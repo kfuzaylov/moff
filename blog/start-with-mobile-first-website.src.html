@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Start with Mobile First website.</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Moff follows these main purposes: How to create light, fast and designed for mobile devices website first and how to make this website fully featured on the desktop, like even it was not designed for mobile devices.">
+	<meta property="og:title" content="Start with Mobile First website.">
+	<meta property="og:description" content="Moff follows these main purposes: How to create light, fast and designed for mobile devices website first and how to make this website fully featured on the desktop, like even it was not designed for mobile devices.">
+	<meta property="og:image" content="http://moffjs.com/images/og-image.png">
+	<meta property="og:url" content="http://moffjs.com/blog/start-with-mobile-first-website.html">
+	<link href="/assets/core-1468949512196.css" rel="stylesheet">
+	<link href="/assets/grid-1468949512196.css" rel="stylesheet">
+	<link href="/assets/styles-1468949512196.css" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/prism-1468949512196.css">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+</head>
+<body>
+<div class="m-wrapper">
+	<div class="m-content">
+		<header role="banner">
+			<div class="container container_header">
+				<div class="m-logo m-logo_left">
+					<a href="/" title="Moff.js - Home">
+						<img src="/images/logo.png" alt="JavaScript Mobile First framework" class="m-logo__image">
+					</a>
+				</div>
+				<nav role="navigation" class="m-navigation">
+					<ul class="m-navigation__list">
+						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/">Home</a></li>
+						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/tutorial/getting-started.html">Tutorials</a></li>
+						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/api/index.html">API</a></li>
+						<li class="m-navigation__list-item"><a class="m-navigation__list-link m-navigation__list-link_active" href="/blog/index.html">Blog</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+		<main role="main">
+			<div class="container">
+				<article>
+					<h1 class="m-title">Start with Mobile First website.</h1>
+					<time datetime="2016-04-23" class="m-date">April 23, 2016</time>
+					<p>Before I wrote about advantages of mobile first websites.
+						Now I decided to write a tutorial to show the full picture of creating a mobile first website and how to make it fully featured on the desktop.
+						So, Moff follows these main purposes:
+					</p>
+					<ul>
+						<li>How to create light, fast and designed for mobile devices website first</li>
+						<li>And how to make this website fully featured on the desktop, like even it was not designed for mobile devices</li>
+					</ul>
+					<p>Let’s start from creating Mobile first website.
+						For example, we have to create simple ad website for our company.
+						The website will be created with Twitter Bootstrap and Moff frameworks.</p>
+					<h2 class="m-sub-title m-text-left">Markup</h2>
+					<p>First, we should markup our website base HTML structure.</p>
+					<pre><code class="language-markup">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+	&lt;title&gt;Mobile First website.&lt;/title&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+	&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;header&gt;
+	&lt;nav class="navbar navbar-default" role="navigation"&gt;
+		&lt;div class="container"&gt;
+			&lt;div class="navbar-header"&gt;
+				&lt;button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+						data-target="#navbar-collapse"&gt;
+					&lt;span class="sr-only"&gt;Toggle navigation&lt;/span&gt;
+					&lt;span class="icon-bar"&gt;&lt;/span&gt;
+					&lt;span class="icon-bar"&gt;&lt;/span&gt;
+					&lt;span class="icon-bar"&gt;&lt;/span&gt;
+				&lt;/button&gt;
+			&lt;/div&gt;
+			&lt;div class="collapse navbar-collapse" id="navbar-collapse"&gt;
+				&lt;ul class="nav navbar-nav"&gt;
+					&lt;li&gt;&lt;a href="/#about-us" title="Comapny - About us"&gt;About Us&lt;/a&gt;&lt;/li&gt;
+					&lt;li&gt;&lt;a href="/#our-achievements" title="Company - Our achievements"&gt;Our achievements&lt;/a&gt;&lt;/li&gt;
+					&lt;li&gt;&lt;a href="/#contact-us" title="Company - Contact us"&gt;Contact us&lt;/a&gt;&lt;/li&gt;
+				&lt;/ul&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/nav&gt;
+&lt;/header&gt;
+&lt;main&gt;
+	&lt;div id="about-us" class="container"&gt;
+		&lt;section&gt;
+			&lt;h1&gt;Company Name&lt;/h1&gt;
+			&lt;p&gt;It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+				The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using
+				'Content here, content here', making it look like readable English. Many desktop publishing packages and web page
+				editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.
+				Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+			&lt;/p&gt;
+		&lt;/section&gt;
+		&lt;a name="our-achievements"&gt;&lt;/a&gt;
+		&lt;section&gt;
+			&lt;h3&gt;Our achievements&lt;/h3&gt;
+			&lt;p&gt;It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+				The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using
+				'Content here, content here', making it look like readable English.&lt;/p&gt;
+		&lt;/section&gt;
+		&lt;a name="contact-us"&gt;&lt;/a&gt;
+		&lt;section&gt;
+			&lt;h3&gt;Our contacts&lt;/h3&gt;
+			&lt;address&gt;
+				&lt;strong&gt;Company, Inc.&lt;/strong&gt;&lt;br&gt;
+				453 Some Street, Suite 410&lt;br&gt;
+				San Francisco, CA 59874&lt;br&gt;
+				&lt;abbr title="Phone"&gt;P:&lt;/abbr&gt; (257) 145-9578
+			&lt;/address&gt;
+		&lt;/section&gt;
+	&lt;/div&gt;
+&lt;/main&gt;
+&lt;footer&gt;
+	&lt;div class="container"&gt;
+		&lt;div class="row"&gt;
+			&lt;div class="col-xs-12 col-sm-6"&gt;
+				&lt;ul class="list-inline"&gt;
+					&lt;li&gt;&lt;a href="#about-us"&gt;About us&lt;/a&gt;&lt;/li&gt;
+					&lt;li&gt;&lt;a href="#our-achievements"&gt;Our achievements&lt;/a&gt;&lt;/li&gt;
+					&lt;li&gt;&lt;a href="#contact-us"&gt;Contact us&lt;/a&gt;&lt;/li&gt;
+				&lt;/ul&gt;
+			&lt;/div&gt;
+			&lt;div class="col-xs-12 col-sm-6"&gt;Copyright &copy; 2016 Company Inc.&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+					<p>So, our website consists of three sections:</p>
+					<ul>
+						<li>About us</li>
+						<li>Our achievements</li>
+						<li>Contact us</li>
+					</ul>
+					<h2 class="m-sub-title m-text-left">Include Bootstrap</h2>
+					<p>Moff supports <a href="http://moffjs.com/tutorial/modulated-bootstrap.html">modulated Bootstrap</a> which allows to include only needed parts of Bootstrap framework,
+						thus we noticeably decrease loaded styles size.</p>
+					<p>At first, we should determine what Bootstrap components we used in our markup and include only needed parts.
+						Usually, you always should include core.css as the main file.
+						On this page, we have used Bootstrap grid system, typography and navigation component. Add these style into head tag.</p>
+					<pre><code class="language-markup">&lt;head&gt;
+	&lt;title&gt;Mobile First website.&lt;/title&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+	&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+	&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/core.css"&gt;
+	&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/grid.css"&gt;
+	&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/typography.css"&gt;
+	&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/navs.css"&gt;
+&lt;/head&gt;</code></pre>
+					<p>And these scrips into body right before it close. We include jQuery, because it is dependency of the Bootstrap.</p>
+					<pre><code class="language-markup">&lt;script src="bower_components/jquery/dist/jquery.min-1468949512196.js"&gt;&lt;/script&gt;
+&lt;script src="bower_components/moff/dist/bootstrap/javascripts/collapse.js"&gt;&lt;/script&gt;
+&lt;/body&gt;</code></pre>
+					<p>And now ours styles and script size is <strong>121.34 KB.</strong>
+						If we use Bootstrap by default it is <strong>225.6 KB</strong>, this way we reduce our style and script size about <strong>50%</strong>.
+					</p>
+					<h2 class="m-sub-title m-text-left">Enhancements</h2>
+					<p>Now we can add more info into our website and optimize it for mobile devices.</p>
+					<h3 class="m-sub-sub-title m-text-left">Install Moff</h3>
+					<p>First of all, we have to install and include Moff framework.</p>
+					<p>To use it with Bower you have to create bower.json file in the root of the project or run</p>
+					<pre><code class="language-markup">$ bower init</code></pre>
+					<p>Then run</p>
+					<pre><code class="language-markup">$ bower install moff --save</code></pre>
+					<p>In other cases, you can download it from <a href="http://moffjs.com/tutorial/getting-started.html">framework website</a>. In the tutorial we use bower.
+						After installation, need to include Moff into the page.</p>
+					<pre><code class="language-markup">&lt;script src="bower_components/jquery/dist/jquery.min-1468949512196.js"&gt;&lt;/script&gt;
+&lt;script src="bower_components/moff/dist/bootstrap/javascripts/collapse.js"&gt;&lt;/script&gt;
+&lt;script src="bower_components/moff/dist/moff.js"&gt;&lt;/script&gt;
+&lt;/body&gt;</code></pre>
+					<p>Now we are ready to apply our enhancements.</p>
+					<h3 class="m-sub-sub-title m-text-left">Gallery for "Our achievements"</h3>
+					<p>Under the achievements paragraph, we have to add a list of images in our gallery.</p>
+					<pre><code class="language-markup">&lt;section&gt;
+	&lt;h3&gt;Our achievements&lt;/h3&gt;
+	&lt;p&gt;It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+		The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using
+		'Content here, content here', making it look like readable English.
+	&lt;/p&gt;
+	&lt;div class="achieve"&gt;
+		&lt;div class="achieve_button __prev"&gt;&lt;/div&gt;
+		&lt;ul class="achieve_container"&gt;
+			&lt;li class="achieve_container_slide __active"&gt;&lt;img src="images/preview1.jpg"&gt;&lt;/li&gt;
+			&lt;li class="achieve_container_slide"&gt;&lt;img data-src="images/preview2.jpg"&gt;&lt;/li&gt;
+			&lt;li class="achieve_container_slide"&gt;&lt;img data-src="images/preview3.jpg"&gt;&lt;/li&gt;
+			&lt;li class="achieve_container_slide"&gt;&lt;img data-src="images/preview4.jpg"&gt;&lt;/li&gt;
+		&lt;/ul&gt;
+		&lt;div class="achieve_button __next"&gt;&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/section&gt;</code></pre>
+					<p>Pay attention, we set src only for the first image in the list, because we don’t need to load all images at once.
+						The best way is to load them by lazy loading on user request (when he clicks "next" button).</p>
+					<p>Next step we should markup this gallery.</p>
+					<pre><code class="language-css">.achieve {
+	position: relative;
+}
+
+.achieve_button {
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	top: 50%;
+	margin-top: -10px;
+	text-align: center;
+	font-size: 18px;
+	line-height: 20px;
+	background: rgba(225, 225, 225, 0.4);
+	cursor: pointer;
+}
+
+.achieve_button:hover {
+	background: #fff;
+}
+
+.achieve_button.__prev {
+	left: 0;
+}
+
+.achieve_button.__prev::after {
+	display: block;
+	content: '<';
+	font-weight: bold;
+}
+
+.achieve_button.__next {
+	right: 0;
+}
+
+.achieve_button.__next::after {
+	display: block;
+	content: '>';
+	font-weight: bold;
+}
+
+.achieve_container {
+	list-style: none;
+	padding: 0;
+}
+
+.achieve_container_slide {
+	width: 100%;
+	display: none;
+}
+
+.achieve_container_slide.__active {
+	display: block;
+}</code></pre>
+					<p>And include it in the head tag.</p>
+					<pre><code class="language-markup">&lt;head&gt;
+	&lt;title&gt;Mobile First website.&lt;/title&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+	&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+	&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/core.css"&gt;
+	&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/grid.css"&gt;
+	&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/typography.css"&gt;
+	&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/navs.css"&gt;
+	&lt;link rel="stylesheet" href="modules/gallery/gallery.css"&gt;
+&lt;/head&gt;</code></pre>
+					<p>And the second step we have to add dynamic for our gallery.</p>
+					<p>Now we will add <a href="http://moffjs.com/tutorial/modularity.html">Moff module</a> to describe gallery class.</p>
+					<pre><code class="language-javascript">Moff.modules.create('Gallery', function() {
+	var _module = this;
+
+	var _activeSlideIndex = 0;
+
+	var _slides;
+
+	this.scopeSelector = '.achieve';
+
+	function handleEvents() {
+		_module.find('.achieve_button.__prev')[0].addEventListener('click', showPrev, false);
+		_module.find('.achieve_button.__next')[0].addEventListener('click', showNext, false);
+	}
+
+	function getSlides() {
+		_slides = _module.find('.achieve_container_slide');
+	}
+
+	function inactiveAll() {
+		Moff.each(_slides, function() {
+			var className = this.className.replace(/(^| )__active( |$)/, ' ');
+
+			this.className = className.trim();
+		});
+	}
+
+	function activate() {
+		var slide = _slides[_activeSlideIndex];
+		var className = slide.className + ' __active';
+
+		slide.className = className;
+	}
+
+	function showSlide() {
+		var image = _slides[_activeSlideIndex].querySelector('img');
+		var dataSrc = image.getAttribute('data-src');
+
+		if (dataSrc) {
+			image.src = dataSrc;
+			image.removeAttribute('data-src');
+		}
+	}
+
+	function showPrev() {
+		if (_activeSlideIndex) {
+			_activeSlideIndex--;
+
+			inactiveAll();
+			activate();
+			showSlide();
+		}
+	}
+
+	function showNext() {
+		if (_activeSlideIndex < _slides.length - 1) {
+			_activeSlideIndex++;
+
+			inactiveAll();
+			activate();
+			showSlide();
+		}
+	}
+
+	this.init = function() {
+		handleEvents();
+		getSlides();
+	}
+});</code></pre>
+					<p>In this class, we have created logic to handle next and previous buttons on the gallery.</p>
+					<p>And include module into the page and initialize it.</p>
+					<pre><code class="language-markup">&lt;script src="bower_components/jquery/dist/jquery.min-1468949512196.js"&gt;&lt;/script&gt;
+&lt;script src="bower_components/moff/dist/bootstrap/javascripts/collapse.js"&gt;&lt;/script&gt;
+&lt;script src="bower_components/moff/dist/moff.js"&gt;&lt;/script&gt;
+&lt;script src="modules/gallery/gallery.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	Moff.modules.initClass('Gallery');
+&lt;/script&gt;
+&lt;/body&gt;</code></pre>
+					<p>Now gallery works fine. When user clicks next button image data-src will be replaced by src and the new image will be loaded.
+						This way we optimize page size to <strong>249</strong> KB loading additional images by user request.</p>
+					<h3 class="m-sub-sub-title m-text-left">Google map in "Contact us"</h3>
+					<p>In the mobile version, we show company address which is the main information in Contact Us section.
+						And also, we can show it on the map like an enhancement. And there is no need to load the map when user enters the page.
+						We can show the map when user click "See us on the map" link.
+						For this, we have to create Moff module and add a link to the page.</p>
+					<pre><code class="language-markup">&lt;section&gt;
+	&lt;h3&gt;Our contacts&lt;/h3&gt;
+	&lt;address&gt;
+		&lt;strong&gt;Company, Inc.&lt;/strong&gt;&lt;br&gt;
+		453 Some Street, Suite 410&lt;br&gt;
+		San Francisco, CA 59874&lt;br&gt;
+		&lt;abbr title="Phone"&gt;P:&lt;/abbr&gt; (257) 145-9578
+	&lt;/address&gt;
+	&lt;div id="map"&gt;
+		&lt;a href="#" data-load-module="map"&gt;See us on the map&lt;/a&gt;
+	&lt;/div&gt;
+&lt;/section&gt;</code></pre>
+					<p>Now on link click Moff will run AMD module specified in the data-load-module attribute.
+						Moff AMD module is a simple object which describes dependencies and main files of the module. Also, it supports callbacks.</p>
+					<pre><code class="language-markup">&lt;script&gt;
+	Moff.amd.register({
+		id: 'map',
+		depend: {
+			js: [
+				'http://maps.google.com/maps/api/js',
+				'modules/map/jquery.gomap-1.3.3.min.js'
+			]
+		},
+		file: {
+			js: ['modules/map/map.js'],
+			css: ['modules/map/map.css']
+		}
+	});
+&lt;/script&gt;</code></pre>
+					<p>To show google map we used <a href="http://www.pittss.lv/jquery/gomap/" rel="nofollow">goMap</a> jQuery plugin.
+						Module name specified in data-load-module attribute should be the equal to id property of the registered module.
+						And finally, on link click Moff load dependencies of the module, then its files.
+						After all, files are loaded you will see google map on the page.</p>
+					<p>Here is content of the module files.</p>
+					<pre><code class="language-javascript">// modules/map/map.js
+
+$('#map').goMap({
+	address: 'New York, NY, USA',
+	maptype: 'ROADMAP'
+});</code></pre>
+					<pre><code class="language-css">/* modules/map/map.css */
+
+#map {
+	width: 100%;
+	height: 200px;
+}
+
+.gomapMarker {
+	display: block;
+	width: 150px;
+	height: auto;
+}</code></pre>
+					<h2 class="m-sub-title m-text-left">Improve render time</h2>
+					<p>To improve render time of our website we should minimize and concatenate CSS and JS files.
+						Also, we have to apply  <a href="https://www.npmjs.com/package/critical" rel="nofollow">Critical-path</a> CSS.</p>
+					<p>To minify and concatenation files we will use <a href="http://gulpjs.com/" rel="nofollow">Gulp</a>.</p>
+					<h3 class="m-sub-sub-title m-text-left">Install Gulp</h3>
+					<p>To install gulp, run command</p>
+					<pre><code class="language-markup">$ npm install –g gulp</code></pre>
+					<p>And install Gulp locally</p>
+					<pre><code class="language-markup">$ npm install gulp --save</code></pre>
+					<p>Be sure you have <a href="https://docs.npmjs.com/files/package.json" rel="nofollow">package.json</a> file in your project root folder.</p>
+					<p>Next step we have to create gulpfile.js file in the project root folder.</p>
+					<h3 class="m-sub-sub-title m-text-left">Minify CSS and concatenate</h3>
+					<p>To minify our CSS we have to add Gulp task to our gulpfile.js</p>
+					<pre><code class="language-javascript">var gulp = require('gulp');
+var cleanCSS = require('gulp-clean-css');
+var concat = require('gulp-concat');
+
+// Concatenate and minify CSS
+gulp.task('css', function() {
+	return gulp.src([
+		'modules/**/*.css',
+		'styles/style.css',
+		'bower_components/moff/dist/bootstrap/main/core.css',
+		'bower_components/moff/dist/bootstrap/main/grid.css',
+		'bower_components/moff/dist/bootstrap/main/typography.css',
+		'bower_components/moff/dist/bootstrap/components/navs.css'
+	])
+	.pipe(concat('index.css'))
+	.pipe(cleanCSS())
+	.pipe(gulp.dest('styles'))
+});</code></pre>
+					<p>And run</p>
+					<pre><code class="language-markup">$ gulp css</code></pre>
+					<p>After command execution, you will see the index.css file in styles folder. And now we can replace all CSS links to index.css</p>
+					<pre><code class="language-markup">&lt;head&gt;
+	&lt;title&gt;Mobile First website.&lt;/title&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+	&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+	&lt;link rel="stylesheet" href="styles/index.css"&gt;
+&lt;/head&gt;</code></pre>
+					<h3 class="m-sub-sub-title m-text-left">Apply Critical CSS</h3>
+					<p>Critical CSS is a way to which allows the browser to render website viewport as fast as possible.</p>
+					<p>Now add new task into gulpfile.js</p>
+					<pre><code class="language-javascript">var critical = require('critical');
+
+// Generate & Inline Critical-path CSS
+gulp.task('critical', function () {
+	return critical.generate({
+		base: './',
+		src: 'index.html',
+		minify: true,
+		width: 1920,
+		height: 980,
+		inline: true,
+		dest: 'index.html'
+      });
+});</code></pre>
+					<p>And run</p>
+					<pre><code class="language-markup">$ gulp critical</code></pre>
+					<p>After command execution look at index.html and you will see that</p>
+					<pre><code class="language-markup">&lt;link rel="stylesheet" href="styles/index.css"&gt;</code></pre>
+					<p>Has been replace to</p>
+					<pre><code class="language-markup">&lt;style type="text/css"&gt;
+	.container:after,.nav:after,.navbar-collapse:after,.navbar-header:after,.navbar:after{clear:both}#map{width:100%;height:200px}.achieve{position:relative}.achieve_button{position:absolute;width:20px;height:20px;top:50%;margin-top:-10px;text-align:center;font-size:18px;line-height:20px;background:rgba(225,225,225,.4)}body,button{margin:0}.navbar-toggle,a{background-color:transparent}.achieve_button.__prev{left:0}.achieve_button.__prev::after{display:block;content:'&lt;';font-weight:700}.achieve_button.__next{right:0}.achieve_button.__next::after{display:block;content:'&gt;';font-weight:700}.achieve_container{list-style:none;padding:0}.achieve_container_slide{width:100%;display:none}.achieve_container_slide.__active,header,main,nav,section{display:block}html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}a{color:#337ab7;text-decoration:none}strong{font-weight:700}h1{margin:.67em 0}img{border:0;vertical-align:middle}button{font:inherit;overflow:visible;text-transform:none;-webkit-appearance:button}address,body{line-height:1.42857}button::-moz-focus-inner{border:0;padding:0}*,:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}html{font-size:10px}body{background-color:#fff;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;color:#333}button,h1,h3{color:inherit;font-family:inherit}button{font-size:inherit;line-height:inherit}.img-responsive{display:block;max-width:100%;height:auto}.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);border:0}h1,h3,ul{margin-bottom:10px}.container{margin-right:auto;margin-left:auto;padding-left:15px;padding-right:15px}@-ms-viewport{width:device-width}.collapse{display:none}.container:after,.container:before,.nav:after,.nav:before{display:table;content:" "}@media (min-width:768px){.container{width:750px}}@media (min-width:992px){.container{width:970px}}@media (min-width:1200px){.container{width:1170px}}h1,h3{font-weight:500;line-height:1.1;margin-top:20px}h1{font-size:36px}h3{font-size:24px}p{margin:0 0 10px}address{margin-bottom:20px;font-style:normal}ul{margin-top:0}abbr[title]{border-bottom:1px dotted #777}.nav{margin-bottom:0;padding-left:0;list-style:none}.nav&gt;li,.nav&gt;li&gt;a{display:block;position:relative}.nav&gt;li&gt;a{padding:10px 15px}.navbar-collapse:after,.navbar-collapse:before,.navbar-header:after,.navbar-header:before,.navbar:after,.navbar:before{content:" ";display:table}.navbar{position:relative;min-height:50px;margin-bottom:20px;border:1px solid transparent}.navbar-collapse{overflow-x:visible;padding-right:15px;padding-left:15px;border-top:1px solid transparent;box-shadow:inset 0 1px 0 rgba(255,255,255,.1);-webkit-overflow-scrolling:touch}.container&gt;.navbar-collapse,.container&gt;.navbar-header{margin-right:-15px;margin-left:-15px}@media (min-width:768px){.navbar{border-radius:4px}.navbar-header{float:left}.navbar-collapse{width:auto;border-top:0;box-shadow:none}.navbar-collapse.collapse{display:block!important;height:auto!important;padding-bottom:0;overflow:visible!important}.container&gt;.navbar-collapse,.container&gt;.navbar-header{margin-right:0;margin-left:0}}.navbar-toggle{position:relative;float:right;margin-right:15px;padding:9px 10px;margin-top:8px;margin-bottom:8px;background-image:none;border:1px solid transparent;border-radius:4px}.navbar-toggle .icon-bar{display:block;width:22px;height:2px;border-radius:1px}.navbar-toggle .icon-bar+.icon-bar{margin-top:4px}.navbar-nav{margin:7.5px -15px}.navbar-nav&gt;li&gt;a{padding-top:10px;padding-bottom:10px;line-height:20px}@media (min-width:768px){.navbar-toggle{display:none}.navbar-nav{float:left;margin:0}.navbar-nav&gt;li{float:left}.navbar-nav&gt;li&gt;a{padding-top:15px;padding-bottom:15px}}.navbar-default{background-color:#f8f8f8;border-color:#e7e7e7}.navbar-default .navbar-nav&gt;li&gt;a{color:#777}.navbar-default .navbar-toggle{border-color:#ddd}.navbar-default .navbar-toggle .icon-bar{background-color:#888}.navbar-default .navbar-collapse{border-color:#e7e7e7}
+&lt;/style&gt;
+&lt;script id="loadcss"&gt;
+	(function(u,s){!function(e){"use strict";var n=function(n,t,o){var l,r=e.document,i=r.createElement("link");if(t)l=t;else{var a=(r.body||r.getElementsByTagName("head")[0]).childNodes;l=a[a.length-1]}var d=r.styleSheets;i.rel="stylesheet",i.href=n,i.media="only x",l.parentNode.insertBefore(i,t?l:l.nextSibling);var f=function(e){for(var n=i.href,t=d.length;t--;)if(d[t].href===n)return e();setTimeout(function(){f(e)})};return i.onloadcssdefined=f,f(function(){i.media=o||"all"}),i};"undefined"!=typeof module?module.exports=n:e.loadCSS=n}("undefined"!=typeof global?global:this);for(var i in u){loadCSS(u[i],s);}}(['styles/index.css'],document.getElementById("loadcss")));
+&lt;/script&gt;
+&lt;noscript&gt;
+	&lt;link rel="stylesheet" href="styles/index.css"&gt;
+&lt;/noscript&gt;</code></pre>
+					<h3 class="m-sub-sub-title m-text-left">JavaScript minification and concatenation</h3>
+					<p>Add last task – JS minification into gulpfile.js.</p>
+					<pre><code class="language-javascript">var uglify = require('gulp-uglify');
+
+// Concatenate and minify JS
+gulp.task('js', function() {
+	return gulp.src([
+		 'bower_components/jquery/dist/jquery.min-1468949512196.js',
+		 'bower_components/moff/dist/bootstrap/javascripts/collapse.js',
+		 'bower_components/moff/dist/moff.js',
+		 'modules/gallery/gallery.js'
+	])
+	.pipe(concat('index.js'))
+	.pipe(uglify())
+	.pipe(gulp.dest('scripts'));
+});</code></pre>
+					<p>Run command</p>
+					<pre><code class="language-markup">$ gulp js</code></pre>
+					<p>After this you will see scripts folder with index.js file inside. And you can replace all your scripts</p>
+					<pre><code class="language-markup">&lt;script src="bower_components/jquery/dist/jquery.min-1468949512196.js"&gt;&lt;/script&gt;
+&lt;script src="bower_components/moff/dist/bootstrap/javascripts/collapse.js"&gt;&lt;/script&gt;
+&lt;script src="bower_components/moff/dist/moff.js"&gt;&lt;/script&gt;
+&lt;script src="modules/gallery/gallery.js"&gt;&lt;/script&gt;</code></pre>
+					<p>to index.js</p>
+					<pre><code class="language-markup">&lt;script src="scripts/index.js"&gt;&lt;/script&gt;</code></pre>
+					<h2 class="m-sub-title m-text-left">Overall</h2>
+					<p>Now we have finished creation of Mobile First page and we reached our goals:</p>
+					<ul>
+						<li>Make website maximum light and fast</li>
+						<li>Let get user all info into the page</li>
+						<li>Load additional traffic only by user request</li>
+					</ul>
+					<p>Overall we reduced website size to <strong>~244 KB</strong> when the user enters.
+						Without Mobile First approach our website would size <strong>~604 KB</strong>.
+						So Mobile First approach reduced website size to <strong>~60%</strong> and made it fast and light.</p>
+
+					<p>Example of <a href="/examples/start-with-mobile-first/">created page</a>.</p>
+				</article>
+			</div>
+		</main>
+	</div>
+	<footer role="contentinfo">
+		<div class="m-brand-block">
+			<div class="container container_text-center">
+				<div class="row">
+					<div class="col-xs-6 m-text-right">
+						<a class="m-link-icon m-link-icon_github" href="https://github.com/kfuzaylov/moff" title="Moff GitHub repository">GitHub</a>
+					</div>
+					<div class="col-xs-6 m-text-left">
+						<a class="m-link-icon m-link-icon_bugs" href="https://github.com/kfuzaylov/moff/issues" title="Moff issues">Issues</a>
+					</div>
+				</div>
+				<div class="m-copy">Copyright &copy; 2015-2016 Kadir A. Fuzaylov</div>
+			</div>
+		</div>
+	</footer>
+</div>
+<script src="/assets/prism-1468949512196.js"></script>
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-68993546-1', 'auto');
+	ga('send', 'pageview');
+</script>
+</body>
+</html>

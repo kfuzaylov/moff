@@ -3,17 +3,3 @@
 
 node_modules
 bower_components
-index.src.html
-api/amd.src.html
-api/detect.src.html
-api/modules.src.html
-api/module.src.html
-api/event.src.html
-blog/moff-and-modulated-bootstrap.src.html
-blog/start-with-mobile-first-website.src.html
-blog/why-mobile-first.src.html
-tutorial/amd.src.html
-tutorial/data-events.src.html
-tutorial/getting-started.src.html
-tutorial/modularity.src.html
-tutorial/modulated-bootstrap.src.html
