@@ -3,7 +3,6 @@
 
 node_modules
 bower_components
-gulpfile.js
 index.src.html
 api/amd.src.html
 api/detect.src.html
