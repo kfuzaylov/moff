@@ -183,6 +183,20 @@ Moff.each(['one', 'two'], function(index, value) {
 						<pre><code class="language-javascript">Moff.hidePreloader();</code></pre>
 						<hr>
 
+						<h2 class="m-sub-title m-text-left" id="inViewport">inViewport(element)</h2>
+						<p>Determines whether DOM element in view port.</p>
+						<p>Returns boolean.</p>
+						<p><strong>Arguments:</strong></p>
+						<p class="m-arguments-list">
+							<code>element</code> - DOM element<br>
+						</p>
+						<pre><code class="language-javascript">var module = document.querySelector('.module');
+
+if (Moff.inViewport(module)) {
+	// Element in view port
+}</code></pre>
+						<hr>
+
 						<h2 class="m-sub-title m-text-left" id="loadCSS">loadCSS(href, callback)</h2>
 						<p>Load CSS file and run callback when it be loaded. It does not load file if it is already included and run callback immediately.</p>
 						<p><strong>Arguments:</strong></p>
