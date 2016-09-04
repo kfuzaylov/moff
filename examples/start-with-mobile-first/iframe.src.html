@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Mobile First website.</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		body {
+			overflow: hidden;
+			height: 452px;
+		}
+
+		@media (min-width: 768px) {
+			body {
+				height: 1249px
+			}
+		}
+
+		@media (min-width: 992px) {
+			body {
+				height: 692px
+			}
+		}
+	</style>
+	<link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/core.css">
+	<link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/grid.css">
+	<link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/typography.css">
+	<link rel="stylesheet" href="bower_components/moff/dist/bootstrap/components/navs.css">
+	<link rel="stylesheet" href="modules/gallery/gallery.css">
+</head>
+<body>
+<header>
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="collapse navbar-collapse" id="navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="#about-us" title="Comapny - About us">About Us</a></li>
+					<li><a href="#our-achievements" title="Company - Our achievements">Our achievements</a></li>
+					<li><a href="#contact-us" title="Company - Contact us">Contact us</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+<main>
+	<div id="about-us" class="container">
+		<section>
+			<h1>Welcome</h1>
+			<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+				The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using
+				'Content here, content here', making it look like readable English. Many desktop publishing packages and web page
+				editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.
+				Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+			</p>
+		</section>
+		<a name="our-achievements"></a>
+		<section>
+			<h3>Our achievements</h3>
+			<div class="achieve">
+				<div class="achieve_button __prev"></div>
+				<ul class="achieve_container">
+					<li class="achieve_container_slide __active"><img src="images/preview1.jpg" class="img-responsive"></li>
+					<li class="achieve_container_slide"><img data-src="images/preview2.jpg" class="img-responsive"></li>
+					<li class="achieve_container_slide"><img data-src="images/preview3.jpg" class="img-responsive"></li>
+					<li class="achieve_container_slide"><img data-src="images/preview4.jpg" class="img-responsive"></li>
+					<li class="achieve_container_slide"><img data-src="images/preview5.jpg" class="img-responsive"></li>
+					<li class="achieve_container_slide"><img data-src="images/preview6.jpg" class="img-responsive"></li>
+				</ul>
+				<div class="achieve_button __next"></div>
+				<div class="image-thumbs">
+					<a href="modules/gallery/thumbs.html" data-load-screen="md lg" data-load-target=".image-thumbs" data-load-module="thumbsModule">See more...</a>
+				</div>
+			</div>
+		</section>
+		<a name="contact-us"></a>
+		<section>
+			<h3>Our contacts</h3>
+			<address>
+				<strong>Company, Inc.</strong><br>
+				453 Some Street, Suite 410<br>
+				San Francisco, CA 59874<br>
+				<abbr title="Phone">P:</abbr> (257) 145-9578
+			</address>
+			<div class="js-map">
+				<a href="#" data-load-screen="md lg" data-load-module="map">See us on the map</a>
+			</div>
+		</section>
+	</div>
+</main>
+<footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6">Copyright &copy; 2016 Company Inc.</div>
+		</div>
+	</div>
+</footer>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/moff/dist/bootstrap/javascripts/collapse.js"></script>
+<script src="bower_components/moff/dist/moff.min.js"></script>
+<script src="modules/gallery/gallery.js"></script>
+<script>
+	Moff.modules.initClass('Gallery');
+	Moff.amd.register({
+		id: 'thumbsModule',
+		depend: {
+			js: ['/libs/slick-carousel/slick/slick.min.js'],
+			css:['/libs/slick-carousel/slick/slick.css', 'bower_components/moff/dist/bootstrap/main/glyphicons.css']
+		},
+		file: {
+			js: ['modules/gallery/thumbs.js']
+		},
+		afterInclude: function() {
+			Moff.modules.initClass('Thumbs');
+		}
+	});
+	Moff.amd.register({
+		id: 'map',
+		depend: {
+			js: [
+				'http://maps.google.com/maps/api/js',
+				'/examples/start-with-mobile-first/modules/map/jquery.gomap-1.3.3.min.js'
+			]
+		},
+		file: {
+			js: ['/examples/start-with-mobile-first/modules/map/map.js'],
+			css: ['/examples/start-with-mobile-first/modules/map/map.css']
+		},
+		beforeInclude: function() {
+			$('.js-map').attr('id', 'map');
+		}
+	});
+	Moff.amd.register({
+		id: 'scrollbar',
+		depend: {
+			js: ['/examples/start-with-mobile-first/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js'],
+			css: ['/examples/start-with-mobile-first/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css']
+		},
+		afterInclude: function() {
+			$('body').mCustomScrollbar({
+				theme: 'minimal-dark'
+			});
+		},
+		loadOnScreen: ['xs', 'sm', 'md', 'lg'],
+		onWindowLoad: true
+	});
+</script>
+</body>
+</html>
