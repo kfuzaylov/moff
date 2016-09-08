@@ -1,0 +1,7 @@
+{
+	"name": "moff-presentation",
+	"dependencies": {
+		"moff": "^1.11.1",
+		"jquery": "^2.1.3"
+	}
+}
