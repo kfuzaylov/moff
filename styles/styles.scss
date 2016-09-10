@@ -345,7 +345,7 @@ code {
 .m-link-icon {
 	position: relative;
 	color: #fff;
-	padding-left: 37px;
+	padding-left: 40px;
 	height: 32px;
 	line-height: 32px;
 	display: inline-block;
@@ -381,7 +381,7 @@ code {
 			top: 0;
 			background-image: url(/images/icons.png);
 			background-repeat: no-repeat;
-			background-position: -142px -50px;
+			background-position: -138px -50px;
 		}
 	}
 }
@@ -600,4 +600,17 @@ code {
 		color: #999;
 		margin-bottom: 10px;
 	}
+}
+
+.m-scroll-up {
+	position: fixed;
+	width: 40px;
+	height: 40px;
+	right: 15px;
+	bottom: 15px;
+	border-radius: 50%;
+	background: url('/images/icons.png') -2px  -90px no-repeat;
+	background-color: $brand-color;
+	font-size: 0;
+	display: block;
 }
