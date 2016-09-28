@@ -517,6 +517,15 @@ code {
 
 	&__item {
 		margin: 16px 0;
+		padding: 6px 0 6px 6px;
+
+		&_active {
+			background-color: $brand-color;
+
+			a {
+				color: #fff;
+			}
+		}
 	}
 }
 
