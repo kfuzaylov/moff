@@ -23,7 +23,8 @@ var pages3 = [
 	'tutorial/data-events.src.html',
 	'tutorial/getting-started.src.html',
 	'tutorial/modularity.src.html',
-	'tutorial/modulated-bootstrap.src.html'
+	'tutorial/modulated-bootstrap.src.html',
+	'moff-cli/index.src.html'
 ];
 
 // Generate & Inline Critical-path CSS

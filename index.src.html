@@ -12,7 +12,7 @@
 	<meta property="og:url" content="http://moffjs.com">
 	<link href="/assets/core-1468949512196.css" rel="stylesheet">
 	<link href="/assets/grid-1468949512196.css" rel="stylesheet">
-	<link href="/assets/styles-1365908139648.css" rel="stylesheet">
+	<link href="/assets/styles-1365983238648.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css">
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -35,6 +35,7 @@
 						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/tutorial/getting-started.html">Tutorials</a></li>
 						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/api/index.html">API</a></li>
 						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/blog/index.html">Blog</a></li>
+						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/moff-cli/index.html">CLI</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -46,7 +47,15 @@
 					<div class="m-slogan">Create for mobile, extend to desktop.</div>
 					<a href="/tutorial/getting-started.html" class="m-button">Get started</a>
 					<div id="js-mobile-placeholder">
-						<span data-load-target="#js-mobile-placeholder" data-load-url="/mobile-phone.html" data-load-screen="sm md lg"></span>
+						<div class="m-mobile hidden-xs">
+							<img src="/images/mobile-phone.png" class="m-mobile__image">
+							<div class="m-mobile__msg">
+								<h4 class="m-mobile__msg-title">What is Moff?</h4>
+								Moff is the powerful JavaScript Mobile First framework with CLI which allows you to create super light and fast mobile first website.
+								Then you can easily extend it to the desktop website and make it fully featured.
+								<span class="hidden-sm">Also, this framework has modular system which helps you to organize your modules system. You can load them by user request or automatically depending on screen size.</span>
+							</div>
+						</div>
 					</div>
 					<div class="m-cogs m-cogs_small"></div>
 					<div class="m-cogs m-cogs_medium hidden-sm"></div>
@@ -56,21 +65,32 @@
 			<div class="container">
 				<h2 class="m-sub-title m-sub-title_large">Advantages</h2>
 				<div class="row">
-					<div class="col-xs-12 col-sm-6">
+					<div class="col-xs-12 col-sm-4">
 						<div class="m-feature">
 							<div class="m-feature__icon m-feature__icon_bolt"></div>
 							<h4 class="m-feature__title">Light and fast mobile website</h4>
-							<p class="m-feature__description">Moff is designed for mobile first websites. You can make website light and fast on loading.
-							No extra parts of markup, stylesheets and scripts needed only on bigger screens.
-							They can be easily loaded by adjusting screen size which they should be automatically loaded in.</p>
+							<p class="m-feature__description">Moff is designed for mobile first websites. You can make website light and fast on loading with the <a href="/moff-cli/index.html" title="Moff CLI - The Moff.js command line utility">Moff CLI</a>.
+							No extra parts of markup, stylesheets and scripts loaded for mobile devices.
+							They can be automatically loaded on adjusted screen sizes, e.g. tablet or desktop.</p>
 						</div>
 					</div>
-					<div class="col-xs-12 col-sm-6">
+					<div class="col-xs-12 col-sm-4">
 						<div class="m-feature">
 							<div class="m-feature__icon m-feature__icon_monitor"></div>
 							<h4 class="m-feature__title">Fully featured desktop website</h4>
-							<p class="m-feature__description">Moff can load all parts of markup needed on desktop screen through Data Events.
-							Apply any features for them by loading its scripts and styles as AMD modules. These tools of the framework make your website like it was designed for the desktop.
+							<p class="m-feature__description">Moff can load all parts of markup needed on desktop screen through <a href="/tutorial/data-events.html" title="Moff.js tutorial - Data Events">Data Events</a>.
+							Apply any features for them by loading its scripts and styles as <a href="/tutorial/amd.html" title="Moff.js tutorial - AMD">AMD modules</a>. These tools of the framework make your website like it was designed for the desktop.
+							</p>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-4">
+						<div class="m-feature">
+							<div class="m-feature__icon m-feature__icon_console"></div>
+							<h4 class="m-feature__title">Moff Command Line Utility</h4>
+							<p class="m-feature__description">
+								Moff CLI optimizes you page by concatenation and minification of CSS and JS files. Generated files are renamed by <abbr title="The MD5 algorithm is a widely used hash function producing a 128-bit hash value.">MD5</abbr> hash.
+								CSS and JS files are replaced by generated ones on the page. Also it puts critical path CSS and asynchronously loads CSS files.
+								And as a last step it minifies HTML and inlined JS and CSS.
 							</p>
 						</div>
 					</div>

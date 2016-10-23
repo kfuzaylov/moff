@@ -76,6 +76,20 @@ code {
 		position: relative;
 		overflow: hidden;
 
+		&-cli {
+			padding-bottom: 15px;
+			text-align: left;
+			position: relative;
+
+			@media (min-width: $tablet) {
+				height: 127px;
+			}
+
+			@media (min-width: $desktop) {
+				height: 342px;
+			}
+		}
+
 		@media (min-width: $tablet) {
 			text-align: left;
 			height: 218px;
@@ -289,6 +303,10 @@ code {
 
 		&_monitor {
 			background-position: -44px 0;
+		}
+
+		&_console {
+			background-position: -44px -88px;
 		}
 
 		&_sync {
@@ -622,4 +640,10 @@ code {
 	background-color: $brand-color;
 	font-size: 0;
 	display: block;
+}
+
+.m-console {
+	position: absolute;
+	right: 0;
+	top: 50px;
 }
