@@ -1,192 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Moff.js and modulated Bootstrap.</title>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="We can say with confidence that Bootstrap is the most popular Mobile First framework. And the biggest disadvantage of this framework is its size.">
-	<meta property="og:title" content="Moff.js and modulated Bootstrap.">
-	<meta property="og:description" content="We can say with confidence that Bootstrap is the most popular Mobile First framework. And the biggest disadvantage of this framework is its size.">
-	<meta property="og:image" content="http://moffjs.com/images/og-image.png">
-	<meta property="og:url" content="http://moffjs.com/blog/moff-and-modulated-bootstrap.html">
-	<style type="text/css">
-		article,header,main,nav{display:block}a{background-color:transparent;color:#57abc1;text-decoration:none}strong{font-weight:700}h1{font-size:2em;margin:.67em 0}img{border:0;vertical-align:middle}*,:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;font-size:10px}body{margin:0;font-size:14px;background-color:#fff;font-family:"Open Sans",sans-serif;color:#102025;font-weight:400;line-height:1.52857}@-ms-viewport{width:device-width}.container{margin-right:auto;margin-left:auto;padding-left:15px;padding-right:15px}.container:after,.container:before{content:" ";display:table}.container:after{clear:both}@media (min-width:768px){.container{width:750px}}@media (min-width:992px){.container{width:970px}}@media (min-width:1200px){.container{width:1170px}}.m-wrapper,body,html{height:100%}.m-content{min-height:100%;padding-bottom:100px}p{line-height:21px}.container_header{padding-top:10px;margin-bottom:10px}.m-logo_left{float:left}.m-logo__image{width:60px}.m-navigation{display:block;float:right}@media (min-width:768px){.m-logo__image{width:85px}.m-navigation{float:left;margin-top:5px;margin-left:25px}}@media (min-width:992px){.m-logo__image{width:128px}.m-navigation{margin-top:12px;margin-left:80px}}.m-navigation__list{margin:0;padding:0}.m-navigation__list-item{display:inline-block;margin:0 3px}@media (min-width:350px){.m-navigation__list-item{margin:0 5px}}.m-navigation__list-link{text-decoration:none;font-size:13px}@media (min-width:768px){.m-navigation__list-item{margin:0 8px}.m-navigation__list-link{font-size:14px;font-weight:600}}@media (min-width:992px){.m-navigation__list-link{font-size:16px;font-weight:600}}.m-navigation__list-link_active{color:#fff;background-color:#57abc1;padding:3px}.m-sub-title,.m-title{color:#57abc1;font-weight:400}.m-title{font-size:28px;margin-top:18px;margin-bottom:18px}@media (min-width:992px){.m-navigation__list-link_active{padding:3px 8px}.m-title{font-size:36px;margin-top:75px}}.m-sub-title{font-size:20px;text-align:center;margin:20px 0}.m-text-left{text-align:left}.m-date{font-size:13px;color:#999}.m-scroll-up{position:fixed;width:40px;height:40px;right:15px;bottom:15px;border-radius:50%;background:url(/images/icons.png) -2px -90px no-repeat #57abc1;font-size:0;display:block}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3aCWcynf_cDxXwCLxiixG1c.ttf) format('truetype')}@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;src:local('Open Sans Semibold'),local('OpenSans-Semibold'),url(https://fonts.gstatic.com/s/opensans/v13/MTP_ySUJH_bn48VBG8sNSonF5uFdDttMLvmWuJdhhgs.ttf) format('truetype')}
-	</style>
-	<link href="/assets/core-1468949512196.css" rel="preload" as="style" onload="this.rel='stylesheet'">
-	<noscript><link href="/assets/core-1468949512196.css" rel="stylesheet"></noscript>
-	<link href="/assets/grid-1468949512196.css" rel="preload" as="style" onload="this.rel='stylesheet'">
-	<noscript><link href="/assets/grid-1468949512196.css" rel="stylesheet"></noscript>
-	<link href="/assets/styles-1365983238648.css" rel="preload" as="style" onload="this.rel='stylesheet'">
-	<noscript><link href="/assets/styles-1365983238648.css" rel="stylesheet"></noscript>
-	<link rel="preload" href="/assets/prism-1468949512196.css" as="style" onload="this.rel='stylesheet'">
-	<noscript><link rel="stylesheet" href="/assets/prism-1468949512196.css"></noscript>
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="preload" type="text/css" as="style" onload="this.rel='stylesheet'">
-	<noscript><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css"></noscript>
-	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-	<link rel="icon" href="/favicon.ico" type="image/x-icon">
-</head>
-<body>
-<a name="top"></a>
-<div class="m-wrapper">
-	<div class="m-content">
-		<header role="banner">
-			<div class="container container_header">
-				<div class="m-logo m-logo_left">
-					<a href="/" title="Moff.js - Home">
-						<img src="/images/logo.png" alt="JavaScript Mobile First framework" class="m-logo__image">
-					</a>
-				</div>
-				<nav role="navigation" class="m-navigation">
-					<ul class="m-navigation__list">
-						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/">Home</a></li>
-						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/tutorial/getting-started.html">Tutorials</a></li>
-						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/api/index.html">API</a></li>
-						<li class="m-navigation__list-item"><a class="m-navigation__list-link m-navigation__list-link_active" href="/blog/index.html">Blog</a></li>
-						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/moff-cli/index.html">CLI</a></li>
-					</ul>
-				</nav>
-			</div>
-		</header>
-		<main role="main">
-			<div class="container">
-				<article>
-					<h1 class="m-title">Moff.js and modulated Bootstrap.</h1>
-					<time datetime="2015-11-21" class="m-date">November 21, 2015</time>
-					<p>In the previous <a href="/blog/why-mobile-first.html">article</a> I wrote about how the <a href="http://moffjs.com">Moff.js</a> framework can
-						facilitate the creation of a Mobile First page without using the CSS framework.
-					</p>
-
-					<p>However, currently the majority of projects use various types of CSS frameworks, one of which is <a href="http://getbootstrap.com/" rel="nofollow">Bootstrap</a>.
-						We can say with confidence that Bootstrap is the most popular Mobile First framework.
-					</p>
-
-					<p>The biggest disadvantage of this framework is its size. Even a minimized version is <strong>154.9 KB</strong>, and that is only the size of CSS and JS files.</p>
-
-					<p>Often developers only need some of the functionality, but they connect the entire framework.
-						Therefore, mobile device users have to download a larger volume of needless traffic.
-						The solution to this problem was the division of the framework into groups of modules that are seldom or often used,
-						and that are easy to use within the Mobile First approach.
-						Each of these groups was delineated as individual modules in Moff.
-					</p>
-					<p>The modules are divided into three categories:</p>
-					<ul>
-						<li>Main</li>
-						<li>Components</li>
-						<li>JavaScripts</li>
-					</ul>
-					<p>The following modules are in the Main category:</p>
-					<ul>
-						<li>Buttons – Button styling</li>
-						<li>Core – Contains base styles</li>
-						<li>Forms – Responsible for forms</li>
-						<li>Glyphicons – Glyphicon styling</li>
-						<li>Grid – The grid system</li>
-						<li>Tables – Responsible for tables</li>
-						<li>Typography – Responsible for typography</li>
-					</ul>
-					<p>The <strong>Components</strong> category contains all Bootstrap components:</p>
-					<p>Alerts, Badges, Breadcrumbs, Button groups, Dropdown and etc.</p>
-					<p>The <strong>JavaScript</strong> category contains all Bootstrap JS modules:</p>
-					<p>Affix, Alert, Button, Carousel and etc.</p>
-					<p>Detailed list of module you can read on Moff <a href="http://moffjs.com/tutorial/modulated-bootstrap.html">page.</a></p>
-
-					<h2 class="m-sub-title m-text-left">Ways of using modules</h2>
-					<p>Core Module is fundamental, and is connected to all pages as the main dependency for all other modules.</p>
-					<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/core.css"&gt;</code></pre>
-					<p>It consists of the following Bootstrap Sass modules.</p>
-					<pre><code class="language-css">@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/normalize';
-@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/print';
-@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/scaffolding';
-@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/utilities';
-@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/responsive-utilities';
-@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/component-animations';
-@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/responsive-embed';
-@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/close';</code></pre>
-					<p>The rest of the modules can be loaded in two ways.</p>
-					<h3 class="m-sub-sub-title m-text-left">AMD (Asynchronous module definition)</h3>
-					<p>A module can be added using <a href="http://moffjs.com/tutorial/amd.html">AMD</a>.</p>
-					<pre><code class="language-javascript">Moff.amd.register({
-	id: 'grid',
+<!DOCTYPE html><html lang="en"><head><title>Moff.js and modulated Bootstrap.</title><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="We can say with confidence that Bootstrap is the most popular Mobile First framework. And the biggest disadvantage of this framework is its size."><meta property="og:title" content="Moff.js and modulated Bootstrap."><meta property="og:description" content="We can say with confidence that Bootstrap is the most popular Mobile First framework. And the biggest disadvantage of this framework is its size."><meta property="og:image" content="http://moffjs.com/images/og-image.png"><meta property="og:url" content="http://moffjs.com/blog/moff-and-modulated-bootstrap.html"><style type="text/css">
+	img{border:0;vertical-align:middle}.container:after{clear:both}article,header,main,nav{display:block}a{background-color:transparent;color:#57abc1;text-decoration:none}strong{font-weight:700}h1{font-size:2em;margin:.67em 0}*,:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;font-size:10px}body{margin:0;background-color:#fff;font-size:14px;font-family:"Open Sans",sans-serif;color:#102025;font-weight:400;line-height:1.52857}.container{margin-right:auto;margin-left:auto;padding-left:15px;padding-right:15px}@-ms-viewport{width:device-width}.container:after,.container:before{content:" ";display:table}.m-logo_left{float:left}@media (min-width:768px){.container{width:750px}}@media (min-width:992px){.container{width:970px}}@media (min-width:1200px){.container{width:1170px}}.m-wrapper,body,html{height:100%}.m-content{min-height:100%;padding-bottom:100px}p{line-height:21px}.container_header{padding-top:10px;margin-bottom:10px}.m-logo__image{width:60px}.m-navigation{display:block;float:right}@media (min-width:768px){.m-logo__image{width:85px}.m-navigation{float:left;margin-top:5px;margin-left:25px}}@media (min-width:992px){.m-logo__image{width:128px}.m-navigation{margin-top:12px;margin-left:80px}}.m-navigation__list{margin:0;padding:0}.m-navigation__list-item{display:inline-block;margin:0 3px}@media (min-width:350px){.m-navigation__list-item{margin:0 5px}}.m-navigation__list-link{text-decoration:none;font-size:13px}@media (min-width:768px){.m-navigation__list-item{margin:0 8px}.m-navigation__list-link{font-size:14px;font-weight:600}}.m-navigation__list-link_active{background-color:#57abc1;color:#fff;padding:3px}@media (min-width:992px){.m-navigation__list-link{font-size:16px;font-weight:600}.m-navigation__list-link_active{padding:3px 8px}}.m-title{font-weight:400;font-size:28px;margin-top:18px;margin-bottom:18px;color:#57abc1}@media (min-width:992px){.m-title{font-size:36px;margin-top:75px}}.m-date{font-size:13px;color:#999}.m-scroll-up{position:fixed;width:40px;height:40px;right:15px;bottom:15px;border-radius:50%;background:url(/images/icons.png) -2px -90px no-repeat #57abc1;font-size:0;display:block}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3aCWcynf_cDxXwCLxiixG1c.ttf) format('truetype')}@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;src:local('Open Sans Semibold'),local('OpenSans-Semibold'),url(https://fonts.gstatic.com/s/opensans/v13/MTP_ySUJH_bn48VBG8sNSonF5uFdDttMLvmWuJdhhgs.ttf) format('truetype')}
+</style>
+<link rel="preload" href="/moff-assets/da5c77296cf471481e453026f3e749a8.css" as="style" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/moff-assets/da5c77296cf471481e453026f3e749a8.css"></noscript><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="preload" type="text/css" as="style" onload="this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css"></noscript><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"><link rel="icon" href="/favicon.ico" type="image/x-icon"></head><body><a name="top"></a><div class="m-wrapper"><div class="m-content"><header role="banner">
+<div class="container container_header"><div class="m-logo m-logo_left"><a href="/" title="Moff.js - Home"><img src="/images/logo.png" alt="JavaScript Mobile First framework" class="m-logo__image">
+</a></div><nav role="navigation" class="m-navigation"><ul class="m-navigation__list"><li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/">Home</a></li><li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/tutorial/getting-started.html">Tutorials</a></li><li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/api/index.html">API</a></li><li class="m-navigation__list-item"><a class="m-navigation__list-link m-navigation__list-link_active" href="/blog/index.html">Blog</a></li><li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/moff-cli/index.html">CLI</a></li></ul></nav></div></header><main role="main"><div class="container"><article><h1 class="m-title">Moff.js and modulated Bootstrap.</h1><time datetime="2015-11-21" class="m-date">November 21, 2015</time><p>In the previous <a href="/blog/why-mobile-first.html">article</a>
+ I wrote about how the <a href="http://moffjs.com">Moff.js</a> framework can facilitate the creation of a Mobile First page without using the CSS framework.</p><p>
+However, currently the majority of projects use various types of CSS frameworks, one of which is <a href="http://getbootstrap.com/" rel="nofollow">Bootstrap</a>
+. We can say with confidence that Bootstrap is the most popular Mobile First framework.</p><p>The biggest disadvantage of this framework is its size. Even a minimized version is <strong>154.9 KB
+</strong>, and that is only the size of CSS and JS files.</p><p>
+Often developers only need some of the functionality, but they connect the entire framework. Therefore, mobile device users have to download a larger volume of needless traffic. The solution to this problem was the division of the framework into groups of modules that are seldom or often used, and that are easy to use within the Mobile First approach. Each of these groups was delineated as individual modules in Moff.
+</p><p>The modules are divided into three categories:</p><ul><li>Main</li><li>Components</li><li>JavaScripts</li></ul><p>The following modules are in the Main category:</p><ul><li>
+Buttons &#x2013; Button styling</li><li>Core &#x2013; Contains base styles</li><li>Forms &#x2013; Responsible for forms</li><li>Glyphicons &#x2013; Glyphicon styling</li><li>
+Grid &#x2013; The grid system</li><li>Tables &#x2013; Responsible for tables</li><li>Typography &#x2013; Responsible for typography</li></ul><p>The <strong>Components</strong>
+ category contains all Bootstrap components:</p><p>Alerts, Badges, Breadcrumbs, Button groups, Dropdown and etc.</p><p>The <strong>JavaScript</strong> category contains all Bootstrap JS modules:</p>
+<p>Affix, Alert, Button, Carousel and etc.</p><p>Detailed list of module you can read on Moff <a href="http://moffjs.com/tutorial/modulated-bootstrap.html">page.</a></p><h2 class="m-sub-title m-text-left">Ways of using modules</h2><p>Core Module is fundamental, and is connected to all pages as the main dependency for all other modules.</p><pre><code class="language-markup">&lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/moff/dist/bootstrap/main/core.css&quot;&gt;</code></pre><p>It consists of the following Bootstrap Sass modules.
+</p><pre><code class="language-css">@import &apos;node_modules/bootstrap-sass/assets/stylesheets/bootstrap/normalize&apos;;
+@import &apos;node_modules/bootstrap-sass/assets/stylesheets/bootstrap/print&apos;;
+@import &apos;node_modules/bootstrap-sass/assets/stylesheets/bootstrap/scaffolding&apos;;
+@import &apos;node_modules/bootstrap-sass/assets/stylesheets/bootstrap/utilities&apos;;
+@import &apos;node_modules/bootstrap-sass/assets/stylesheets/bootstrap/responsive-utilities&apos;;
+@import &apos;node_modules/bootstrap-sass/assets/stylesheets/bootstrap/component-animations&apos;;
+@import &apos;node_modules/bootstrap-sass/assets/stylesheets/bootstrap/responsive-embed&apos;;
+@import &apos;node_modules/bootstrap-sass/assets/stylesheets/bootstrap/close&apos;;
+</code></pre><p>The rest of the modules can be loaded in two ways.</p><h3 class="m-sub-sub-title m-text-left">AMD (Asynchronous module definition)</h3><p>A module can be added using <a href="http://moffjs.com/tutorial/amd.html">AMD</a>.</p>
+<pre><code class="language-javascript">Moff.amd.register({
+	id: &apos;grid&apos;,
 	depend: {
-		js: ['bower_components/moff/dist/bootstrap/javascripts/button.js'],
+		js: [&apos;bower_components/moff/dist/bootstrap/javascripts/button.js&apos;],
 		css: [
-			'bower_components/moff/dist/bootstrap/main/grid.css',
-			'bower_components/moff/dist/bootstrap/components/pagination.css',
+			&apos;bower_components/moff/dist/bootstrap/main/grid.css&apos;,
+			&apos;bower_components/moff/dist/bootstrap/components/pagination.css&apos;,
 		]
 	},
 	file: {
-		js: ['modules/listing.js'],
-		css: ['modules/listing.css']
+		js: [&apos;modules/listing.js&apos;],
+		css: [&apos;modules/listing.css&apos;]
 	},
-	loadOnScreen: ['md', 'lg'],
+	loadOnScreen: [&apos;md&apos;, &apos;lg&apos;],
 	onWindowLoad: true
-});</code></pre>
-					<p>When registering the module it needs to be downloaded in order to start using it. It can be downloaded using two ways:</p>
-					<p>using AMD</p>
-					<pre><code class="language-javascript">Moff.amd.include('grid');</code></pre>
-					<p>or using <a href="http://moffjs.com/tutorial/data-events.html">Data Events</a></p>
-					<pre><code class="language-markup">&lt;!-- listing.html is a view of your grid module --&gt;
-&lt;a href="listing.html" data-load-target="#content-target" data-load-module="grid"&gt;Show grid&lt;/a&gt;
-&lt;div id="content-target"&gt;&lt;/div&gt;</code></pre>
-
-					<h3 class="m-sub-sub-title m-text-left">HTML</h3>
-					<pre><code class="language-markup">&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/core.css"&gt;
-&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/grid.css"&gt;
-&lt;link rel="stylesheet" href="bower_components/moff/dist/bootstrap/main/typography.css"&gt;</code></pre>
-					<p>
-						Both approaches have a disadvantage. It is the large amount of time spent at the HTTP connection due to the great number of files.
-						However, this problem only applies to the first download, after that the files are loaded from cache.
-						File merging can be a solution. Currently, this can be done manually, but in the future a CLI for Moff will be created,
-						that can solve such issues.
-					</p>
-
-					<p>P.S. The modular version of Bootstrap in Moff helps download only the required framework parts to lighten up the page size.</p>
-				</article>
-				<div id="disqus_thread"></div>
-				<script>
-					var disqus_config = function () {
-						this.page.url = 'http://moffjs.com/blog/moff-and-modulated-bootstrap.html';
-						this.page.identifier = 'moff-and-modulated-bootstrap';
-					};
-					(function() { // DON'T EDIT BELOW THIS LINE
-						var d = document, s = d.createElement('script');
-						s.src = '//moffjs.disqus.com/embed.js';
-						s.setAttribute('data-timestamp', +new Date());
-						(d.head || d.body).appendChild(s);
-					})();
-				</script>
-				<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-	<script>!function(e){"use strict";var t=function(t,n,r){function o(e){return i.body?e():void setTimeout(function(){o(e)})}function a(){d.addEventListener&&d.removeEventListener("load",a),d.media=r||"all"}var l,i=e.document,d=i.createElement("link");if(n)l=n;else{var s=(i.body||i.getElementsByTagName("head")[0]).childNodes;l=s[s.length-1]}var u=i.styleSheets;d.rel="stylesheet",d.href=t,d.media="only x",o(function(){l.parentNode.insertBefore(d,n?l:l.nextSibling)});var f=function(e){for(var t=d.href,n=u.length;n--;)if(u[n].href===t)return e();setTimeout(function(){f(e)})};return d.addEventListener&&d.addEventListener("load",a),d.onloadcssdefined=f,f(a),d};"undefined"!=typeof exports?exports.loadCSS=t:e.loadCSS=t}("undefined"!=typeof global?global:this),function(e){if(e.loadCSS){var t=loadCSS.relpreload={};if(t.support=function(){try{return e.document.createElement("link").relList.supports("preload")}catch(e){return!1}},t.poly=function(){for(var t=e.document.getElementsByTagName("link"),n=0;n<t.length;n++){var r=t[n];"preload"===r.rel&&"style"===r.getAttribute("as")&&(e.loadCSS(r.href,r),r.rel=null)}},!t.support()){t.poly();var n=e.setInterval(t.poly,300);e.addEventListener&&e.addEventListener("load",function(){e.clearInterval(n)}),e.attachEvent&&e.attachEvent("onload",function(){e.clearInterval(n)})}}}(this);</script>
-			</div>
-		</main>
-	</div>
-	<footer role="contentinfo">
-		<div class="m-brand-block">
-			<div class="container container_text-center">
-				<div class="row">
-					<div class="col-xs-6 m-text-right">
-						<a class="m-link-icon m-link-icon_github" href="https://github.com/kfuzaylov/moff" title="Moff GitHub repository">GitHub</a>
-					</div>
-					<div class="col-xs-6 m-text-left">
-						<a class="m-link-icon m-link-icon_bugs" href="https://github.com/kfuzaylov/moff/issues" title="Moff issues">Issues</a>
-					</div>
-				</div>
-				<div class="m-copy">Copyright &copy; 2015-2016 Kadir Fuzaylov</div>
-			</div>
-		</div>
-	</footer>
-</div>
-<a href="#top" class="m-scroll-up">Font size</a>
-<script src="/assets/prism-1468949512196.js"></script>
-<script>
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	ga('create', 'UA-68993546-1', 'auto');
-	ga('send', 'pageview');
-</script>
-</body>
-</html>
+});
+</code></pre><p>When registering the module it needs to be downloaded in order to start using it. It can be downloaded using two ways:</p><p>using AMD</p>
+<pre><code class="language-javascript">Moff.amd.include(&apos;grid&apos;);</code></pre><p>or using <a href="http://moffjs.com/tutorial/data-events.html">Data Events</a></p>
+<pre><code class="language-markup">&lt;!-- listing.html is a view of your grid module --&gt;
+&lt;a href=&quot;listing.html&quot; data-load-target=&quot;#content-target&quot; data-load-module=&quot;grid&quot;&gt;Show grid&lt;/a&gt;
+&lt;div id=&quot;content-target&quot;&gt;&lt;/div&gt;
+</code></pre><h3 class="m-sub-sub-title m-text-left">HTML</h3><pre><code class="language-markup">&lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/moff/dist/bootstrap/main/core.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/moff/dist/bootstrap/main/grid.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/moff/dist/bootstrap/main/typography.css&quot;&gt;
+</code></pre><p>
+Both approaches have a disadvantage. It is the large amount of time spent at the HTTP connection due to the great number of files. However, this problem only applies to the first download, after that the files are loaded from cache. File merging can be a solution. Currently, this can be done manually, but in the future a CLI for Moff will be created, that can solve such issues.
+</p><p>P.S. The modular version of Bootstrap in Moff helps download only the required framework parts to lighten up the page size.</p></article><div id="disqus_thread"></div><script>
+var disqus_config=function(){this.page.url="http://moffjs.com/blog/moff-and-modulated-bootstrap.html",this.page.identifier="moff-and-modulated-bootstrap"};!function(){var t=document,e=t.createElement("script");e.src="//moffjs.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()
+</script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<script>!function(e){"use strict";var t=function(t,n,r){function o(e){return i.body?e():void setTimeout(function(){o(e)})}function a(){d.addEventListener&&d.removeEventListener("load",a),d.media=r||"all"}var l,i=e.document,d=i.createElement("link");if(n)l=n;else{var s=(i.body||i.getElementsByTagName("head")[0]).childNodes;l=s[s.length-1]}var u=i.styleSheets;d.rel="stylesheet",d.href=t,d.media="only x",o(function(){l.parentNode.insertBefore(d,n?l:l.nextSibling)});var f=function(e){for(var t=d.href,n=u.length;n--;)if(u[n].href===t)return e();setTimeout(function(){f(e)})};return d.addEventListener&&d.addEventListener("load",a),d.onloadcssdefined=f,f(a),d};"undefined"!=typeof exports?exports.loadCSS=t:e.loadCSS=t}("undefined"!=typeof global?global:this),function(e){if(e.loadCSS){var t=loadCSS.relpreload={};if(t.support=function(){try{return e.document.createElement("link").relList.supports("preload")}catch(e){return!1}},t.poly=function(){for(var t=e.document.getElementsByTagName("link"),n=0;n<t.length;n++){var r=t[n];"preload"===r.rel&&"style"===r.getAttribute("as")&&(e.loadCSS(r.href,r),r.rel=null)}},!t.support()){t.poly();var n=e.setInterval(t.poly,300);e.addEventListener&&e.addEventListener("load",function(){e.clearInterval(n)}),e.attachEvent&&e.attachEvent("onload",function(){e.clearInterval(n)})}}}(this);</script></div></main></div><footer role="contentinfo"><div class="m-brand-block"><div class="container container_text-center"><div class="row"><div class="col-xs-6 m-text-right"><a class="m-link-icon m-link-icon_github" href="https://github.com/kfuzaylov/moff" title="Moff GitHub repository">GitHub</a></div><div class="col-xs-6 m-text-left"><a class="m-link-icon m-link-icon_bugs" href="https://github.com/kfuzaylov/moff/issues" title="Moff issues">Issues</a></div></div><div class="m-copy">Copyright &#xA9; 2015-2016 Kadir Fuzaylov</div></div></div></footer></div><a href="#top" class="m-scroll-up"></a><script src="/moff-assets/572a722a5551c2f33fcb95b3c90bab3c.js"></script><script>
+!function(e,a,t,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=a.createElement(t),s=a.getElementsByTagName(t)[0],o.async=1,o.src=n,s.parentNode.insertBefore(o,s)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","UA-68993546-1","auto"),ga("send","pageview")
+</script></body></html>

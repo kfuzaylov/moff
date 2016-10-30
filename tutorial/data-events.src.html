@@ -10,10 +10,10 @@
 	<meta property="og:description" content="Data event attributes are powerful helpers which allow to load content on certain event with minimum efforts. And this part of tutorial will show you how to use them.">
 	<meta property="og:image" content="http://moffjs.com/images/og-image.png">
 	<meta property="og:url" content="http://moffjs.com/tutorial/data-events.html">
-	<link href="/assets/core-1468949512196.css" rel="stylesheet">
-	<link href="/assets/grid-1468949512196.css" rel="stylesheet">
-	<link href="/assets/styles-1365983238648.css" rel="stylesheet">
-	<link rel="stylesheet" href="/assets/prism-1468949512196.css">
+	<link href="/libs/moff/dist/bootstrap/main/core.css" rel="stylesheet">
+	<link href="/libs/moff/dist/bootstrap/main/grid.css" rel="stylesheet">
+	<link href="/styles/styles.css" rel="stylesheet">
+	<link href="/libs/prism/themes/prism.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css">
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -147,8 +147,8 @@ Moff.amd.register({
 		depend: {
 			js: [
 				'http://maps.google.com/maps/api/js',
-				'/libs/jquery/dist/jquery.min-1468949512196.js',
-				'/libs/gomap/jquery.gomap-1.3.3.min.js'
+				'/bower_components/jquery/dist/jquery.min.js',
+				'/bower_components/gomap/jquery.gomap-1.3.3.min.js'
 			]
 		},
 		file: {
@@ -207,9 +207,9 @@ Moff.amd.register({
 		</div>
 	</footer>
 </div>
-<a href="#top" class="m-scroll-up">Font size</a>
-<script src="/assets/prism-1468949512196.js"></script>
-<script src="/assets/moff.min-1468949512196.js"></script>
+<a href="#top" class="m-scroll-up"></a>
+<script src="/libs/prism/prism.js"></script>
+<script src="/libs/moff/dist/moff.js"></script>
 <script>
 	document.querySelector('.m-select').addEventListener('change', function() {
 		window.location.href = this.value;
@@ -218,8 +218,8 @@ Moff.amd.register({
 		id: 'map',
 		depend: {
 			js: [
-				'http://maps.google.com/maps/api/js',
-				'/assets/jquery.min-1468949512196.js',
+				'http://maps.google.com/maps/api/js?key=AIzaSyDJDE0TO0jucNqLQEMw8yoHLU39vR8rusM',
+				'/libs/jquery/dist/jquery.min.js',
 				'/examples/start-with-mobile-first/modules/map/jquery.gomap-1.3.3.min.js'
 			]
 		},

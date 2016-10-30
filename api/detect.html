@@ -1,297 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Moff.js - Moff.detect API</title>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="This is the Moff plugin which detects OS, browser, HTML5 and CSS3 features support.">
-	<meta property="og:title" content="Moff.js - Moff.detect API.">
-	<meta property="og:description" content="This is the Moff plugin which detects OS, browser, HTML5 and CSS3 features support.">
-	<meta property="og:image" content="http://moffjs.com/images/og-image.png">
-	<meta property="og:url" content="http://moffjs.com/api/detect.html">
-	<style type="text/css">
-		hr,img{border:0}.container:after,.row:after{clear:both}a,pre code{background-color:transparent}.col-xs-12,.m-logo_left{float:left}html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}header,main,nav{display:block}a{color:#57abc1;text-decoration:none}h1{font-size:2em;margin:.67em 0}img{vertical-align:middle}hr{box-sizing:content-box;height:0;margin-top:20px;margin-bottom:20px;border-top:1px solid #eee}pre{overflow:auto}code,pre{font-family:monospace,monospace;font-size:1em}select{color:inherit;font:inherit;margin:0;text-transform:none;font-family:inherit;line-height:inherit}*,:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}html{font-size:10px}body{margin:0;font-size:14px;background-color:#fff;font-family:"Open Sans",sans-serif;color:#102025;font-weight:400;line-height:1.52857}pre code,select{font-size:inherit}@-ms-viewport{width:device-width}.visible-xs{display:none!important}@media (max-width:767px){.visible-xs{display:block!important}.hidden-xs{display:none!important}}.container:after,.container:before,.row:after,.row:before{content:" ";display:table}.container{margin-right:auto;margin-left:auto;padding-left:15px;padding-right:15px}@media (min-width:768px){.container{width:750px}}@media (min-width:992px){.container{width:970px}}@media (min-width:1200px){.container{width:1170px}}.row{margin-left:-15px;margin-right:-15px}.col-sm-3,.col-sm-9,.col-xs-12{position:relative;min-height:1px;padding-left:15px;padding-right:15px}.col-xs-12{width:100%}@media (min-width:768px){.col-sm-3,.col-sm-9{float:left}.col-sm-3{width:25%}.col-sm-9{width:75%}}.m-wrapper,body,html{height:100%}.m-content{min-height:100%;padding-bottom:100px}p{line-height:21px}pre code{padding:0;color:inherit;white-space:pre-wrap;border-radius:0}.m-brand-block,.m-navigation__list-link_active,code{background-color:#57abc1;color:#fff}code{padding:0 4px;font-size:13px;border-radius:4px;display:inline-block;margin:1px 0}.container_header{padding-top:10px;margin-bottom:10px}.m-logo__image{width:60px}.m-navigation{display:block;float:right}@media (min-width:768px){.m-logo__image{width:85px}.m-navigation{float:left;margin-top:5px;margin-left:25px}}@media (min-width:992px){.m-logo__image{width:128px}.m-navigation{margin-top:12px;margin-left:80px}}.m-navigation__list{margin:0;padding:0}.m-navigation__list-item{display:inline-block;margin:0 3px}@media (min-width:350px){.m-navigation__list-item{margin:0 5px}}.m-navigation__list-link{text-decoration:none;font-size:13px}@media (min-width:768px){.m-navigation__list-item{margin:0 8px}.m-navigation__list-link{font-size:14px;font-weight:600}}.m-navigation__list-link_active{padding:3px}@media (min-width:992px){.m-navigation__list-link{font-size:16px;font-weight:600}.m-navigation__list-link_active{padding:3px 8px}}.m-sub-title,.m-title{color:#57abc1;font-weight:400}.m-brand-block_wide{margin:0 -15px;padding:1px 15px}.m-title{font-size:28px;margin-top:18px;margin-bottom:18px}@media (min-width:992px){.m-title{font-size:36px;margin-top:75px}.m-title_tm6{margin-top:6px}}.m-sub-title{font-size:20px;text-align:center;margin:20px 0}.m-text-left{text-align:left}.m-select{width:100%;background:url(/images/arrow.png) right center no-repeat;border:1px solid #57abc1;padding:3px 5px;color:#102025;margin-top:10px;-webkit-appearance:none;-moz-appearance:none;-ms-appearance:none;-o-appearance:none;appearance:none;outline:0}.m-select::-ms-expand{display:none}.m-sub-nav{padding:0;margin:0;list-style:none}.m-sub-nav__item{margin:16px 0;padding:6px 0 6px 6px}.m-sub-nav__item_active{background-color:#57abc1}.m-sub-nav__item_active a{color:#fff}.m-arguments-list{font-size:13px}.m-scroll-up{position:fixed;width:40px;height:40px;right:15px;bottom:15px;border-radius:50%;background:url(/images/icons.png) -2px -90px no-repeat #57abc1;font-size:0;display:block}code[class*=language-]{color:#000;text-shadow:0 1px #fff;font-family:Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;direction:ltr;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3aCWcynf_cDxXwCLxiixG1c.ttf) format('truetype')}@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;src:local('Open Sans Semibold'),local('OpenSans-Semibold'),url(https://fonts.gstatic.com/s/opensans/v13/MTP_ySUJH_bn48VBG8sNSonF5uFdDttMLvmWuJdhhgs.ttf) format('truetype')}
-	</style>
-	<link href="/assets/core-1468949512196.css" rel="preload" as="style" onload="this.rel='stylesheet'">
-	<noscript><link href="/assets/core-1468949512196.css" rel="stylesheet"></noscript>
-	<link href="/assets/grid-1468949512196.css" rel="preload" as="style" onload="this.rel='stylesheet'">
-	<noscript><link href="/assets/grid-1468949512196.css" rel="stylesheet"></noscript>
-	<link href="/assets/styles-1365983238648.css" rel="preload" as="style" onload="this.rel='stylesheet'">
-	<noscript><link href="/assets/styles-1365983238648.css" rel="stylesheet"></noscript>
-	<link rel="preload" href="/assets/prism-1468949512196.css" as="style" onload="this.rel='stylesheet'">
-	<noscript><link rel="stylesheet" href="/assets/prism-1468949512196.css"></noscript>
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="preload" type="text/css" as="style" onload="this.rel='stylesheet'">
-	<noscript><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css"></noscript>
-	<script>!function(e){"use strict";var t=function(t,n,r){function o(e){return i.body?e():void setTimeout(function(){o(e)})}function a(){d.addEventListener&&d.removeEventListener("load",a),d.media=r||"all"}var l,i=e.document,d=i.createElement("link");if(n)l=n;else{var s=(i.body||i.getElementsByTagName("head")[0]).childNodes;l=s[s.length-1]}var u=i.styleSheets;d.rel="stylesheet",d.href=t,d.media="only x",o(function(){l.parentNode.insertBefore(d,n?l:l.nextSibling)});var f=function(e){for(var t=d.href,n=u.length;n--;)if(u[n].href===t)return e();setTimeout(function(){f(e)})};return d.addEventListener&&d.addEventListener("load",a),d.onloadcssdefined=f,f(a),d};"undefined"!=typeof exports?exports.loadCSS=t:e.loadCSS=t}("undefined"!=typeof global?global:this),function(e){if(e.loadCSS){var t=loadCSS.relpreload={};if(t.support=function(){try{return e.document.createElement("link").relList.supports("preload")}catch(e){return!1}},t.poly=function(){for(var t=e.document.getElementsByTagName("link"),n=0;n<t.length;n++){var r=t[n];"preload"===r.rel&&"style"===r.getAttribute("as")&&(e.loadCSS(r.href,r),r.rel=null)}},!t.support()){t.poly();var n=e.setInterval(t.poly,300);e.addEventListener&&e.addEventListener("load",function(){e.clearInterval(n)}),e.attachEvent&&e.attachEvent("onload",function(){e.clearInterval(n)})}}}(this);</script>
-	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-	<link rel="icon" href="/favicon.ico" type="image/x-icon">
-</head>
-<body data-spy="scroll" data-target="#affixNav">
-<a name="top"></a>
-<div class="m-wrapper">
-	<div class="m-content">
-		<header role="banner">
-			<div class="container container_header">
-				<div class="m-logo m-logo_left">
-					<a href="/" title="Moff.js - Home">
-						<img src="/images/logo.png" alt="JavaScript Mobile First framework" class="m-logo__image">
-					</a>
-				</div>
-				<nav role="navigation" class="m-navigation">
-					<ul class="m-navigation__list">
-						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/">Home</a></li>
-						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/tutorial/getting-started.html">Tutorials</a></li>
-						<li class="m-navigation__list-item"><a class="m-navigation__list-link m-navigation__list-link_active" href="/api/index.html">API</a></li>
-						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/blog/index.html">Blog</a></li>
-						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/moff-cli/index.html">CLI</a></li>
-					</ul>
-				</nav>
-			</div>
-		</header>
-		<main role="main">
-			<div class="container">
-				<div class="row">
-					<div class="col-xs-12 col-sm-3">
-						<select class="m-select visible-xs">
-							<option value="/api/index.html">Moff</option>
-							<option value="/api/amd.html">Moff.amd</option>
-							<option value="/api/detect.html" selected>Moff.detect</option>
-							<option value="/api/event.html">Moff.event</option>
-							<option value="/api/modules.html">Moff.modules</option>
-							<option value="/api/module.html">Moff.Module</option>
-						</select>
-						<ul class="m-sub-nav hidden-xs">
-							<li class="m-sub-nav__item"><a href="/api/index.html" title="Moff.js - Moff API">Moff</a></li>
-							<li class="m-sub-nav__item"><a href="/api/amd.html" title="Moff.js - Moff.amd API">Moff.amd</a></li>
-							<li class="m-sub-nav__item m-sub-nav__item_active"><a href="/api/detect.html" title="Moff.js - Moff.detect API">Moff.detect</a></li>
-							<li class="m-sub-nav__item"><a href="/api/event.html" title="Moff.js - Moff.event API">Moff.event</a></li>
-							<li class="m-sub-nav__item"><a href="/api/modules.html" title="Moff.js - Moff.modules API">Moff.modules</a></li>
-							<li class="m-sub-nav__item"><a href="/api/module.html" title="Moff.js - Moff.Module API">Moff.Module</a></li>
-						</ul>
-						<hr class="hidden-xs">
-						<div class="hidden-xs" id="affixNav">
-							<a href="/api/api-detect-affix.html" data-load-target="#affixNav" data-load-module="affix" data-load-screen="sm md lg" class="hidden-xs"></a>
-						</div>
-					</div>
-					<div class="col-xs-12 col-sm-9">
-						<h1 class="m-title m-title_tm6">Moff.detect</h1>
-						<div class="m-brand-block m-brand-block_wide">
-							<p>This is the Moff plugin which detects OS, browser, HTML5 and CSS3 features support.</p>
-						</div>
-
-						<h2 class="m-sub-title m-text-left" id="applicationCache">applicationCache</h2>
-						<p>Determines whether browser support application cache object for the window.</p>
-						<p>Returns <code>boolean</code>.</p>
-						<pre><code class="language-javascript">if (Moff.detect.applicationCache) {
+<!DOCTYPE html><html lang="en"><head><title>Moff.js - Moff.detect API</title><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="This is the Moff plugin which detects OS, browser, HTML5 and CSS3 features support."><meta property="og:title" content="Moff.js - Moff.detect API."><meta property="og:description" content="This is the Moff plugin which detects OS, browser, HTML5 and CSS3 features support."><meta property="og:image" content="http://moffjs.com/images/og-image.png"><meta property="og:url" content="http://moffjs.com/api/detect.html"><style type="text/css">
+	body,select{margin:0}a,pre code{background-color:transparent}hr,img{border:0}.container:after,.row:after{clear:both}html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}header,main,nav{display:block}a{color:#57abc1;text-decoration:none}h1{font-size:2em;margin:.67em 0}img{vertical-align:middle}hr{box-sizing:content-box;height:0;margin-top:20px;margin-bottom:20px;border-top:1px solid #eee}pre{overflow:auto}code,pre{font-family:monospace,monospace;font-size:1em}select{color:inherit;font:inherit;text-transform:none;font-family:inherit;line-height:inherit}*,:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}html{font-size:10px}body{background-color:#fff;font-size:14px;font-family:"Open Sans",sans-serif;color:#102025;font-weight:400;line-height:1.52857}pre code,select{font-size:inherit}.container{margin-right:auto;margin-left:auto;padding-left:15px;padding-right:15px}.visible-xs{display:none!important}@-ms-viewport{width:device-width}@media (max-width:767px){.visible-xs{display:block!important}.hidden-xs{display:none!important}}.container:after,.container:before,.row:after,.row:before{content:" ";display:table}.col-xs-12,.m-logo_left{float:left}@media (min-width:768px){.container{width:750px}}@media (min-width:992px){.container{width:970px}}@media (min-width:1200px){.container{width:1170px}}.row{margin-left:-15px;margin-right:-15px}.col-sm-3,.col-sm-9,.col-xs-12{position:relative;min-height:1px;padding-left:15px;padding-right:15px}.col-xs-12{width:100%}@media (min-width:768px){.col-sm-3,.col-sm-9{float:left}.col-sm-3{width:25%}.col-sm-9{width:75%}}.m-wrapper,body,html{height:100%}.m-content{min-height:100%;padding-bottom:100px}p{line-height:21px}pre code{padding:0;color:inherit;white-space:pre-wrap;border-radius:0}.m-brand-block,.m-navigation__list-link_active,code{background-color:#57abc1;color:#fff}code{padding:0 4px;font-size:13px;border-radius:4px;display:inline-block;margin:1px 0}.container_header{padding-top:10px;margin-bottom:10px}.m-logo__image{width:60px}.m-navigation{display:block;float:right}@media (min-width:768px){.m-logo__image{width:85px}.m-navigation{float:left;margin-top:5px;margin-left:25px}}@media (min-width:992px){.m-logo__image{width:128px}.m-navigation{margin-top:12px;margin-left:80px}}.m-navigation__list{margin:0;padding:0}.m-navigation__list-item{display:inline-block;margin:0 3px}@media (min-width:350px){.m-navigation__list-item{margin:0 5px}}.m-navigation__list-link{text-decoration:none;font-size:13px}@media (min-width:768px){.m-navigation__list-item{margin:0 8px}.m-navigation__list-link{font-size:14px;font-weight:600}}.m-navigation__list-link_active{padding:3px}@media (min-width:992px){.m-navigation__list-link{font-size:16px;font-weight:600}.m-navigation__list-link_active{padding:3px 8px}}.m-sub-title,.m-title{color:#57abc1;font-weight:400}.m-brand-block_wide{margin:0 -15px;padding:1px 15px}.m-title{font-size:28px;margin-top:18px;margin-bottom:18px}@media (min-width:992px){.m-title{font-size:36px;margin-top:75px}.m-title_tm6{margin-top:6px}}.m-sub-title{text-align:center;font-size:20px;margin:20px 0}.m-select{-webkit-appearance:none;width:100%;background:url(/images/arrow.png) right center no-repeat;border:1px solid #57abc1;padding:3px 5px;color:#102025;margin-top:10px;-moz-appearance:none;-ms-appearance:none;-o-appearance:none;appearance:none;outline:0}.m-arguments-list{font-size:13px}.m-text-left{text-align:left}.m-sub-nav__item_active a{color:#fff}.m-select::-ms-expand{display:none}.m-sub-nav{padding:0;margin:0;list-style:none}.m-sub-nav__item{margin:16px 0;padding:6px 0 6px 6px}.m-sub-nav__item_active{background-color:#57abc1}.m-scroll-up{position:fixed;width:40px;height:40px;right:15px;bottom:15px;border-radius:50%;background:url(/images/icons.png) -2px -90px no-repeat #57abc1;font-size:0;display:block}code[class*=language-]{color:#000;text-shadow:0 1px #fff;font-family:Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;direction:ltr;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3aCWcynf_cDxXwCLxiixG1c.ttf) format('truetype')}@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;src:local('Open Sans Semibold'),local('OpenSans-Semibold'),url(https://fonts.gstatic.com/s/opensans/v13/MTP_ySUJH_bn48VBG8sNSonF5uFdDttMLvmWuJdhhgs.ttf) format('truetype')}
+</style>
+<link rel="preload" href="/moff-assets/da5c77296cf471481e453026f3e749a8.css" as="style" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/moff-assets/da5c77296cf471481e453026f3e749a8.css"></noscript>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="preload" type="text/css" as="style" onload="this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css"></noscript>
+<script>!function(e){"use strict";var t=function(t,n,r){function o(e){return i.body?e():void setTimeout(function(){o(e)})}function a(){d.addEventListener&&d.removeEventListener("load",a),d.media=r||"all"}var l,i=e.document,d=i.createElement("link");if(n)l=n;else{var s=(i.body||i.getElementsByTagName("head")[0]).childNodes;l=s[s.length-1]}var u=i.styleSheets;d.rel="stylesheet",d.href=t,d.media="only x",o(function(){l.parentNode.insertBefore(d,n?l:l.nextSibling)});var f=function(e){for(var t=d.href,n=u.length;n--;)if(u[n].href===t)return e();setTimeout(function(){f(e)})};return d.addEventListener&&d.addEventListener("load",a),d.onloadcssdefined=f,f(a),d};"undefined"!=typeof exports?exports.loadCSS=t:e.loadCSS=t}("undefined"!=typeof global?global:this),function(e){if(e.loadCSS){var t=loadCSS.relpreload={};if(t.support=function(){try{return e.document.createElement("link").relList.supports("preload")}catch(e){return!1}},t.poly=function(){for(var t=e.document.getElementsByTagName("link"),n=0;n<t.length;n++){var r=t[n];"preload"===r.rel&&"style"===r.getAttribute("as")&&(e.loadCSS(r.href,r),r.rel=null)}},!t.support()){t.poly();var n=e.setInterval(t.poly,300);e.addEventListener&&e.addEventListener("load",function(){e.clearInterval(n)}),e.attachEvent&&e.attachEvent("onload",function(){e.clearInterval(n)})}}}(this);</script><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"><link rel="icon" href="/favicon.ico" type="image/x-icon"></head><body data-spy="scroll" data-target="#affixNav"><a name="top"></a><div class="m-wrapper"><div class="m-content"><header role="banner"><div class="container container_header"><div class="m-logo m-logo_left"><a href="/" title="Moff.js - Home"><img src="/images/logo.png" alt="JavaScript Mobile First framework" class="m-logo__image"></a>
+</div><nav role="navigation" class="m-navigation"><ul class="m-navigation__list"><li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/">Home</a></li><li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/tutorial/getting-started.html">Tutorials</a></li><li class="m-navigation__list-item"><a class="m-navigation__list-link m-navigation__list-link_active" href="/api/index.html">API</a></li><li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/blog/index.html">Blog
+</a></li><li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/moff-cli/index.html">CLI</a></li></ul></nav></div></header><main role="main"><div class="container"><div class="row"><div class="col-xs-12 col-sm-3"><select class="m-select visible-xs"><option value="/api/index.html">Moff</option><option value="/api/amd.html">Moff.amd</option><option value="/api/detect.html" selected="selected">Moff.detect</option><option value="/api/event.html">Moff.event</option><option value="/api/modules.html">Moff.modules</option><option value="/api/module.html">Moff.Module</option></select><ul class="m-sub-nav hidden-xs"><li class="m-sub-nav__item"><a href="/api/index.html" title="Moff.js - Moff API">Moff</a></li><li class="m-sub-nav__item"><a href="/api/amd.html" title="Moff.js - Moff.amd API">Moff.amd</a></li><li class="m-sub-nav__item m-sub-nav__item_active"><a href="/api/detect.html" title="Moff.js - Moff.detect API">Moff.detect</a></li><li class="m-sub-nav__item"><a href="/api/event.html" title="Moff.js - Moff.event API">Moff.event</a></li><li class="m-sub-nav__item"><a href="/api/modules.html" title="Moff.js - Moff.modules API">Moff.modules</a></li><li class="m-sub-nav__item"><a href="/api/module.html" title="Moff.js - Moff.Module API">Moff.Module</a></li></ul><hr class="hidden-xs"><div class="hidden-xs" id="affixNav"><a href="/api/api-detect-affix.html" data-load-target="#affixNav" data-load-module="affix" data-load-screen="sm md lg" class="hidden-xs"></a>
+</div></div><div class="col-xs-12 col-sm-9"><h1 class="m-title m-title_tm6">Moff.detect</h1><div class="m-brand-block m-brand-block_wide"><p>
+This is the Moff plugin which detects OS, browser, HTML5 and CSS3 features support.</p></div><h2 class="m-sub-title m-text-left" id="applicationCache">applicationCache</h2><p>
+Determines whether browser support application cache object for the window.</p><p>Returns <code>boolean</code>.</p><pre><code class="language-javascript">if (Moff.detect.applicationCache) {
 	// do something...
-}</code></pre>
-						<hr>
-						<h2 class="m-sub-title m-text-left" id="audio">audio</h2>
-						<p>Determines built-in media support via <code>&lt;audio&gt;</code> element.<br>
-							This object contains the list of audio formats with boolean values.</p>
-						<p>Returns <code>object</code>.</p>
-						<p class="m-arguments-list">
-							<code>ogg</code> - Browser supports audio/ogg audio format.<br>
-							<code>mp3</code> - Browser supports audio/mpeg audio format.<br>
-							<code>wav</code> - Browser supports audio/wav audio format.<br>
-							<code>m4a</code> - Browser supports audio/x-m4a or audio/aac audio format.
-						</p>
-						<pre><code class="language-javascript">if (Moff.detect.audio.mp3) {
+}</code></pre><hr><h2 class="m-sub-title m-text-left" id="audio">audio</h2><p>Determines built-in media support via <code>&lt;audio&gt;</code>
+ element.<br>This object contains the list of audio formats with boolean values.</p><p>Returns <code>object</code>.</p><p class="m-arguments-list"><code>ogg</code>
+ - Browser supports audio/ogg audio format.<br><code>mp3</code> - Browser supports audio/mpeg audio format.<br><code>wav</code> - Browser supports audio/wav audio format.<br><code>m4a</code>
+ - Browser supports audio/x-m4a or audio/aac audio format.</p><pre><code class="language-javascript">if (Moff.detect.audio.mp3) {
 	// auto mp3 is supported by browser
-}</code></pre>
-						<hr>
-						<h2 class="m-sub-title m-text-left" id="browser">browser</h2>
-						<p>Object with user browser name and version. Pay attention Internet Explorer 11 won't be matched as <code>msie</code> because browser detection is based on <code>navigator.userAgent</code>.
-						Better try to user feature-specific detected code then browser.
-						</p>
-						<p>Returns <code>object</code> with of the keys:</p>
-						<p class="m-arguments-list">
-							<code>chrome</code> - Google Chrome<br>
-							<code>mozilla</code> - Mozilla Firefox<br>
-							<code>msie</code> - Internet Explorer<br>
-							<code>opera</code> - Opera<br>
-							<code>webkit</code> - Webkit based browser<br>
-							<code>edge</code> - Microsoft Edge
-						</p>
-						<p>Browser version is stored in <code>version</code> key.</p>
-						<pre><code class="language-javascript">if (Moff.detect.browser.chrome) {
+}</code></pre><hr><h2 class="m-sub-title m-text-left" id="browser">browser</h2><p>Object with user browser name and version. Pay attention Internet Explorer 11 won&apos;t be matched as <code>msie</code>
+ because browser detection is based on <code>navigator.userAgent</code>. Better try to user feature-specific detected code then browser.</p><p>Returns <code>object</code> with of the keys:</p><p class="m-arguments-list"><code>chrome</code> - Google Chrome<br><code>mozilla</code> - Mozilla Firefox<br><code>msie</code> - Internet Explorer<br><code>opera</code> - Opera<br><code>webkit</code>
+ - Webkit based browser<br><code>edge</code> - Microsoft Edge</p><p>Browser version is stored in <code>version</code> key.</p><pre><code class="language-javascript">if (Moff.detect.browser.chrome) {
 	// user browser is Google Chrome
 }
 
-Moff.detect.browser.version; // 42.0.2311.90</code></pre>
-						<hr>
-						<h2 class="m-sub-title m-text-left" id="canvas">canvas</h2>
-						<p>Determines whether browser support <code>&lt;canvas&gt;</code> HTML element.</p>
-						<p>Returns <code>boolean</code>.</p>
-						<pre><code class="language-javascript">if (Moff.detect.canvas) {
+Moff.detect.browser.version; // 42.0.2311.90</code></pre><hr><h2 class="m-sub-title m-text-left" id="canvas">canvas</h2><p>
+Determines whether browser support <code>&lt;canvas&gt;</code> HTML element.</p><p>Returns <code>boolean</code>.</p><pre><code class="language-javascript">if (Moff.detect.canvas) {
 	// browser support canvas
-}</code></pre>
-						<hr>
-						<h2 class="m-sub-title m-text-left" id="canvasText">canvasText</h2>
-						<p>Determines whether browser support canvas 2D <code>fillText</code> method.</p>
-						<pre><code class="language-javascript">if (Moff.detect.canvasText) {
+}</code></pre><hr><h2 class="m-sub-title m-text-left" id="canvasText">canvasText</h2><p>Determines whether browser support canvas 2D <code>
+fillText</code> method.</p><pre><code class="language-javascript">if (Moff.detect.canvasText) {
 	// canvas 2D fillText is supported
-}</code></pre>
-						<hr>
-						<h2 class="m-sub-title m-text-left" id="dragAndDrop">dragAndDrop</h2>
-						<p>Determines whether browser support <code>draggable</code> or <code>ondragstart</code>, <code>ondrop</code> events.</p>
-						<p>Returns <code>boolean</code>.</p>
-						<pre><code class="language-javascript">if (Moff.detect.dragAndDrop) {
+}</code></pre><hr><h2 class="m-sub-title m-text-left" id="dragAndDrop">dragAndDrop</h2><p>Determines whether browser support <code>draggable</code> or <code>ondragstart</code>, <code>ondrop</code> events.</p><p>Returns <code>boolean</code>.</p><pre>
+<code class="language-javascript">if (Moff.detect.dragAndDrop) {
 	// realize drag and drop feature
-}</code></pre>
-						<hr>
-						<h2 class="m-sub-title m-text-left" id="hashChange">hashChange</h2>
-						<p>Flag to determine whether window <code>hashchange</code> event is supported.</p>
-						<p>Returns <code>boolean</code>.</p>
-						<pre><code class="language-javascript">if (Moff.detect.hashChange) {
+}</code></pre><hr><h2 class="m-sub-title m-text-left" id="hashChange">hashChange</h2><p>
+Flag to determine whether window <code>hashchange</code> event is supported.</p><p>Returns <code>boolean</code>.</p><pre><code class="language-javascript">if (Moff.detect.hashChange) {
 	// hashchange event is supported
-}</code></pre>
-						<hr>
-						<h2 class="m-sub-title m-text-left" id="history">history</h2>
-						<p>Detection of HTML5 History API <code>pushState</code> support.</p>
-						<p>Returns <code>boolean</code>.</p>
-						<pre><code class="language-javascript">if (Moff.detect.history) {
+}</code></pre><hr><h2 class="m-sub-title m-text-left" id="history">history</h2><p>Detection of HTML5 History API <code>pushState</code>
+ support.</p><p>Returns <code>boolean</code>.</p><pre><code class="language-javascript">if (Moff.detect.history) {
 	// pushState is supported
-}</code></pre>
-						<hr>
-						<h2 class="m-sub-title m-text-left" id="indexedDB">indexedDB</h2>
-						<p>Indicates if the browser support persistently stored data. This property contains <code>indexedDB</code> object or <code>false</code>.</p>
-						<p>Returns <code>boolean</code>.</p>
-						<pre><code class="language-javascript">if (Moff.detect.indexedDB) {
-	// browser's indexed data base is supported
-}</code></pre>
-						<hr>
-						<h2 class="m-sub-title m-text-left" id="isMobile">isMobile</h2>
-						<p>Determines whether user devices is mobile.</p>
-						<p>Returns <code>boolean</code>.</p>
-						<pre><code class="language-javascript">if (Moff.detect.isMobile) {
+}</code></pre><hr><h2 class="m-sub-title m-text-left" id="indexedDB">indexedDB</h2><p>Indicates if the browser support persistently stored data. This property contains <code>indexedDB</code> object or <code>false</code>.</p><p>Returns <code>boolean
+</code>.</p><pre><code class="language-javascript">if (Moff.detect.indexedDB) {
+	// browser&apos;s indexed data base is supported
+}</code></pre><hr><h2 class="m-sub-title m-text-left" id="isMobile">
+isMobile</h2><p>Determines whether user devices is mobile.</p><p>Returns <code>boolean</code>.</p><pre><code class="language-javascript">if (Moff.detect.isMobile) {
 	// user devices is mobile
-}</code></pre>
-						<hr>
-						<h2 class="m-sub-title m-text-left" id="localStorage">localStorage</h2>
-						<p>Flag to determine whether browser support local storage object.</p>
-						<p>Returns <code>boolean</code>.</p>
-						<pre><code class="language-javascript">if (Moff.detect.localStorage) {
+}
+</code></pre><hr><h2 class="m-sub-title m-text-left" id="localStorage">localStorage</h2><p>Flag to determine whether browser support local storage object.</p><p>Returns <code>boolean</code>.</p><pre>
+<code class="language-javascript">if (Moff.detect.localStorage) {
 	// browser support local storage object
-}</code></pre>
-						<hr>
-						<h2 class="m-sub-title m-text-left" id="OS">OS</h2>
-						<p>Object which contains user OS name.</p>
-						<p>Returns <code>object</code> with one of the following keys:</p>
-						<p class="m-arguments-list">
-							<code>iOS</code> - Apple iOS<br>
-							<code>macOS</code> - Apple Mac OS<br>
-							<code>windows</code> - Microsoft Windows OS<br>
-							<code>android</code> - Google Android OS<br>
-							<code>windowsPhone</code> - Microsoft Windows Phone OS
-						</p>
-						<pre><code class="language-javascript">if (Moff.detect.OS.android) {
+}</code></pre><hr><h2 class="m-sub-title m-text-left" id="OS">OS</h2><p>
+Object which contains user OS name.</p><p>Returns <code>object</code> with one of the following keys:</p><p class="m-arguments-list"><code>iOS</code> - Apple iOS<br><code>macOS</code> - Apple Mac OS
+<br><code>windows</code> - Microsoft Windows OS<br><code>android</code> - Google Android OS<br><code>windowsPhone</code> - Microsoft Windows Phone OS</p>
+<pre><code class="language-javascript">if (Moff.detect.OS.android) {
 	// user OS is android
-}</code></pre>
-						<hr>
-						<h2 class="m-sub-title m-text-left" id="postMessage">postMessage</h2>
-						<p>Determines whether browser support <code>window.postMessage</code> method.</p>
-						<p>Returns <code>boolean</code>.</p>
-						<pre><code class="language-javascript">if (Moff.detect.postMessage) {
+}</code></pre><hr><h2 class="m-sub-title m-text-left" id="postMessage">postMessage</h2><p>Determines whether browser support <code>
+window.postMessage</code> method.</p><p>Returns <code>boolean</code>.</p><pre><code class="language-javascript">if (Moff.detect.postMessage) {
 	// window postMessage is supported
-}</code></pre>
-						<hr>
-						<h2 class="m-sub-title m-text-left" id="sessionStorage">sessionStorage</h2>
-						<p>Flag to determine whether browser support session storage.</p>
-						<p>Returns <code>boolean</code>.</p>
-						<pre><code class="language-javascript">if (Moff.detect.sessionStorage) {
+}</code></pre><hr>
+<h2 class="m-sub-title m-text-left" id="sessionStorage">sessionStorage</h2><p>Flag to determine whether browser support session storage.</p><p>Returns <code>boolean</code>.</p><pre><code class="language-javascript">if (Moff.detect.sessionStorage) {
 	// window.sessionStorage is supported
-}</code></pre>
-						<hr>
-						<h2 class="m-sub-title m-text-left" id="supportCSS3">supportCSS3(property)</h2>
-						<p>Determines does the browser support passed CSS3 property.</p>
-						<p>Returns <code>boolean</code>.</p>
-						<p><strong>Arguments:</strong></p>
-						<p class="m-arguments-list">
-							<code>property</code> - CSS3 property
-						</p>
-						<pre><code class="language-javascript">if (Moff.detect.supportCSS3('transition')) {
+}</code></pre><hr><h2 class="m-sub-title m-text-left" id="supportCSS3">supportCSS3(property)</h2>
+<p>Determines does the browser support passed CSS3 property.</p><p>Returns <code>boolean</code>.</p><p><strong>Arguments:</strong></p><p class="m-arguments-list"><code>property</code> - CSS3 property
+</p><pre><code class="language-javascript">if (Moff.detect.supportCSS3(&apos;transition&apos;)) {
 	// browser supports CSS3 transition property
-}</code></pre>
-						<hr>
-						<h2 class="m-sub-title m-text-left" id="touch">touch</h2>
-						<p>Indicates if the browser supports touch events, which does not necessarily reflect a touchscreen device.</p>
-						<p>Returns <code>boolean</code>.</p>
-						<pre><code class="language-javascript">if (Moff.detect.touch) {
+}</code></pre><hr><h2 class="m-sub-title m-text-left" id="touch">touch</h2><p>Indicates if the browser supports touch events, which does not necessarily reflect a touchscreen device.</p><p>Returns <code>boolean</code>.</p><pre><code class="language-javascript">if (Moff.detect.touch) {
 	// browser support touch events.
-}</code></pre>
-						<hr>
-						<h2 class="m-sub-title m-text-left" id="video">video</h2>
-						<p>Determine whether the browser support <code>&lt;video&gt;</code> HTML5 element.</p>
-						<p>Returns <code>object</code> with supported video formats:</p>
-						<p class="m-arguments-list">
-							<code>ogg</code> - Browser supports video/ogg format.<br>
-							<code>h264</code> - Browser supports video/mp4 format.<br>
-							<code>webm</code> - Browser supports video/webm format.
-						</p>
-						<pre><code class="language-javascript">if (Moff.detect.video.h264) {
+}</code></pre><hr><h2 class="m-sub-title m-text-left" id="video">video</h2><p>
+Determine whether the browser support <code>&lt;video&gt;</code> HTML5 element.</p><p>Returns <code>object</code> with supported video formats:</p><p class="m-arguments-list"><code>ogg</code>
+ - Browser supports video/ogg format.<br><code>h264</code> - Browser supports video/mp4 format.<br><code>webm</code> - Browser supports video/webm format.</p>
+<pre><code class="language-javascript">if (Moff.detect.video.h264) {
 	// browser can play video/mp4 format
-}</code></pre>
-						<hr>
-						<h2 class="m-sub-title m-text-left" id="webSockets">webSockets</h2>
-						<p>Flag to indicates if the browser support web sockets.</p>
-						<p>Returns <code>boolean</code>.</p>
-						<pre><code class="language-javascript">if (Moff.detect.webSockets) {
+}</code></pre><hr><h2 class="m-sub-title m-text-left" id="webSockets">webSockets</h2><p>
+Flag to indicates if the browser support web sockets.</p><p>Returns <code>boolean</code>.</p>
+<pre><code class="language-javascript">if (Moff.detect.webSockets) {
 	// your browser supports Web sockets
-}</code></pre>
-						<hr>
-						<h2 class="m-sub-title m-text-left" id="webWorkers">webWorkers</h2>
-						<p>Determine if the browser support web workers.</p>
-						<p>Returns <code>boolean</code>.</p>
-						<pre><code class="language-javascript">if (Moff.detect.webWorkers) {
+}</code></pre><hr><h2 class="m-sub-title m-text-left" id="webWorkers">webWorkers</h2><p>
+Determine if the browser support web workers.</p><p>Returns <code>boolean</code>.</p>
+<pre><code class="language-javascript">if (Moff.detect.webWorkers) {
 	// browser supports Web workers
-}</code></pre>
-					</div>
-				</div><!-- row -->
-			</div><!-- container -->
-		</main>
-	</div>
-	<footer role="contentinfo">
-		<div class="m-brand-block">
-			<div class="container container_text-center">
-				<div class="row">
-					<div class="col-xs-6 m-text-right">
-						<a class="m-link-icon m-link-icon_github" href="https://github.com/kfuzaylov/moff" title="Moff GitHub repository">GitHub</a>
-					</div>
-					<div class="col-xs-6 m-text-left">
-						<a class="m-link-icon m-link-icon_bugs" href="https://github.com/kfuzaylov/moff/issues" title="Moff issues">Issues</a>
-					</div>
-				</div>
-				<div class="m-copy">Copyright &copy; 2015-2016 Kadir Fuzaylov</div>
-			</div>
-		</div>
-	</footer>
-</div>
-<a href="#top" class="m-scroll-up">Font size</a>
-<script src="/assets/prism-1468949512196.js"></script>
-<script src="/assets/moff.min-1468949512196.js"></script>
-<script>
-	document.querySelector('.m-select').addEventListener('change', function() {
-		window.location.href = this.value;
-	}, false);
-	Moff.amd.register({
-		id: 'affix',
-		depend: {
-			js: ['/assets/jquery.min-1468949512196.js']
-		},
-		file: {
-			js: ['/libs/moff/dist/bootstrap/javascripts/affix.js', '/libs/moff/dist/bootstrap/javascripts/scrollspy.js']
-		}
-	});
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	ga('create', 'UA-68993546-1', 'auto');
-	ga('send', 'pageview');
-
-</script>
-</body>
-</html>
+}</code>
+</pre></div></div><!-- row --></div><!-- container --></main></div><footer role="contentinfo"><div class="m-brand-block"><div class="container container_text-center"><div class="row"><div class="col-xs-6 m-text-right"><a class="m-link-icon m-link-icon_github" href="https://github.com/kfuzaylov/moff" title="Moff GitHub repository">GitHub</a></div><div class="col-xs-6 m-text-left"><a class="m-link-icon m-link-icon_bugs" href="https://github.com/kfuzaylov/moff/issues" title="Moff issues">Issues</a></div></div><div class="m-copy">Copyright &#xA9; 2015-2016 Kadir Fuzaylov</div>
+</div></div></footer></div><a href="#top" class="m-scroll-up"></a><script src="/moff-assets/e9faf8e135b6a45b460a245e7894314e.js"></script><script>
+document.querySelector(".m-select").addEventListener("change",function(){window.location.href=this.value},!1),Moff.amd.register({id:"affix",depend:{js:["/libs/jquery/dist/jquery.min.js"]},file:{js:["/libs/moff/dist/bootstrap/javascripts/affix.js","/libs/moff/dist/bootstrap/javascripts/scrollspy.js"]}}),function(e,t,s,a,i,n,o){e.GoogleAnalyticsObject=i,e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},e[i].l=1*new Date,n=t.createElement(s),o=t.getElementsByTagName(s)[0],n.async=1,n.src=a,o.parentNode.insertBefore(n,o)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","UA-68993546-1","auto"),ga("send","pageview")
+</script></body></html>

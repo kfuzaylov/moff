@@ -10,10 +10,10 @@
 	<meta property="og:description" content="This is the Moff plugin which detects OS, browser, HTML5 and CSS3 features support.">
 	<meta property="og:image" content="http://moffjs.com/images/og-image.png">
 	<meta property="og:url" content="http://moffjs.com/api/detect.html">
-	<link href="/assets/core-1468949512196.css" rel="stylesheet">
-	<link href="/assets/grid-1468949512196.css" rel="stylesheet">
-	<link href="/assets/styles-1365983238648.css" rel="stylesheet">
-	<link rel="stylesheet" href="/assets/prism-1468949512196.css">
+	<link href="/libs/moff/dist/bootstrap/main/core.css" rel="stylesheet">
+	<link href="/libs/moff/dist/bootstrap/main/grid.css" rel="stylesheet">
+	<link href="/styles/styles.css" rel="stylesheet">
+	<link href="/libs/prism/themes/prism.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css">
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -259,9 +259,9 @@ Moff.detect.browser.version; // 42.0.2311.90</code></pre>
 		</div>
 	</footer>
 </div>
-<a href="#top" class="m-scroll-up">Font size</a>
-<script src="/assets/prism-1468949512196.js"></script>
-<script src="/assets/moff.min-1468949512196.js"></script>
+<a href="#top" class="m-scroll-up"></a>
+<script src="/libs/prism/prism.js"></script>
+<script src="/libs/moff/dist/moff.js"></script>
 <script>
 	document.querySelector('.m-select').addEventListener('change', function() {
 		window.location.href = this.value;
@@ -269,7 +269,7 @@ Moff.detect.browser.version; // 42.0.2311.90</code></pre>
 	Moff.amd.register({
 		id: 'affix',
 		depend: {
-			js: ['/assets/jquery.min-1468949512196.js']
+			js: ['/libs/jquery/dist/jquery.min.js']
 		},
 		file: {
 			js: ['/libs/moff/dist/bootstrap/javascripts/affix.js', '/libs/moff/dist/bootstrap/javascripts/scrollspy.js']

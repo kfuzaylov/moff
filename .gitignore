@@ -1,5 +1,7 @@
-# PhpStorm project
 .idea
 
 node_modules
 bower_components
+
+*.src.html
+**/*.src.html

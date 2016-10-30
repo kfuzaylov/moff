@@ -10,10 +10,10 @@
 	<meta property="og:description" content="Moff CLI is the Moff.js command line utility that helps to optimize your web page.">
 	<meta property="og:image" content="http://moffjs.com/images/og-image.png">
 	<meta property="og:url" content="http://moffjs.com/moff-cli/index.html">
-	<link href="/assets/core-1468949512196.css" rel="stylesheet">
-	<link href="/assets/grid-1468949512196.css" rel="stylesheet">
-	<link href="/assets/tables-34484564313434.css" rel="stylesheet">
-	<link rel="stylesheet" href="/assets/prism-1468949512196.css">
+	<link href="/libs/moff/dist/bootstrap/main/core.css" rel="stylesheet">
+	<link href="/libs/moff/dist/bootstrap/main/grid.css" rel="stylesheet">
+	<link href="/libs/moff/dist/bootstrap/main/tables.css" rel="stylesheet">
+	<link href="/libs/prism/themes/prism.css" rel="stylesheet">
 	<link href="/styles/styles.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css">
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
@@ -52,10 +52,9 @@
 			</div>
 			<div class="container">
 				<h2 class="m-sub-title m-sub-title_large m-text-left">Overview</h2>
-				<p>Moff CLI optimizes you page by minification and concatenation of resources. Generated resources named by
-					<abbr title="The MD5 algorithm is a widely used hash function producing a 128-bit hash value.">MD5</abbr> hash which provides best practices to
-					set set maximum expiry date and update by changing file name. Also it puts critical path CSS and asynchronously loads CSS files.
-					And as a last step it minifies HTML and inlined JS and CSS.
+				<p>Moff CLI optimizes you page by one command. It will generate fully optimized page from your source page.
+					Generated pages are become lighter and faster and available for viewing on slow connection. It will apply all possible techniques to optimize page, starting from
+					concatenation, minification and finishing by generation critical css path. Below you can see what exactly do Moff CLI to optimize your page.
 				</p>
 				<h2 class="m-sub-title m-sub-title_large m-text-left">Usage</h2>
 				<h3 class="m-sub-title m-text-left">Install Moff CLI</h3>
@@ -70,29 +69,6 @@
 					folder in working directory and puts all generated assets into it.
 				</p>
 				<p>Note: If you do not specify optimized file name then it will be generated as input file name with <code>moff-</code> prefix.</p>
-
-				<h2 class="m-sub-title m-sub-title_large m-text-left">Options</h2>
-				<table class="table table-bordered">
-					<thead>
-					<tr>
-						<th>Name</th>
-						<th>Default value</th>
-						<th>Description</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr>
-						<td>-w</td>
-						<td>1170</td>
-						<td>Width of view port for critical css generation</td>
-					</tr>
-					<tr>
-						<td>-h</td>
-						<td>1000</td>
-						<td>Height of view port for critical css generation</td>
-					</tr>
-					</tbody>
-				</table>
 
 				<h2 class="m-sub-title m-sub-title_large m-text-left">What does Moff CLI optimize?</h2>
 
@@ -233,6 +209,45 @@ Moff.amd.register({id:"social",depend:{js:["https://buttons.github.io/buttons.js
 &lt;/script&gt;</code></pre>
 				</p>
 
+				<h2 class="m-sub-title m-sub-title_large m-text-left">Options</h2>
+				<h3 class="m-sub-title m-text-left">Example</h3>
+				<p>
+Optimize page with specific width and height for critical path css
+					<pre><code class="language-bash">&gt; moff api/index.src.html api/index.html -w 320 -h 760
+Page successfully generated!</code></pre>
+				</p>
+				<p>
+Print Moff CLI version
+				<pre><code class="language-bash">&gt; moff -v
+v0.2.0</code></pre>
+				</p>
+				<table class="table table-bordered">
+					<thead>
+					<tr>
+						<th>Name</th>
+						<th>Default</th>
+						<th>Description</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>-w</td>
+						<td>1170</td>
+						<td>Width of view port for critical css generation</td>
+					</tr>
+					<tr>
+						<td>-h</td>
+						<td>1000</td>
+						<td>Height of view port for critical css generation</td>
+					</tr>
+					<tr>
+						<td>-v</td>
+						<td></td>
+						<td>Prints the current Moff CLI version</td>
+					</tr>
+					</tbody>
+				</table>
+
 			</div>
 		</main>
 	</div>
@@ -253,8 +268,8 @@ Moff.amd.register({id:"social",depend:{js:["https://buttons.github.io/buttons.js
 	</footer>
 </div>
 <a href="#top" class="m-scroll-up"></a>
-<script src="/assets/moff.min-1468949512196.js"></script>
-<script src="/assets/prism-1468949512196.js"></script>
+<script src="/libs/moff/dist/moff.js"></script>
+<script src="/libs/prism/prism.js"></script>
 <script>
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

@@ -1,172 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Moff CLI - The Moff.js command line utility.</title>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Moff CLI is the Moff.js command line utility that helps to optimize your web page.">
-	<meta property="og:title" content="Moff CLI - The Moff.js command line utility.">
-	<meta property="og:description" content="Moff CLI is the Moff.js command line utility that helps to optimize your web page.">
-	<meta property="og:image" content="http://moffjs.com/images/og-image.png">
-	<meta property="og:url" content="http://moffjs.com/moff-cli/index.html">
-	<style type="text/css">
-		a,pre code{background-color:transparent}html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}header,main,nav{display:block}a{color:#57abc1;text-decoration:none}abbr[title]{border-bottom:1px dotted}h1{font-size:2em;margin:.67em 0}img{border:0;vertical-align:middle}pre{overflow:auto}code,pre{font-family:monospace,monospace;font-size:1em}*,:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}html{font-size:10px}@-ms-viewport{width:device-width}.visible-lg,.visible-md{display:none!important}@media (min-width:992px) and (max-width:1199px){.visible-md{display:block!important}}@media (min-width:1200px){.visible-lg{display:block!important}}.container{margin-right:auto;margin-left:auto;padding-left:15px;padding-right:15px}.container:after,.container:before{content:" ";display:table}.container:after{clear:both}@media (min-width:768px){.container{width:750px}}@media (min-width:992px){.container{width:970px}}@media (min-width:1200px){.container{width:1170px}}code[class*=language-]{color:#000;text-shadow:0 1px #fff;font-family:Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;direction:ltr;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}.m-wrapper,body,html{height:100%}body{font-size:14px;background-color:#fff;font-family:"Open Sans",sans-serif;color:#102025;font-weight:400;line-height:1.52857}.m-content{min-height:100%;padding-bottom:100px}p{line-height:21px}pre code{padding:0;font-size:inherit;color:inherit;white-space:pre-wrap;border-radius:0}.m-brand-block,.m-navigation__list-link_active,code{background-color:#57abc1;color:#fff}code{padding:0 4px;font-size:13px;border-radius:4px;display:inline-block;margin:1px 0}.container_header{padding-top:10px;margin-bottom:10px}.container_brand-cli{padding-bottom:15px;text-align:left;position:relative}.m-logo_left{float:left}.m-logo__image{width:60px}.m-navigation{display:block;float:right}@media (min-width:768px){.container_brand-cli{height:127px}.m-logo__image{width:85px}.m-navigation{float:left;margin-top:5px;margin-left:25px}}@media (min-width:992px){.container_brand-cli{height:342px}.m-logo__image{width:128px}.m-navigation{margin-top:12px;margin-left:80px}}.m-navigation__list{margin:0;padding:0}.m-navigation__list-item{display:inline-block;margin:0 3px}@media (min-width:350px){.m-navigation__list-item{margin:0 5px}}.m-navigation__list-link{text-decoration:none;font-size:13px}@media (min-width:768px){.m-navigation__list-item{margin:0 8px}.m-navigation__list-link{font-size:14px;font-weight:600}}.m-navigation__list-link_active{padding:3px}@media (min-width:992px){.m-navigation__list-link{font-size:16px;font-weight:600}.m-navigation__list-link_active{padding:3px 8px}}.m-title{font-weight:400;font-size:28px;margin-top:18px;margin-bottom:18px;color:#57abc1}.m-title_white{color:#fff}@media (min-width:992px){.m-title{font-size:36px;margin-top:75px}}.m-sub-title{color:#57abc1;font-size:20px;text-align:center;margin:20px 0;font-weight:400}@media (min-width:768px){.m-sub-title_large{font-size:23px;margin:27px 0}}@media (min-width:992px){.m-sub-title_large{font-size:25px;margin:35px 0}}.m-slogan{color:#fff;letter-spacing:.5px}@media (min-width:768px){.m-slogan{font-size:18px}}.m-text-left{text-align:left}.m-scroll-up{position:fixed;width:40px;height:40px;right:15px;bottom:15px;border-radius:50%;background:url(/images/icons.png) -2px -90px no-repeat #57abc1;font-size:0;display:block}.m-console{position:absolute;right:0;top:50px}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3aCWcynf_cDxXwCLxiixG1c.ttf) format('truetype')}@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;src:local('Open Sans Semibold'),local('OpenSans-Semibold'),url(https://fonts.gstatic.com/s/opensans/v13/MTP_ySUJH_bn48VBG8sNSonF5uFdDttMLvmWuJdhhgs.ttf) format('truetype')}
-	</style>
-	<link href="/assets/core-1468949512196.css" rel="preload" as="style" onload="this.rel='stylesheet'">
-	<noscript><link href="/assets/core-1468949512196.css" rel="stylesheet"></noscript>
-	<link href="/assets/grid-1468949512196.css" rel="preload" as="style" onload="this.rel='stylesheet'">
-	<noscript><link href="/assets/grid-1468949512196.css" rel="stylesheet"></noscript>
-	<link href="/assets/tables-34484564313434.css" rel="preload" as="style" onload="this.rel='stylesheet'">
-	<noscript><link href="/assets/tables-34484564313434.css" rel="stylesheet"></noscript>
-	<link rel="preload" href="/assets/prism-1468949512196.css" as="style" onload="this.rel='stylesheet'">
-	<noscript><link rel="stylesheet" href="/assets/prism-1468949512196.css"></noscript>
-	<link href="/styles/styles.css" rel="preload" as="style" onload="this.rel='stylesheet'">
-	<noscript><link href="/styles/styles.css" rel="stylesheet"></noscript>
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="preload" type="text/css" as="style" onload="this.rel='stylesheet'">
-	<noscript><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css"></noscript>
-	<script>!function(e){"use strict";var t=function(t,n,r){function o(e){return i.body?e():void setTimeout(function(){o(e)})}function a(){d.addEventListener&&d.removeEventListener("load",a),d.media=r||"all"}var l,i=e.document,d=i.createElement("link");if(n)l=n;else{var s=(i.body||i.getElementsByTagName("head")[0]).childNodes;l=s[s.length-1]}var u=i.styleSheets;d.rel="stylesheet",d.href=t,d.media="only x",o(function(){l.parentNode.insertBefore(d,n?l:l.nextSibling)});var f=function(e){for(var t=d.href,n=u.length;n--;)if(u[n].href===t)return e();setTimeout(function(){f(e)})};return d.addEventListener&&d.addEventListener("load",a),d.onloadcssdefined=f,f(a),d};"undefined"!=typeof exports?exports.loadCSS=t:e.loadCSS=t}("undefined"!=typeof global?global:this),function(e){if(e.loadCSS){var t=loadCSS.relpreload={};if(t.support=function(){try{return e.document.createElement("link").relList.supports("preload")}catch(e){return!1}},t.poly=function(){for(var t=e.document.getElementsByTagName("link"),n=0;n<t.length;n++){var r=t[n];"preload"===r.rel&&"style"===r.getAttribute("as")&&(e.loadCSS(r.href,r),r.rel=null)}},!t.support()){t.poly();var n=e.setInterval(t.poly,300);e.addEventListener&&e.addEventListener("load",function(){e.clearInterval(n)}),e.attachEvent&&e.attachEvent("onload",function(){e.clearInterval(n)})}}}(this);</script>
-	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-	<link rel="icon" href="/favicon.ico" type="image/x-icon">
-</head>
-<body>
-<div id="fb-root"></div>
-<a name="top"></a>
-<div class="m-wrapper">
-	<div class="m-content">
-		<header role="banner">
-			<div class="container container_header">
-				<div class="m-logo m-logo_left">
-					<a href="/" title="Moff.js - Home">
-						<img src="/images/logo.png" alt="JavaScript Mobile First framework" class="m-logo__image">
-					</a>
-				</div>
-				<nav role="navigation" class="m-navigation">
-					<ul class="m-navigation__list">
-						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/">Home</a></li>
-						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/tutorial/getting-started.html">Tutorials</a></li>
-						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/api/index.html">API</a></li>
-						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/blog/index.html">Blog</a></li>
-						<li class="m-navigation__list-item"><a class="m-navigation__list-link m-navigation__list-link_active" href="/moff-cli/index.html">CLI</a></li>
-					</ul>
-				</nav>
-			</div>
-		</header>
-		<main role="main">
-			<div class="m-brand-block">
-				<div class="container container_brand-cli">
-					<h1 class="m-title m-title_white">Moff CLI</h1>
-					<div class="m-slogan">The Moff.js command line utility.</div>
-					<img src="/images/console.png" class="m-console visible-md visible-lg">
-				</div>
-			</div>
-			<div class="container">
-				<h2 class="m-sub-title m-sub-title_large m-text-left">Overview</h2>
-				<p>Moff CLI optimizes you page by minification and concatenation of resources. Generated resources named by
-					<abbr title="The MD5 algorithm is a widely used hash function producing a 128-bit hash value.">MD5</abbr> hash which provides best practices to
-					set set maximum expiry date and update by changing file name. Also it puts critical path CSS and asynchronously loads CSS files.
-					And as a last step it minifies HTML and inlined JS and CSS.
-				</p>
-				<h2 class="m-sub-title m-sub-title_large m-text-left">Usage</h2>
-				<h3 class="m-sub-title m-text-left">Install Moff CLI</h3>
-				<p>
-					<pre><code class="language-bash">&gt; npm install -g moff-cli</code></pre>
-				</p>
-				<h3 class="m-sub-title m-text-left">Optimize your page</h3>
-				<p>
-				<pre><code class="language-bash">&gt; moff api/index.src.html api/index.html</code></pre>
-				</p>
-				<p>Run this command to optimize your page. You have to run it from the root of your project, because Moff CLI creates <code>moff-assets</code>
-					folder in working directory and puts all generated assets into it.
-				</p>
-				<p>Note: If you do not specify optimized file name then it will be generated as input file name with <code>moff-</code> prefix.</p>
-
-				<h2 class="m-sub-title m-sub-title_large m-text-left">Options</h2>
-				<table class="table table-bordered">
-					<thead>
-					<tr>
-						<th>Name</th>
-						<th>Default value</th>
-						<th>Description</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr>
-						<td>-w</td>
-						<td>1170</td>
-						<td>Width of view port for critical css generation</td>
-					</tr>
-					<tr>
-						<td>-h</td>
-						<td>1000</td>
-						<td>Height of view port for critical css generation</td>
-					</tr>
-					</tbody>
-				</table>
-
-				<h2 class="m-sub-title m-sub-title_large m-text-left">What does Moff CLI optimize?</h2>
-
-				<h3 class="m-sub-title m-text-left">Concatenate, minify CSS and generates critical path CSS</h3>
-
-				<p>All your CSS files will be concatenated and minified into one file to reduce <abbr title="The Hypertext Transfer Protocol">HTTP</abbr> requests to server.
-					Only external (when href starts from <code>http(s)</code> or <code>//</code>) css files are not processed by CLI, because usually this is <abbr title="Content Delivery Network">CDN</abbr> files which are already cached.
-				</p>
-				<p>
-					Concatenated files named by MD5 hash of file content.
-					It allows to set maximum expiry date in the HTTP headers and update resources by changed hash in file name.
-				</p>
-				<p>
-					After CSS files concatenation it generates critical path CSS. It will decrease the time to display content to the screen and additional network latency.
-					Modern browsers block painting content to the screen before loading external CSS. Inlining CSS of view port optimizes time to render.
-				</p>
-				<p>
-				<pre><code class="language-markup">&lt;!-- Before --&gt;
+<!DOCTYPE html><html lang="en"><head><title>Moff CLI - The Moff.js command line utility.</title><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Moff CLI is the Moff.js command line utility that helps to optimize your web page."><meta property="og:title" content="Moff CLI - The Moff.js command line utility."><meta property="og:description" content="Moff CLI is the Moff.js command line utility that helps to optimize your web page."><meta property="og:image" content="http://moffjs.com/images/og-image.png"><meta property="og:url" content="http://moffjs.com/moff-cli/index.html"><style type="text/css">
+	a,pre code{background-color:transparent}img{border:0;vertical-align:middle}body{margin:0;background-color:#fff}.container:after{clear:both}html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}header,main,nav{display:block}a{color:#57abc1;text-decoration:none}h1{font-size:2em;margin:.67em 0}pre{overflow:auto}code,pre{font-family:monospace,monospace;font-size:1em}*,:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}html{font-size:10px}.container{margin-right:auto;margin-left:auto;padding-left:15px;padding-right:15px}.visible-lg,.visible-md{display:none!important}@-ms-viewport{width:device-width}@media (min-width:992px) and (max-width:1199px){.visible-md{display:block!important}}@media (min-width:1200px){.visible-lg{display:block!important}}.container:after,.container:before{content:" ";display:table}@media (min-width:768px){.container{width:750px}}@media (min-width:992px){.container{width:970px}}@media (min-width:1200px){.container{width:1170px}}code[class*=language-]{color:#000;text-shadow:0 1px #fff;font-family:Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;direction:ltr;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}.m-wrapper,body,html{height:100%}body{font-size:14px;font-family:"Open Sans",sans-serif;color:#102025;font-weight:400;line-height:1.52857}.m-content{min-height:100%;padding-bottom:100px}p{line-height:21px}pre code{padding:0;font-size:inherit;color:inherit;white-space:pre-wrap;border-radius:0}.m-brand-block,.m-navigation__list-link_active,code{background-color:#57abc1;color:#fff}code{padding:0 4px;font-size:13px;border-radius:4px;display:inline-block;margin:1px 0}.container_header{padding-top:10px;margin-bottom:10px}.container_brand-cli{padding-bottom:15px;text-align:left;position:relative}.m-logo_left{float:left}.m-logo__image{width:60px}.m-navigation{display:block;float:right}@media (min-width:768px){.container_brand-cli{height:127px}.m-logo__image{width:85px}.m-navigation{float:left;margin-top:5px;margin-left:25px}}@media (min-width:992px){.container_brand-cli{height:342px}.m-logo__image{width:128px}.m-navigation{margin-top:12px;margin-left:80px}}.m-navigation__list{margin:0;padding:0}.m-navigation__list-item{display:inline-block;margin:0 3px}@media (min-width:350px){.m-navigation__list-item{margin:0 5px}}.m-navigation__list-link{text-decoration:none;font-size:13px}@media (min-width:768px){.m-navigation__list-item{margin:0 8px}.m-navigation__list-link{font-size:14px;font-weight:600}}.m-navigation__list-link_active{padding:3px}@media (min-width:992px){.m-navigation__list-link{font-size:16px;font-weight:600}.m-navigation__list-link_active{padding:3px 8px}}.m-title{font-weight:400;font-size:28px;margin-top:18px;margin-bottom:18px;color:#57abc1}.m-title_white{color:#fff}@media (min-width:992px){.m-title{font-size:36px;margin-top:75px}}.m-sub-title{color:#57abc1;text-align:center;font-weight:400;font-size:20px;margin:20px 0}@media (min-width:768px){.m-sub-title_large{font-size:23px;margin:27px 0}}@media (min-width:992px){.m-sub-title_large{font-size:25px;margin:35px 0}}.m-slogan{color:#fff;letter-spacing:.5px}@media (min-width:768px){.m-slogan{font-size:18px}}.m-text-left{text-align:left}.m-scroll-up{position:fixed;width:40px;height:40px;right:15px;bottom:15px;border-radius:50%;background:url(/images/icons.png) -2px -90px no-repeat #57abc1;font-size:0;display:block}.m-console{position:absolute;right:0;top:50px}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3aCWcynf_cDxXwCLxiixG1c.ttf) format('truetype')}@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;src:local('Open Sans Semibold'),local('OpenSans-Semibold'),url(https://fonts.gstatic.com/s/opensans/v13/MTP_ySUJH_bn48VBG8sNSonF5uFdDttMLvmWuJdhhgs.ttf) format('truetype')}
+</style>
+<link rel="preload" href="/moff-assets/5c12725bda0315793150fc2d0389b114.css" as="style" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/moff-assets/5c12725bda0315793150fc2d0389b114.css"></noscript><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="preload" type="text/css" as="style" onload="this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css"></noscript>
+<script>!function(e){"use strict";var t=function(t,n,r){function o(e){return i.body?e():void setTimeout(function(){o(e)})}function a(){d.addEventListener&&d.removeEventListener("load",a),d.media=r||"all"}var l,i=e.document,d=i.createElement("link");if(n)l=n;else{var s=(i.body||i.getElementsByTagName("head")[0]).childNodes;l=s[s.length-1]}var u=i.styleSheets;d.rel="stylesheet",d.href=t,d.media="only x",o(function(){l.parentNode.insertBefore(d,n?l:l.nextSibling)});var f=function(e){for(var t=d.href,n=u.length;n--;)if(u[n].href===t)return e();setTimeout(function(){f(e)})};return d.addEventListener&&d.addEventListener("load",a),d.onloadcssdefined=f,f(a),d};"undefined"!=typeof exports?exports.loadCSS=t:e.loadCSS=t}("undefined"!=typeof global?global:this),function(e){if(e.loadCSS){var t=loadCSS.relpreload={};if(t.support=function(){try{return e.document.createElement("link").relList.supports("preload")}catch(e){return!1}},t.poly=function(){for(var t=e.document.getElementsByTagName("link"),n=0;n<t.length;n++){var r=t[n];"preload"===r.rel&&"style"===r.getAttribute("as")&&(e.loadCSS(r.href,r),r.rel=null)}},!t.support()){t.poly();var n=e.setInterval(t.poly,300);e.addEventListener&&e.addEventListener("load",function(){e.clearInterval(n)}),e.attachEvent&&e.attachEvent("onload",function(){e.clearInterval(n)})}}}(this);</script><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"><link rel="icon" href="/favicon.ico" type="image/x-icon"></head><body><div id="fb-root"></div><a name="top"></a><div class="m-wrapper"><div class="m-content">
+<header role="banner"><div class="container container_header"><div class="m-logo m-logo_left"><a href="/" title="Moff.js - Home"><img src="/images/logo.png" alt="JavaScript Mobile First framework" class="m-logo__image"></a></div><nav role="navigation" class="m-navigation"><ul class="m-navigation__list"><li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/">Home</a>
+</li><li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/tutorial/getting-started.html">Tutorials</a></li><li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/api/index.html">API</a></li><li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/blog/index.html">Blog</a></li><li class="m-navigation__list-item"><a class="m-navigation__list-link m-navigation__list-link_active" href="/moff-cli/index.html">CLI</a></li></ul></nav></div></header><main role="main"><div class="m-brand-block"><div class="container container_brand-cli"><h1 class="m-title m-title_white">Moff CLI</h1><div class="m-slogan">The Moff.js command line utility.</div><img src="/images/console.png" class="m-console visible-md visible-lg"></div></div><div class="container"><h2 class="m-sub-title m-sub-title_large m-text-left">Overview</h2><p>
+Moff CLI optimizes you page by one command. It will generate fully optimized page from your source page. Generated pages are become lighter and faster and available for viewing on slow connection. It will apply all possible techniques to optimize page, starting from concatenation, minification and finishing by generation critical css path. Below you can see what exactly do Moff CLI to optimize your page.
+</p><h2 class="m-sub-title m-sub-title_large m-text-left">Usage</h2><h3 class="m-sub-title m-text-left">Install Moff CLI</h3><p><pre><code class="language-bash">&gt; npm install -g moff-cli</code>
+</pre></p><h3 class="m-sub-title m-text-left">Optimize your page</h3><p><pre><code class="language-bash">&gt; moff api/index.src.html api/index.html</code></pre></p><p>
+Run this command to optimize your page. You have to run it from the root of your project, because Moff CLI creates <code>moff-assets</code>
+ folder in working directory and puts all generated assets into it.</p><p>Note: If you do not specify optimized file name then it will be generated as input file name with <code>moff-</code> prefix.
+</p><h2 class="m-sub-title m-sub-title_large m-text-left">What does Moff CLI optimize?</h2><h3 class="m-sub-title m-text-left">Concatenate, minify CSS and generates critical path CSS</h3><p>
+All your CSS files will be concatenated and minified into one file to reduce <abbr title="The Hypertext Transfer Protocol">HTTP</abbr> requests to server. Only external (when href starts from <code>
+http(s)</code> or <code>//</code>) css files are not processed by CLI, because usually this is <abbr title="Content Delivery Network">CDN</abbr> files which are already cached.</p><p>
+Concatenated files named by MD5 hash of file content. It allows to set maximum expiry date in the HTTP headers and update resources by changed hash in file name.</p><p>
+After CSS files concatenation it generates critical path CSS. It will decrease the time to display content to the screen and additional network latency. Modern browsers block painting content to the screen before loading external CSS. Inlining CSS of view port optimizes time to render.
+</p><p><pre><code class="language-markup">&lt;!-- Before --&gt;
 &lt;head&gt;
-	&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"&gt;
-	&lt;link rel="stylesheet" href="/styles/main.css"&gt;
-	&lt;link rel="stylesheet" href="/styles/form.css"&gt;
-	&lt;link rel="stylesheet" href="/styles/popup.css"&gt;
+	&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css&quot;&gt;
+	&lt;link rel=&quot;stylesheet&quot; href=&quot;/styles/main.css&quot;&gt;
+	&lt;link rel=&quot;stylesheet&quot; href=&quot;/styles/form.css&quot;&gt;
+	&lt;link rel=&quot;stylesheet&quot; href=&quot;/styles/popup.css&quot;&gt;
 &lt;/head&gt;
 
 &lt;!-- After --&gt;
 &lt;head&gt;
-	&lt;style type="text/css"&gt;
+	&lt;style type=&quot;text/css&quot;&gt;
 		.clearfix:after,.container:after,.row:after{clear:both}.col-xs-12,.m-logo_left{float:left}.container_brand,.m-feature{position:relative}
 		.m-feature__title-link,a{text-decoration:none}header,main,nav{display:block}a{background-color:transparent;color:#57abc1}
 		h1{font-size:2em;margin:.67em 0}img{border:0;vertical-align:middle}*,:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 		html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;font-size:10px}
-		body{margin:0;font-size:14px;background-color:#fff;font-family:"Open Sans",sans-serif;color:#102025;font-weight:400;line-height:1.52857}
-		.m-brand-block,.m-navigation__list-link_active{background-color:#57abc1;color:#fff}.clearfix:after,.clearfix:before{content:" ";display:table}
+		body{margin:0;font-size:14px;background-color:#fff;font-family:&quot;Open Sans&quot;,sans-serif;color:#102025;font-weight:400;line-height:1.52857}
+		.m-brand-block,.m-navigation__list-link_active{background-color:#57abc1;color:#fff}.clearfix:after,.clearfix:before{content:&quot; &quot;;display:table}
 		@-ms-viewport{width:device-width}.visible-md,.visible-sm{display:none!important}@media (min-width:768px) and (max-width:991px)
 	&lt;/style&gt;
-	&lt;link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" rel="preload" as="style" onload="this.rel='stylesheet'"&gt;
-	&lt;noscript&gt;&lt;link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" rel="stylesheet"&gt;&lt;/noscript&gt;
-	&lt;link href="/moff-assets/b288868ee7bdac056132c59c60959af3.css" rel="preload" as="style" onload="this.rel='stylesheet'"&gt;
-	&lt;noscript&gt;&lt;link href="/moff-assets/b288868ee7bdac056132c59c60959af3.css" rel="stylesheet"&gt;&lt;/noscript&gt;
-	&lt;script&gt;!function(e){"use strict";var t=function(t,n,r){function o(e){return i.body?e():void setTimeout(function(){o(e)})}function a(){d.addEventListener&&d.removeEventListener("load",a),d.media=r||"all"}var l,i=e.document,d=i.createElement("link");if(n)l=n;else{var s=(i.body||i.getElementsByTagName("head")[0]).childNodes;l=s[s.length-1]}var u=i.styleSheets;d.rel="stylesheet",d.href=t,d.media="only x",o(function(){l.parentNode.insertBefore(d,n?l:l.nextSibling)});var f=function(e){for(var t=d.href,n=u.length;n--;)if(u[n].href===t)return e();setTimeout(function(){f(e)})};return d.addEventListener&&d.addEventListener("load",a),d.onloadcssdefined=f,f(a),d};"undefined"!=typeof exports?exports.loadCSS=t:e.loadCSS=t}("undefined"!=typeof global?global:this),function(e){if(e.loadCSS){var t=loadCSS.relpreload={};if(t.support=function(){try{return e.document.createElement("link").relList.supports("preload")}catch(e){return!1}},t.poly=function(){for(var t=e.document.getElementsByTagName("link"),n=0;n&lt;t.length;n++){var r=t[n];"preload"===r.rel&&"style"===r.getAttribute("as")&&(e.loadCSS(r.href,r),r.rel=null)}},!t.support()){t.poly();var n=e.setInterval(t.poly,300);e.addEventListener&&e.addEventListener("load",function(){e.clearInterval(n)}),e.attachEvent&&e.attachEvent("onload",function(){e.clearInterval(n)})}}}(this);&lt;/script&gt;
-&lt;/head&&gt;</code></pre>
-				</p>
-
-				<h3 class="m-sub-title m-text-left">Concatenate and minify JavaScript</h3>
-				<p>JavaScript files concatenated and minified the same way as CSS files. All files are concatenated and minified except of asynchronous and external ones.
-					If script source starts from <code>http(s)</code>, <code>//</code> or has <code>async</code> attribute it will not be precessed by Moff CLI.
-					Generated files are stored in <code>moff-assets</code> folder and renamed by MD5 hash.
-				</p>
-				<p>
-					<pre><code class="language-markup">&lt;!-- Before --&gt;
-&lt;script src="https://code.jquery.com/jquery-3.1.1.min.js"&gt;&lt;/script&gt;
-&lt;script src="/scripts/functions.js"&gt;&lt;/script&gt;
-&lt;script src="/scripts/registration.js"&gt;&lt;/script&gt;
+	&lt;link href=&quot;https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css&quot; rel=&quot;preload&quot; as=&quot;style&quot; onload=&quot;this.rel=&apos;stylesheet&apos;&quot;&gt;
+	&lt;noscript&gt;&lt;link href=&quot;https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css&quot; rel=&quot;stylesheet&quot;&gt;&lt;/noscript&gt;
+	&lt;link href=&quot;/moff-assets/b288868ee7bdac056132c59c60959af3.css&quot; rel=&quot;preload&quot; as=&quot;style&quot; onload=&quot;this.rel=&apos;stylesheet&apos;&quot;&gt;
+	&lt;noscript&gt;&lt;link href=&quot;/moff-assets/b288868ee7bdac056132c59c60959af3.css&quot; rel=&quot;stylesheet&quot;&gt;&lt;/noscript&gt;
+	&lt;script&gt;!function(e){&quot;use strict&quot;;var t=function(t,n,r){function o(e){return i.body?e():void setTimeout(function(){o(e)})}function a(){d.addEventListener&amp;&amp;d.removeEventListener(&quot;load&quot;,a),d.media=r||&quot;all&quot;}var l,i=e.document,d=i.createElement(&quot;link&quot;);if(n)l=n;else{var s=(i.body||i.getElementsByTagName(&quot;head&quot;)[0]).childNodes;l=s[s.length-1]}var u=i.styleSheets;d.rel=&quot;stylesheet&quot;,d.href=t,d.media=&quot;only x&quot;,o(function(){l.parentNode.insertBefore(d,n?l:l.nextSibling)});var f=function(e){for(var t=d.href,n=u.length;n--;)if(u[n].href===t)return e();setTimeout(function(){f(e)})};return d.addEventListener&amp;&amp;d.addEventListener(&quot;load&quot;,a),d.onloadcssdefined=f,f(a),d};&quot;undefined&quot;!=typeof exports?exports.loadCSS=t:e.loadCSS=t}(&quot;undefined&quot;!=typeof global?global:this),function(e){if(e.loadCSS){var t=loadCSS.relpreload={};if(t.support=function(){try{return e.document.createElement(&quot;link&quot;).relList.supports(&quot;preload&quot;)}catch(e){return!1}},t.poly=function(){for(var t=e.document.getElementsByTagName(&quot;link&quot;),n=0;n&lt;t.length;n++){var r=t[n];&quot;preload&quot;===r.rel&amp;&amp;&quot;style&quot;===r.getAttribute(&quot;as&quot;)&amp;&amp;(e.loadCSS(r.href,r),r.rel=null)}},!t.support()){t.poly();var n=e.setInterval(t.poly,300);e.addEventListener&amp;&amp;e.addEventListener(&quot;load&quot;,function(){e.clearInterval(n)}),e.attachEvent&amp;&amp;e.attachEvent(&quot;onload&quot;,function(){e.clearInterval(n)})}}}(this);&lt;/script&gt;
+&lt;/head&amp;&gt;
+</code></pre></p><h3 class="m-sub-title m-text-left">Concatenate and minify JavaScript</h3><p>
+JavaScript files concatenated and minified the same way as CSS files. All files are concatenated and minified except of asynchronous and external ones. If script source starts from <code>http(s)
+</code>, <code>//</code> or has <code>async</code> attribute it will not be precessed by Moff CLI. Generated files are stored in <code>moff-assets</code> folder and renamed by MD5 hash.</p><p><pre>
+<code class="language-markup">&lt;!-- Before --&gt;
+&lt;script src=&quot;https://code.jquery.com/jquery-3.1.1.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/scripts/functions.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/scripts/registration.js&quot;&gt;&lt;/script&gt;
 
 &lt;!-- After --&gt;
-&lt;script src="https://code.jquery.com/jquery-3.1.1.min.js"&gt;&lt;/script&gt;
-&lt;script src="/moff-assets/s2g886eee74dac056o32c53c60784az2.js"&gt;&lt;/script&gt;</code></pre>
-				</p>
-
-				<h3 class="m-sub-title m-text-left">Minify HTML and inlined JavaScript, CSS</h3>
-				<p>Moff CLI minifies HTML of and inlined JavaScript to reduce the size of the page.</p>
-				<p>
-					<pre><code class="language-markup">&lt;!-- Before --&gt;
+&lt;script src=&quot;https://code.jquery.com/jquery-3.1.1.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/moff-assets/s2g886eee74dac056o32c53c60784az2.js&quot;&gt;&lt;/script&gt;
+</code></pre></p><h3 class="m-sub-title m-text-left">Minify HTML and inlined JavaScript, CSS</h3><p>Moff CLI minifies HTML of and inlined JavaScript to reduce the size of the page.</p>
+<p><pre><code class="language-markup">&lt;!-- Before --&gt;
 &lt;style&gt;
 .clearfix:after, .container:after, .row:after {
 	clear: both
@@ -217,20 +105,20 @@ h1 {
 &lt;/header&gt;
 &lt;script&gt;
 	Moff.amd.register({
-		id: 'social',
+		id: &apos;social&apos;,
 		depend: {
-			js: ['https://buttons.github.io/buttons.js', 'https://apis.google.com/js/platform.js']
+			js: [&apos;https://buttons.github.io/buttons.js&apos;, &apos;https://apis.google.com/js/platform.js&apos;]
 		},
 		afterInclude: function() {
 			!function (d, s, id) {
-				var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+				var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? &apos;http&apos; : &apos;https&apos;;
 				if (!d.getElementById(id)) {
 					js = d.createElement(s);
 					js.id = id;
-					js.src = p + '://platform.twitter.com/widgets.js';
+					js.src = p + &apos;://platform.twitter.com/widgets.js&apos;;
 					fjs.parentNode.insertBefore(js, fjs);
 				}
-			}(document, 'script', 'twitter-wjs');
+			}(document, &apos;script&apos;, &apos;twitter-wjs&apos;);
 		}
 	});
 &lt;/script&gt;
@@ -239,39 +127,14 @@ h1 {
 &lt;style&gt;.clearfix:after,.container:after,.row:after{clear:both}.col-xs-12,.m-logo_left{float:left}.container_brand,.m-feature{position:relative}.m-feature__title-link,a{text-decoration:none}header,main,nav{display:block}a{background-color:transparent;color:#57abc1}h1{font-size:2em;margin:.67em 0}&lt;/style&gt;
 &lt;header role=&quot;banner&quot;&gt;&lt;div class=&quot;container container_header&quot;&gt;&lt;div class=&quot;m-logo m-logo_left&quot;&gt;&lt;a href=&quot;/&quot; title=&quot;Moff.js - Home&quot;&gt;&lt;img src=&quot;/images/logo.png&quot; alt=&quot;JavaScript Mobile First framework&quot; class=&quot;m-logo__image&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;nav role=&quot;navigation&quot; class=&quot;m-navigation&quot;&gt;&lt;ul class=&quot;m-navigation__list&quot;&gt;&lt;li class=&quot;m-navigation__list-item&quot;&gt;&lt;a class=&quot;m-navigation__list-link m-navigation__list-link_active&quot; href=&quot;/&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;m-navigation__list-item&quot;&gt;&lt;a class=&quot;m-navigation__list-link&quot; href=&quot;/tutorial/getting-started.html&quot;&gt;Tutorials&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;m-navigation__list-item&quot;&gt;&lt;a class=&quot;m-navigation__list-link&quot; href=&quot;/api/index.html&quot;&gt;API&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;m-navigation__list-item&quot;&gt;&lt;a class=&quot;m-navigation__list-link&quot; href=&quot;/blog/index.html&quot;&gt;Blog&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/nav&gt;&lt;/div&gt;&lt;/header&gt;
 &lt;script&gt;
-Moff.amd.register({id:"social",depend:{js:["https://buttons.github.io/buttons.js","https://apis.google.com/js/platform.js"]},afterInclude:function(){!function(t,e,s){var n,o=t.getElementsByTagName(e)[0],r=/^http:/.test(t.location)?"http":"https";t.getElementById(s)||(n=t.createElement(e),n.id=s,n.src=r+"://platform.twitter.com/widgets.js",o.parentNode.insertBefore(n,o))}(document,"script","twitter-wjs")}});
-&lt;/script&gt;</code></pre>
-				</p>
-
-			</div>
-		</main>
-	</div>
-	<footer role="contentinfo">
-		<div class="m-brand-block">
-			<div class="container container_text-center">
-				<div class="row">
-					<div class="col-xs-6 m-text-right">
-						<a class="m-link-icon m-link-icon_github" href="https://github.com/kfuzaylov/moff-cli" title="Moff CLI GitHub repository">GitHub</a>
-					</div>
-					<div class="col-xs-6 m-text-left">
-						<a class="m-link-icon m-link-icon_bugs" href="https://github.com/kfuzaylov/moff-cli/issues" title="Moff CLI issues">Issues</a>
-					</div>
-				</div>
-				<div class="m-copy">Copyright &copy; 2015-2016 Kadir Fuzaylov</div>
-			</div>
-		</div>
-	</footer>
-</div>
-<a href="#top" class="m-scroll-up"></a>
-<script src="/assets/moff.min-1468949512196.js"></script>
-<script src="/assets/prism-1468949512196.js"></script>
-<script>
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-68993546-1', 'auto');
-	ga('send', 'pageview');
-</script>
-</body>
-</html>
+Moff.amd.register({id:&quot;social&quot;,depend:{js:[&quot;https://buttons.github.io/buttons.js&quot;,&quot;https://apis.google.com/js/platform.js&quot;]},afterInclude:function(){!function(t,e,s){var n,o=t.getElementsByTagName(e)[0],r=/^http:/.test(t.location)?&quot;http&quot;:&quot;https&quot;;t.getElementById(s)||(n=t.createElement(e),n.id=s,n.src=r+&quot;://platform.twitter.com/widgets.js&quot;,o.parentNode.insertBefore(n,o))}(document,&quot;script&quot;,&quot;twitter-wjs&quot;)}});
+&lt;/script&gt;
+</code></pre></p><h2 class="m-sub-title m-sub-title_large m-text-left">Options</h2><h3 class="m-sub-title m-text-left">Example</h3><p>
+Optimize page with specific width and height for critical path css<pre><code class="language-bash">&gt; moff api/index.src.html api/index.html -w 320 -h 760
+Page successfully generated!</code></pre>
+</p><p>Print Moff CLI version<pre><code class="language-bash">&gt; moff -v
+v0.2.0</code></pre></p><table class="table table-bordered"><thead><tr><th>Name</th><th>Default</th><th>Description</th></tr>
+</thead><tbody><tr><td>-w</td><td>1170</td><td>Width of view port for critical css generation</td></tr><tr><td>-h</td><td>1000</td><td>Height of view port for critical css generation</td></tr><tr>
+<td>-v</td><td></td><td>Prints the current Moff CLI version</td></tr></tbody></table></div></main></div><footer role="contentinfo"><div class="m-brand-block"><div class="container container_text-center"><div class="row"><div class="col-xs-6 m-text-right"><a class="m-link-icon m-link-icon_github" href="https://github.com/kfuzaylov/moff-cli" title="Moff CLI GitHub repository">GitHub</a></div><div class="col-xs-6 m-text-left"><a class="m-link-icon m-link-icon_bugs" href="https://github.com/kfuzaylov/moff-cli/issues" title="Moff CLI issues">Issues</a></div></div><div class="m-copy">Copyright &#xA9; 2015-2016 Kadir Fuzaylov</div></div></div></footer></div><a href="#top" class="m-scroll-up"></a><script src="/moff-assets/c1a1a623cba31e63651c117aa688e907.js"></script><script>
+!function(e,a,t,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=a.createElement(t),s=a.getElementsByTagName(t)[0],o.async=1,o.src=n,s.parentNode.insertBefore(o,s)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","UA-68993546-1","auto"),ga("send","pageview")
+</script></body></html>

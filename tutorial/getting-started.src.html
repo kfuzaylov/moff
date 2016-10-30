@@ -10,10 +10,10 @@
 	<meta property="og:description" content="This tutorial will show you the best practises of using Moff.js from scratch. You will learn how to create mobile first website and make it desktop.">
 	<meta property="og:image" content="http://moffjs.com/images/og-image.png">
 	<meta property="og:url" content="http://moffjs.com/tutorial/getting-started.html">
-	<link href="/assets/core-1468949512196.css" rel="stylesheet">
-	<link href="/assets/grid-1468949512196.css" rel="stylesheet">
-	<link href="/assets/styles-1365983238648.css" rel="stylesheet">
-	<link rel="stylesheet" href="/assets/prism-1468949512196.css">
+	<link href="/libs/moff/dist/bootstrap/main/core.css" rel="stylesheet">
+	<link href="/libs/moff/dist/bootstrap/main/grid.css" rel="stylesheet">
+	<link href="/styles/styles.css" rel="stylesheet">
+	<link href="/libs/prism/themes/prism.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css">
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -66,7 +66,7 @@
 						<pre><code class="language-bash">&gt; bower install moff --save</code></pre>
 						</p>
 						<p>If you don't use <code>bower</code> you can download <a href="/libs/moff/dist/moff.js">development</a> or <a
-							href="/assets/moff.min-1468949512196.js">minified</a> version with the <a href="/libs/moff/dist/moff.min.js.map">map</a>.</p>
+							href="/libs/moff/dist/moff.js">minified</a> version with the <a href="/libs/moff/dist/moff.min.js.map">map</a>.</p>
 						<h2 class="m-sub-title m-text-left">Include</h2>
 						<p>
 							Include Moff into page body.
@@ -142,8 +142,8 @@ window.moffConfig = {
 		</div>
 	</footer>
 </div>
-<a href="#top" class="m-scroll-up">Font size</a>
-<script src="/assets/prism-1468949512196.js"></script>
+<a href="#top" class="m-scroll-up"></a>
+<script src="/libs/prism/prism.js"></script>
 <script>
 	document.querySelector('.m-select').addEventListener('change', function() {
 		window.location.href = this.value;

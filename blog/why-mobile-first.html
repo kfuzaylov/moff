@@ -1,177 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Why Mobile First?</title>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="This year, the amount of people using mobile devices to access the Internet reached 60%. Therefore, mobile traffic is becoming more important, and website owners must reckon with this statistic.">
-	<meta property="og:title" content="Why mobile first?">
-	<meta property="og:description" content="This year, the amount of people using mobile devices to access the Internet reached 60%. Therefore, mobile traffic is becoming more important, and website owners must reckon with this statistic.">
-	<meta property="og:image" content="http://moffjs.com/images/og-image.png">
-	<meta property="og:url" content="http://moffjs.com/blog/why-mobile-first.html">
-	<style type="text/css">
-		article,header,main,nav{display:block}a{background-color:transparent;color:#57abc1;text-decoration:none}abbr[title]{border-bottom:1px dotted}h1{font-size:2em;margin:.67em 0}img{border:0;vertical-align:middle}*,:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;font-size:10px}body{margin:0;font-size:14px;background-color:#fff;font-family:"Open Sans",sans-serif;color:#102025;font-weight:400;line-height:1.52857}@-ms-viewport{width:device-width}.container{margin-right:auto;margin-left:auto;padding-left:15px;padding-right:15px}.container:after,.container:before{content:" ";display:table}.container:after{clear:both}@media (min-width:768px){.container{width:750px}}@media (min-width:992px){.container{width:970px}}@media (min-width:1200px){.container{width:1170px}}.m-wrapper,body,html{height:100%}.m-content{min-height:100%;padding-bottom:100px}blockquote{border-left:2px solid #102025;color:#666;font-size:16px;font-style:italic;padding-left:20px;margin-left:0}p{line-height:21px}.container_header{padding-top:10px;margin-bottom:10px}.m-logo_left{float:left}.m-logo__image{width:60px}.m-navigation{display:block;float:right}@media (min-width:768px){.m-logo__image{width:85px}.m-navigation{float:left;margin-top:5px;margin-left:25px}}@media (min-width:992px){.m-logo__image{width:128px}.m-navigation{margin-top:12px;margin-left:80px}}.m-navigation__list{margin:0;padding:0}.m-navigation__list-item{display:inline-block;margin:0 3px}@media (min-width:350px){.m-navigation__list-item{margin:0 5px}}.m-navigation__list-link{text-decoration:none;font-size:13px}@media (min-width:768px){.m-navigation__list-item{margin:0 8px}.m-navigation__list-link{font-size:14px;font-weight:600}}@media (min-width:992px){.m-navigation__list-link{font-size:16px;font-weight:600}}.m-navigation__list-link_active{color:#fff;background-color:#57abc1;padding:3px}.m-sub-title,.m-title{color:#57abc1;font-weight:400}.m-title{font-size:28px;margin-top:18px;margin-bottom:18px}@media (min-width:992px){.m-navigation__list-link_active{padding:3px 8px}.m-title{font-size:36px;margin-top:75px}}.m-sub-title{font-size:20px;text-align:center;margin:20px 0}.m-text-left{text-align:left}.m-date{font-size:13px;color:#999}.m-scroll-up{position:fixed;width:40px;height:40px;right:15px;bottom:15px;border-radius:50%;background:url(/images/icons.png) -2px -90px no-repeat #57abc1;font-size:0;display:block}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3aCWcynf_cDxXwCLxiixG1c.ttf) format('truetype')}@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;src:local('Open Sans Semibold'),local('OpenSans-Semibold'),url(https://fonts.gstatic.com/s/opensans/v13/MTP_ySUJH_bn48VBG8sNSonF5uFdDttMLvmWuJdhhgs.ttf) format('truetype')}
-	</style>
-	<link href="/assets/core-1468949512196.css" rel="preload" as="style" onload="this.rel='stylesheet'">
-	<noscript><link href="/assets/core-1468949512196.css" rel="stylesheet"></noscript>
-	<link href="/assets/grid-1468949512196.css" rel="preload" as="style" onload="this.rel='stylesheet'">
-	<noscript><link href="/assets/grid-1468949512196.css" rel="stylesheet"></noscript>
-	<link href="/assets/styles-1365983238648.css" rel="preload" as="style" onload="this.rel='stylesheet'">
-	<noscript><link href="/assets/styles-1365983238648.css" rel="stylesheet"></noscript>
-	<link rel="preload" href="/assets/prism-1468949512196.css" as="style" onload="this.rel='stylesheet'">
-	<noscript><link rel="stylesheet" href="/assets/prism-1468949512196.css"></noscript>
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="preload" type="text/css" as="style" onload="this.rel='stylesheet'">
-	<noscript><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css"></noscript>
-	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-	<link rel="icon" href="/favicon.ico" type="image/x-icon">
-</head>
-<body>
-<a name="top"></a>
-<div class="m-wrapper">
-	<div class="m-content">
-		<header role="banner">
-			<div class="container container_header">
-				<div class="m-logo m-logo_left">
-					<a href="/" title="Moff.js - Home">
-						<img src="/images/logo.png" alt="JavaScript Mobile First framework" class="m-logo__image">
-					</a>
-				</div>
-				<nav role="navigation" class="m-navigation">
-					<ul class="m-navigation__list">
-						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/">Home</a></li>
-						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/tutorial/getting-started.html">Tutorials</a></li>
-						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/api/index.html">API</a></li>
-						<li class="m-navigation__list-item"><a class="m-navigation__list-link m-navigation__list-link_active" href="/blog/index.html">Blog</a></li>
-						<li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/moff-cli/index.html">CLI</a></li>
-					</ul>
-				</nav>
-			</div>
-		</header>
-		<main role="main">
-			<div class="container">
-				<article>
-				<h1 class="m-title">Why mobile first?</h1>
-				<time datetime="2015-07-15" class="m-date">July 15, 2015</time>
-				<p>Much has been written about Mobile First, and there are good <a href="http://abookapart.com/products/mobile-first" rel="nofollow">books</a> about this topic. Still, the majority of developers and companies do not use it in their projects, or are not even aware of this approach.
-					This is why I want to tell you about it briefly and using examples; this will be useful information for those who never heard about this approach.
-				</p>
-				<p>I will attempt to answer three main questions:
-					<ol>
-						<li>What is Mobile First and what are its advantages.</li>
-						<li>Implementing the approach.</li>
-						<li>Results stats.</li>
-					</ol>
-				</p>
-				<h2 class="m-sub-title m-text-left">What is Mobile First?</h2>
-				<p>This year, the amount of people using mobile devices to access the Internet reached 60%.
-					Therefore, mobile traffic is becoming more important, and website owners must reckon with this statistic.
-					In practice, mobile phone and tablet users spend less time online and prefer websites on the first few lines of search results.
-					At the same time, PC users can spend more time looking for information. Therefore your website must be well optimised for search engines (<abbr title="Search Engine Optimization">SEO</abbr>),
-					and satisfy all Mobile First requirements, so that the user experience of your website via a mobile device is supremely convenient and user-friendly.</p>
-				<p>Therefore, some of the most important requirements in Mobile First development are:
-					<ul>
-						<li>Show the most important content first.</li>
-						<li>The website must be light and optimised, as a mobile network connection speed can be slow depending on the user’s location.</li>
-						<li>The website must not load more resources than needed for the user to receive the required information, as mobile Internet is still expensive. Additional information must be downloaded only if the user requests it.</li>
-					</ul>
-				</p>
-				<p>So, Mobile First is a method of developing an optimised website for varying mobile devices, taking into account the network connection speed. As well as the importance of essential content to the end user.</p>
-				<p>Recently, search giant Google has written about the importance of this approach:
-					<blockquote>
-						“Starting April 21, we will be expanding our use of mobile-friendliness as a ranking signal. This change will affect mobile searches in all languages worldwide and will have a significant impact in our search results. Consequently, users will find it easier to get relevant, high quality search results that are optimized for their devices.”
-					</blockquote>
-				Read <a href="http://googlewebmastercentral.blogspot.ru/2015/02/finding-more-mobile-friendly-search.html" target="_blank" rel="nofollow">full post.</a>
-				</p>
-				<p>Video about the significance of Mobile First by Olivier Rabenschlag – Head of Creative Agency Development, Google
-				</p>
-				<div style="max-width: 600px;">
-					<div class="embed-responsive embed-responsive-16by9">
-						<iframe width="560" height="315" src="https://www.youtube.com/embed/gHgD2GiXdak" frameborder="0" allowfullscreen></iframe>
-					</div>
-				</div>
-				<h3 class="m-sub-sub-title m-text-left">Advantages of the Mobile First approach.</h3>
-				<p>
-					To remind you, today the amount of users who utilize mobile devices to surf the web reached 60%. Therefore, the use of Mobile First when developing a website bestows significant advantages primarily for these users.
-					<ol>
-						<li>One website for all devices.</li>
-						<li>Users will see the important page content first.</li>
-						<li>Fast page loading at low connection speeds.</li>
-						<li>Convenient interface for navigation on a mobile screen.</li>
-						<li>Minimal amount of web resources required for showing the main content – economy of mobile Internet traffic.</li>
-						<li>Top positions in Google search results.</li>
-					</ol>
-				</p>
-				<h2 class="m-sub-title m-text-left">Implementation.</h2>
-				<p>Implementation of the approach will be demonstrated using the <a href="http://moffjs.com" title="Moff - Mobile First Framework">Moff</a> (Mobile First Framework). It is a JavaScript framework that is tailored to Mobile First development.
-					We will consider the approach using the example of a page with detailed information about a car.
-				</p>
-				<h3 class="m-sub-sub-title m-text-left">Determining the important part of the content.</h3>
-				<p>Usually such a page contains a lot of data. We must decide, what is more important here for the user.</p>
-				<p>Detailed list of data on the page:
-					<ul>
-						<li>The main car photo</li>
-						<li>Small thumbnails of additional pictures</li>
-						<li>Manufacturer, model and specifications</li>
-						<li>Price</li>
-						<li>Description</li>
-						<li>Performance checklist</li>
-						<li>Equipment</li>
-						<li>User comments</li>
-						<li>Social networks Facebook, Twitter, g+</li>
-						<li>List of similar cars</li>
-					</ul>
-					Assume that the most important features of this list are the main photo, manufacturer, model and specifications, price, performance checklist and equipment.
-				</p>
-				<p>Then we markup a page where we will only add this information.
-				<div>
-					<pre><code class="language-markup">&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
+<!DOCTYPE html><html lang="en"><head><title>Why Mobile First?</title><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="This year, the amount of people using mobile devices to access the Internet reached 60%. Therefore, mobile traffic is becoming more important, and website owners must reckon with this statistic.">
+<meta property="og:title" content="Why mobile first?"><meta property="og:description" content="This year, the amount of people using mobile devices to access the Internet reached 60%. Therefore, mobile traffic is becoming more important, and website owners must reckon with this statistic.">
+<meta property="og:image" content="http://moffjs.com/images/og-image.png"><meta property="og:url" content="http://moffjs.com/blog/why-mobile-first.html"><style type="text/css">
+	img{border:0;vertical-align:middle}.container:after{clear:both}article,header,main,nav{display:block}a{background-color:transparent;color:#57abc1;text-decoration:none}abbr[title]{border-bottom:1px dotted}h1{font-size:2em;margin:.67em 0}*,:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;font-size:10px}body{margin:0;background-color:#fff;font-size:14px;font-family:"Open Sans",sans-serif;color:#102025;font-weight:400;line-height:1.52857}.container{margin-right:auto;margin-left:auto;padding-left:15px;padding-right:15px}blockquote{font-style:italic;border-left:2px solid #102025;color:#666;font-size:16px;padding-left:20px;margin-left:0}@-ms-viewport{width:device-width}.container:after,.container:before{content:" ";display:table}.m-logo_left{float:left}@media (min-width:768px){.container{width:750px}}@media (min-width:992px){.container{width:970px}}@media (min-width:1200px){.container{width:1170px}}.m-wrapper,body,html{height:100%}.m-content{min-height:100%;padding-bottom:100px}p{line-height:21px}.container_header{padding-top:10px;margin-bottom:10px}.m-logo__image{width:60px}.m-navigation{display:block;float:right}@media (min-width:768px){.m-logo__image{width:85px}.m-navigation{float:left;margin-top:5px;margin-left:25px}}@media (min-width:992px){.m-logo__image{width:128px}.m-navigation{margin-top:12px;margin-left:80px}}.m-navigation__list{margin:0;padding:0}.m-navigation__list-item{display:inline-block;margin:0 3px}@media (min-width:350px){.m-navigation__list-item{margin:0 5px}}.m-navigation__list-link{text-decoration:none;font-size:13px}@media (min-width:768px){.m-navigation__list-item{margin:0 8px}.m-navigation__list-link{font-size:14px;font-weight:600}}.m-navigation__list-link_active{background-color:#57abc1;color:#fff;padding:3px}@media (min-width:992px){.m-navigation__list-link{font-size:16px;font-weight:600}.m-navigation__list-link_active{padding:3px 8px}}.m-sub-title,.m-title{color:#57abc1;font-weight:400}.m-title{font-size:28px;margin-top:18px;margin-bottom:18px}@media (min-width:992px){.m-title{font-size:36px;margin-top:75px}}.m-sub-title{text-align:center;font-size:20px;margin:20px 0}.m-date{font-size:13px;color:#999}.m-text-left{text-align:left}.m-scroll-up{position:fixed;width:40px;height:40px;right:15px;bottom:15px;border-radius:50%;background:url(/images/icons.png) -2px -90px no-repeat #57abc1;font-size:0;display:block}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3aCWcynf_cDxXwCLxiixG1c.ttf) format('truetype')}@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;src:local('Open Sans Semibold'),local('OpenSans-Semibold'),url(https://fonts.gstatic.com/s/opensans/v13/MTP_ySUJH_bn48VBG8sNSonF5uFdDttMLvmWuJdhhgs.ttf) format('truetype')}
+</style>
+<link rel="preload" href="/moff-assets/da5c77296cf471481e453026f3e749a8.css" as="style" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/moff-assets/da5c77296cf471481e453026f3e749a8.css"></noscript><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="preload" type="text/css" as="style" onload="this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css"></noscript><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"><link rel="icon" href="/favicon.ico" type="image/x-icon"></head><body><a name="top"></a><div class="m-wrapper"><div class="m-content"><header role="banner">
+<div class="container container_header"><div class="m-logo m-logo_left"><a href="/" title="Moff.js - Home"><img src="/images/logo.png" alt="JavaScript Mobile First framework" class="m-logo__image">
+</a></div><nav role="navigation" class="m-navigation"><ul class="m-navigation__list"><li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/">Home</a></li><li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/tutorial/getting-started.html">Tutorials</a></li><li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/api/index.html">API</a></li><li class="m-navigation__list-item"><a class="m-navigation__list-link m-navigation__list-link_active" href="/blog/index.html">Blog</a></li><li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/moff-cli/index.html">CLI</a></li></ul></nav></div></header><main role="main"><div class="container"><article><h1 class="m-title">Why mobile first?</h1><time datetime="2015-07-15" class="m-date">July 15, 2015</time><p>Much has been written about Mobile First, and there are good <a href="http://abookapart.com/products/mobile-first" rel="nofollow">books</a>
+ about this topic. Still, the majority of developers and companies do not use it in their projects, or are not even aware of this approach. This is why I want to tell you about it briefly and using examples; this will be useful information for those who never heard about this approach.
+</p><p>I will attempt to answer three main questions:<ol><li>What is Mobile First and what are its advantages.</li><li>Implementing the approach.</li><li>Results stats.</li></ol></p><h2 class="m-sub-title m-text-left">What is Mobile First?</h2><p>
+This year, the amount of people using mobile devices to access the Internet reached 60%. Therefore, mobile traffic is becoming more important, and website owners must reckon with this statistic. In practice, mobile phone and tablet users spend less time online and prefer websites on the first few lines of search results. At the same time, PC users can spend more time looking for information. Therefore your website must be well optimised for search engines (
+<abbr title="Search Engine Optimization">SEO</abbr>
+), and satisfy all Mobile First requirements, so that the user experience of your website via a mobile device is supremely convenient and user-friendly.</p><p>
+Therefore, some of the most important requirements in Mobile First development are:<ul><li>Show the most important content first.</li><li>
+The website must be light and optimised, as a mobile network connection speed can be slow depending on the user&#x2019;s location.</li><li>
+The website must not load more resources than needed for the user to receive the required information, as mobile Internet is still expensive. Additional information must be downloaded only if the user requests it.
+</li></ul></p><p>
+So, Mobile First is a method of developing an optimised website for varying mobile devices, taking into account the network connection speed. As well as the importance of essential content to the end user.
+</p><p>Recently, search giant Google has written about the importance of this approach:</p><blockquote>
+&#x201C;Starting April 21, we will be expanding our use of mobile-friendliness as a ranking signal. This change will affect mobile searches in all languages worldwide and will have a significant impact in our search results. Consequently, users will find it easier to get relevant, high quality search results that are optimized for their devices.&#x201D;
+</blockquote>Read <a href="http://googlewebmastercentral.blogspot.ru/2015/02/finding-more-mobile-friendly-search.html" target="_blank" rel="nofollow">full post.</a><p></p><p>
+Video about the significance of Mobile First by Olivier Rabenschlag &#x2013; Head of Creative Agency Development, Google</p><div style="max-width:600px"><div class="embed-responsive embed-responsive-16by9"><iframe width="560" height="315" src="https://www.youtube.com/embed/gHgD2GiXdak" frameborder="0" allowfullscreen></iframe></div></div><h3 class="m-sub-sub-title m-text-left">Advantages of the Mobile First approach.</h3><p>
+To remind you, today the amount of users who utilize mobile devices to surf the web reached 60%. Therefore, the use of Mobile First when developing a website bestows significant advantages primarily for these users.
+<ol><li>One website for all devices.</li><li>Users will see the important page content first.</li><li>Fast page loading at low connection speeds.</li><li>
+Convenient interface for navigation on a mobile screen.</li><li>Minimal amount of web resources required for showing the main content &#x2013; economy of mobile Internet traffic.</li><li>
+Top positions in Google search results.</li></ol></p><h2 class="m-sub-title m-text-left">Implementation.</h2><p>Implementation of the approach will be demonstrated using the <a href="http://moffjs.com" title="Moff - Mobile First Framework">Moff</a>
+ (Mobile First Framework). It is a JavaScript framework that is tailored to Mobile First development. We will consider the approach using the example of a page with detailed information about a car.
+</p><h3 class="m-sub-sub-title m-text-left">Determining the important part of the content.</h3><p>Usually such a page contains a lot of data. We must decide, what is more important here for the user.
+</p><p>Detailed list of data on the page:<ul><li>The main car photo</li><li>Small thumbnails of additional pictures</li><li>Manufacturer, model and specifications</li><li>Price</li><li>Description
+</li><li>Performance checklist</li><li>Equipment</li><li>User comments</li><li>Social networks Facebook, Twitter, g+</li><li>List of similar cars</li></ul>
+Assume that the most important features of this list are the main photo, manufacturer, model and specifications, price, performance checklist and equipment.</p><p>
+Then we markup a page where we will only add this information.</p><div><pre><code class="language-markup">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
 	&lt;title&gt;Mobile First page.&lt;/title&gt;
-	&lt;meta charset="utf-8"&gt;
-	&lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
-	&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
-	&lt;link rel="stylesheet" href="styles/styles.css"&gt;
+	&lt;meta charset=&quot;utf-8&quot;&gt;
+	&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+	&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+	&lt;link rel=&quot;stylesheet&quot; href=&quot;styles/styles.css&quot;&gt;
 &lt;/head&gt;
 &lt;body&gt;
-	&lt;div class="container"&gt;
-		&lt;header role="banner"&gt;
-			&lt;div class="header"&gt;
-				&lt;div class="header_logo"&gt;&lt;img src="images/logo.jpg"&gt;&lt;/div&gt;
-				&lt;div class="header_info"&gt;
-					&lt;div class="header_info_company-name"&gt;Company Name&lt;/div&gt;
-					&lt;div class="header_info_description"&gt;Company description&lt;/div&gt;
+	&lt;div class=&quot;container&quot;&gt;
+		&lt;header role=&quot;banner&quot;&gt;
+			&lt;div class=&quot;header&quot;&gt;
+				&lt;div class=&quot;header_logo&quot;&gt;&lt;img src=&quot;images/logo.jpg&quot;&gt;&lt;/div&gt;
+				&lt;div class=&quot;header_info&quot;&gt;
+					&lt;div class=&quot;header_info_company-name&quot;&gt;Company Name&lt;/div&gt;
+					&lt;div class=&quot;header_info_description&quot;&gt;Company description&lt;/div&gt;
 				&lt;/div&gt;
 			&lt;/div&gt;
 		&lt;/header&gt;
-		&lt;main role="main"&gt;
-			&lt;div class="vehicle"&gt;
-				&lt;div class="vehicle_images"&gt;
-					&lt;div class="vehicle_images_main"&gt;
-						&lt;img src="images/preview1.jpg"&gt;
+		&lt;main role=&quot;main&quot;&gt;
+			&lt;div class=&quot;vehicle&quot;&gt;
+				&lt;div class=&quot;vehicle_images&quot;&gt;
+					&lt;div class=&quot;vehicle_images_main&quot;&gt;
+						&lt;img src=&quot;images/preview1.jpg&quot;&gt;
 					&lt;/div&gt;
 				&lt;/div&gt;
-				&lt;div class="vehicle_info"&gt;
-					&lt;h1 class="vehicle_info_title"&gt;2015 Nissan Versa Note&lt;/h1&gt;
-					&lt;p class="vehicle_info_description"&gt;
+				&lt;div class=&quot;vehicle_info&quot;&gt;
+					&lt;h1 class=&quot;vehicle_info_title&quot;&gt;2015 Nissan Versa Note&lt;/h1&gt;
+					&lt;p class=&quot;vehicle_info_description&quot;&gt;
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 						Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 						Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 						Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 					&lt;/p&gt;
 				&lt;/div&gt;
-				&lt;div class="vehicle_details"&gt;
-					&lt;ul class="vehicle_details_list"&gt;
-						&lt;li&gt;&lt;span class="vehicle_details_label"&gt;Model:&lt;/span&gt; Versa Note&lt;/li&gt;
-						&lt;li&gt;&lt;span class="vehicle_details_label"&gt;Body:&lt;/span&gt; 4D Hatchback&lt;/li&gt;
-						&lt;li&gt;&lt;span class="vehicle_details_label"&gt;Engine:&lt;/span&gt; 1.6L 4-Cylinder DOHC 16V&lt;/li&gt;
-						&lt;li&gt;&lt;span class="vehicle_details_label"&gt;Fuel:&lt;/span&gt; Gasoline&lt;/li&gt;
+				&lt;div class=&quot;vehicle_details&quot;&gt;
+					&lt;ul class=&quot;vehicle_details_list&quot;&gt;
+						&lt;li&gt;&lt;span class=&quot;vehicle_details_label&quot;&gt;Model:&lt;/span&gt; Versa Note&lt;/li&gt;
+						&lt;li&gt;&lt;span class=&quot;vehicle_details_label&quot;&gt;Body:&lt;/span&gt; 4D Hatchback&lt;/li&gt;
+						&lt;li&gt;&lt;span class=&quot;vehicle_details_label&quot;&gt;Engine:&lt;/span&gt; 1.6L 4-Cylinder DOHC 16V&lt;/li&gt;
+						&lt;li&gt;&lt;span class=&quot;vehicle_details_label&quot;&gt;Fuel:&lt;/span&gt; Gasoline&lt;/li&gt;
 					&lt;/ul&gt;
 				&lt;/div&gt;
-				&lt;div class="vehicle_equipment"&gt;
+				&lt;div class=&quot;vehicle_equipment&quot;&gt;
 					&lt;h3&gt;Standard&lt;/h3&gt;
-					&lt;ul class="vehicle_equipment_list"&gt;
+					&lt;ul class=&quot;vehicle_equipment_list&quot;&gt;
 						&lt;li&gt;Brake assist&lt;/li&gt;
 						&lt;li&gt;Dual front side impact airbags&lt;/li&gt;
 						&lt;li&gt;Rear window defroster&lt;/li&gt;
@@ -192,79 +98,61 @@
 				&lt;/div&gt;
 			&lt;/div&gt;
 		&lt;/main&gt;
-		&lt;footer role="contentinfo"&gt;
-			&lt;div class="footer"&gt;
-				&lt;div class="footer_created"&gt;
+		&lt;footer role=&quot;contentinfo&quot;&gt;
+			&lt;div class=&quot;footer&quot;&gt;
+				&lt;div class=&quot;footer_created&quot;&gt;
 					Created by Company.com
 				&lt;/div&gt;
-				&lt;div class="footer_copy"&gt;
-					&lt;ul class="footer_copy_list"&gt;
-						&lt;li class="footer_copy_item"&gt;&lt;a href="#"&gt;Copyright&lt;/a&gt;&lt;/li&gt;
-						&lt;li class="footer_copy_item"&gt;&lt;a href="#"&gt;Contact&lt;/a&gt;&lt;/li&gt;
-						&lt;li class="footer_copy_item"&gt;&lt;a href="#"&gt;Sitemap&lt;/a&gt;&lt;/li&gt;
+				&lt;div class=&quot;footer_copy&quot;&gt;
+					&lt;ul class=&quot;footer_copy_list&quot;&gt;
+						&lt;li class=&quot;footer_copy_item&quot;&gt;&lt;a href=&quot;#&quot;&gt;Copyright&lt;/a&gt;&lt;/li&gt;
+						&lt;li class=&quot;footer_copy_item&quot;&gt;&lt;a href=&quot;#&quot;&gt;Contact&lt;/a&gt;&lt;/li&gt;
+						&lt;li class=&quot;footer_copy_item&quot;&gt;&lt;a href=&quot;#&quot;&gt;Sitemap&lt;/a&gt;&lt;/li&gt;
 					&lt;/ul&gt;
 				&lt;/div&gt;
 			&lt;/div&gt;
 		&lt;/footer&gt;
 	&lt;/div&gt;
 &lt;/body&gt;
-&lt;/html&gt;</code></pre>
-				</div>
-				</p>
-				<p>Ideally, this is the size of traffic that can be spent by the user to receive this data. We will attempt to reach this level with minimal deviation.
-					First, create the styles to display the pages on mobile devices. Only then, the styles are adapted to screens of other sizes using media query.
-					<pre><code class="language-css">@media (min-width: 768px) {
+&lt;/html&gt;
+</code></pre></div><p></p><p>
+Ideally, this is the size of traffic that can be spent by the user to receive this data. We will attempt to reach this level with minimal deviation. First, create the styles to display the pages on mobile devices. Only then, the styles are adapted to screens of other sizes using media query.
+<pre><code class="language-css">@media (min-width: 768px) {
 	/*Tablet and desktop styles*/
-}</code> </pre>
-				</p>
-				<h3 class="m-sub-sub-title m-text-left">Adding complementary information.</h3>
-				<p>Now we must add the rest of the data in a way that will make the user aware of it, and he can receive the data by requesting it.</p>
-				<p>Here, the Moff framework <a href="http://moffjs.com/tutorial/data-events.html" title="Moff.js - Data Events">Data Events</a> helpers and <a href="http://moffjs.com/tutorial/amd.html" title="Moff.js - AMD">AMD</a> possibilities come to the rescue.</p>
-				<h3 class="m-sub-sub-title m-text-left">Adding thumbnails for the main photo.</h3>
-				<p>We must show the user that there are additional pictures available. For this, we must add a link under the main picture that leads to the thumbnails.
-				<pre><code class="language-markup">&lt;div class="vehicle_images"&gt;
-	&lt;div class="vehicle_images_main"&gt;
-		&lt;img src="images/preview1.jpg"&gt;
+}</code> </pre></p><h3 class="m-sub-sub-title m-text-left">Adding complementary information.</h3><p>
+Now we must add the rest of the data in a way that will make the user aware of it, and he can receive the data by requesting it.</p><p>Here, the Moff framework <a href="http://moffjs.com/tutorial/data-events.html" title="Moff.js - Data Events">Data Events</a> helpers and <a href="http://moffjs.com/tutorial/amd.html" title="Moff.js - AMD">AMD</a>
+ possibilities come to the rescue.</p><h3 class="m-sub-sub-title m-text-left">Adding thumbnails for the main photo.</h3><p>
+We must show the user that there are additional pictures available. For this, we must add a link under the main picture that leads to the thumbnails.
+<pre><code class="language-markup">&lt;div class=&quot;vehicle_images&quot;&gt;
+	&lt;div class=&quot;vehicle_images_main&quot;&gt;
+		&lt;img src=&quot;images/preview1.jpg&quot;&gt;
 	&lt;/div&gt;
-	&lt;div class="vehicle_images_thumbs"&gt;
-		&lt;a href="thumbs.html" data-load-target=".vehicle_images_thumbs" data-load-screen="sm md lg" data-load-module="vehicle-gallery"&gt;
+	&lt;div class=&quot;vehicle_images_thumbs&quot;&gt;
+		&lt;a href=&quot;thumbs.html&quot; data-load-target=&quot;.vehicle_images_thumbs&quot; data-load-screen=&quot;sm md lg&quot; data-load-module=&quot;vehicle-gallery&quot;&gt;
 			See more images...
 		&lt;/a&gt;
 	&lt;/div&gt;
-&lt;/div&gt;</code></pre>
-				</p>
-				<p>Here we use Data Events helpers that facilitate the reception of information when it is requested.
-					Clicking on the link, an AJAX query will be sent to the address indicated in the href attribute.
-					The request result will be written into the element indicated in the <code>data-load-target</code> attribute.
-					The important thing here is the fact that the <code>data-load-screen</code> attribute regulates the values at which the thumbnails will be automatically downloaded.
-					Screen sizes are taken from the <a href="http://getbootstrap.com/css/#grid-media-queries" rel="nofollow">Twitter Bootstrap</a> CSS framework.
-					So, define the registered module identifier in the <code>data-load-module</code> attribute, which will be loaded after the result of the AJAX query is pasted.
-				</p>
-				<p>After the link is clicked, the following takes place:
-					<ol>
-						<li>Ajax query is sent to the link URL and the result is pasted on the page</li>
-						<li>Registered module is loaded (vehicle-gallery)</li>
-						<li>Dependencies are loaded (jQuery and Slick-carousel)</li>
-						<li>The main file module is downloaded</li>
-						<li>The module is initialized</li>
-					</ol>
-				</p>
-				<p>Now let’s consider the registration of this module.</p>
-				<h3 class="m-sub-sub-title m-text-left">Module class definition.</h3>
-				<p>Moff framework has a <a href="http://moffjs.com/tutorial/modularity.html" title="Moff.js - Modularity">modular system</a>, which can be used to implement the vehicle-gallery module class.
-					Moff modules are independent elements of the system that have their own business logic and can have dependencies to external libraries.
-				<div>
-				<pre><code class="language-javascript">Moff.modules.create('VehicleGallery', function() {
+&lt;/div&gt;
+</code></pre></p><p>
+Here we use Data Events helpers that facilitate the reception of information when it is requested. Clicking on the link, an AJAX query will be sent to the address indicated in the href attribute. The request result will be written into the element indicated in the 
+<code>data-load-target</code> attribute. The important thing here is the fact that the <code>data-load-screen</code>
+ attribute regulates the values at which the thumbnails will be automatically downloaded. Screen sizes are taken from the <a href="http://getbootstrap.com/css/#grid-media-queries" rel="nofollow">
+Twitter Bootstrap</a> CSS framework. So, define the registered module identifier in the <code>data-load-module</code> attribute, which will be loaded after the result of the AJAX query is pasted.</p>
+<p>After the link is clicked, the following takes place:<ol><li>Ajax query is sent to the link URL and the result is pasted on the page</li><li>Registered module is loaded (vehicle-gallery)</li><li>
+Dependencies are loaded (jQuery and Slick-carousel)</li><li>The main file module is downloaded</li><li>The module is initialized</li></ol></p><p>
+Now let&#x2019;s consider the registration of this module.</p><h3 class="m-sub-sub-title m-text-left">Module class definition.</h3><p>Moff framework has a <a href="http://moffjs.com/tutorial/modularity.html" title="Moff.js - Modularity">modular system</a>
+, which can be used to implement the vehicle-gallery module class. Moff modules are independent elements of the system that have their own business logic and can have dependencies to external libraries.
+</p><div><pre><code class="language-javascript">Moff.modules.create(&apos;VehicleGallery&apos;, function() {
 	var _module = this;
 
 	var _mainImage;
 
 	function setMainImage() {
-		_mainImage = _module.find('.vehicle_images_main img')[0];
+		_mainImage = _module.find(&apos;.vehicle_images_main img&apos;)[0];
 	}
 
 	function initializeSlickJs() {
-		$(_module.find('.vehicle_images_thumbs-list')).slick({
+		$(_module.find(&apos;.vehicle_images_thumbs-list&apos;)).slick({
 			infinite: true,
 			slidesToShow: 5,
 			slidesToScroll: 1
@@ -272,106 +160,50 @@
 	}
 
 	function handleMainImage() {
-		$(_module.scope).on('click', '.vehicle_images_thumbs-item img', changePreview);
+		$(_module.scope).on(&apos;click&apos;, &apos;.vehicle_images_thumbs-item img&apos;, changePreview);
 	}
 
 	function changePreview() {
 		var index = this.src.match(/thumb(\d+)/);
-		_mainImage.src = 'images/preview' + index[1] + '.jpg';
+		_mainImage.src = &apos;images/preview&apos; + index[1] + &apos;.jpg&apos;;
 	}
 
-	this.scopeSelector = '.vehicle_images';
+	this.scopeSelector = &apos;.vehicle_images&apos;;
 
 	this.init = function() {
 		setMainImage();
 		initializeSlickJs();
 		handleMainImage();
 	};
-});</code></pre>
-				</div>
-					During the class initialization we launch slick-carousel to create a carousel with our thumbnails and install the handler for their preview.
-				</p>
-				<h3 class="m-sub-sub-title m-text-left">Module registration.</h3>
-				<p>Module registration takes place using the object that contains a unique identifier, can contain module dependencies and the main module class file.
-				<pre><code class="language-markup">&lt;script src="/bower_components/moff/dist/moff.min.js"&gt;&lt;/script&gt;
+});
+</code></pre></div>During the class initialization we launch slick-carousel to create a carousel with our thumbnails and install the handler for their preview.<p></p><h3 class="m-sub-sub-title m-text-left">Module registration.</h3><p>
+Module registration takes place using the object that contains a unique identifier, can contain module dependencies and the main module class file.
+<pre><code class="language-markup">&lt;script src=&quot;/bower_components/moff/dist/moff.min.js&quot;&gt;&lt;/script&gt;
 &lt;script&gt;
 	Moff.amd.register({
-		id: 'vehicle-gallery',
+		id: &apos;vehicle-gallery&apos;,
 		depend: {
-			js: ['/bower_components/jquery/dist/jquery.min-1468949512196.js', '/bower_components/slick-carousel/slick/slick.min.js'],
-			css: ['/bower_components/slick-carousel/slick/slick.css']
+			js: [&apos;/bower_components/jquery/dist/jquery.min-1468949512196.js&apos;, &apos;/bower_components/slick-carousel/slick/slick.min.js&apos;],
+			css: [&apos;/bower_components/slick-carousel/slick/slick.css&apos;]
 		},
 		file: {
-			js: ['js/vehicle-gallery.js']
+			js: [&apos;js/vehicle-gallery.js&apos;]
 		},
 		afterInclude: function() {
-			Moff.module.initClass('VehicleGallery');
+			Moff.module.initClass(&apos;VehicleGallery&apos;);
 		}
 	});
-&lt;/script&gt;</code></pre>
-				</p>
-				<p>In our example we noted jQuery in dependencies, and its slick-carousel plugin that creates a carousel using the thumbnails.
-					Dependencies load synchronously, in the order that you determine.
-					After the dependencies, the vehicle-gallery.js. module class loads. After the module file and its dependencies are loaded, we initialise the module using an afterInclude event.
-				</p>
-				<h2 class="m-sub-title m-text-left">Results statistics.</h2>
-				<p>Let’s sum up the Mobile First page creation results.
-					The lower graph shows that the non-optimised page is <strong>73%</strong> heavier than the page adapted to Mobile First requirements.
-					This way you can save <strong>186.94 KB.</strong>, that the user may not even need when viewing your webpage.
-					<img src="/images/mobile-first-statistics.png" alt="Mobile First page statistics" class="img-responsive">
-				</p>
-				<h3 class="m-sub-sub-title m-text-left">Conclusion.</h3>
-				<p>In this manner, we do away with downloading a large amount of secondary resources that are still available at the user’s request.</p>
-				<p>In this article, only one example of loading additional information has been considered. A complete example can be viewed on the framework website.</p>
-				<p><a href="/examples/mobile-first" title="Example of Mobile First page">http://moffjs.com/examples/mobile-first</a></p>
-				<p><a href="/examples/non-mobile-first" title="Example of non Mobile First page">http://moffjs.com/examples/non-mobile-first</a></p>
-				<hr>
-				<p>P.S. In this article, I wanted to illustrate the right way of using the Mobile First approach, with the assistance of the Moff framework.</p>
-				</article>
-				<div id="disqus_thread"></div>
-				<script>
-					 var disqus_config = function () {
-					 this.page.url = 'http://moffjs.com/blog/why-mobile-first.html';
-					 this.page.identifier = 'why-mobile-first';
-					 };
-					(function() { // DON'T EDIT BELOW THIS LINE
-						var d = document, s = d.createElement('script');
-						s.src = '//moffjs.disqus.com/embed.js';
-						s.setAttribute('data-timestamp', +new Date());
-						(d.head || d.body).appendChild(s);
-					})();
-				</script>
-				<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-	<script>!function(e){"use strict";var t=function(t,n,r){function o(e){return i.body?e():void setTimeout(function(){o(e)})}function a(){d.addEventListener&&d.removeEventListener("load",a),d.media=r||"all"}var l,i=e.document,d=i.createElement("link");if(n)l=n;else{var s=(i.body||i.getElementsByTagName("head")[0]).childNodes;l=s[s.length-1]}var u=i.styleSheets;d.rel="stylesheet",d.href=t,d.media="only x",o(function(){l.parentNode.insertBefore(d,n?l:l.nextSibling)});var f=function(e){for(var t=d.href,n=u.length;n--;)if(u[n].href===t)return e();setTimeout(function(){f(e)})};return d.addEventListener&&d.addEventListener("load",a),d.onloadcssdefined=f,f(a),d};"undefined"!=typeof exports?exports.loadCSS=t:e.loadCSS=t}("undefined"!=typeof global?global:this),function(e){if(e.loadCSS){var t=loadCSS.relpreload={};if(t.support=function(){try{return e.document.createElement("link").relList.supports("preload")}catch(e){return!1}},t.poly=function(){for(var t=e.document.getElementsByTagName("link"),n=0;n<t.length;n++){var r=t[n];"preload"===r.rel&&"style"===r.getAttribute("as")&&(e.loadCSS(r.href,r),r.rel=null)}},!t.support()){t.poly();var n=e.setInterval(t.poly,300);e.addEventListener&&e.addEventListener("load",function(){e.clearInterval(n)}),e.attachEvent&&e.attachEvent("onload",function(){e.clearInterval(n)})}}}(this);</script>
-			</div>
-		</main>
-	</div>
-	<footer role="contentinfo">
-		<div class="m-brand-block">
-			<div class="container container_text-center">
-				<div class="row">
-					<div class="col-xs-6 m-text-right">
-						<a class="m-link-icon m-link-icon_github" href="https://github.com/kfuzaylov/moff" title="Moff GitHub repository">GitHub</a>
-					</div>
-					<div class="col-xs-6 m-text-left">
-						<a class="m-link-icon m-link-icon_bugs" href="https://github.com/kfuzaylov/moff/issues" title="Moff issues">Issues</a>
-					</div>
-				</div>
-				<div class="m-copy">Copyright &copy; 2015-2016 Kadir Fuzaylov</div>
-			</div>
-		</div>
-	</footer>
-</div>
-<a href="#top" class="m-scroll-up">Font size</a>
-<script src="/assets/prism-1468949512196.js"></script>
-<script>
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	ga('create', 'UA-68993546-1', 'auto');
-	ga('send', 'pageview');
-</script>
-</body>
-</html>
+&lt;/script&gt;
+</code></pre></p><p>
+In our example we noted jQuery in dependencies, and its slick-carousel plugin that creates a carousel using the thumbnails. Dependencies load synchronously, in the order that you determine. After the dependencies, the vehicle-gallery.js. module class loads. After the module file and its dependencies are loaded, we initialise the module using an afterInclude event.
+</p><h2 class="m-sub-title m-text-left">Results statistics.</h2><p>Let&#x2019;s sum up the Mobile First page creation results. The lower graph shows that the non-optimised page is <strong>73%
+</strong> heavier than the page adapted to Mobile First requirements. This way you can save <strong>186.94 KB.</strong>, that the user may not even need when viewing your webpage. <img src="/images/mobile-first-statistics.png" alt="Mobile First page statistics" class="img-responsive"></p><h3 class="m-sub-sub-title m-text-left">Conclusion.</h3><p>
+In this manner, we do away with downloading a large amount of secondary resources that are still available at the user&#x2019;s request.</p><p>
+In this article, only one example of loading additional information has been considered. A complete example can be viewed on the framework website.</p><p><a href="/examples/mobile-first" title="Example of Mobile First page">http://moffjs.com/examples/mobile-first</a></p><p><a href="/examples/non-mobile-first" title="Example of non Mobile First page">
+http://moffjs.com/examples/non-mobile-first</a></p><hr><p>P.S. In this article, I wanted to illustrate the right way of using the Mobile First approach, with the assistance of the Moff framework.</p>
+</article><div id="disqus_thread"></div><script>
+var disqus_config=function(){this.page.url="http://moffjs.com/blog/why-mobile-first.html",this.page.identifier="why-mobile-first"};!function(){var t=document,e=t.createElement("script");e.src="//moffjs.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()
+</script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<script>!function(e){"use strict";var t=function(t,n,r){function o(e){return i.body?e():void setTimeout(function(){o(e)})}function a(){d.addEventListener&&d.removeEventListener("load",a),d.media=r||"all"}var l,i=e.document,d=i.createElement("link");if(n)l=n;else{var s=(i.body||i.getElementsByTagName("head")[0]).childNodes;l=s[s.length-1]}var u=i.styleSheets;d.rel="stylesheet",d.href=t,d.media="only x",o(function(){l.parentNode.insertBefore(d,n?l:l.nextSibling)});var f=function(e){for(var t=d.href,n=u.length;n--;)if(u[n].href===t)return e();setTimeout(function(){f(e)})};return d.addEventListener&&d.addEventListener("load",a),d.onloadcssdefined=f,f(a),d};"undefined"!=typeof exports?exports.loadCSS=t:e.loadCSS=t}("undefined"!=typeof global?global:this),function(e){if(e.loadCSS){var t=loadCSS.relpreload={};if(t.support=function(){try{return e.document.createElement("link").relList.supports("preload")}catch(e){return!1}},t.poly=function(){for(var t=e.document.getElementsByTagName("link"),n=0;n<t.length;n++){var r=t[n];"preload"===r.rel&&"style"===r.getAttribute("as")&&(e.loadCSS(r.href,r),r.rel=null)}},!t.support()){t.poly();var n=e.setInterval(t.poly,300);e.addEventListener&&e.addEventListener("load",function(){e.clearInterval(n)}),e.attachEvent&&e.attachEvent("onload",function(){e.clearInterval(n)})}}}(this);</script></div></main></div><footer role="contentinfo"><div class="m-brand-block"><div class="container container_text-center"><div class="row"><div class="col-xs-6 m-text-right"><a class="m-link-icon m-link-icon_github" href="https://github.com/kfuzaylov/moff" title="Moff GitHub repository">GitHub</a></div><div class="col-xs-6 m-text-left"><a class="m-link-icon m-link-icon_bugs" href="https://github.com/kfuzaylov/moff/issues" title="Moff issues">Issues</a></div></div><div class="m-copy">Copyright &#xA9; 2015-2016 Kadir Fuzaylov</div></div></div></footer></div><a href="#top" class="m-scroll-up"></a><script src="/moff-assets/572a722a5551c2f33fcb95b3c90bab3c.js"></script><script>
+!function(e,a,t,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=a.createElement(t),s=a.getElementsByTagName(t)[0],o.async=1,o.src=n,s.parentNode.insertBefore(o,s)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","UA-68993546-1","auto"),ga("send","pageview")
+</script></body></html>
