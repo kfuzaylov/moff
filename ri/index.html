@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		.container {
+			width: 100%;
+			max-width: 1440px;
+		}
+	</style>
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 col-sm-10 col-md-3 col-lg-6">
+			<img sizes="(min-width: 1440px) 720px, (min-width: 1200px) 50vw, (min-width: 992px) 25vw, (min-width: 768px) 84vw, 100vw"
+				 src="origin.png"
+				 srcset="720.png 720w, 300.png 300w, 833.png 833w, 290.png 290w, 737.png 737w">
+		</div>
+		<div class="col-xs-12 col-sm-2 col-md-9 col-lg-6">
+			Нам не нужен тэг picture, как таковой. Нам достаточно атрибута srcset и sizes, чтобы задавать только необходимые размеры картинок на определённых разрешениях.
+			Вот пример где гугл ругается на то, что картинки можно было бы и уменьшить https://developers.google.com/speed/pagespeed/insights/?url=https%3A%2F%2Fhttp2-cdn.e6-demo.dealerfire.com%2Fvehicle-details%2F10414968-6s0&tab=desktop
+			Вот где уже не ругается, потому что я использовал srcset и sizes https://developers.google.com/speed/pagespeed/insights/?url=https%3A%2F%2Fhttp2-cdn.e6-demo.dealerfire.com%2Fstatic%2Fvdp.html&tab=desktop
+			Смотреть надо только на jpg картинки которые проходят через тамбер.
+			Как видно на втором тесте гугл не ругается на них. То чего мы и хотели добиться.
+			Детали реализации:
+			В ходе исследования стало понятно что для каждой картинки надо генерить подобный код:
+		</div>
+	</div>
+</div>
+<script
+	src="https://code.jquery.com/jquery-3.1.1.min.js"
+	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+	crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
