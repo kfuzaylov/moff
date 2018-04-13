@@ -32,15 +32,22 @@ function ModulesApi() {
 	 * @param {object} [depend] - object of js and css files
 	 * @param {function} Constructor - constructor
 	 */
-	this.create = function(name, depend, Constructor) {
-		// Normalize arguments
-		if (typeof Constructor === 'undefined') {
+	this.create = function(name, depend, Constructor, extendFrom) {
+		if (typeof extendFrom === 'undefined' && typeof Constructor === 'undefined') {
+			Constructor = depend;
+			depend = undefined;
+		} else if (typeof Constructor === 'object') {
+			extendFrom = Constructor;
 			Constructor = depend;
 			depend = undefined;
 		}
 
-		// Register new module in the storage
-		Constructor.prototype = Moff.Module;
+		if (extendFrom) {
+			Constructor.prototype = new extendFrom();
+		} else {
+			Constructor.prototype = Moff.Module;
+		}
+
 		Constructor.prototype.constructor = Constructor;
 
 		// Save module in storage
@@ -131,6 +138,22 @@ function ModulesApi() {
 	 */
 	this.get = function(name) {
 		return (_moduleObjectStorage.hasOwnProperty(name) && _moduleObjectStorage[name]) || undefined;
+	};
+
+	/**
+	 * Returns Module class
+	 * @method getClass
+	 * @param {String} name - module name
+	 * @returns {Function}
+	 */
+	this.getClass = function(name) {
+		var constructor = function() {};
+
+		if (_moduleClassStorage.hasOwnProperty(name)) {
+			constructor = _moduleClassStorage[name];
+		}
+
+		return constructor;
 	};
 
 	/**

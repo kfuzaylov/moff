@@ -153,7 +153,12 @@ function Detect() {
 			/(webkit)[ \/]([\w.]+)/.exec(_ua) ||
 			/(opera)(?:.*version|)[ \/]([\w.]+)/.exec(_ua) ||
 			/(msie) ([\w.]+)/.exec(_ua) ||
+			/(trident).+ rv:([\d+.]+)/.exec(_ua) ||
 			_ua.indexOf('compatible') < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(_ua) || [];
+
+		if (match[1] === 'trident') {
+			match[1] = 'msie';
+		}
 
 		if (match[1]) {
 			_detect.browser[match[1]] = true;

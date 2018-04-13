@@ -86,4 +86,4 @@ Tests will run via Testem. On press "Enter" button on console, gulp re-compile t
 ## License
 The MIT License (MIT)
 
-Copyright (c) 2015 - 2016 Kadir A. Fuzaylov
+Copyright (c) 2015 - 2018 Kadir Fuzaylov

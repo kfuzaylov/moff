@@ -1,18 +1,18 @@
 /**
  * @overview  moff - Mobile First Framework
  * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.11.1
+ * @version   1.12.0
  * @license   Licensed under MIT license
  * @copyright Copyright (c) 2015-2016 Kadir A. Fuzaylov
  */
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 /**
  * Moff AMD component
@@ -123,7 +123,7 @@ function AMD() {
   * @param {object} [options] - Include options
   */
 	this.include = function (id, callback) {
-		var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+		var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
 		var register = _registeredFiles[id];
 
@@ -204,7 +204,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 /**
  * Moff class
@@ -388,7 +388,7 @@ function Core() {
 	}
 
 	this.showPreloader = function () {
-		var position = arguments.length <= 0 || arguments[0] === undefined ? true : arguments[0];
+		var position = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
 
 		this.hidePreloader();
 		this.addClass(_loader2, '__visible');
@@ -1037,7 +1037,7 @@ function Core() {
   * @param {object} [options] - Options of assets loading
   */
 	this.loadAssets = function (depend, callback) {
-		var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+		var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
 		var loaded = 0;
 		var length = 0;
@@ -1109,7 +1109,7 @@ function Core() {
   * @param {object} [options] - Script load options
   */
 	this.loadJS = function (src, callback) {
-		var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+		var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
 		if (typeof src !== 'string') {
 			this.debug('Moff.loadJS source must be a string');
@@ -1159,7 +1159,7 @@ function Core() {
   * @param {object} [options] - Style load options
   */
 	this.loadCSS = function (href, callback) {
-		var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+		var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
 		if (typeof href !== 'string') {
 			this.debug('Moff.loadCSS source must be a string');
@@ -1305,7 +1305,7 @@ function Core() {
   * Moff version.
   * @type {string}
   */
-	this.version = '1.11.1';
+	this.version = '1.12.0';
 
 	extendSettings();
 	setBreakpoints();
@@ -1480,7 +1480,11 @@ function Detect() {
   * @function detectBrowser
   */
 	function detectBrowser() {
-		var match = /(edge)[\/]([0-9\.]+)/.exec(_ua) || /(chrome)[ \/]([\w.]+)/.exec(_ua) || /(webkit)[ \/]([\w.]+)/.exec(_ua) || /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(_ua) || /(msie) ([\w.]+)/.exec(_ua) || _ua.indexOf('compatible') < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(_ua) || [];
+		var match = /(edge)[\/]([0-9\.]+)/.exec(_ua) || /(chrome)[ \/]([\w.]+)/.exec(_ua) || /(webkit)[ \/]([\w.]+)/.exec(_ua) || /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(_ua) || /(msie) ([\w.]+)/.exec(_ua) || /(trident).+ rv:([\d+.]+)/.exec(_ua) || _ua.indexOf('compatible') < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(_ua) || [];
+
+		if (match[1] === 'trident') {
+			match[1] = 'msie';
+		}
 
 		if (match[1]) {
 			_detect.browser[match[1]] = true;
@@ -1728,6 +1732,9 @@ window.Moff.modules = new _api2.default();
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 /**
  * Register and control new Moff modules.
  * @module Module.
@@ -1762,15 +1769,22 @@ function ModulesApi() {
   * @param {object} [depend] - object of js and css files
   * @param {function} Constructor - constructor
   */
-	this.create = function (name, depend, Constructor) {
-		// Normalize arguments
-		if (typeof Constructor === 'undefined') {
+	this.create = function (name, depend, Constructor, extendFrom) {
+		if (typeof extendFrom === 'undefined' && typeof Constructor === 'undefined') {
+			Constructor = depend;
+			depend = undefined;
+		} else if ((typeof Constructor === 'undefined' ? 'undefined' : _typeof(Constructor)) === 'object') {
+			extendFrom = Constructor;
 			Constructor = depend;
 			depend = undefined;
 		}
 
-		// Register new module in the storage
-		Constructor.prototype = Moff.Module;
+		if (extendFrom) {
+			Constructor.prototype = new extendFrom();
+		} else {
+			Constructor.prototype = Moff.Module;
+		}
+
 		Constructor.prototype.constructor = Constructor;
 
 		// Save module in storage
@@ -1861,6 +1875,22 @@ function ModulesApi() {
   */
 	this.get = function (name) {
 		return _moduleObjectStorage.hasOwnProperty(name) && _moduleObjectStorage[name] || undefined;
+	};
+
+	/**
+  * Returns Module class
+  * @method getClass
+  * @param {String} name - module name
+  * @returns {Function}
+  */
+	this.getClass = function (name) {
+		var constructor = function constructor() {};
+
+		if (_moduleClassStorage.hasOwnProperty(name)) {
+			constructor = _moduleClassStorage[name];
+		}
+
+		return constructor;
 	};
 
 	/**
@@ -1955,7 +1985,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 /**
  * Module base class.

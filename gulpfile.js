@@ -71,8 +71,7 @@ gulp.task('lint', function() {
 			esnext: true,
 			configPath: '.jscsrc'
 		}))
-		.pipe(jshint())
-		.pipe(jshint.reporter('default'));
+		.pipe(jscs.reporter());
 });
 
 gulp.task('test', ['compile'], function() {
