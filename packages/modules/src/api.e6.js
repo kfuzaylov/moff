@@ -33,10 +33,14 @@ function ModulesApi() {
 	 * @param {function} Constructor - constructor
 	 */
 	this.create = function(name, depend, Constructor, extendFrom) {
-		if (typeof extendFrom === 'undefined' && typeof Constructor === 'undefined') {
+		if (typeof extendFrom === 'undefined' &&
+			typeof Constructor === 'undefined' &&
+			typeof depend === 'function') {
 			Constructor = depend;
 			depend = undefined;
-		} else if (typeof Constructor === 'object') {
+		} else if (typeof extendFrom === 'undefined' &&
+			typeof Constructor === 'function' &&
+			typeof depend === 'function') {
 			extendFrom = Constructor;
 			Constructor = depend;
 			depend = undefined;
