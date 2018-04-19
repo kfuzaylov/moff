@@ -1,7 +1,7 @@
 /**
  * @overview  moff - Mobile First Framework
  * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.12.0
+ * @version   1.12.1
  * @license   Licensed under MIT license
  * @copyright Copyright (c) 2015-2016 Kadir A. Fuzaylov
  */
@@ -1305,7 +1305,7 @@ function Core() {
   * Moff version.
   * @type {string}
   */
-	this.version = '1.12.0';
+	this.version = '1.12.1';
 
 	extendSettings();
 	setBreakpoints();
@@ -1732,9 +1732,6 @@ window.Moff.modules = new _api2.default();
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 /**
  * Register and control new Moff modules.
  * @module Module.
@@ -1770,10 +1767,10 @@ function ModulesApi() {
   * @param {function} Constructor - constructor
   */
 	this.create = function (name, depend, Constructor, extendFrom) {
-		if (typeof extendFrom === 'undefined' && typeof Constructor === 'undefined') {
+		if (typeof extendFrom === 'undefined' && typeof Constructor === 'undefined' && typeof depend === 'function') {
 			Constructor = depend;
 			depend = undefined;
-		} else if ((typeof Constructor === 'undefined' ? 'undefined' : _typeof(Constructor)) === 'object') {
+		} else if (typeof extendFrom === 'undefined' && typeof Constructor === 'function' && typeof depend === 'function') {
 			extendFrom = Constructor;
 			Constructor = depend;
 			depend = undefined;
