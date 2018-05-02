@@ -5,6 +5,6 @@
 		"slick-carousel": "^1.5.6",
 		"magnific-popup": "^1.0.0",
 		"prism": "git@github.com:PrismJS/prism.git",
-		"moff": "^1.11.1"
+		"moff": "^1.12.1"
 	}
 }
