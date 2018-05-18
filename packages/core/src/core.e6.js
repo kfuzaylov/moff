@@ -280,6 +280,10 @@ function Core() {
 		_loader.appendChild(_loaderBox);
 	}
 
+	this.getPreloader = function() {
+		return _loader;
+	};
+
 	this.showPreloader = function(position = true) {
 		this.hidePreloader();
 		this.addClass(_loader, '__visible');

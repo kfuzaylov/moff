@@ -1,7 +1,7 @@
 /**
  * @overview  moff - Mobile First Framework
  * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.12.1
+ * @version   1.12.2
  * @license   Licensed under MIT license
  * @copyright Copyright (c) 2015-2016 Kadir A. Fuzaylov
  */
@@ -312,6 +312,9 @@ function Core() {
 		_doc.body.appendChild(_loader2);
 		_loader2.appendChild(_loaderBox);
 	}
+	this.getPreloader = function () {
+		return _loader2;
+	};
 	this.showPreloader = function () {
 		var position = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
 		this.hidePreloader();
@@ -1053,7 +1056,7 @@ function Core() {
   * Moff version.
   * @type {string}
   */
-	this.version = '1.12.1';
+	this.version = '1.12.2';
 	extendSettings();
 	setBreakpoints();
 	setViewMode();
