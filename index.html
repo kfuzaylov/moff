@@ -1,32 +1,776 @@
-<!DOCTYPE html><html lang="en"><head><title>Moff.js - JavaScript Mobile First Framework</title><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="This JavaScript Mobile First framework is designed to offer best practices for mobile first development."><meta property="og:title" content="Moff.js - JavaScript Mobile First Framework."><meta property="og:description" content="This framework is designed to offer best practices for mobile first development. It makes your website super fast and light on mobile device and fully featured on desktop."><meta property="og:image" content="http://moffjs.com/images/og-image.png"><meta property="og:url" content="http://moffjs.com"><style type="text/css">
- .col-sm-4,.col-xs-12,.container{padding-left:15px;padding-right:15px}img{border:0;vertical-align:middle}.clearfix:after,.container:after,.row:after{clear:both}header,main,nav{display:block}a{background-color:transparent;color:#57abc1;text-decoration:none}abbr[title]{border-bottom:1px dotted}h1{font-size:2em;margin:.67em 0}*,:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;font-size:10px}body{margin:0;background-color:#fff;font-size:14px;font-family:"Open Sans",sans-serif;color:#102025;font-weight:400;line-height:1.52857}.container{margin-right:auto;margin-left:auto}.clearfix:after,.clearfix:before{content:" ";display:table}.visible-md,.visible-sm{display:none!important}@-ms-viewport{width:device-width}@media (min-width:768px) and (max-width:991px){.visible-sm{display:block!important}}@media (min-width:992px) and (max-width:1199px){.visible-md{display:block!important}}@media (max-width:767px){.hidden-xs{display:none!important}}@media (min-width:768px) and (max-width:991px){.hidden-sm{display:none!important}}.container:after,.container:before,.row:after,.row:before{content:" ";display:table}.container_brand,.m-feature{position:relative}.col-xs-12,.m-logo_left{float:left}@media (min-width:768px){.container{width:750px}}@media (min-width:992px){.container{width:970px}}@media (min-width:1200px){.container{width:1170px}}.row{margin-left:-15px;margin-right:-15px}.col-sm-4,.col-xs-12{position:relative;min-height:1px}.m-cogs,.m-mobile,.m-mobile__msg{position:absolute}.col-xs-12{width:100%}.m-wrapper,body,html{height:100%}.m-content{min-height:100%;padding-bottom:100px}p{line-height:21px}.m-brand-block,.m-navigation__list-link_active{background-color:#57abc1;color:#fff}.container_header{padding-top:10px;margin-bottom:10px}.container_brand{text-align:center;overflow:hidden}@media (min-width:768px){.col-sm-4{float:left;width:33.33333%}.container_brand{text-align:left;height:218px}}.container_text-center,.m-sub-title{text-align:center}.m-logo__image{width:60px}.m-navigation{display:block;float:right}@media (min-width:768px){.m-logo__image{width:85px}.m-navigation{float:left;margin-top:5px;margin-left:25px}}@media (min-width:992px){.container_brand{height:342px}.m-logo__image{width:128px}.m-navigation{margin-top:12px;margin-left:80px}}.m-navigation__list{margin:0;padding:0}.m-navigation__list-item{display:inline-block;margin:0 3px}@media (min-width:350px){.m-navigation__list-item{margin:0 5px}}.m-navigation__list-link{text-decoration:none;font-size:13px}@media (min-width:768px){.m-navigation__list-item{margin:0 8px}.m-navigation__list-link{font-size:14px;font-weight:600}}.m-navigation__list-link_active{padding:3px}@media (min-width:992px){.m-navigation__list-link{font-size:16px;font-weight:600}.m-navigation__list-link_active{padding:3px 8px}}.m-title{font-weight:400;font-size:28px;margin-top:18px;margin-bottom:18px;color:#57abc1}.m-title_white{color:#fff}@media (min-width:992px){.m-title{font-size:36px;margin-top:75px}}.m-sub-title{color:#57abc1;font-weight:400;font-size:20px;margin:20px 0}@media (min-width:768px){.m-sub-title_large{font-size:23px;margin:27px 0}}@media (min-width:992px){.m-sub-title_large{font-size:25px;margin:35px 0}}.m-slogan{color:#fff;letter-spacing:.5px}@media (min-width:768px){.m-slogan{font-size:18px}}.m-button{background:no-repeat #102025;border:0;border-radius:4px;color:#fff;font-size:16px;padding:13px 22px;display:inline-block;margin:20px 0}.m-cogs,.m-feature__icon{background-repeat:no-repeat}.m-feature__icon{float:left;width:44px;height:44px;border-radius:4px;background-color:#57abc1;margin-top:3px;background-image:url(/images/icons.png)}.m-feature__icon_bolt{background-position:0 0}.m-feature__icon_monitor{background-position:-44px 0}.m-feature__icon_console{background-position:-44px -88px}.m-feature__title{margin:0 0 0 50px;font-weight:400;color:#57abc1;font-size:17px}.m-feature__description{margin-left:50px;margin-top:5px;margin-bottom:30px;line-height:25px}.m-gray-block{background-color:#dfe9ed;padding:10px 0}.m-cogs{background-image:url(/images/cogs.png);opacity:.3}.m-cogs_full{width:180px;height:186px;bottom:-45px;right:280px;background-position:0 0}@media (min-width:992px){.m-cogs_full{right:352px;bottom:10px}}.m-cogs_small{width:30px;height:58px;background-position:0 -55px;left:0;bottom:20px;transform:rotate(180deg)}@media (min-width:768px){.m-gray-block{margin:15px 0}.m-cogs_small{bottom:-14px;left:30px;transform:rotate(90deg)}}.m-cogs_medium{width:60px;height:86px;background-position:-58px 0;right:0;bottom:0}@media (min-width:992px){.m-cogs_medium{width:84px;height:42px;left:95px;top:0;background-position:-14px -146px}}.m-mobile{width:230px;height:207px;right:0;bottom:0;overflow:hidden}@media (min-width:992px){.m-mobile{width:302px;height:310px}}.m-mobile__image{width:100%}.m-mobile__msg{font-size:12px;left:12px;right:12px;top:48px;bottom:0;color:#efefef;letter-spacing:.5px}.m-mobile__msg-title{font-weight:600;font-size:12px;margin:0 0 7px}@media (min-width:992px){.m-mobile__msg{top:63px;left:15px;right:15px;font-size:13px}}.m-social-buttons{line-height:10px}.m-scroll-up{position:fixed;width:40px;height:40px;right:15px;bottom:15px;border-radius:50%;background:url(/images/icons.png) -2px -90px no-repeat #57abc1;font-size:0;display:block}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:local('Open Sans'),local('OpenSans'),url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3aCWcynf_cDxXwCLxiixG1c.ttf) format('truetype')}@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;src:local('Open Sans Semibold'),local('OpenSans-Semibold'),url(https://fonts.gstatic.com/s/opensans/v13/MTP_ySUJH_bn48VBG8sNSonF5uFdDttMLvmWuJdhhgs.ttf) format('truetype')}
-</style>
-<link rel="preload" href="/moff-assets/a207d8efa4fdc8bd49eeb0c17412e1d9.css" as="style" onload="this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/moff-assets/a207d8efa4fdc8bd49eeb0c17412e1d9.css"></noscript><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="preload" type="text/css" as="style" onload="this.rel='stylesheet'">
-<noscript><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css"></noscript>
-<script>!function(e){"use strict";var t=function(t,n,r){function o(e){return i.body?e():void setTimeout(function(){o(e)})}function a(){d.addEventListener&&d.removeEventListener("load",a),d.media=r||"all"}var l,i=e.document,d=i.createElement("link");if(n)l=n;else{var s=(i.body||i.getElementsByTagName("head")[0]).childNodes;l=s[s.length-1]}var u=i.styleSheets;d.rel="stylesheet",d.href=t,d.media="only x",o(function(){l.parentNode.insertBefore(d,n?l:l.nextSibling)});var f=function(e){for(var t=d.href,n=u.length;n--;)if(u[n].href===t)return e();setTimeout(function(){f(e)})};return d.addEventListener&&d.addEventListener("load",a),d.onloadcssdefined=f,f(a),d};"undefined"!=typeof exports?exports.loadCSS=t:e.loadCSS=t}("undefined"!=typeof global?global:this),function(e){if(e.loadCSS){var t=loadCSS.relpreload={};if(t.support=function(){try{return e.document.createElement("link").relList.supports("preload")}catch(e){return!1}},t.poly=function(){for(var t=e.document.getElementsByTagName("link"),n=0;n<t.length;n++){var r=t[n];"preload"===r.rel&&"style"===r.getAttribute("as")&&(e.loadCSS(r.href,r),r.rel=null)}},!t.support()){t.poly();var n=e.setInterval(t.poly,300);e.addEventListener&&e.addEventListener("load",function(){e.clearInterval(n)}),e.attachEvent&&e.attachEvent("onload",function(){e.clearInterval(n)})}}}(this);</script><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"><link rel="icon" href="/favicon.ico" type="image/x-icon"></head><body><div id="fb-root"></div><a name="top"></a><div class="m-wrapper"><div class="m-content">
-<header role="banner"><div class="container container_header"><div class="m-logo m-logo_left"><a href="/" title="Moff.js - Home"><img src="/images/logo.png" alt="JavaScript Mobile First framework" class="m-logo__image"></a></div><nav role="navigation" class="m-navigation"><ul class="m-navigation__list"><li class="m-navigation__list-item"><a class="m-navigation__list-link m-navigation__list-link_active" href="/">Home</a></li><li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/tutorial/getting-started.html">
-Tutorials</a></li><li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/api/index.html">API</a></li><li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/blog/index.html">Blog</a></li><li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/moff-cli/index.html">CLI</a></li></ul></nav></div></header><main role="main"><div class="m-brand-block"><div class="container container_brand"><h1 class="m-title m-title_white">JavaScript Mobile First framework</h1><div class="m-slogan">Create for mobile, extend to desktop.</div>
-<a href="/tutorial/getting-started.html" class="m-button">Get started</a><div id="js-mobile-placeholder"><div class="m-mobile hidden-xs"><img src="/images/mobile-phone.png" class="m-mobile__image">
-<div class="m-mobile__msg"><h4 class="m-mobile__msg-title">What is Moff?</h4>
-Moff is the powerful JavaScript Mobile First framework with CLI which allows you to create super light and fast mobile first website. Then you can easily extend it to the desktop website and make it fully featured. 
-<span class="hidden-sm">Also, this framework has modular system which helps you to organize your modules system. You can load them by user request or automatically depending on screen size.</span>
-</div></div></div><div class="m-cogs m-cogs_small"></div><div class="m-cogs m-cogs_medium hidden-sm"></div><div class="m-cogs m-cogs_full hidden-xs"></div></div></div><div class="container"><h2 class="m-sub-title m-sub-title_large">Advantages</h2><div class="row"><div class="col-xs-12 col-sm-4"><div class="m-feature"><div class="m-feature__icon m-feature__icon_bolt"></div><h4 class="m-feature__title">Light and fast mobile website</h4><p class="m-feature__description">Moff is designed for mobile first websites. You can make website light and fast on loading with the <a href="/moff-cli/index.html" title="Moff CLI - The Moff.js command line utility">Moff CLI</a>
-. No extra parts of markup, stylesheets and scripts loaded for mobile devices. They can be automatically loaded on adjusted screen sizes, e.g. tablet or desktop.</p></div></div><div class="col-xs-12 col-sm-4"><div class="m-feature"><div class="m-feature__icon m-feature__icon_monitor"></div><h4 class="m-feature__title">Fully featured desktop website</h4><p class="m-feature__description">Moff can load all parts of markup needed on desktop screen through <a href="/tutorial/data-events.html" title="Moff.js tutorial - Data Events">Data Events</a>
-. Apply any features for them by loading its scripts and styles as <a href="/tutorial/amd.html" title="Moff.js tutorial - AMD">AMD modules</a>
-. These tools of the framework make your website like it was designed for the desktop.</p></div></div><div class="col-xs-12 col-sm-4"><div class="m-feature"><div class="m-feature__icon m-feature__icon_console"></div><h4 class="m-feature__title">Moff Command Line Utility</h4><p class="m-feature__description"><a href="/moff-cli/index.html" title="Moff CLI - The Moff.js command line utility">Moff CLI</a> optimizes you page by concatenation and minification of CSS and JS files. Generated files are renamed by <abbr title="The MD5 algorithm is a widely used hash function producing a 128-bit hash value.">MD5</abbr>
- hash. CSS and JS files are replaced by generated ones on the page. Also it puts critical path CSS and asynchronously loads CSS files. And as a last step it minifies HTML and inlined JS and CSS.</p>
-</div></div></div></div><div class="m-gray-block"><div class="container_text-center m-social-buttons"><a href="/social-button.html" data-load-screen="sm md lg" data-load-target=".m-social-buttons" data-load-module="social">Support us in social</a></div></div><div class="container"><h2 class="m-sub-title m-sub-title_large">Features</h2><div class="row"><div class="col-xs-12 col-sm-6 col-lg-3">
-<div class="m-feature"><a href="/tutorial/modularity.html" title="Moff.js - Modularity" class="m-feature__title-link"><div class="m-feature__icon m-feature__icon_modules"></div><h4 class="m-feature__title">Modular system</h4></a><p class="m-feature__description">
-Moff modular system allows you to create classes with its own DOM scope and rich event system. It also has API which allows you to get, create, remove and do other operations with them.</p></div>
-</div><div class="col-xs-12 col-sm-6 col-lg-3"><div class="m-feature"><a href="/tutorial/amd.html" title="Moff.js - AMD" class="m-feature__title-link"><div class="m-feature__icon m-feature__icon_sync"></div><h4 class="m-feature__title">AMD</h4></a><p class="m-feature__description">
-Moff provides AMD way to work with modules. They can load any css, js files and their dependency. Also it could be loaded automatically depended on screen size.</p></div></div><div class="clearfix visible-sm visible-md"></div><div class="col-xs-12 col-sm-6 col-lg-3"><div class="m-feature"><a href="/api/event.html" title="Moff.js - Moff.event API" class="m-feature__title-link">
-<div class="m-feature__icon m-feature__icon_clock"></div><h4 class="m-feature__title">Event system</h4></a><p class="m-feature__description">
-Moff event system is a part of modular system. It complements modules with very flexible way to create, trigger, assign and remove events.</p></div></div><div class="col-xs-12 col-sm-6 col-lg-3"><div class="m-feature"><a href="/tutorial/data-events.html" title="Moff.js - Data events" class="m-feature__title-link"><div class="m-feature__icon m-feature__icon_settings"></div><h4 class="m-feature__title">Data events</h4></a><p class="m-feature__description">
-Moff Data events are powerful html data attributes. They allow to load content on certain event with minimum efforts. It is possible to set loading target, cache loaded content and show on certain screen size and other more.
-</p></div></div></div></div></main></div><footer role="contentinfo"><div class="m-brand-block"><div class="container container_text-center"><div class="row"><div class="col-xs-6 m-text-right"><a class="m-link-icon m-link-icon_github" href="https://github.com/kfuzaylov/moff" title="Moff GitHub repository">GitHub</a></div><div class="col-xs-6 m-text-left"><a class="m-link-icon m-link-icon_bugs" href="https://github.com/kfuzaylov/moff/issues" title="Moff issues">Issues</a></div></div><div class="m-copy">Copyright &#xA9; 2015-2016 Kadir Fuzaylov</div>
-</div></div></footer></div><a href="#top" class="m-scroll-up"></a><script src="/moff-assets/d76640c90f990570d9fad88b78952795.js"></script><script>
-Moff.amd.register({id:"social",depend:{js:["https://buttons.github.io/buttons.js"]},afterInclude:function(){!function(t,e,s){var n,i=t.getElementsByTagName(e)[0],o=/^http:/.test(t.location)?"http":"https";t.getElementById(s)||(n=t.createElement(e),n.id=s,n.src=o+"://platform.twitter.com/widgets.js",i.parentNode.insertBefore(n,i))}(document,"script","twitter-wjs")}})
-</script><script>
-!function(e,a,t,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=a.createElement(t),s=a.getElementsByTagName(t)[0],o.async=1,o.src=n,s.parentNode.insertBefore(o,s)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","UA-68993546-1","auto"),ga("send","pageview")
-</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head><title>Moff.js - JavaScript Mobile First Framework</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description"
+          content="This JavaScript Mobile First framework is designed to offer best practices for mobile first development.">
+    <meta property="og:title" content="Moff.js - JavaScript Mobile First Framework.">
+    <meta property="og:description"
+          content="This framework is designed to offer best practices for mobile first development. It makes your website super fast and light on mobile device and fully featured on desktop.">
+    <meta property="og:image" content="http://moffjs.com/images/og-image.png">
+    <meta property="og:url" content="http://moffjs.com">
+    <style type="text/css">
+        .col-sm-4, .col-xs-12, .container {
+            padding-left: 15px;
+            padding-right: 15px
+        }
+
+        img {
+            border: 0;
+            vertical-align: middle
+        }
+
+        .clearfix:after, .container:after, .row:after {
+            clear: both
+        }
+
+        header, main, nav {
+            display: block
+        }
+
+        a {
+            background-color: transparent;
+            color: #57abc1;
+            text-decoration: none
+        }
+
+        abbr[title] {
+            border-bottom: 1px dotted
+        }
+
+        h1 {
+            font-size: 2em;
+            margin: .67em 0
+        }
+
+        *, :after, :before {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box
+        }
+
+        html {
+            font-family: sans-serif;
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+            font-size: 10px
+        }
+
+        body {
+            margin: 0;
+            background-color: #fff;
+            font-size: 14px;
+            font-family: "Open Sans", sans-serif;
+            color: #102025;
+            font-weight: 400;
+            line-height: 1.52857
+        }
+
+        .container {
+            margin-right: auto;
+            margin-left: auto
+        }
+
+        .clearfix:after, .clearfix:before {
+            content: " ";
+            display: table
+        }
+
+        .visible-md, .visible-sm {
+            display: none !important
+        }
+
+        @-ms-viewport {
+            width: device-width
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            .visible-sm {
+                display: block !important
+            }
+        }
+
+        @media (min-width: 992px) and (max-width: 1199px) {
+            .visible-md {
+                display: block !important
+            }
+        }
+
+        @media (max-width: 767px) {
+            .hidden-xs {
+                display: none !important
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            .hidden-sm {
+                display: none !important
+            }
+        }
+
+        .container:after, .container:before, .row:after, .row:before {
+            content: " ";
+            display: table
+        }
+
+        .container_brand, .m-feature {
+            position: relative
+        }
+
+        .col-xs-12, .m-logo_left {
+            float: left
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                width: 750px
+            }
+        }
+
+        @media (min-width: 992px) {
+            .container {
+                width: 970px
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .container {
+                width: 1170px
+            }
+        }
+
+        .row {
+            margin-left: -15px;
+            margin-right: -15px
+        }
+
+        .col-sm-4, .col-xs-12 {
+            position: relative;
+            min-height: 1px
+        }
+
+        .m-cogs, .m-mobile, .m-mobile__msg {
+            position: absolute
+        }
+
+        .col-xs-12 {
+            width: 100%
+        }
+
+        .m-wrapper, body, html {
+            height: 100%
+        }
+
+        .m-content {
+            min-height: 100%;
+            padding-bottom: 100px
+        }
+
+        p {
+            line-height: 21px
+        }
+
+        .m-brand-block, .m-navigation__list-link_active {
+            background-color: #57abc1;
+            color: #fff
+        }
+
+        .container_header {
+            padding-top: 10px;
+            margin-bottom: 10px
+        }
+
+        .container_brand {
+            text-align: center;
+            overflow: hidden
+        }
+
+        @media (min-width: 768px) {
+            .col-sm-4 {
+                float: left;
+                width: 33.33333%
+            }
+
+            .container_brand {
+                text-align: left;
+                height: 218px
+            }
+        }
+
+        .container_text-center, .m-sub-title {
+            text-align: center
+        }
+
+        .m-logo__image {
+            width: 60px
+        }
+
+        .m-navigation {
+            display: block;
+            float: right
+        }
+
+        @media (min-width: 768px) {
+            .m-logo__image {
+                width: 85px
+            }
+
+            .m-navigation {
+                float: left;
+                margin-top: 5px;
+                margin-left: 25px
+            }
+        }
+
+        @media (min-width: 992px) {
+            .container_brand {
+                height: 342px
+            }
+
+            .m-logo__image {
+                width: 128px
+            }
+
+            .m-navigation {
+                margin-top: 12px;
+                margin-left: 80px
+            }
+        }
+
+        .m-navigation__list {
+            margin: 0;
+            padding: 0
+        }
+
+        .m-navigation__list-item {
+            display: inline-block;
+            margin: 0 3px
+        }
+
+        @media (min-width: 350px) {
+            .m-navigation__list-item {
+                margin: 0 5px
+            }
+        }
+
+        .m-navigation__list-link {
+            text-decoration: none;
+            font-size: 13px
+        }
+
+        @media (min-width: 768px) {
+            .m-navigation__list-item {
+                margin: 0 8px
+            }
+
+            .m-navigation__list-link {
+                font-size: 14px;
+                font-weight: 600
+            }
+        }
+
+        .m-navigation__list-link_active {
+            padding: 3px
+        }
+
+        @media (min-width: 992px) {
+            .m-navigation__list-link {
+                font-size: 16px;
+                font-weight: 600
+            }
+
+            .m-navigation__list-link_active {
+                padding: 3px 8px
+            }
+        }
+
+        .m-title {
+            font-weight: 400;
+            font-size: 28px;
+            margin-top: 18px;
+            margin-bottom: 18px;
+            color: #57abc1
+        }
+
+        .m-title_white {
+            color: #fff
+        }
+
+        @media (min-width: 992px) {
+            .m-title {
+                font-size: 36px;
+                margin-top: 75px
+            }
+        }
+
+        .m-sub-title {
+            color: #57abc1;
+            font-weight: 400;
+            font-size: 20px;
+            margin: 20px 0
+        }
+
+        @media (min-width: 768px) {
+            .m-sub-title_large {
+                font-size: 23px;
+                margin: 27px 0
+            }
+        }
+
+        @media (min-width: 992px) {
+            .m-sub-title_large {
+                font-size: 25px;
+                margin: 35px 0
+            }
+        }
+
+        .m-slogan {
+            color: #fff;
+            letter-spacing: .5px
+        }
+
+        @media (min-width: 768px) {
+            .m-slogan {
+                font-size: 18px
+            }
+        }
+
+        .m-button {
+            background: no-repeat #102025;
+            border: 0;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 16px;
+            padding: 13px 22px;
+            display: inline-block;
+            margin: 20px 0
+        }
+
+        .m-cogs, .m-feature__icon {
+            background-repeat: no-repeat
+        }
+
+        .m-feature__icon {
+            float: left;
+            width: 44px;
+            height: 44px;
+            border-radius: 4px;
+            background-color: #57abc1;
+            margin-top: 3px;
+            background-image: url(./images/icons.png)
+        }
+
+        .m-feature__icon_bolt {
+            background-position: 0 0
+        }
+
+        .m-feature__icon_monitor {
+            background-position: -44px 0
+        }
+
+        .m-feature__icon_console {
+            background-position: -44px -88px
+        }
+
+        .m-feature__title {
+            margin: 0 0 0 50px;
+            font-weight: 400;
+            color: #57abc1;
+            font-size: 17px
+        }
+
+        .m-feature__description {
+            margin-left: 50px;
+            margin-top: 5px;
+            margin-bottom: 30px;
+            line-height: 25px
+        }
+
+        .m-gray-block {
+            background-color: #dfe9ed;
+            padding: 10px 0
+        }
+
+        .m-cogs {
+            background-image: url(./images/cogs.png);
+            opacity: .3
+        }
+
+        .m-cogs_full {
+            width: 180px;
+            height: 186px;
+            bottom: -45px;
+            right: 280px;
+            background-position: 0 0
+        }
+
+        @media (min-width: 992px) {
+            .m-cogs_full {
+                right: 352px;
+                bottom: 10px
+            }
+        }
+
+        .m-cogs_small {
+            width: 30px;
+            height: 58px;
+            background-position: 0 -55px;
+            left: 0;
+            bottom: 20px;
+            transform: rotate(180deg)
+        }
+
+        @media (min-width: 768px) {
+            .m-gray-block {
+                margin: 15px 0
+            }
+
+            .m-cogs_small {
+                bottom: -14px;
+                left: 30px;
+                transform: rotate(90deg)
+            }
+        }
+
+        .m-cogs_medium {
+            width: 60px;
+            height: 86px;
+            background-position: -58px 0;
+            right: 0;
+            bottom: 0
+        }
+
+        @media (min-width: 992px) {
+            .m-cogs_medium {
+                width: 84px;
+                height: 42px;
+                left: 95px;
+                top: 0;
+                background-position: -14px -146px
+            }
+        }
+
+        .m-mobile {
+            width: 230px;
+            height: 207px;
+            right: 0;
+            bottom: 0;
+            overflow: hidden
+        }
+
+        @media (min-width: 992px) {
+            .m-mobile {
+                width: 302px;
+                height: 310px
+            }
+        }
+
+        .m-mobile__image {
+            width: 100%
+        }
+
+        .m-mobile__msg {
+            font-size: 12px;
+            left: 12px;
+            right: 12px;
+            top: 48px;
+            bottom: 0;
+            color: #efefef;
+            letter-spacing: .5px
+        }
+
+        .m-mobile__msg-title {
+            font-weight: 600;
+            font-size: 12px;
+            margin: 0 0 7px
+        }
+
+        @media (min-width: 992px) {
+            .m-mobile__msg {
+                top: 63px;
+                left: 15px;
+                right: 15px;
+                font-size: 13px
+            }
+        }
+
+        .m-social-buttons {
+            line-height: 10px
+        }
+
+        .m-scroll-up {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            right: 15px;
+            bottom: 15px;
+            border-radius: 50%;
+            background: url(./images/icons.png) -2px -90px no-repeat #57abc1;
+            font-size: 0;
+            display: block
+        }
+
+        @font-face {
+            font-family: 'Open Sans';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3aCWcynf_cDxXwCLxiixG1c.ttf) format('truetype')
+        }
+
+        @font-face {
+            font-family: 'Open Sans';
+            font-style: normal;
+            font-weight: 600;
+            src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(https://fonts.gstatic.com/s/opensans/v13/MTP_ySUJH_bn48VBG8sNSonF5uFdDttMLvmWuJdhhgs.ttf) format('truetype')
+        }
+    </style>
+    <link rel="preload" href="./moff-assets/a207d8efa4fdc8bd49eeb0c17412e1d9.css" as="style"
+          onload="this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="./moff-assets/a207d8efa4fdc8bd49eeb0c17412e1d9.css">
+    </noscript>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="preload" type="text/css" as="style"
+          onload="this.rel='stylesheet'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css">
+    </noscript>
+    <script>!function (e) {
+		"use strict";
+		var t = function (t, n, r) {
+			function o(e) {
+				return i.body ? e() : void setTimeout(function () {
+					o(e)
+				})
+			}
+
+			function a() {
+				d.addEventListener && d.removeEventListener("load", a), d.media = r || "all"
+			}
+
+			var l, i = e.document, d = i.createElement("link");
+			if (n) l = n; else {
+				var s = (i.body || i.getElementsByTagName("head")[0]).childNodes;
+				l = s[s.length - 1]
+			}
+			var u = i.styleSheets;
+			d.rel = "stylesheet", d.href = t, d.media = "only x", o(function () {
+				l.parentNode.insertBefore(d, n ? l : l.nextSibling)
+			});
+			var f = function (e) {
+				for (var t = d.href, n = u.length; n--;) if (u[n].href === t) return e();
+				setTimeout(function () {
+					f(e)
+				})
+			};
+			return d.addEventListener && d.addEventListener("load", a), d.onloadcssdefined = f, f(a), d
+		};
+		"undefined" != typeof exports ? exports.loadCSS = t : e.loadCSS = t
+	}("undefined" != typeof global ? global : this), function (e) {
+		if (e.loadCSS) {
+			var t = loadCSS.relpreload = {};
+			if (t.support = function () {
+				try {
+					return e.document.createElement("link").relList.supports("preload")
+				} catch (e) {
+					return !1
+				}
+			}, t.poly = function () {
+				for (var t = e.document.getElementsByTagName("link"), n = 0; n < t.length; n++) {
+					var r = t[n];
+					"preload" === r.rel && "style" === r.getAttribute("as") && (e.loadCSS(r.href, r), r.rel = null)
+				}
+			}, !t.support()) {
+				t.poly();
+				var n = e.setInterval(t.poly, 300);
+				e.addEventListener && e.addEventListener("load", function () {
+					e.clearInterval(n)
+				}), e.attachEvent && e.attachEvent("onload", function () {
+					e.clearInterval(n)
+				})
+			}
+		}
+	}(this);</script>
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+</head>
+<body>
+<div id="fb-root"></div>
+<a name="top"></a>
+<div class="m-wrapper">
+    <div class="m-content">
+        <header role="banner">
+            <div class="container container_header">
+                <div class="m-logo m-logo_left"><a href="/" title="Moff.js - Home"><img src="./images/logo.png"
+                                                                                        alt="JavaScript Mobile First framework"
+                                                                                        class="m-logo__image"></a></div>
+                <nav role="navigation" class="m-navigation">
+                    <ul class="m-navigation__list">
+                        <li class="m-navigation__list-item"><a
+                                class="m-navigation__list-link m-navigation__list-link_active" href="/">Home</a></li>
+                        <li class="m-navigation__list-item"><a class="m-navigation__list-link"
+                                                               href="/tutorial/getting-started.html">
+                            Tutorials</a></li>
+                        <li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/api/index.html">API</a>
+                        </li>
+                        <li class="m-navigation__list-item"><a class="m-navigation__list-link" href="/blog/index.html">Blog</a>
+                        </li>
+                        <li class="m-navigation__list-item"><a class="m-navigation__list-link"
+                                                               href="/moff-cli/index.html">CLI</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <main role="main">
+            <div class="m-brand-block">
+                <div class="container container_brand"><h1 class="m-title m-title_white">JavaScript Mobile First
+                    framework</h1>
+                    <div class="m-slogan">Create for mobile, extend to desktop.</div>
+                    <a href="/tutorial/getting-started.html" class="m-button">Get started</a>
+                    <div id="js-mobile-placeholder">
+                        <div class="m-mobile hidden-xs"><img src="./images/mobile-phone.png" class="m-mobile__image">
+                            <div class="m-mobile__msg"><h4 class="m-mobile__msg-title">What is Moff?</h4>
+                                Moff is the powerful JavaScript Mobile First framework with CLI which allows you to
+                                create super light and fast mobile first website. Then you can easily extend it to the
+                                desktop website and make it fully featured.
+                                <span class="hidden-sm">Also, this framework has modular system which helps you to organize your modules system. You can load them by user request or automatically depending on screen size.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-cogs m-cogs_small"></div>
+                    <div class="m-cogs m-cogs_medium hidden-sm"></div>
+                    <div class="m-cogs m-cogs_full hidden-xs"></div>
+                </div>
+            </div>
+            <div class="container"><h2 class="m-sub-title m-sub-title_large">Advantages</h2>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="m-feature">
+                            <div class="m-feature__icon m-feature__icon_bolt"></div>
+                            <h4 class="m-feature__title">Light and fast mobile website</h4>
+                            <p class="m-feature__description">Moff is designed for mobile first websites. You can make
+                                website light and fast on loading with the <a href="/moff-cli/index.html"
+                                                                              title="Moff CLI - The Moff.js command line utility">Moff
+                                    CLI</a>
+                                . No extra parts of markup, stylesheets and scripts loaded for mobile devices. They can
+                                be automatically loaded on adjusted screen sizes, e.g. tablet or desktop.</p></div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="m-feature">
+                            <div class="m-feature__icon m-feature__icon_monitor"></div>
+                            <h4 class="m-feature__title">Fully featured desktop website</h4>
+                            <p class="m-feature__description">Moff can load all parts of markup needed on desktop screen
+                                through <a href="/tutorial/data-events.html" title="Moff.js tutorial - Data Events">Data
+                                    Events</a>
+                                . Apply any features for them by loading its scripts and styles as <a
+                                        href="/tutorial/amd.html" title="Moff.js tutorial - AMD">AMD modules</a>
+                                . These tools of the framework make your website like it was designed for the desktop.
+                            </p></div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="m-feature">
+                            <div class="m-feature__icon m-feature__icon_console"></div>
+                            <h4 class="m-feature__title">Moff Command Line Utility</h4>
+                            <p class="m-feature__description"><a href="/moff-cli/index.html"
+                                                                 title="Moff CLI - The Moff.js command line utility">Moff
+                                CLI</a> optimizes you page by concatenation and minification of CSS and JS files.
+                                Generated files are renamed by <abbr
+                                        title="The MD5 algorithm is a widely used hash function producing a 128-bit hash value.">MD5</abbr>
+                                hash. CSS and JS files are replaced by generated ones on the page. Also it puts critical
+                                path CSS and asynchronously loads CSS files. And as a last step it minifies HTML and
+                                inlined JS and CSS.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="m-gray-block">
+                <div class="container_text-center m-social-buttons"><a href="/social-button.html"
+                                                                       data-load-screen="sm md lg"
+                                                                       data-load-target=".m-social-buttons"
+                                                                       data-load-module="social">Support us in
+                    social</a></div>
+            </div>
+            <div class="container"><h2 class="m-sub-title m-sub-title_large">Features</h2>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-lg-3">
+                        <div class="m-feature"><a href="/tutorial/modularity.html" title="Moff.js - Modularity"
+                                                  class="m-feature__title-link">
+                            <div class="m-feature__icon m-feature__icon_modules"></div>
+                            <h4 class="m-feature__title">Modular system</h4></a>
+                            <p class="m-feature__description">
+                                Moff modular system allows you to create classes with its own DOM scope and rich event
+                                system. It also has API which allows you to get, create, remove and do other operations
+                                with them.</p></div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-lg-3">
+                        <div class="m-feature"><a href="/tutorial/amd.html" title="Moff.js - AMD"
+                                                  class="m-feature__title-link">
+                            <div class="m-feature__icon m-feature__icon_sync"></div>
+                            <h4 class="m-feature__title">AMD</h4></a>
+                            <p class="m-feature__description">
+                                Moff provides AMD way to work with modules. They can load any css, js files and their
+                                dependency. Also it could be loaded automatically depended on screen size.</p></div>
+                    </div>
+                    <div class="clearfix visible-sm visible-md"></div>
+                    <div class="col-xs-12 col-sm-6 col-lg-3">
+                        <div class="m-feature"><a href="/api/event.html" title="Moff.js - Moff.event API"
+                                                  class="m-feature__title-link">
+                            <div class="m-feature__icon m-feature__icon_clock"></div>
+                            <h4 class="m-feature__title">Event system</h4></a>
+                            <p class="m-feature__description">
+                                Moff event system is a part of modular system. It complements modules with very flexible
+                                way to create, trigger, assign and remove events.</p></div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-lg-3">
+                        <div class="m-feature"><a href="/tutorial/data-events.html" title="Moff.js - Data events"
+                                                  class="m-feature__title-link">
+                            <div class="m-feature__icon m-feature__icon_settings"></div>
+                            <h4 class="m-feature__title">Data events</h4></a>
+                            <p class="m-feature__description">
+                                Moff Data events are powerful html data attributes. They allow to load content on
+                                certain event with minimum efforts. It is possible to set loading target, cache loaded
+                                content and show on certain screen size and other more.
+                            </p></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer role="contentinfo">
+        <div class="m-brand-block">
+            <div class="container container_text-center">
+                <div class="row">
+                    <div class="col-xs-6 m-text-right"><a class="m-link-icon m-link-icon_github"
+                                                          href="https://github.com/kfuzaylov/moff"
+                                                          title="Moff GitHub repository">GitHub</a></div>
+                    <div class="col-xs-6 m-text-left"><a class="m-link-icon m-link-icon_bugs"
+                                                         href="https://github.com/kfuzaylov/moff/issues"
+                                                         title="Moff issues">Issues</a></div>
+                </div>
+                <div class="m-copy">Copyright &#xA9; 2015-2016 Kadir Fuzaylov</div>
+            </div>
+        </div>
+    </footer>
+</div>
+<a href="#top" class="m-scroll-up"></a>
+<script src="/moff-assets/d76640c90f990570d9fad88b78952795.js"></script>
+<script>
+	Moff.amd.register({
+		id: "social", depend: {js: ["https://buttons.github.io/buttons.js"]}, afterInclude: function () {
+			!function (t, e, s) {
+				var n, i = t.getElementsByTagName(e)[0], o = /^http:/.test(t.location) ? "http" : "https";
+				t.getElementById(s) || (n = t.createElement(e), n.id = s, n.src = o + "://platform.twitter.com/widgets.js", i.parentNode.insertBefore(n, i))
+			}(document, "script", "twitter-wjs")
+		}
+	})
+</script>
+<script>
+	!function (e, a, t, n, c, o, s) {
+		e.GoogleAnalyticsObject = c, e[c] = e[c] || function () {
+			(e[c].q = e[c].q || []).push(arguments)
+		}, e[c].l = 1 * new Date, o = a.createElement(t), s = a.getElementsByTagName(t)[0], o.async = 1, o.src = n, s.parentNode.insertBefore(o, s)
+	}(window, document, "script", "//www.google-analytics.com/analytics.js", "ga"), ga("create", "UA-68993546-1", "auto"), ga("send", "pageview")
+</script>
+</body>
+</html>
