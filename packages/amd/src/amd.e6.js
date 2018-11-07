@@ -41,6 +41,12 @@ function AMD() {
 	var _windowIsLoaded = false;
 
 	/**
+	 * @property {Object} _assetsStorage - Storage for assets
+	 * @private
+	 */
+	var _assetsStorage = {};
+
+	/**
 	 * Window load event handler.
 	 * @function windowLoadHandler
 	 */
@@ -60,6 +66,47 @@ function AMD() {
 	 */
 	function handleEvents() {
 		_win.addEventListener('load', windowLoadHandler, false);
+	}
+
+	/**
+	 * Returns link object
+	 * @param {String} href - Link href attribute
+	 * @returns {HTMLElement}
+	 */
+	function getLinkObject(href) {
+		var link = _doc.createElement('a');
+
+		link.href = href;
+
+		return link;
+	}
+
+	/**
+	 * Returns uniques list of urls
+	 * @param {Array} urls - Array of urls
+	 * @returns {Array}
+	 * @private
+	 */
+	function _excludeDuplicate(urls) {
+		var uniquesUrls = [];
+		var length = urls.length;
+		var i = 0;
+		var location;
+
+		for (; i < length; i++) {
+			location = getLinkObject(urls[i]);
+
+			if (!_assetsStorage.hasOwnProperty(location.host)) {
+				_assetsStorage[location.host] = [];
+			}
+
+			if (_assetsStorage[location.host].indexOf(location.pathname) === -1) {
+				_assetsStorage[location.host].push(location.pathname);
+				uniquesUrls.push(urls[i]);
+			}
+		}
+
+		return uniquesUrls;
 	}
 
 	/**
@@ -142,6 +189,22 @@ function AMD() {
 
 		// Mark as loaded
 		register.loaded = true;
+
+		if (register.depend.js.length) {
+			register.depend.js = _excludeDuplicate(register.depend.js);
+		}
+
+		if (register.depend.css.length) {
+			register.depend.css = _excludeDuplicate(register.depend.css);
+		}
+
+		if (register.file.css.length) {
+			register.file.css = _excludeDuplicate(register.file.css);
+		}
+
+		if (register.file.js.length) {
+			register.file.js = _excludeDuplicate(register.file.js);
+		}
 
 		if (typeof register.beforeInclude === 'function') {
 			register.beforeInclude();

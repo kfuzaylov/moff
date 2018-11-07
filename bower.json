@@ -1,10 +1,10 @@
 {
 	"name": "moff",
-	"version": "1.12.2",
+	"version": "1.12.3",
 	"homepage": "http://moffjs.com",
-	"author": "Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>",
+	"author": "Kadir Fuzaylov <kfuzaylov@dealersocket.com>",
 	"description": "Mobile First Framework",
-	"copyright": "Copyright (c) 2015-2016 Kadir A. Fuzaylov",
+	"copyright": "Copyright (c) 2015-2018 Kadir Fuzaylov",
 	"main": "dist/moff.js",
 	"keywords": [
 		"mobile",

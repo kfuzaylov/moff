@@ -9,7 +9,7 @@
 		"babelify": "8.0.0",
 		"bootstrap-sass": "3.3.7",
 		"browserify": "16.2.0",
-		"gulp": "3.9.1",
+		"gulp": "^3.9.1",
 		"gulp-babel": "7.0.1",
 		"gulp-concat": "2.6.1",
 		"gulp-header": "2.0.5",
@@ -29,5 +29,9 @@
 		"vinyl-source-stream": "2.0.0",
 		"vinyl-source-stream2": "0.1.1",
 		"yargs": "11.0.0"
+	},
+	"dependencies": {
+		"global": "^4.3.2",
+		"gulp-cli": "^2.0.1"
 	}
 }

@@ -1,9 +1,9 @@
 /**
  * @overview  moff - Mobile First Framework
- * @author    Kadir A. Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.12.2
+ * @author    Kadir Fuzaylov <kfuzaylov@dealersocket.com>
+ * @version   1.12.3
  * @license   Licensed under MIT license
- * @copyright Copyright (c) 2015-2016 Kadir A. Fuzaylov
+ * @copyright Copyright (c) 2015-2018 Kadir Fuzaylov
  */
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 'use strict';
@@ -57,6 +57,12 @@ function AMD() {
 	var _windowIsLoaded = false;
 
 	/**
+  * @property {Object} _assetsStorage - Storage for assets
+  * @private
+  */
+	var _assetsStorage = {};
+
+	/**
   * Window load event handler.
   * @function windowLoadHandler
   */
@@ -76,6 +82,47 @@ function AMD() {
   */
 	function handleEvents() {
 		_win.addEventListener('load', windowLoadHandler, false);
+	}
+
+	/**
+  * Returns link object
+  * @param {String} href - Link href attribute
+  * @returns {HTMLElement}
+  */
+	function getLinkObject(href) {
+		var link = _doc.createElement('a');
+
+		link.href = href;
+
+		return link;
+	}
+
+	/**
+  * Returns uniques list of urls
+  * @param {Array} urls - Array of urls
+  * @returns {Array}
+  * @private
+  */
+	function _excludeDuplicate(urls) {
+		var uniquesUrls = [];
+		var length = urls.length;
+		var i = 0;
+		var location;
+
+		for (; i < length; i++) {
+			location = getLinkObject(urls[i]);
+
+			if (!_assetsStorage.hasOwnProperty(location.host)) {
+				_assetsStorage[location.host] = [];
+			}
+
+			if (_assetsStorage[location.host].indexOf(location.pathname) === -1) {
+				_assetsStorage[location.host].push(location.pathname);
+				uniquesUrls.push(urls[i]);
+			}
+		}
+
+		return uniquesUrls;
 	}
 
 	/**
@@ -160,6 +207,22 @@ function AMD() {
 
 		// Mark as loaded
 		register.loaded = true;
+
+		if (register.depend.js.length) {
+			register.depend.js = _excludeDuplicate(register.depend.js);
+		}
+
+		if (register.depend.css.length) {
+			register.depend.css = _excludeDuplicate(register.depend.css);
+		}
+
+		if (register.file.css.length) {
+			register.file.css = _excludeDuplicate(register.file.css);
+		}
+
+		if (register.file.js.length) {
+			register.file.js = _excludeDuplicate(register.file.js);
+		}
 
 		if (typeof register.beforeInclude === 'function') {
 			register.beforeInclude();
@@ -1309,7 +1372,7 @@ function Core() {
   * Moff version.
   * @type {string}
   */
-	this.version = '1.12.2';
+	this.version = '1.12.3';
 
 	extendSettings();
 	setBreakpoints();
