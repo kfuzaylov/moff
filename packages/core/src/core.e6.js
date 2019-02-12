@@ -764,17 +764,11 @@ function Core() {
 	}
 
 	this.inViewport = function(element) {
-		var top = element.offsetTop;
-		var left = element.offsetLeft;
-		var width = element.offsetWidth;
-		var height = element.offsetHeight;
-
-		while (element.offsetParent) {
-			element = element.offsetParent;
-
-			top += element.offsetTop;
-			left += element.offsetLeft;
-		}
+        var bounding = element.getBoundingClientRect();
+        var top = bounding.top + window.scrollY;
+        var left = bounding.left + window.scrollX;
+		var width = bounding.width;
+		var height = bounding.height;
 
 		return (
 			top < (_win.pageYOffset + _win.innerHeight) &&

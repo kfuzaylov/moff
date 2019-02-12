@@ -1,7 +1,7 @@
 /**
  * @overview  moff - Mobile First Framework
  * @author    Kadir Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.12.3
+ * @version   1.12.4
  * @license   Licensed under MIT license
  * @copyright Copyright (c) 2015-2018 Kadir Fuzaylov
  */
@@ -931,17 +931,11 @@ function Core() {
 	}
 
 	this.inViewport = function (element) {
-		var top = element.offsetTop;
-		var left = element.offsetLeft;
-		var width = element.offsetWidth;
-		var height = element.offsetHeight;
-
-		while (element.offsetParent) {
-			element = element.offsetParent;
-
-			top += element.offsetTop;
-			left += element.offsetLeft;
-		}
+		var bounding = element.getBoundingClientRect();
+		var top = bounding.top + window.scrollY;
+		var left = bounding.left + window.scrollX;
+		var width = bounding.width;
+		var height = bounding.height;
 
 		return top < _win.pageYOffset + _win.innerHeight && left < _win.pageXOffset + _win.innerWidth && top + height > _win.pageYOffset && left + width > _win.pageXOffset;
 	};
@@ -1372,7 +1366,7 @@ function Core() {
   * Moff version.
   * @type {string}
   */
-	this.version = '1.12.3';
+	this.version = '1.12.4';
 
 	extendSettings();
 	setBreakpoints();
