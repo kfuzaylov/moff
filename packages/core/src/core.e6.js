@@ -113,6 +113,12 @@ function Core() {
 	var _loadOnViewport = [];
 
 	/**
+	 * @property {[]} _loadedJS - Array of loaded scripts
+	 * @private
+	 */
+	var _loadedJS = {};
+
+	/**
 	 * @property {object} _settings - Local default settings.
 	 * @private
 	 */
@@ -1021,14 +1027,22 @@ function Core() {
 		var script = _doc.querySelector(`script[src="${src}"]`);
 		var hasCallback = typeof callback === 'function';
 
+		function loadHandler() {
+			_loadedJS[src] = true;
+
+			if (hasCallback) {
+				callback();
+			}
+		}
+
 		function appendScript() {
 			var script = _doc.createElement('script');
 
+			_loadedJS[src] = false;
+
 			script.setAttribute('src', src);
 
-			if (hasCallback) {
-				script.addEventListener('load', callback, false);
-			}
+			script.addEventListener('load', loadHandler, false);
 
 			_doc.querySelector('body').appendChild(script);
 		}
@@ -1041,7 +1055,11 @@ function Core() {
 			appendScript();
 		} else if (!script) {
 			appendScript();
-		} else if (hasCallback) {
+		/* We check here that _loadedJs already has property,
+		 * because we can find script which was loaded not by Moff */
+		} else if (_loadedJS.hasOwnProperty(src) && !_loadedJS[src]) {
+			script.addEventListener('load', loadHandler, false);
+		} else {
 			callback();
 		}
 	};
