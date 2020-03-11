@@ -27,7 +27,7 @@
 		"babel-core": "6.26.0",
 		"babel-preset-env": "1.6.1",
 		"babelify": "8.0.0",
-		"bootstrap-sass": "3.3.7",
+		"bootstrap-sass": "3.4.1",
 		"browserify": "16.2.0",
 		"gulp": "^3.9.1",
 		"gulp-babel": "7.0.1",
