@@ -1,5 +1,25 @@
 {
 	"name": "moff",
+	"version": "1.12.5",
+	"description": "Mobile first framework",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/kfuzaylov/moff.git"
+	},
+	"author": "Kadir Fuzaylov",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/kfuzaylov/moff/issues"
+	},
+	"keywords": [
+		"moff",
+		"mobile",
+		"first",
+		"framework",
+		"moff.js",
+		"mobile-first",
+		"mobile first"
+	],
 	"directories": {
 		"test": "tests"
 	},
