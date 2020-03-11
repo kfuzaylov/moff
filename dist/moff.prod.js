@@ -1,7 +1,7 @@
 /**
  * @overview  moff - Mobile First Framework
  * @author    Kadir Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.12.5
+ * @version   1.12.6
  * @license   Licensed under MIT license
  * @copyright Copyright (c) 2015-2018 Kadir Fuzaylov
  */
@@ -308,7 +308,7 @@ function Core() {
   */
 	var _loadOnViewport = [];
 	/**
-  * @property {[]} _loadOnViewport - Array of elements to be loaded on viewport
+  * @property {[]} _loadedJS - Array of loaded scripts
   * @private
   */
 	var _loadedJS = {};
@@ -1116,7 +1116,7 @@ function Core() {
   * Moff version.
   * @type {string}
   */
-	this.version = '1.12.5';
+	this.version = '1.12.6';
 	extendSettings();
 	setBreakpoints();
 	setViewMode();
