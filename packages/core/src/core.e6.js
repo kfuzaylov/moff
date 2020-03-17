@@ -290,7 +290,7 @@ function Core() {
 		var length = 0;
 
 		array.forEach(function(item) {
-			if (!Array.isArray(length)) {
+			if (!Array.isArray(item)) {
 				length++;
 			} else {
 				length += getFullLength(item);
