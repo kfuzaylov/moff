@@ -1,7 +1,7 @@
 /**
  * @overview  moff - Mobile First Framework
  * @author    Kadir Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.12.7
+ * @version   1.12.8
  * @license   Licensed under MIT license
  * @copyright Copyright (c) 2015-2018 Kadir Fuzaylov
  */
@@ -1435,7 +1435,7 @@ function Core() {
   * Moff version.
   * @type {string}
   */
-	this.version = '1.12.7';
+	this.version = '1.12.8';
 
 	extendSettings();
 	setBreakpoints();
