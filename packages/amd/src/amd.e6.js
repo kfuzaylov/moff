@@ -41,12 +41,6 @@ function AMD() {
 	var _windowIsLoaded = false;
 
 	/**
-	 * @property {Object} _assetsStorage - Storage for assets
-	 * @private
-	 */
-	var _assetsStorage = {};
-
-	/**
 	 * Window load event handler.
 	 * @function windowLoadHandler
 	 */
@@ -69,44 +63,38 @@ function AMD() {
 	}
 
 	/**
-	 * Returns link object
-	 * @param {String} href - Link href attribute
-	 * @returns {HTMLElement}
+	 * Coverts js url formats from string to object
+	 * @param {Array} jsUrls - Array of js urls to include
+	 * @private
 	 */
-	function getLinkObject(href) {
-		var link = _doc.createElement('a');
+	function _normalizeJs(jsUrls) {
+		if (Array.isArray(jsUrls)) {
+			jsUrls.forEach((url, index) => {
+				if (typeof url === 'string') {
+					jsUrls.splice(index, 1, {url});
+				}
+			});
+		}
 
-		link.href = href;
-
-		return link;
+		return jsUrls;
 	}
 
 	/**
-	 * Returns uniques list of urls
-	 * @param {Array} urls - Array of urls
-	 * @returns {Array}
+	 *
+	 * @param cssUrls
+	 * @returns {*}
 	 * @private
 	 */
-	function _excludeDuplicate(urls) {
-		var uniquesUrls = [];
-		var length = urls.length;
-		var i = 0;
-		var location;
-
-		for (; i < length; i++) {
-			location = getLinkObject(urls[i]);
-
-			if (!_assetsStorage.hasOwnProperty(location.host)) {
-				_assetsStorage[location.host] = [];
-			}
-
-			if (_assetsStorage[location.host].indexOf(location.pathname) === -1) {
-				_assetsStorage[location.host].push(location.pathname);
-				uniquesUrls.push(urls[i]);
-			}
+	function _normalizeCSS(cssUrls) {
+		if (Array.isArray(cssUrls)) {
+			cssUrls.forEach((url, index) => {
+				if (typeof url === 'string') {
+					cssUrls.splice(index, 1, {url});
+				}
+			});
 		}
 
-		return uniquesUrls;
+		return cssUrls;
 	}
 
 	/**
@@ -162,6 +150,22 @@ function AMD() {
 			return;
 		}
 
+		if (register.depend && register.depend.js) {
+			register.depend.js = _normalizeJs(register.depend.js);
+		}
+
+		if (register.depend && register.depend.css) {
+			register.depend.css = _normalizeCSS(register.depend.css);
+		}
+
+		if (register.file && register.file.js) {
+			register.file.js = _normalizeJs(register.file.js);
+		}
+
+		if (register.file && register.file.css) {
+			register.file.css = _normalizeCSS(register.file.css);
+		}
+
 		// Normalize arguments
 		if (typeof callback === 'object') {
 			options = callback;
@@ -190,20 +194,14 @@ function AMD() {
 		// Mark as loaded
 		register.loaded = true;
 
-		if (register.depend.js.length) {
-			register.depend.js = _excludeDuplicate(register.depend.js);
-		}
+		function execCallback() {
+			if (typeof register.afterInclude === 'function') {
+				register.afterInclude();
+			}
 
-		if (register.depend.css.length) {
-			register.depend.css = _excludeDuplicate(register.depend.css);
-		}
-
-		if (register.file.css.length) {
-			register.file.css = _excludeDuplicate(register.file.css);
-		}
-
-		if (register.file.js.length) {
-			register.file.js = _excludeDuplicate(register.file.js);
+			if (hasCallback) {
+				callback();
+			}
 		}
 
 		if (typeof register.beforeInclude === 'function') {
@@ -215,16 +213,6 @@ function AMD() {
 		}
 
 		Moff.loadAssets(register.depend, loadFiles, options);
-
-		function execCallback() {
-			if (typeof register.afterInclude === 'function') {
-				register.afterInclude();
-			}
-
-			if (hasCallback) {
-				callback();
-			}
-		}
 	};
 
 	Moff.$(function() {

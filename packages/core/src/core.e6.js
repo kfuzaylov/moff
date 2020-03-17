@@ -286,6 +286,20 @@ function Core() {
 		_loader.appendChild(_loaderBox);
 	}
 
+	function getFullLength(array) {
+		var length = 0;
+
+		array.forEach(function(item) {
+			if (!Array.isArray(length)) {
+				length++;
+			} else {
+				length += getFullLength(item);
+			}
+		});
+
+		return length;
+	}
+
 	this.getPreloader = function() {
 		return _loader;
 	};
@@ -950,11 +964,11 @@ function Core() {
 		var hasCallback = typeof callback === 'function';
 
 		if (isJS) {
-			length += depend.js.length;
+			length += getFullLength(depend.js);
 		}
 
 		if (isCSS) {
-			length += depend.css.length;
+			length += getFullLength(depend.css);
 		}
 
 		if (!length) {
@@ -967,26 +981,41 @@ function Core() {
 			return;
 		}
 
-		function loadJSArray() {
-			var src = depend.js[jsIndex];
+		function loadDependentJs(jsArray) {
+			var src = jsArray[jsIndex];
 
-			if (src) {
-				_moff.loadJS(src, function() {
-					jsIndex++;
-					loaded++;
+			_moff.loadJS(src, function() {
+				jsIndex++;
+				loaded++;
 
-					if (loaded === length) {
-						if (hasCallback) {
-							callback();
-						}
-					} else {
-						loadJSArray();
-					}
-				}, options);
-			}
+				// We have to invalidate index of depended loaded js
+				// because now we have several sets of dependent js
+				// Example [js, [js1, js2], js, [js1, j2]]
+				if (jsIndex === jsArray.length) {
+					jsIndex = 0;
+				} else if (jsIndex < jsArray.length) {
+					loadDependentJs(jsArray);
+				}
+
+				if (loaded === length && hasCallback) {
+					callback();
+				}
+			}, options);
 		}
 
-		loadJSArray();
+		depend.js.forEach(jsItem => {
+			if (Array.isArray(jsItem)) {
+				loadDependentJs(jsItem);
+			} else {
+				_moff.loadJS(jsItem, function() {
+					loaded++;
+
+					if (loaded === length && hasCallback) {
+						callback();
+					}
+				});
+			}
+		});
 
 		function runCallback() {
 			loaded++;
@@ -1007,13 +1036,13 @@ function Core() {
 	/**
 	 * Load js file and run callback on load.
 	 * @method loadJS
-	 * @param {string} src - Array or path of loaded files
+	 * @param {Object} data - Array or path of loaded files
 	 * @param {function} [callback] - On load event callback
 	 * @param {object} [options] - Script load options
 	 */
-	this.loadJS = function(src, callback, options = {}) {
-		if (typeof src !== 'string') {
-			this.debug('Moff.loadJS source must be a string');
+	this.loadJS = function(data, callback, options = {}) {
+		if (typeof data.url !== 'string') {
+			this.debug('Moff.loadJS data doesn\'t have url source must be a string');
 
 			return;
 		}
@@ -1024,11 +1053,15 @@ function Core() {
 			callback = undefined;
 		}
 
-		var script = _doc.querySelector(`script[src="${src}"]`);
+		var script = _doc.querySelector(`script[src="${data.url}"]`);
 		var hasCallback = typeof callback === 'function';
 
 		function loadHandler() {
-			_loadedJS[src] = true;
+			_loadedJS[data.url] = true;
+
+			if (typeof data.callback === 'function') {
+				data.callback();
+			}
 
 			if (hasCallback) {
 				callback();
@@ -1038,9 +1071,17 @@ function Core() {
 		function appendScript() {
 			var script = _doc.createElement('script');
 
-			_loadedJS[src] = false;
+			_loadedJS[data.url] = false;
 
-			script.setAttribute('src', src);
+			script.setAttribute('src', data.url);
+
+			if (data.attributes) {
+				for (var attr in data.attributes) {
+					if (data.attributes.hasOwnProperty(attr)) {
+						script.setAttribute(attr, data.attributes[attr]);
+					}
+				}
+			}
 
 			script.addEventListener('load', loadHandler, false);
 
@@ -1055,11 +1096,18 @@ function Core() {
 			appendScript();
 		} else if (!script) {
 			appendScript();
-		/* We check here that _loadedJs already has property,
-		 * because we can find script which was loaded not by Moff */
-		} else if (_loadedJS.hasOwnProperty(src) && !_loadedJS[src]) {
+			// We check here that _loadedJs already has property,
+			// because we can find script which was loaded not by Moff
+		} else if (_loadedJS.hasOwnProperty(data.url) && !_loadedJS[data.url]) {
 			script.addEventListener('load', loadHandler, false);
 		} else {
+			// Just keep in mind! Potentially we have a problem here
+			// when script was inserted by 3rd party and not loaded yet
+			// but we don't know it is loaded or not.
+			if (typeof data.callback === 'function') {
+				data.callback();
+			}
+
 			callback();
 		}
 	};
@@ -1067,12 +1115,12 @@ function Core() {
 	/**
 	 * Load css file and run callback on load.
 	 * @method loadCSS
-	 * @param {string} href - Array or path of loaded files
+	 * @param {Object} data - Array or path of loaded files
 	 * @param {function} [callback] - On load event callback
 	 * @param {object} [options] - Style load options
 	 */
-	this.loadCSS = function(href, callback, options = {}) {
-		if (typeof href !== 'string') {
+	this.loadCSS = function(data, callback, options = {}) {
+		if (typeof data.url !== 'string') {
 			this.debug('Moff.loadCSS source must be a string');
 
 			return;
@@ -1084,18 +1132,33 @@ function Core() {
 			callback = undefined;
 		}
 
-		var link = _doc.querySelector(`link[href="${href}"]`);
+		var link = _doc.querySelector(`link[href="${data.url}"]`);
 		var hasCallback = typeof callback === 'function';
 
 		function appendLink() {
 			var link = _doc.createElement('link');
 
 			if (hasCallback) {
-				link.addEventListener('load', callback, false);
+				link.addEventListener('load', function() {
+					callback();
+
+					if (typeof data.callback === 'function') {
+						data.callback();
+					}
+				}, false);
 			}
 
-			link.setAttribute('href', href);
+			link.setAttribute('href', data.url);
 			link.setAttribute('rel', 'stylesheet');
+
+			if (data.attributes) {
+				for (var attr in data.attributes) {
+					if (data.attributes.hasOwnProperty(attr)) {
+						link.setAttribute(attr, data.attributes[attr]);
+					}
+				}
+			}
+
 			_doc.querySelector('head').appendChild(link);
 
 			link.onreadystatechange = function() {

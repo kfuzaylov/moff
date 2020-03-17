@@ -1,7 +1,7 @@
 /**
  * @overview  moff - Mobile First Framework
  * @author    Kadir Fuzaylov <kfuzaylov@dealersocket.com>
- * @version   1.12.6
+ * @version   1.12.7
  * @license   Licensed under MIT license
  * @copyright Copyright (c) 2015-2018 Kadir Fuzaylov
  */
@@ -47,11 +47,6 @@ function AMD() {
   */
 	var _windowIsLoaded = false;
 	/**
-  * @property {Object} _assetsStorage - Storage for assets
-  * @private
-  */
-	var _assetsStorage = {};
-	/**
   * Window load event handler.
   * @function windowLoadHandler
   */
@@ -71,37 +66,35 @@ function AMD() {
 		_win.addEventListener('load', windowLoadHandler, false);
 	}
 	/**
-  * Returns link object
-  * @param {String} href - Link href attribute
-  * @returns {HTMLElement}
-  */
-	function getLinkObject(href) {
-		var link = _doc.createElement('a');
-		link.href = href;
-		return link;
-	}
-	/**
-  * Returns uniques list of urls
-  * @param {Array} urls - Array of urls
-  * @returns {Array}
+  * Coverts js url formats from string to object
+  * @param {Array} jsUrls - Array of js urls to include
   * @private
   */
-	function _excludeDuplicate(urls) {
-		var uniquesUrls = [];
-		var length = urls.length;
-		var i = 0;
-		var location;
-		for (; i < length; i++) {
-			location = getLinkObject(urls[i]);
-			if (!_assetsStorage.hasOwnProperty(location.host)) {
-				_assetsStorage[location.host] = [];
-			}
-			if (_assetsStorage[location.host].indexOf(location.pathname) === -1) {
-				_assetsStorage[location.host].push(location.pathname);
-				uniquesUrls.push(urls[i]);
-			}
+	function _normalizeJs(jsUrls) {
+		if (Array.isArray(jsUrls)) {
+			jsUrls.forEach(function (url, index) {
+				if (typeof url === 'string') {
+					jsUrls.splice(index, 1, { url: url });
+				}
+			});
 		}
-		return uniquesUrls;
+		return jsUrls;
+	}
+	/**
+  *
+  * @param cssUrls
+  * @returns {*}
+  * @private
+  */
+	function _normalizeCSS(cssUrls) {
+		if (Array.isArray(cssUrls)) {
+			cssUrls.forEach(function (url, index) {
+				if (typeof url === 'string') {
+					cssUrls.splice(index, 1, { url: url });
+				}
+			});
+		}
+		return cssUrls;
 	}
 	/**
   * Check url hash tag to load registered files.
@@ -151,6 +144,18 @@ function AMD() {
 		if (!register) {
 			return;
 		}
+		if (register.depend && register.depend.js) {
+			register.depend.js = _normalizeJs(register.depend.js);
+		}
+		if (register.depend && register.depend.css) {
+			register.depend.css = _normalizeCSS(register.depend.css);
+		}
+		if (register.file && register.file.js) {
+			register.file.js = _normalizeJs(register.file.js);
+		}
+		if (register.file && register.file.css) {
+			register.file.css = _normalizeCSS(register.file.css);
+		}
 		// Normalize arguments
 		if ((typeof callback === 'undefined' ? 'undefined' : _typeof(callback)) === 'object') {
 			options = callback;
@@ -172,25 +177,6 @@ function AMD() {
 		}
 		// Mark as loaded
 		register.loaded = true;
-		if (register.depend.js.length) {
-			register.depend.js = _excludeDuplicate(register.depend.js);
-		}
-		if (register.depend.css.length) {
-			register.depend.css = _excludeDuplicate(register.depend.css);
-		}
-		if (register.file.css.length) {
-			register.file.css = _excludeDuplicate(register.file.css);
-		}
-		if (register.file.js.length) {
-			register.file.js = _excludeDuplicate(register.file.js);
-		}
-		if (typeof register.beforeInclude === 'function') {
-			register.beforeInclude();
-		}
-		function loadFiles() {
-			Moff.loadAssets(register.file, execCallback, options);
-		}
-		Moff.loadAssets(register.depend, loadFiles, options);
 		function execCallback() {
 			if (typeof register.afterInclude === 'function') {
 				register.afterInclude();
@@ -199,6 +185,13 @@ function AMD() {
 				callback();
 			}
 		}
+		if (typeof register.beforeInclude === 'function') {
+			register.beforeInclude();
+		}
+		function loadFiles() {
+			Moff.loadAssets(register.file, execCallback, options);
+		}
+		Moff.loadAssets(register.depend, loadFiles, options);
 	};
 	Moff.$(function () {
 		handleEvents();
@@ -366,6 +359,17 @@ function Core() {
 		_loaderBox.setAttribute('class', 'moff-loader_box');
 		_doc.body.appendChild(_loader2);
 		_loader2.appendChild(_loaderBox);
+	}
+	function getFullLength(array) {
+		var length = 0;
+		array.forEach(function (item) {
+			if (!Array.isArray(length)) {
+				length++;
+			} else {
+				length += getFullLength(item);
+			}
+		});
+		return length;
 	}
 	this.getPreloader = function () {
 		return _loader2;
@@ -900,10 +904,10 @@ function Core() {
 		var isJS = Array.isArray(depend.js);
 		var hasCallback = typeof callback === 'function';
 		if (isJS) {
-			length += depend.js.length;
+			length += getFullLength(depend.js);
 		}
 		if (isCSS) {
-			length += depend.css.length;
+			length += getFullLength(depend.css);
 		}
 		if (!length) {
 			if (hasCallback) {
@@ -911,23 +915,36 @@ function Core() {
 			}
 			return;
 		}
-		function loadJSArray() {
-			var src = depend.js[jsIndex];
-			if (src) {
-				_moff.loadJS(src, function () {
-					jsIndex++;
-					loaded++;
-					if (loaded === length) {
-						if (hasCallback) {
-							callback();
-						}
-					} else {
-						loadJSArray();
-					}
-				}, options);
-			}
+		function loadDependentJs(jsArray) {
+			var src = jsArray[jsIndex];
+			_moff.loadJS(src, function () {
+				jsIndex++;
+				loaded++;
+				// We have to invalidate index of depended loaded js
+				// because now we have several sets of dependent js
+				// Example [js, [js1, js2], js, [js1, j2]]
+				if (jsIndex === jsArray.length) {
+					jsIndex = 0;
+				} else if (jsIndex < jsArray.length) {
+					loadDependentJs(jsArray);
+				}
+				if (loaded === length && hasCallback) {
+					callback();
+				}
+			}, options);
 		}
-		loadJSArray();
+		depend.js.forEach(function (jsItem) {
+			if (Array.isArray(jsItem)) {
+				loadDependentJs(jsItem);
+			} else {
+				_moff.loadJS(jsItem, function () {
+					loaded++;
+					if (loaded === length && hasCallback) {
+						callback();
+					}
+				});
+			}
+		});
 		function runCallback() {
 			loaded++;
 			if (loaded === length && hasCallback) {
@@ -944,13 +961,13 @@ function Core() {
 	/**
   * Load js file and run callback on load.
   * @method loadJS
-  * @param {string} src - Array or path of loaded files
+  * @param {Object} data - Array or path of loaded files
   * @param {function} [callback] - On load event callback
   * @param {object} [options] - Script load options
   */
-	this.loadJS = function (src, callback) {
+	this.loadJS = function (data, callback) {
 		var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-		if (typeof src !== 'string') {
+		if (typeof data.url !== 'string') {
 			return;
 		}
 		// Normalize options
@@ -958,18 +975,28 @@ function Core() {
 			options = callback;
 			callback = undefined;
 		}
-		var script = _doc.querySelector('script[src="' + src + '"]');
+		var script = _doc.querySelector('script[src="' + data.url + '"]');
 		var hasCallback = typeof callback === 'function';
 		function loadHandler() {
-			_loadedJS[src] = true;
+			_loadedJS[data.url] = true;
+			if (typeof data.callback === 'function') {
+				data.callback();
+			}
 			if (hasCallback) {
 				callback();
 			}
 		}
 		function appendScript() {
 			var script = _doc.createElement('script');
-			_loadedJS[src] = false;
-			script.setAttribute('src', src);
+			_loadedJS[data.url] = false;
+			script.setAttribute('src', data.url);
+			if (data.attributes) {
+				for (var attr in data.attributes) {
+					if (data.attributes.hasOwnProperty(attr)) {
+						script.setAttribute(attr, data.attributes[attr]);
+					}
+				}
+			}
 			script.addEventListener('load', loadHandler, false);
 			_doc.querySelector('body').appendChild(script);
 		}
@@ -980,24 +1007,30 @@ function Core() {
 			appendScript();
 		} else if (!script) {
 			appendScript();
-			/* We check here that _loadedJs already has property,
-    * because we can find script which was loaded not by Moff */
-		} else if (_loadedJS.hasOwnProperty(src) && !_loadedJS[src]) {
+			// We check here that _loadedJs already has property,
+			// because we can find script which was loaded not by Moff
+		} else if (_loadedJS.hasOwnProperty(data.url) && !_loadedJS[data.url]) {
 			script.addEventListener('load', loadHandler, false);
 		} else {
+			// Just keep in mind! Potentially we have a problem here
+			// when script was inserted by 3rd party and not loaded yet
+			// but we don't know it is loaded or not.
+			if (typeof data.callback === 'function') {
+				data.callback();
+			}
 			callback();
 		}
 	};
 	/**
   * Load css file and run callback on load.
   * @method loadCSS
-  * @param {string} href - Array or path of loaded files
+  * @param {Object} data - Array or path of loaded files
   * @param {function} [callback] - On load event callback
   * @param {object} [options] - Style load options
   */
-	this.loadCSS = function (href, callback) {
+	this.loadCSS = function (data, callback) {
 		var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-		if (typeof href !== 'string') {
+		if (typeof data.url !== 'string') {
 			return;
 		}
 		// Normalize options
@@ -1005,15 +1038,27 @@ function Core() {
 			options = callback;
 			callback = undefined;
 		}
-		var link = _doc.querySelector('link[href="' + href + '"]');
+		var link = _doc.querySelector('link[href="' + data.url + '"]');
 		var hasCallback = typeof callback === 'function';
 		function appendLink() {
 			var link = _doc.createElement('link');
 			if (hasCallback) {
-				link.addEventListener('load', callback, false);
+				link.addEventListener('load', function () {
+					callback();
+					if (typeof data.callback === 'function') {
+						data.callback();
+					}
+				}, false);
 			}
-			link.setAttribute('href', href);
+			link.setAttribute('href', data.url);
 			link.setAttribute('rel', 'stylesheet');
+			if (data.attributes) {
+				for (var attr in data.attributes) {
+					if (data.attributes.hasOwnProperty(attr)) {
+						link.setAttribute(attr, data.attributes[attr]);
+					}
+				}
+			}
 			_doc.querySelector('head').appendChild(link);
 			link.onreadystatechange = function () {
 				var state = link.readyState;
@@ -1116,7 +1161,7 @@ function Core() {
   * Moff version.
   * @type {string}
   */
-	this.version = '1.12.6';
+	this.version = '1.12.7';
 	extendSettings();
 	setBreakpoints();
 	setViewMode();
