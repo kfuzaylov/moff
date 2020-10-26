@@ -899,7 +899,6 @@ function Core() {
 		var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 		var loaded = 0;
 		var length = 0;
-		var jsIndex = 0;
 		var isCSS = Array.isArray(depend.css);
 		var isJS = Array.isArray(depend.js);
 		var hasCallback = typeof callback === 'function';
@@ -916,17 +915,13 @@ function Core() {
 			return;
 		}
 		function loadDependentJs(jsArray) {
-			var src = jsArray[jsIndex];
+			var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+			var src = jsArray[index];
 			_moff.loadJS(src, function () {
-				jsIndex++;
+				var nextIndex = index + 1;
 				loaded++;
-				// We have to invalidate index of depended loaded js
-				// because now we have several sets of dependent js
-				// Example [js, [js1, js2], js, [js1, j2]]
-				if (jsIndex === jsArray.length) {
-					jsIndex = 0;
-				} else if (jsIndex < jsArray.length) {
-					loadDependentJs(jsArray);
+				if (jsArray[nextIndex]) {
+					loadDependentJs(jsArray, nextIndex);
 				}
 				if (loaded === length && hasCallback) {
 					callback();
